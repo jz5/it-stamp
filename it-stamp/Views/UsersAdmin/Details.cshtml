@@ -1,0 +1,78 @@
+﻿@model ApplicationUser
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<div>
+    <h2>User</h2>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+    </dl>
+</div>
+
+<h2>List of roles for this user</h2>
+@if (ViewBag.RoleNames.Count == 0)
+{
+    <p>No roles found for this user.</p>
+}
+else
+{
+    <ul>
+        @foreach (var item in ViewBag.RoleNames)
+        {
+            <li>@item</li>
+        }
+    </ul>
+}
+
+<h2>Communities</h2>
+@if (ViewBag.Communities.Count == 0)
+{
+    <p>No communities found for this user.</p>
+}
+else
+{
+
+    <ul>
+        @foreach (var item in ViewBag.Communities)
+        {
+            <li>@item.Name</li>
+        }
+    </ul>
+}
+
+
+
+<h2>Owner Communities</h2>
+@if (ViewBag.OwnerCommunities.Count == 0)
+{
+    <p>No communities found for this user.</p>
+}
+else
+{
+
+    <ul>
+        @foreach (var item in ViewBag.OwnerCommunities)
+        {
+            <li>@item.Name</li>
+        }
+    </ul>
+}
+
+<hr />
+
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+
