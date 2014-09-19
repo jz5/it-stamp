@@ -32,7 +32,7 @@ Namespace Migrations
             Dim userManager = New UserManager(Of ApplicationUser)(New UserStore(Of ApplicationUser)(context))
             Dim roleManager = New RoleManager(Of IdentityRole)(New RoleStore(Of IdentityRole)(context))
 
-            Const name As String = "admin@example.com"
+            Const name As String = "admin"
             Const password As String = "Admin@123456"
             Dim roleNames() = New String() {"Admin", "CommunityAdmin"}
 
@@ -48,7 +48,8 @@ Namespace Migrations
             If user Is Nothing Then
                 user = New ApplicationUser() With {
                     .UserName = name,
-                    .Email = name
+                    .Email = "admin@example.com",
+                    .DisplayName = name
                 }
                 Dim result = userManager.Create(user, password)
                 result = userManager.SetLockoutEnabled(user.Id, False)

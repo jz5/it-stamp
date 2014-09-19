@@ -207,12 +207,14 @@
     <Compile Include="Controllers\CommunitiesAdminControllers.vb" />
     <Compile Include="Controllers\EventsController.vb" />
     <Compile Include="Controllers\CommunitiesController.vb" />
+    <Compile Include="Controllers\UploadHelper.vb" />
+    <Compile Include="Controllers\UsersController.vb" />
     <Compile Include="Controllers\SpecialEventsController.vb" />
     <Compile Include="Controllers\IdentityExtensions.vb" />
     <Compile Include="Controllers\RolesAdminController.vb" />
     <Compile Include="Controllers\SpecialEventsAdminController.vb" />
     <Compile Include="Controllers\TempController.vb" />
-    <Compile Include="Controllers\UserAdminController.vb" />
+    <Compile Include="Controllers\UsersAdminController.vb" />
     <Compile Include="EventApi\AddressHelper.vb" />
     <Compile Include="EventApi\Atnd.vb" />
     <Compile Include="Extensions.vb" />
@@ -456,6 +458,9 @@
     <Content Include="Views\SpecialEventsAdmin\Edit.vbhtml" />
     <Content Include="Views\SpecialEventsAdmin\Index.vbhtml" />
     <Content Include="Views\SpecialEvents\1.vbhtml" />
+    <Content Include="Views\Users\Details.vbhtml" />
+    <Content Include="Views\Users\Edit.vbhtml" />
+    <Content Include="Views\Users\Upload.vbhtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
@@ -487,9 +492,7 @@
     <Content Include="Views\Shared\_Layout.vbhtml" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Users\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

@@ -4,76 +4,39 @@
 }
 
 body {
-    /*padding-top: 50px;*/
     margin-bottom: 400px; /* for footer height*/
-    /*font-size: 14px;*/
-    background-color: #F5F7FA; /*#f1f2f6;*/
+    background-color: #F5F7FA;
     -ms-text-autospace: ideograph-alpha;
 }
 
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6 {
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: 'メイリオ', Meiryo, 'ヒラギノ角ゴ Pro W3', Osaka, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/*h4, .h4, h5, .h5, h6, .h6 {
-    margin-top: 50px;
-}*/
-
 h1 {
     font-size: 20px;
-    /*font-weight: bold;
-    margin-bottom: 32px;
-    letter-spacing: 0.1em;*/
 }
 
 h2 {
     font-size: 18px;
-    /*font-weight: bold;
-    margin-top: 32px;
-    margin-bottom: 28px;*/
     padding-bottom: 8px;
     border-bottom: 1px solid #ddd;
-    /*letter-spacing: 0.1em;*/
 }
 
 h3 {
     font-size: 16px;
 }
 
-/* top slider ありの時の h1 margin-top なし */
-.top-slider + .row h1 {
-    margin-top: 0;
+hr {
+    border-top: 1px dashed #AAB2BD;
 }
 
-.sidebar {
-    margin-top: 30px;
-}
-
-.top-slider + .row .sidebar {
-    margin-top: 0;
+body > .container {
+    padding: 50px 15px 20px;
 }
 
 
-/* Set padding to keep content from hitting the edges */
-/*.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}*/
-
-/* Set width on the form input elements since they're 100% wide by default */
-
+/* Forms */
 input,
 select,
 textarea {
@@ -102,21 +65,10 @@ textarea {
     min-width: 100px;
 }
 
-
-/*
-.radio input[type='radio'], .radio-inline input[type='radio'], .checkbox input[type='checkbox'], .checkbox-inline input[type='checkbox'] {
-    margin-left: 0;
-}
-*/
-label, .control-label, .help-block, .checkbox, .radio {
-    /*font-size: 16px;*/
-}
-
 .form-control {
     margin-bottom: 5px;
     margin-right: 5px;
 }
-
 
 .btn-3rdparty {
     color: #fff;
@@ -128,8 +80,6 @@ label, .control-label, .help-block, .checkbox, .radio {
     .btn-3rdparty:hover {
         color: #fff;
     }
-
-
 
 button#Google {
     background-color: #DF4B31;
@@ -155,8 +105,21 @@ button#Twitter {
         background-color: #178DE8;
     }
 
+/* Slider */
+/* top slider ありの時の h1 margin-top なし */
+.top-slider + .row h1 {
+    margin-top: 0;
+}
 
+.sidebar {
+    margin-top: 30px;
+}
 
+.top-slider + .row .sidebar {
+    margin-top: 0;
+}
+
+/* Misc */
 .media-body > h3 {
     margin-top: 4px;
     margin-bottom: 10px;
@@ -170,22 +133,25 @@ button#Twitter {
     margin-bottom: 30px;
 }
 
-body > .container {
-    padding: 50px 15px 20px;
+.icon24 {
+    width: 24px;
+    height: 24px;
 }
 
-/*body > .container > .row {
-    margin-bottom: 20px;
-}*/
-
-.footer > .container {
-    padding-left: 15px;
-    padding-right: 15px;
+.link-space {
+    margin-top: 20px;
+    margin-left: 20px;
 }
 
 .text-primary, .text-danger {
     color: #E9573F;
 }
+
+.badge {
+    vertical-align: top;
+}
+
+/* Social buttons */
 
 .social-buttons {
     margin-top: 50px;
@@ -196,27 +162,7 @@ body > .container {
         vertical-align: top;
     }
 
-/*.jumbotron p {
-    font-size: 16px;
-}*/
-
-.affix {
-    position: fixed;
-    top: 70px;
-}
-
-.affix-top {
-    position: static;
-}
-
-.affix-bottom {
-    position: absolute;
-    bottom: 420px;
-}
-
-/* ----------------------------------
- * navbar
- * ---------------------------------- */
+/* navbar */
 .navbar-custom {
     position: fixed;
     top: 0;
@@ -297,6 +243,8 @@ body > .container {
         }
 }
 
+/* Footer */
+
 .footer {
     position: absolute;
     bottom: 0;
@@ -308,14 +256,12 @@ body > .container {
     font-size: 14px;
 }
 
-/*.footer > .container {
+    .footer > .container {
         padding-left: 15px;
         padding-right: 15px;
-    }*/
+    }
 
-hr {
-    border-top: 1px dashed #AAB2BD;
-}
+/* Special Events */
 
 .special-event-qa {
     line-height: 160%;
@@ -330,78 +276,16 @@ hr {
         padding-left: 1.5em;
     }
 
+.affix {
+    position: fixed;
+    top: 70px;
+}
 
-/*.site-footer a,
-.site-footer .connect {
-    color: #d94e8c;
+.affix-top {
+    position: static;
 }
-.site-footer a:hover,
-.site-footer a:active {
-    color: #d94e8c;
-    text-decoration: none;
+
+.affix-bottom {
+    position: absolute;
+    bottom: 420px;
 }
-.site-footer .row .col-md-4 {
-    margin-bottom: 20px;
-}
-.site-footer h3 {
-    margin-bottom: 20px;
-    font-weight: 600;
-    font-size: 18px;
-}
-.site-footer ul {
-    padding-left: 0;
-}
-.site-footer li {
-    list-style: none;
-    font-size: 14px;
-}
-.site-footer hr {
-    margin: 20px 0;
-    border: none;
-    height: 1px;
-    width: 100%;
-}
-.site-footer hr.dashed {
-    border-top: 1px dashed #ccc;
-}
-.site-footer .icon {
-    margin-right: 10px;
-    font-size: 28px;
-}
-.site-footer form {
-    padding: 0 !important;
-}
-.site-footer form label {
-    font-size: 14px !important;
-    font-weight: normal !important;
-}
-.site-footer input[type="email"] {
-    margin-right: 10px;
-    width: 75%;
-}
-.site-footer input[type="email"],
-.site-footer input[type="email"]:focus,
-.site-footer input[type="submit"],
-.site-footer input[type="submit"]:active,
-.site-footer input[type="submit"]:focus {
-    border: none !important;
-}
-.site-footer .email,
-.site-footer .clear {
-    float: left;
-}
-.site-footer .copyright p:last-child {
-    margin-top: 10px;
-}
-.site-footer .copyright b {
-    font-size: 16px;
-}
-.site-footer .download .download__infos {
-    font-size: 18px;
-}
-.site-footer .download .btn {
-    color: #000;
-}
-.site-footer .download .btn-primary {
-    color: #fff;
-}*/

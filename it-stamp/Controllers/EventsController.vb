@@ -14,6 +14,8 @@ Imports Microsoft.AspNet.Identity.Owin
 Imports Microsoft.Owin.Security
 Imports Owin
 
+<Authorize>
+<RequireHttps>
 Public Class EventsController
     Inherits System.Web.Mvc.Controller
 
@@ -38,6 +40,7 @@ Public Class EventsController
 
 
     ' GET: Events
+    <AllowAnonymous>
     Function Index(page As Integer?) As ActionResult
 
         Dim results = db.Events.Where(Function(e) Not e.IsHidden).OrderBy(Function(e) e.StartDateTime)
@@ -77,6 +80,7 @@ Public Class EventsController
     End Function
 
     ' GET: Events/5
+    <AllowAnonymous>
     Async Function Details(ByVal id As Integer?, message As DetailsMessageId?) As Task(Of ActionResult)
         If IsNothing(id) Then
             Return RedirectToAction("Index")
@@ -150,8 +154,8 @@ Public Class EventsController
         Return View(viewModel)
     End Function
 
-    <HttpPost()>
-    <ValidateAntiForgeryToken()>
+    <HttpPost>
+    <ValidateAntiForgeryToken>
     Async Function AddDetails(ByVal viewModel As AddEventDetailsViewModel) As Task(Of ActionResult)
         viewModel.CommunitiesSelectList = New SelectList(db.Communities.Where(Function(c) Not c.IsHidden).OrderBy(Function(c) c.Name), "Id", "Name")
 
@@ -165,9 +169,10 @@ Public Class EventsController
                 .Prefecture = db.Prefectures.Where(Function(p) p.Id = viewModel.PrefectureId).FirstOrDefault}
 
             ' 編集権限の確認
-            Dim appUser = Await UserManager.FindByIdAsync(User.Identity.GetUserId)
+            Dim userId = User.Identity.GetUserId
+            Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
             If appUser Is Nothing Then
-                'TODO Return View()
+                Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
 
             ' 日時処理
@@ -178,7 +183,6 @@ Public Class EventsController
 
             ' 単純なプロパティ更新
             UpdateModel(Of [Event])(ev)
-
 
             If viewModel.CommunityId.HasValue Then
                 ev.Community = db.Communities.Where(Function(c) c.Id = viewModel.CommunityId.Value).FirstOrDefault
@@ -216,14 +220,15 @@ Public Class EventsController
         End If
 
         Dim ev As [Event] = Await db.Events.FindAsync(id)
-        If IsNothing(ev) Then
-            Return HttpNotFound()
+        If ev Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
         End If
 
         ' 編集権限の確認
-        Dim appUser = UserManager.FindById(User.Identity.GetUserId)
+        Dim userId = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
         If Not CanEdit(appUser, ev) Then
-            'Return View()
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
         End If
 
         Dim n = Now
@@ -258,7 +263,7 @@ Public Class EventsController
 
     <HttpPost()>
     <ValidateAntiForgeryToken()>
-    Function Edit(ByVal viewModel As EventDetailsViewModel) As ActionResult
+    Async Function Edit(ByVal viewModel As EventDetailsViewModel) As Task(Of ActionResult)
         Dim n = Now
         viewModel.SpecialEventsSelectList = New SelectList(db.SpecialEvents.Where(Function(e) e.StartDateTime <= n AndAlso n <= e.EndDateTime), "Id", "Name")
         viewModel.PrefectureSelectList = New SelectList(db.Prefectures, "Id", "Name")
@@ -271,13 +276,14 @@ Public Class EventsController
         Try
             Dim ev = db.Events.Where(Function(c) c.Id = viewModel.Id).FirstOrDefault
             If ev Is Nothing Then
-                Return View("Index")
+                Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
 
             ' 編集権限の確認
-            Dim appUser = UserManager.FindById(User.Identity.GetUserId)
+            Dim id = User.Identity.GetUserId
+            Dim appUser = Await db.Users.Where(Function(u) u.Id = id).SingleOrDefaultAsync
             If Not CanEdit(appUser, ev) Then
-                'TODO Return View("Details", New With {.id = id})
+                Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
 
             ' 日時処理
@@ -288,7 +294,6 @@ Public Class EventsController
 
             ' 単純なプロパティ更新
             UpdateModel(Of [Event])(ev)
-
 
             ev.Prefecture = db.Prefectures.Where(Function(p) p.Id = viewModel.PrefectureId).FirstOrDefault
 
@@ -337,11 +342,41 @@ Public Class EventsController
     Private Function CanEdit(appUser As ApplicationUser, ev As [Event]) As Boolean
         If appUser Is Nothing Then
             Return False
-        ElseIf Not ev.IsLocked OrElse User.IsInRole("Admin") Then
+        ElseIf Not ev.IsLocked Then
+            ' 一般ユーザー
+            Return True
+        ElseIf ev.Community IsNot Nothing AndAlso appUser.OwnerCommunities.Contains(ev.Community) Then
+            ' コミュニティオーナー
+            Return True
+        ElseIf User.IsInRole("Admin") Then
             Return True
         End If
         Return False
     End Function
+
+    Private Function CanEditDetails(appUser As ApplicationUser, ev As [Event]) As Boolean
+        If appUser Is Nothing Then
+            Return False
+        ElseIf ev.Community IsNot Nothing AndAlso appUser.OwnerCommunities.Contains(ev.Community) Then
+            ' コミュニティオーナー
+            Return True
+        ElseIf User.IsInRole("Admin") Then
+            Return True
+        End If
+        Return False
+    End Function
+
+    Private Function CanDelete(appUser As ApplicationUser, ev As [Event]) As Boolean
+        If appUser Is Nothing Then
+            Return False
+        ElseIf ev.CheckIns.Count > 0 OrElse ev.Favorites.Count > 0 OrElse ev.Comments.Count > 0 OrElse ev.IsLocked OrElse ev.IsReported Then
+            Return False
+        Else
+            Return True
+        End If
+        Return False
+    End Function
+
 
     Private Sub SetDateTime(startDate As DateTime, startTime As DateTime?, endDate As DateTime, endTime As DateTime?, ByRef startDateTime As DateTime, ByRef endDateTime As DateTime)
 

@@ -5,12 +5,6 @@
     Dim icon = If(Model.IconPath <> "", Href("/Uploads/" & Model.IconPath), "http://placehold.it/96x96")
 End Code
 
-@*<ol class="breadcrumb breadcrumb-arrow">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">コミュニティ</a></li>
-        <li class="active"><span>@Model.Name</span></li>
-    </ol>*@
-
 @Html.Partial("_TopBanner")
 
 <div class="row">
@@ -18,7 +12,7 @@ End Code
 
         <h1>@Model.Name</h1>
 
-        @If ViewBag.StatusMessage <> "" Then
+        @If ViewBag.StatusMessage <> "" AndAlso Request.IsAuthenticated Then
             @<div class="alert alert-success fade in" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 @ViewBag.StatusMessage
@@ -26,52 +20,64 @@ End Code
         End If
 
         <div class="media">
-            @If Model.Url <> "" Then
-                @<a class="pull-left" href="@Model.Url">
-                    <img class="media-object img-rounded" src="@icon" alt="@Model.Name">
-                </a>
-            Else
-                @<img class="pull-left media-object img-rounded" src="@icon" alt="@Model.Name">
-            End If
+            <div class="pull-left">
+                @If Model.Url <> "" Then
+                    @<a href="@Model.Url" target="_blank">
+                        <img class="media-object img-rounded" src="@icon" alt="@Model.Name">
+                    </a>
+                Else
+                    @<img class="media-object img-rounded" src="@icon" alt="@Model.Name">
+                End If
+
+                @If Request.IsAuthenticated Then
+                    @<div class="text-center" style="margin-top: 20px;">
+                        @If Model.Members.Where(Function(m) m.Id = User.Identity.GetUserId).FirstOrDefault Is Nothing Then
+                            @Html.ActionLink("フォロー", "Edit", "CommunitiesAdmin", Nothing, New With {.class = "btn btn-default"})
+                        Else
+                            @Html.ActionLink("解除", "Edit", "CommunitiesAdmin", Nothing, New With {.class = "btn btn-default"})
+                        End If
+                    </div>
+                End If
+            </div>
+
             <div class="media-body">
                 <p>@Html.Raw(Html.Encode(Model.Description).Replace(vbCrLf, "<br />"))</p>
+                @If Model.Url <> "" Then
+                    @<a href="@Model.Url" target="_blank">@Model.Url</a>
+                End If
             </div>
         </div>
 
         <h2>主催しているIT勉強会</h2>
 
-        <p class="text-muted">開催予定のIT勉強会はありません。</p>
-
-        <div>
-            @Html.ActionLink("過去のIT勉強会", "Events", "Search")
-        </div>
-        @*<div>
-                @Html.ActionLink("登録", "Add", "Communities", Nothing, New With {.class = "btn btn-default"})
+        <p class="text-muted">（未実装）</p>
+        @*<p class="text-muted">開催予定のIT勉強会はありません。</p>
+            <div>
+                @Html.ActionLink("過去のIT勉強会", "Events", "Search")
             </div>*@
 
-        <h2>メンバー</h2>
-
-        @If Model.Members.Count = 0 Then
-            @<p class="text-muted">メンバーはいません。</p>
-        Else
-            @For Each m In Model.Members.Where(Function(u) Not u.IsPrivate)
-                @<p>@m.UserName</p>
-            Next
+        <h2>フォロワー <span class="badge badge-primary">@Model.Members.Count</span></h2>
+        <div>
+            @If Model.Members.Count = 0 Then
+                @<p class="text-muted">フォロワーはいません。</p>
+            Else
+                @For Each m In Model.Members.Where(Function(u) Not u.IsPrivate)
+                    @<a href="@Href("~/Users/" & m.UserName)"><img src="@(If(M.IconPath <> "", Href("/Uploads/" & m.IconPath), "http://placehold.it/16x16"))" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
+                Next
         End If
-
-        @If Model.Members.Where(Function(m) m.Id = User.Identity.GetUserId).FirstOrDefault Is Nothing Then
-            @Html.ActionLink("参加", "Edit", "CommunitiesAdmin", Nothing, New With {.class = "btn btn-default"})
-        Else
-            @Html.ActionLink("脱退", "Edit", "CommunitiesAdmin", Nothing, New With {.class = "btn btn-default"})
-        End If
+        </div>
 
 
-        @If ViewBag.CanEdit Then
-            @<hr />
-            @Html.ActionLink("編集", "Edit", "Communities", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
-        End If
 
         @Html.Partial("_SocialButtons")
+
+        @If ViewBag.CanEdit Then
+            @<a href="@Url.Action("Edit", "Communities", New With {.id = Model.Id})"><i class="glyphicon glyphicon-pencil"></i> 編集</a>
+        Else
+            @<i class="glyphicon glyphicon-pencil" title="編集権限がありません"></i>
+        End If
+
+
 
 
     </div>

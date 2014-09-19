@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel.DataAnnotations
+Imports System.ComponentModel
 
 Public Class ExternalLoginConfirmationViewModel
     <Required>
@@ -106,3 +107,13 @@ Public Class ForgotPasswordViewModel
     Public Property Email() As String
 End Class
 
+Public Class UploadUserIconViewModel
+
+    Property IconPath As String
+
+    <Required>
+    <DisplayName("アイコン")>
+    <UploadFile(Extensions:="png;jpeg;jpg", MaxLength:=1024 * 1024)>
+    Property File As HttpPostedFileBase
+
+End Class

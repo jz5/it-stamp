@@ -11,31 +11,6 @@ End Code
 
         <h1>@ViewBag.Title</h1>
 
-        <div class="btn-toolbar" role="toolbar">
-            <div class="btn-group">
-                <button class="btn btn-default active" type="button">昨日</button>
-                <button class="btn btn-default" type="button">今日</button>
-                <button class="btn btn-default" type="button">aa</button>
-            </div>
-        </div>
-
-        @*<table class="table">
-                <thead>
-                    <tr>
-                        <td>日</td>
-                        <td>月</td>
-                        <td>火</td>
-                        <td>水</td>
-                        <td>木</td>
-                        <td>金</td>
-                        <td>土</td>
-                    </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </table>*@
-
 
 
         <div>
@@ -45,6 +20,9 @@ End Code
 
         @Html.Partial("_EventResults")
 
+        @If Request.IsAuthenticated Then
+            @<a href="@Url.Action("Add", "Events")"><i class="glyphicon glyphicon-pencil"></i> IT勉強会の登録</a>
+        End If
 
         @If Request.IsAuthenticated Then
             @<hr />

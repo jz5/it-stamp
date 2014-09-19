@@ -29,9 +29,9 @@ Public Module RouteConfig
         )
         routes.MapRoute(
             name:="Users",
-            url:="Users/{userName}",
+            url:="Users/{userName}/{action}",
             defaults:=New With {.controller = "Users", .action = "Details"},
-            constraints:=New With {.userName = "[A-Za-z09-9_]+"}
+            constraints:=New With {.userName = "[A-Za-z0-9_]*"}
         )
 
         routes.MapRoute(

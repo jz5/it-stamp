@@ -12,24 +12,25 @@ End Code
         <div class="media-body">
             <h3><a href="@Href("/Events/")@e.Id">@e.Name</a></h3>
             <div>
-                <div>@e.FriendlyDateTime
-                    @If e.StartDateTime.Date <= Now.Date AndAlso Now.Date <= e.EndDateTime.Date Then
-                        @<span class="text-primary small">（今日）</span>
-                    ElseIf e.StartDateTime.Date = Now.Date.AddDays(1) OrElse e.EndDateTime.Date = Now.Date.AddDays(1) Then
-                        @<span class="text-muted small">（明日）</span>
-                    ElseIf e.EndDateTime.Date.AddDays(1) = Now.Date Then
-                        @<span class="text-muted small">（昨日）</span>
-                    End If
-                </div>
-
-                <div><a href="">@e.Prefecture.Name</a> @e.Place</div>
-                <div>@e.Description.Excerpt</div>
-                @If e.Community IsNot Nothing Then
-                    @<div><a href="@Href("/Communities/")@e.Community.Id">@e.Community.Name</a></div>
+                <div>
+                    @e.FriendlyDateTime
+                @If e.StartDateTime.Date <= Now.Date AndAlso Now.Date <= e.EndDateTime.Date Then
+                    @<span class="text-primary small">（今日）</span>
+                ElseIf e.StartDateTime.Date = Now.Date.AddDays(1) OrElse e.EndDateTime.Date = Now.Date.AddDays(1) Then
+                    @<span class="text-muted small">（明日）</span>
+                ElseIf e.EndDateTime.Date.AddDays(1) = Now.Date Then
+                    @<span class="text-muted small">（昨日）</span>
                 End If
             </div>
+
+            <div><a href="">@e.Prefecture.Name</a> @e.Place</div>
+            <div>@e.Description.Excerpt</div>
+            @If e.Community IsNot Nothing Then
+                @<div><a href="@Href("/Communities/")@e.Community.Id">@e.Community.Name</a></div>
+            End If
         </div>
     </div>
+</div>
 Next
 
 <ul class="pagination">

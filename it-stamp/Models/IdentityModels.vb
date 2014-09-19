@@ -11,20 +11,24 @@ Public Class ApplicationUser
     Inherits IdentityUser
 
     <StringLength(50)>
+    <Display(Name:="表示名")>
     Property DisplayName As String
 
     <Url>
     <DataType(DataType.Url)>
     <StringLength(255)>
+    <Display(Name:="Webサイト")>
     Property Url As String
 
     <StringLength(1023)>
     <DataType(DataType.MultilineText)>
+    <Display(Name:="紹介文")>
     Property Description As String
 
     <StringLength(255)>
     Property IconPath As String
 
+    <Display(Name:="プライベートモード")>
     Property IsPrivate As Boolean
 
     <StringLength(255)>
@@ -51,6 +55,13 @@ Public Class ApplicationUser
         ' ここにカスタム ユーザー クレームを追加します
         Return userIdentity
     End Function
+
+    ReadOnly Property FriendlyName As String
+        Get
+            Return If(Me.IsPrivate, Me.UserName, String.Format("{0}（{1}）", Me.DisplayName, Me.UserName)) & "さん"
+        End Get
+    End Property
+
 End Class
 
 Public Class ApplicationDbContext

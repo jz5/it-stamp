@@ -9,6 +9,7 @@ Imports System.Web
 Imports System.Web.Mvc
 Imports ItStamp
 
+<RequireHttps>
 <Authorize(Roles:="Admin")>
 Public Class SpecialEventsAdminController
     Inherits System.Web.Mvc.Controller

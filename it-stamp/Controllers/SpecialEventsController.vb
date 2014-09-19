@@ -41,6 +41,9 @@ Public Class SpecialEventsController
 
 
     Function Details(id As Integer?) As ActionResult
+        If Not id.HasValue Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
 
         Return View(id.Value.ToString)
     End Function

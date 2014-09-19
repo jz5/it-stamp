@@ -12,6 +12,7 @@ Imports System
 Imports System.Data
 Imports ItStamp
 
+<RequireHttps>
 <Authorize(Roles:="Admin")>
 Public Class UsersAdminController
     Inherits Controller

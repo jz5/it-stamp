@@ -1,4 +1,4 @@
-﻿@ModelType UploadCommunityIconViewModel
+﻿@ModelType UploadUserIconViewModel
 @Imports Microsoft.AspNet.Identity
 @Code
     Dim icon = If(Model.IconPath <> "", Href("/Uploads/" & Model.IconPath), "http://placehold.it/96x96")
@@ -6,14 +6,13 @@ End Code
 
 <h1>アイコンの変更</h1>
 
-@Using Html.BeginForm("Upload", "Communities", FormMethod.Post, New With {.class = "form-horizontal", .role = "form", .enctype = "multipart/form-data"})
+@Using Html.BeginForm("Upload", "Users", FormMethod.Post, New With {.class = "form-horizontal", .role = "form", .enctype = "multipart/form-data"})
     @Html.AntiForgeryToken()
     @<text>
         @Html.ValidationSummary(True, "", New With {.class = "text-danger"})
-        @Html.HiddenFor(Function(m) m.IconPath)
 
         <div class="form-group">
-            <img class="media-object img-rounded" src="@icon" alt="@Model.Name" />
+            <img class="media-object img-rounded" src="@icon" alt="" />
 
             <div style="margin: 30px 0 15px;">
                 <div class="form-inline">
@@ -23,11 +22,11 @@ End Code
             </div>
         </div>
 
-        <ul class="text-info">
-            <li>PNG/JPEG形式のみ</li>
-            <li>96x96ピクセル推奨</li>
-            <li>他者の権利を侵害する画像をアップロードしないでください。</li>
-        </ul>
+<ul>
+    <li>PNG/JPEG形式のみ</li>
+    <li>96x96ピクセル推奨</li>
+    <li>他者の権利を侵害する画像をアップロードしないでください。</li>
+</ul>
 
     </text>
 End Using
@@ -46,7 +45,7 @@ End Using
 
 <hr />
 
-@Html.ActionLink("戻る", "Edit", "Communities", New With {.id = Model.Id}, Nothing)
+@Html.ActionLink("戻る", "Edit", "Users", New With {.userName = User.Identity.GetUserName}, Nothing)
 
 @Section Styles
     @Styles.Render("~/Content/fileinput.css")

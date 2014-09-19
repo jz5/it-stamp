@@ -7,6 +7,7 @@ Imports Microsoft.Owin.Security
 Imports Owin
 Imports System.Net
 
+<RequireHttps>
 <Authorize(Roles:="Admin")>
 Public Class RolesAdminController
     Inherits Controller

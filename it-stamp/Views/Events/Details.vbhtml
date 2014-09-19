@@ -16,7 +16,6 @@
         searchAddress = Model.Place
     End If
 
-    ViewBag.CanEdit = True
 End Code
 
 @Html.Partial("_TopBanner")
@@ -27,7 +26,7 @@ End Code
 
         <h1>@ViewBag.Title</h1>
 
-        @If ViewBag.StatusMessage <> "" Then
+        @If ViewBag.StatusMessage <> ""  AndAlso Request.IsAuthenticated Then
             @<div class="alert alert-success fade in" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 @ViewBag.StatusMessage
@@ -146,16 +145,17 @@ End Code
 
 
 
-        <h2>コメント</h2>
-        <p>コメント機能は未実装です。</p>
+        <h2><i class="glyphicon glyphicon-comment"></i> コメント</h2>
+        <p>（未実装）</p>
 
-        @If ViewBag.CanEdit Then
-            @<hr />
-            @Html.ActionLink("編集", "Edit", "Events", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
-        End If
 
         @Html.Partial("_SocialButtons")
 
+        @If ViewBag.CanEdit Then
+            @<a href="@Url.Action("Edit", "Communities", New With {.id = Model.Id})"><i class="glyphicon glyphicon-pencil"></i> 編集</a>
+        Else
+            @<i class="glyphicon glyphicon-pencil" title="編集権限がありません"></i>
+        End If
 
     </div>
     <div class="col-md-4">

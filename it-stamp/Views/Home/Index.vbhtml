@@ -29,6 +29,12 @@ End Code
 
         @Html.Partial("_EventResults")
 
+        <div>
+            @If Request.IsAuthenticated Then
+                @<a href="@Url.Action("Add", "Events")"><i class="glyphicon glyphicon-plus"></i> IT勉強会の登録</a>
+            End If
+        </div>
+
         <h2>外部サービスでIT勉強会を探す</h2>
 
         <ul class="list-unstyled">

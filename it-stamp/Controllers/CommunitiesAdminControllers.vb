@@ -9,6 +9,8 @@ Imports System.Web
 Imports System.Web.Mvc
 Imports ItStamp
 
+<RequireHttps>
+<Authorize(Roles:="Admin")>
 Public Class CommunitiesAdminController
     Inherits System.Web.Mvc.Controller
 

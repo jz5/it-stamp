@@ -20,7 +20,6 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @*@Html.ActionLink("アプリケーション名", "Index", "Home", New With {.area = ""}, New With {.class = "navbar-brand"})*@
                 <a href="@Href("~/")"><img src="@Href("~/images/logo.png")" srcset="@Href("~/images/logo2x.png") 2x" class="navbar-brand" /></a>
             </div>
             <div class="navbar-collapse collapse">
@@ -47,7 +46,6 @@
                 <div class="col-md-4">
                     <h3>IT勉強会スタンプ</h3>
                     <p>IT勉強会スタンプは、IT勉強会の参加を記録できるWebサービスです。</p>
-                    @*<h3>メニュー</h3>*@
                     <ul class="list-unstyled">
                         <li><a href="#">About</a></li>
                         <li>@Html.ActionLink("IT勉強会一覧", "Index", "Events")</li>
@@ -89,15 +87,14 @@
     @Scripts.Render("~/bundles/script")
     <script>
         (function ($) {
-            //$("#PrefectureId").selecter();
-
             $(".banner-img").show();
             $(".bxslider").bxSlider({
                 auto: true
             });
 
             $('input').iCheck({
-                checkboxClass: 'icheckbox_flat'
+                checkboxClass: 'icheckbox_flat',
+                radioClass: 'iradio_flat'
             });
 
         }(jQuery));

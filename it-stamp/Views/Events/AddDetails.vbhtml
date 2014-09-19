@@ -99,10 +99,20 @@
         <!-- コミュニティ -->
         <div class="form-group">
             @Html.LabelFor(Function(m) m.CommunityId, New With {.class = "control-label"})
-            <span class="text-muted"></span>
+            <span class="text-muted">（指定すると後から変更できません。「未指定」の場合、後から選択できます。）</span>
             <div class="form-inline">
-                @Html.DropDownListFor(Function(m) m.CommunityId, Model.CommunitiesSelectList, "選択してください", New With {.class = "form-control"})
+                <input type="search" value="" class="form-control" placeholder="絞り込み（例: ○○ユーザーグループ）（未実装）" />
+            </div>
+            <div class="form-inline">
+                @Html.DropDownListFor(Function(m) m.CommunityId, Model.CommunitiesSelectList, "(未指定)", New With {.class = "form-control", .size = "10"})
                 @Html.ValidationMessageFor(Function(m) m.CommunityId, "", New With {.class = "text-danger"})
+            </div>
+        </div>
+        <div class="form-group">
+            <label>コミュニティを新しく登録（未実装）</label>
+            <div class="form-inline">
+
+                <input type="text" class="form-control" />
             </div>
         </div>
 
