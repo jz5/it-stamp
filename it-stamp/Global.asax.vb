@@ -1,4 +1,5 @@
 ﻿Imports System.Web.Optimization
+Imports System.ComponentModel.DataAnnotations
 
 Public Class MvcApplication
     Inherits System.Web.HttpApplication
@@ -8,5 +9,7 @@ Public Class MvcApplication
         FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters)
         RouteConfig.RegisterRoutes(RouteTable.Routes)
         BundleConfig.RegisterBundles(BundleTable.Bundles)
+        DefaultModelBinder.ResourceClassKey = "MyResource"
+        DataAnnotationsModelValidatorProvider.RegisterAdapter(GetType(RequiredAttribute), GetType(MyRequiredAttributeAdapter))
     End Sub
 End Class

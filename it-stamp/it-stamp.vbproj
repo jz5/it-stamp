@@ -198,6 +198,11 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\MyResource.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.vb" />
     <Compile Include="App_Start\FilterConfig.vb" />
     <Compile Include="App_Start\IdentityConfig.vb" />
@@ -215,6 +220,7 @@
     <Compile Include="Controllers\SpecialEventsAdminController.vb" />
     <Compile Include="Controllers\TempController.vb" />
     <Compile Include="Controllers\UsersAdminController.vb" />
+    <Compile Include="MyRequiredAttributeAdapter.vb" />
     <Compile Include="EventApi\AddressHelper.vb" />
     <Compile Include="EventApi\Atnd.vb" />
     <Compile Include="Extensions.vb" />
@@ -249,6 +255,10 @@
     <Compile Include="Startup.vb" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_GlobalResources\MyResource.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>MyResource.Designer.vb</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
