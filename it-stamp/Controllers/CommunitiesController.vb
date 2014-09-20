@@ -45,7 +45,7 @@ Public Class CommunitiesController
     <AllowAnonymous>
     Function Index(page As Integer?) As ActionResult
 
-        Dim results = db.Communities.Where(Function(e) Not e.IsHidden).OrderBy(Function(e) e.Id)
+        Dim results = db.Communities.Where(Function(e) Not e.IsHidden).OrderBy(Function(e) e.Name)
 
         Dim viewModel = New SearchCommunitiesViewModel With {
             .TotalCount = results.Count
@@ -145,7 +145,8 @@ Public Class CommunitiesController
             End If
 
             ' 編集権限の確認
-            Dim appUser = Await db.Users.Where(Function(u) u.Id = User.Identity.GetUserId).SingleOrDefaultAsync
+            Dim id = User.Identity.GetUserId
+            Dim appUser = Await db.Users.Where(Function(u) u.Id = id).SingleOrDefaultAsync
             If appUser Is Nothing Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
@@ -155,6 +156,9 @@ Public Class CommunitiesController
             model.CreationDateTime = time
             model.LastUpdatedBy = appUser
             model.LastUpdatedDateTime = time
+
+            ' Random icon
+            model.IconPath = "Icons/icon" & ((New Random).Next(47) + 1).ToString("00") & ".png"
 
             Dim com = db.Communities.Add(model)
             Await db.SaveChangesAsync

@@ -8,12 +8,18 @@ End Code
 
 <div class="media">
     <div class="pull-left">
-        @If Model.Url <> "" Then
-            @<a href="@Model.Url" target="_blank">
+        @If ViewData("InternalLink") = True Then
+            @<a href="@Href("/Communities/")@Model.Id">
                 <img class="media-object img-rounded" src="@icon" alt="@Model.Name">
             </a>
         Else
-            @<img class="media-object img-rounded" src="@icon" alt="@Model.Name">
+            @If Model.Url <> "" Then
+                @<a href="@Model.Url" target="_blank">
+                    <img class="media-object img-rounded" src="@icon" alt="@Model.Name">
+                </a>
+            Else
+                @<img class="media-object img-rounded" src="@icon" alt="@Model.Name">
+            End If
         End If
 
         @If Request.IsAuthenticated AndAlso ViewData("Details") Then

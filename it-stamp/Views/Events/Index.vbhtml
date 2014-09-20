@@ -31,7 +31,7 @@ End Code
 
         @If Request.IsAuthenticated Then
             @<div>
-                <a href="@Url.Action("Add", "Events")"><i class="glyphicon glyphicon-pencil"></i> IT勉強会の登録</a>
+                <a href="@Url.Action("Add", "Events")"><i class="glyphicon glyphicon-plus"></i> IT勉強会の登録</a>
             </div>
         End If
 

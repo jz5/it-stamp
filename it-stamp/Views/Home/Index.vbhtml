@@ -18,8 +18,7 @@ End Code
                     <p><a href="@Href("~/Home/About/")">IT勉強会スタンプ</a> は、IT勉強会の参加を記録できるWebサービスです。</p>
                     <p style="margin-bottom:0;">IT勉強会に参加してスタンプを集める “<a href="#">IT勉強会スタンプラリー</a>” を開催中！（※ 台紙でスタンプを集めます。Webサービスの記録機能とは関連していません。）</p>
                     <hr />
-                    @Html.ActionLink("新規登録", "Register", "Account", Nothing, New With {.class = "btn btn-primary"})
-                    @*<a href="@Href("~/Home/Register/")" class="btn btn-primary">新規登録</a>*@
+                    @Html.ActionLink("アカウント登録", "Register", "Account", Nothing, New With {.class = "btn btn-primary"})
                 </div>
             </div>
 
@@ -29,11 +28,11 @@ End Code
 
         @Html.Partial("_EventResults")
 
-        <div>
-            @If Request.IsAuthenticated Then
-                @<a href="@Url.Action("Add", "Events")"><i class="glyphicon glyphicon-plus"></i> IT勉強会の登録</a>
-            End If
-        </div>
+        @If Request.IsAuthenticated Then
+            @<div>
+                <a href="@Url.Action("Add", "Events")"><i class="glyphicon glyphicon-plus"></i> IT勉強会の登録</a>
+            </div>
+        End If
 
         <h2>外部サービスでIT勉強会を探す</h2>
 

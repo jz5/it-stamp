@@ -2,7 +2,7 @@
 @Imports Microsoft.AspNet.Identity
 @Code
     ViewBag.Title = "コミュニティ一覧"
-    Dim icon = "http://placehold.it/96x96"
+    ViewData("InternalLink") = True
 End Code
 
 @Html.Partial("_TopBanner")
@@ -18,7 +18,7 @@ End Code
 
 
         @For Each e In Model.Results
-            @Html.Partial("_CommunityCard", e)
+            @Html.Partial("_CommunityCard", e, ViewData)
         Next
 
         <ul class="pagination">
@@ -35,9 +35,11 @@ End Code
 
 
         @If Request.IsAuthenticated Then
-            @<hr />
-            @Html.ActionLink("登録", "Add", "Communities", Nothing, New With {.class = "btn btn-default"})
+            @<div>
+                <a href="@Url.Action("Add", "Communities")"><i class="glyphicon glyphicon-plus"></i> コミュニティの登録</a>
+            </div>
         End If
+
 
         @Html.Partial("_SocialButtons")
 
