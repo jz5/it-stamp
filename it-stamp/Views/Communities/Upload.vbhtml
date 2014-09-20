@@ -45,7 +45,6 @@ End Using
     End Using*@
 
 <hr />
-
 @Html.ActionLink("戻る", "Edit", "Communities", New With {.id = Model.Id}, Nothing)
 
 @Section Styles

@@ -29,24 +29,7 @@ End Code
 
         <div class="panel">
             <div class="panel-body">
-                <div class="media">
-                    <div class="pull-left">
-                        @If Model.Url <> "" Then
-                            @<a href="@Model.Url" target="_blank">
-                                <img class="media-object img-rounded" src="@icon" alt="@Model.Name">
-                            </a>
-                        Else
-                            @<img class="media-object img-rounded" src="@icon" alt="@Model.Name">
-                        End If
-                    </div>
-
-                    <div class="media-body">
-                        <p>@Model.Description.Excerpt</p>
-                        @If Model.Url <> "" Then
-                            @<a href="@Model.Url" target="_blank">@Model.Url</a>
-                        End If
-                    </div>
-                </div>
+                @Html.Partial("_CommunityCard", Model)
             </div>
         </div>
 

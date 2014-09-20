@@ -44,10 +44,10 @@ End Code
                     @<p class="text-muted">（未実装）</p>
                 End If
 
-                <h2>参加しているコミュニティ</h2>
+                <h2>コミュニティ</h2>
 
                 @If Model.Communities.Count = 0 Then
-                    @<p class="text-muted">参加しているコミュニティはありません。</p>
+                    @<p class="text-muted">フォローしているコミュニティはありません。</p>
                 Else
                     @<p class="text-muted">（未実装）</p>
                 End If

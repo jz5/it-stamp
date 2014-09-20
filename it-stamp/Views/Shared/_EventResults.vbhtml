@@ -1,7 +1,7 @@
 ﻿@ModelType SearchEventsViewModel
 
 @For Each e In Model.Results
-    @Html.Partial("_EventResult", e)
+    @Html.Partial("_EventCard", e)
 Next
 
 <ul class="pagination">

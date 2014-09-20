@@ -22,6 +22,7 @@ End Code
 
             <div>@Model.Prefecture.Name @Model.Place</div>
             <div>@Model.Description.Excerpt</div>
+
             @If Model.Community IsNot Nothing Then
                 @<div><a href="@Href("/Communities/")@Model.Community.Id">@Model.Community.Name</a></div>
             End If

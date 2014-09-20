@@ -18,16 +18,7 @@ End Code
 
 
         @For Each e In Model.Results
-            @<div class="media">
-                <a class="pull-left" href="@Href("/Communities/")@e.Id">
-                    <img class="media-object img-rounded" src="@(If(e.IconPath<>"", "/Uploads/" & e.IconPath, icon))" alt="@e.Name">
-                </a>
-                <div class="media-body">
-                    <h3><a href="@Href("/Communities/")@e.Id">@e.Name</a></h3>
-
-                    <div>@Html.Raw(Html.Encode(e.Description).Replace(vbCrLf, "<br />"))</div>
-                </div>
-            </div>
+            @Html.Partial("_CommunityCard", e)
         Next
 
         <ul class="pagination">

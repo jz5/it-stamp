@@ -452,9 +452,10 @@
     <Content Include="Views\CommunitiesAdmin\Details.vbhtml" />
     <Content Include="Views\CommunitiesAdmin\Edit.vbhtml" />
     <Content Include="Views\CommunitiesAdmin\Index.vbhtml" />
-    <Content Include="Views\Communities\AuthorizeOwner.vbhtml" />
     <Content Include="Views\Communities\Upload.vbhtml" />
     <Content Include="Views\Communities\Follow.vbhtml" />
+    <Content Include="Views\Communities\Delete.vbhtml" />
+    <Content Include="Views\Events\Delete.vbhtml" />
     <None Include="Views\Events\Details.vbhtml" />
     <Content Include="Views\Shared\_SidebarPartial.vbhtml" />
     <Content Include="Views\Shared\_EventResults.vbhtml" />
@@ -474,7 +475,8 @@
     <Content Include="Views\Users\Edit.vbhtml" />
     <Content Include="Views\Users\Upload.vbhtml" />
     <Content Include="Views\Events\Today.vbhtml" />
-    <Content Include="Views\Shared\_EventResult.vbhtml" />
+    <Content Include="Views\Shared\_EventCard.vbhtml" />
+    <Content Include="Views\Shared\_CommunityCard.vbhtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

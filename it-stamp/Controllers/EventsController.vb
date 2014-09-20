@@ -498,6 +498,66 @@ Public Class EventsController
     End Function
 
 
+    Async Function Delete(id As Integer?) As Task(Of ActionResult)
+        If Not id.HasValue Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Dim ev = db.Events.Where(Function(e) e.Id = id.Value).SingleOrDefault
+        If ev Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Dim userId = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
+        If appUser Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        ViewBag.CanDelete = CanDelete(appUser, ev)
+
+        Return View(ev)
+    End Function
+
+    <HttpPost()>
+    <ValidateAntiForgeryToken()>
+    Async Function Delete(model As Community) As Task(Of ActionResult)
+
+        Dim userId = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
+
+        Dim id = model.Id
+        Dim ev = db.Events.Where(Function(e) e.Id = id).SingleOrDefault
+
+        If Not CanDelete(appUser, ev) Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Try
+            If Not ModelState.IsValid Then
+                Return View(model)
+            End If
+
+            db.Events.Remove(ev)
+            Await db.SaveChangesAsync
+
+            Return RedirectToAction("Index", "Communities")
+
+        Catch eEx As System.Data.Entity.Validation.DbEntityValidationException
+            For Each er In eEx.EntityValidationErrors
+                For Each e In er.ValidationErrors
+                    Debug.Print(e.ErrorMessage)
+                Next
+            Next
+            Return View(model)
+        Catch ex As Exception
+            ModelState.AddInternalError(User, ex)
+            Return View(model)
+        End Try
+
+    End Function
+
+
     Public Enum DetailsMessage
         Add
         Edit
@@ -505,7 +565,7 @@ Public Class EventsController
     End Enum
 
     Private Function CanEdit(appUser As ApplicationUser, ev As [Event]) As Boolean
-        If appUser Is Nothing Then
+        If appUser Is Nothing OrElse ev Is Nothing Then
             Return False
         ElseIf Not ev.IsLocked Then
             ' 一般ユーザー
@@ -520,7 +580,7 @@ Public Class EventsController
     End Function
 
     Private Function CanEditDetails(appUser As ApplicationUser, ev As [Event]) As Boolean
-        If appUser Is Nothing Then
+        If appUser Is Nothing OrElse ev Is Nothing Then
             Return False
         ElseIf ev.Community IsNot Nothing AndAlso appUser.OwnerCommunities.Contains(ev.Community) Then
             ' コミュニティオーナー
@@ -532,7 +592,7 @@ Public Class EventsController
     End Function
 
     Private Function CanDelete(appUser As ApplicationUser, ev As [Event]) As Boolean
-        If appUser Is Nothing Then
+        If appUser Is Nothing OrElse ev Is Nothing Then
             Return False
         ElseIf ev.CheckIns.Count > 0 OrElse ev.Favorites.Count > 0 OrElse ev.Comments.Count > 0 OrElse ev.IsLocked OrElse ev.IsReported Then
             Return False

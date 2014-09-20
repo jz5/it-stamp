@@ -5,13 +5,10 @@ End Code
 @Html.Partial("_TopBanner")
 
 
-
 <div class="row">
     <div class="col-sm-12 col-md-8">
 
         <h1>@ViewBag.Title</h1>
-
-        @Html.Partial("_EventResults")
 
 
     </div>

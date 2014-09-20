@@ -27,7 +27,7 @@ End Code
 
         <div class="panel">
             <div class="panel-body">
-                @Html.Partial("_EventResult", Model.Event)
+                @Html.Partial("_EventCard", Model.Event)
             </div>
         </div>
 
