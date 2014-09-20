@@ -1,7 +1,18 @@
 ﻿@Code
-    ViewData("Title") = "About"
+    ViewBag.Title = "About"
 End Code
 
-<h1>@ViewData("Title")</h1>
+@Html.Partial("_TopBanner")
 
-<p>Use this area to provide additional information.</p>
+<div class="row">
+    <div class="col-sm-12 col-md-8">
+
+        <h1>@ViewBag.Title</h1>
+
+        
+
+    </div>
+    <div class="col-sm-12 col-md-4">
+        @Html.Partial("_SidebarPartial")
+    </div>
+</div>

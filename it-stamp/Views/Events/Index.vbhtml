@@ -11,23 +11,30 @@ End Code
 
         <h1>@ViewBag.Title</h1>
 
+        <div class="clearfix">
+            <div class="pull-left">
+                <span><small>@(Model.TotalCount)件@(If(Model.CurrentPage > 1, " " & Model.CurrentPage & "ページ目", ""))</small></span>
+            </div>
 
-
-        <div>
-            <span><small>@(Model.TotalCount)件@(If(Model.CurrentPage > 1, " " & Model.CurrentPage & "ページ目", ""))</small></span>
+            <div class="pull-right">
+                <div class="dropdown">
+                    <a data-toggle="dropdown" href="#">検索条件 <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>@Html.ActionLink("開催予定の勉強会", "Index", "Events", Nothing, Nothing)</li>
+                        <li>@Html.ActionLink("過去の勉強会", "Index", "Events", New With {.past = True}, Nothing)</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-
 
         @Html.Partial("_EventResults")
 
         @If Request.IsAuthenticated Then
-            @<a href="@Url.Action("Add", "Events")"><i class="glyphicon glyphicon-pencil"></i> IT勉強会の登録</a>
+            @<div>
+                <a href="@Url.Action("Add", "Events")"><i class="glyphicon glyphicon-pencil"></i> IT勉強会の登録</a>
+            </div>
         End If
 
-        @If Request.IsAuthenticated Then
-            @<hr />
-            @Html.ActionLink("登録", "Add", "Events", Nothing, New With {.class = "btn btn-default"})
-        End If
 
     </div>
     <div class="col-md-4">

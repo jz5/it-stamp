@@ -50,9 +50,9 @@ Public Class [Event]
     Property ReportMemo As String
 
     Property CreationDateTime As DateTime
-    Property CreatedBy As ApplicationUser
+    Overridable Property CreatedBy As ApplicationUser
     Property LastUpdatedDateTime As DateTime
-    Property LastUpdatedBy As ApplicationUser
+    Overridable Property LastUpdatedBy As ApplicationUser
 
     Function IsOnline() As Boolean
         Return Prefecture IsNot Nothing AndAlso Prefecture.Id = 48
@@ -84,9 +84,9 @@ Public Class Favorite
     <Key>
     Property Id As Long
     <Required>
-    Property [Event] As [Event]
+    Overridable Property [Event] As [Event]
     <Required>
-    Property User As ApplicationUser
+    Overridable Property User As ApplicationUser
     <Required>
     Property DateTime As DateTime
 End Class
@@ -97,9 +97,9 @@ Public Class CheckIn
     <Required>
     Property [Event] As [Event]
     <Required>
-    Property User As ApplicationUser
+    Overridable Property User As ApplicationUser
 
-    Property Stamp As Stamp
+    Overridable Property Stamp As Stamp
     <Required>
     Property DateTime As DateTime
 End Class
@@ -113,7 +113,7 @@ Public Class Comment
     <DataType(DataType.Text)>
     Property Content As String
     Property CreationDateTime As DateTime
-    Property CreatedBy As ApplicationUser
+    Overridable Property CreatedBy As ApplicationUser
 End Class
 
 
@@ -158,9 +158,9 @@ Public Class Community
     Property IsLocked As Boolean
 
     Property CreationDateTime As DateTime
-    Property CreatedBy As ApplicationUser
+    Overridable Property CreatedBy As ApplicationUser
     Property LastUpdatedDateTime As DateTime
-    Property LastUpdatedBy As ApplicationUser
+    Overridable Property LastUpdatedBy As ApplicationUser
 End Class
 
 Public Class Stamp
@@ -181,6 +181,10 @@ Public Class Stamp
     <StringLength(100)>
     Property Path As String
 
+    Property CreationDateTime As DateTime
+    Overridable Property CreatedBy As ApplicationUser
+    Property LastUpdatedDateTime As DateTime
+    Overridable Property LastUpdatedBy As ApplicationUser
 End Class
 
 Public Class Prefecture

@@ -148,12 +148,24 @@ button#Twitter {
 }
 
 .text-primary, .text-danger {
-    color: #E9573F;
+    color: #F05080;
 }
 
 .badge {
-    vertical-align: top;
+    vertical-align: middle;
 }
+
+.dropdown-menu li a {
+    display: block;
+    color: #d94e8c;
+}
+
+    .dropdown-menu li a:focus,
+    .dropdown-menu li a:hover {
+        color: #fff;
+        background-color: #F05080;
+    }
+
 
 /* Social buttons */
 

@@ -42,20 +42,14 @@ Public Class HomeController
 
     Function Index() As ActionResult
         Dim viewModel = New SearchEventsViewModel
-        Dim n = Now
 
-        'Dim results = From e In db.Events
-        '                    Where SqlFunctions.DateDiff("day", e.StartDateTime, New DateTime(n.Year, n.Month, n.Day)) >= 0 AndAlso
-        '                    (e.Community Is Nothing OrElse Not e.Community.IsHidden)
-        '                    Order By e.StartDateTime
+        Dim n = Now.Date
+        Dim results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.StartDateTime >= n)
 
-        Dim d = Now.Date
-        Dim r2 = db.Events.Where(Function(e) e.StartDateTime >= d)
-
-        viewModel.Results = r2.Take(10).ToList
+        viewModel.Results = results.Take(10).ToList
         viewModel.CurrentPage = 1
         viewModel.StartPage = 1
-        viewModel.TotalPages = (r2.Count - 1) \ 10 + 1
+        viewModel.TotalPages = (results.Count - 1) \ 10 + 1
         viewModel.EndPage = If(viewModel.TotalPages < 5, viewModel.TotalPages, 5)
 
         Return View(viewModel)

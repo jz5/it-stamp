@@ -41,9 +41,18 @@ Public Class EventsController
 
     ' GET: Events
     <AllowAnonymous>
-    Function Index(page As Integer?) As ActionResult
+    Function Index(page As Integer?, past As Boolean?) As ActionResult
 
-        Dim results = db.Events.Where(Function(e) Not e.IsHidden).OrderBy(Function(e) e.StartDateTime)
+        Dim results As IOrderedQueryable(Of [Event])
+        Dim n = Now.Date
+        If past.HasValue AndAlso past.Value = True Then
+            ' 過去
+            results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.EndDateTime < n).OrderByDescending(Function(e) e.StartDateTime)
+        Else
+            ' 開催予定
+            results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.StartDateTime >= n).OrderBy(Function(e) e.StartDateTime)
+        End If
+
 
         Dim viewModel = New SearchEventsViewModel With {
             .TotalCount = results.Count

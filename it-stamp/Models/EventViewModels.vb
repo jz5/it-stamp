@@ -171,6 +171,8 @@ Public Class SearchEventsViewModel
 
     Property TotalCount As Integer
 
+    Property Past As Boolean
+
 End Class
 
 Public Class CheckInViewModel

@@ -255,6 +255,7 @@
     <Compile Include="Startup.vb" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Uploads\Icons\anon.png" />
     <Content Include="App_GlobalResources\MyResource.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>MyResource.Designer.vb</LastGenOutput>

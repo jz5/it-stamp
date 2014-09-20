@@ -4,7 +4,8 @@
     ViewBag.Title = Model.Name
 
     Dim icon = If(Model.Community IsNot Nothing AndAlso Model.Community.IconPath <> "", "/Uploads/" & Model.Community.IconPath, "http://placehold.it/96x96")
-
+    Dim userIcon = Href("/Uploads/Icons/anon.png")
+    
     Dim searchAddress As String = Nothing
     If Model.IsOnline Then
         'オンライン
@@ -120,7 +121,21 @@ End Code
             End If
         </div>
 
-        <h2><i class="glyphicon glyphicon-ok"></i> チェックイン</h2>
+        <h2><i class="glyphicon glyphicon-ok"></i> チェックイン <span class="badge badge-primary @(If(Model.CheckIns.Count = 0, "hidden", ""))">@Model.CheckIns.Count</span></h2>
+        <div style="margin-bottom: 20px;">
+            @If Model.CheckIns.Count = 0 Then
+
+            Else
+                @For Each m In Model.CheckIns.Where(Function(c) Not c.User.IsPrivate).Select(Function(c) c.User)
+                    @<a href="@Href("~/Users/" & m.UserName)"><img src="@(If(M.IconPath <> "", Href("/Uploads/" & m.IconPath), userIcon))" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
+                Next
+                If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
+                    @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
+                End If
+            End If
+        </div>
+
+
         @Using Html.BeginForm("CheckIn", "Events", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
             @Html.AntiForgeryToken()
             @Html.Hidden("Event.Id", Model.Id)

@@ -3,6 +3,8 @@
 @Code
 
     Dim icon = If(Model.IconPath <> "", Href("/Uploads/" & Model.IconPath), "http://placehold.it/96x96")
+    Dim userIcon = Href("/Uploads/Icons/anon.png")
+    
 End Code
 
 @Html.Partial("_TopBanner")
@@ -56,7 +58,7 @@ End Code
                 @Html.ActionLink("過去のIT勉強会", "Events", "Search")
             </div>*@
 
-        <h2>フォロワー <span class="badge badge-primary">@Model.Members.Count</span></h2>
+        <h2>フォロワー <span class="badge badge-primary @(If(Model.Members.Count = 0, "hidden", ""))">@Model.Members.Count</span></h2>
         <div>
             @If Model.Members.Count = 0 Then
                 @<p class="text-muted">フォロワーはいません。</p>
@@ -64,7 +66,11 @@ End Code
                 @For Each m In Model.Members.Where(Function(u) Not u.IsPrivate)
                     @<a href="@Href("~/Users/" & m.UserName)"><img src="@(If(M.IconPath <> "", Href("/Uploads/" & m.IconPath), "http://placehold.it/16x16"))" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
                 Next
-        End If
+                If Model.Members.Where(Function(u) u.IsPrivate).Count > 0 Then
+                    @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
+                End If
+
+            End If
         </div>
 
 

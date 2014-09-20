@@ -26,11 +26,18 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("IT勉強会", "Index", "Events")</li>
-                    <li>@Html.ActionLink("スタンプラリー", "Stamprally", "Home")</li>
+                    <li>@Html.ActionLink("スタンプラリー", "Details", "SpecialEvents", New With {.id = 1}, Nothing)</li>
 
                     @If Request.IsAuthenticated AndAlso User.IsInRole("Admin") Then
-                        @<li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
-                        @<li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
+                        @<li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>@Html.ActionLink("Roles", "Index", "RolesAdmin")</li>
+                                <li>@Html.ActionLink("Users", "Index", "UsersAdmin")</li>
+                                <li>@Html.ActionLink("Communities", "Index", "CommunitiesAdmin")</li>
+                                <li>@Html.ActionLink("SpecialEvents", "Index", "SpecialEventsAdmin")</li>
+                            </ul>
+                        </li>
                     End If
                 </ul>
                 @Html.Partial("_LoginPartial")
