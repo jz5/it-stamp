@@ -3,9 +3,9 @@
 @Code
 
     Dim userIcon = Href("/Uploads/Icons/anon.png")
-
+    ViewBag.Title = Model.Name
     ViewData("Details") = True
-    
+
 End Code
 
 @Html.Partial("_TopBanner")
@@ -13,7 +13,7 @@ End Code
 <div class="row">
     <div class="col-md-8">
 
-        <h1>@Model.Name</h1>
+        <h1>@ViewBag.Title</h1>
 
         @If ViewBag.StatusMessage <> "" AndAlso Request.IsAuthenticated Then
             @<div class="alert alert-success fade in" role="alert">
@@ -23,7 +23,7 @@ End Code
         End If
 
         @Html.Partial("_CommunityCard", Model, ViewData)
-        
+
         <h2>主催しているIT勉強会</h2>
 
         <p class="text-muted">（未実装）</p>
@@ -40,7 +40,7 @@ End Code
                 @For Each m In Model.Members.Where(Function(u) Not u.IsPrivate)
                     @<a href="@Href("~/Users/" & m.UserName)"><img src="@(If(M.IconPath <> "", Href("/Uploads/" & m.IconPath), "http://placehold.it/16x16"))" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
                 Next
-                                                If Model.Members.Where(Function(u) u.IsPrivate).Count > 0 Then
+                                                                If Model.Members.Where(Function(u) u.IsPrivate).Count > 0 Then
                 @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
                 End If
 

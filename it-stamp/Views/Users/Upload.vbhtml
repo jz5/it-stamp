@@ -1,10 +1,11 @@
 ﻿@ModelType UploadUserIconViewModel
 @Imports Microsoft.AspNet.Identity
 @Code
+    ViewBag.Title = "アイコンの変更"
     Dim icon = If(Model.IconPath <> "", Href("/Uploads/" & Model.IconPath), "http://placehold.it/96x96")
 End Code
 
-<h1>アイコンの変更</h1>
+<h1>@ViewBag.Title</h1>
 
 @Using Html.BeginForm("Upload", "Users", FormMethod.Post, New With {.class = "form-horizontal", .role = "form", .enctype = "multipart/form-data"})
     @Html.AntiForgeryToken()

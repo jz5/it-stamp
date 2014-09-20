@@ -1,11 +1,12 @@
 ﻿@ModelType Community
 @Imports Microsoft.AspNet.Identity
 @Code
+    ViewBag.Title = "コミュニティの編集"
     Dim icon = If(Model.IconPath <> "", Href("/Uploads/" & Model.IconPath), "http://placehold.it/96x96")
 
 End Code
 
-<h1>コミュニティの編集</h1>
+<h1>@ViewBag.Title</h1>
 
 @Using Html.BeginForm("Edit", "Communities", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
     @Html.AntiForgeryToken()

@@ -4,7 +4,7 @@
     ViewBag.Title = "エラー"
 End Code
 
-<h1>エラー</h1>
+<h1>@ViewBag.Title</h1>
 
 <div class="alert alert-danger fade in" role="alert">
     要求の処理中にエラーが発生しました。

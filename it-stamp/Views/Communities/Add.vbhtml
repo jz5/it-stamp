@@ -1,10 +1,10 @@
 ﻿@Imports Microsoft.AspNet.Identity
 @ModelType Community
 @Code
-
+    ViewBag.Title = "コミュニティの登録"
 End Code
 
-<h1>コミュニティの登録</h1>
+<h1>@ViewBag.Title</h1>
 
 @Using Html.BeginForm("Add", "Communities", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
     @Html.AntiForgeryToken()

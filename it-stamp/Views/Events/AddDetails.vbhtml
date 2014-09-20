@@ -1,7 +1,10 @@
 ﻿@ModelType AddEventDetailsViewModel
 @Imports Microsoft.AspNet.Identity
+@code
+    ViewBag.Title = "IT勉強会の登録"
+End Code
 
-<h1>IT勉強会の登録</h1>
+<h1>@ViewBag.Title</h1>
 
 @Using Html.BeginForm("AddDetails", "Events", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
     @Html.AntiForgeryToken()
