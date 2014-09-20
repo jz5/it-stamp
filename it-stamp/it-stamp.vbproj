@@ -220,6 +220,7 @@
     <Compile Include="Controllers\SpecialEventsAdminController.vb" />
     <Compile Include="Controllers\TempController.vb" />
     <Compile Include="Controllers\UsersAdminController.vb" />
+    <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="MyRequiredAttributeAdapter.vb" />
     <Compile Include="EventApi\AddressHelper.vb" />
     <Compile Include="EventApi\Atnd.vb" />
@@ -227,7 +228,6 @@
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\AccountViewModels.vb" />
     <Compile Include="Models\AdminViewModel.vb" />
     <Compile Include="Models\CommunityViewModel.vb" />

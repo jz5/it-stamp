@@ -28,7 +28,7 @@ Namespace Migrations
             '       New Customer() With {.FullName = "Andrew Peters"},
             '       New Customer() With {.FullName = "Brice Lambson"},
             '       New Customer() With {.FullName = "Rowan Miller"})
-            
+
             Dim userManager = New UserManager(Of ApplicationUser)(New UserStore(Of ApplicationUser)(context))
             Dim roleManager = New RoleManager(Of IdentityRole)(New RoleStore(Of IdentityRole)(context))
 

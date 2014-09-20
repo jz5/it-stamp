@@ -1,7 +1,7 @@
 ﻿@ModelType UploadCommunityIconViewModel
 @Imports Microsoft.AspNet.Identity
 @Code
-    @ViewBag.Title = "アイコンの変更"
+    ViewBag.Title = "アイコンの変更"
     Dim icon = If(Model.IconPath <> "", Href("/Uploads/" & Model.IconPath), "http://placehold.it/96x96")
 End Code
 
