@@ -172,3 +172,20 @@ Public Class SearchEventsViewModel
     Property TotalCount As Integer
 
 End Class
+
+Public Class CheckInViewModel
+
+    Property [Event] As [Event]
+
+    Property ShareTwitter As Boolean
+
+    Property ShareFacebook As Boolean
+
+    <StringLength(1023)>
+    <Display(Name:="追加メッセージ")>
+    <DataType(DataType.MultilineText)>
+    Property AdditionalMessage As String
+
+    Property QuickCheckInEnabled As Boolean
+
+End Class

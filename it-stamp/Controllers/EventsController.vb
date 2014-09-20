@@ -81,7 +81,7 @@ Public Class EventsController
 
     ' GET: Events/5
     <AllowAnonymous>
-    Async Function Details(ByVal id As Integer?, message As DetailsMessageId?) As Task(Of ActionResult)
+    Async Function Details(ByVal id As Integer?, message As DetailsMessage?, stamp As Stamp) As Task(Of ActionResult)
         If IsNothing(id) Then
             Return RedirectToAction("Index")
         End If
@@ -95,13 +95,23 @@ Public Class EventsController
         Dim appUser = UserManager.FindById(User.Identity.GetUserId)
         ViewBag.CanEdit = CanEdit(appUser, ev)
 
+        ' チェックイン済みか
+        If appUser IsNot Nothing Then
+            Dim ci = db.CheckIns.Where(Function(c) c.User.Id = appUser.Id AndAlso c.Event.Id = ev.Id).SingleOrDefault
+            ViewBag.CheckIned = ci IsNot Nothing
+        Else
+            ViewBag.CheckIned = False
+        End If
+
         ' Message
         Dim msg As String
         Select Case message
-            Case DetailsMessageId.Add
+            Case DetailsMessage.Add
                 msg = "登録しました。"
-            Case DetailsMessageId.Edit
+            Case DetailsMessage.Edit
                 msg = "編集しました。"
+            Case DetailsMessage.CheckIn
+                msg = ev.Name & "にチェックイン！"
             Case Else
                 msg = ""
         End Select
@@ -196,7 +206,7 @@ Public Class EventsController
 
             Dim newEvent = db.Events.Add(ev)
             Await db.SaveChangesAsync()
-            Return RedirectToAction("Details", New With {.id = newEvent.Id, .message = DetailsMessageId.Add})
+            Return RedirectToAction("Details", New With {.id = newEvent.Id, .message = DetailsMessage.Add})
 
         Catch eEx As System.Data.Entity.Validation.DbEntityValidationException
             For Each er In eEx.EntityValidationErrors
@@ -305,13 +315,13 @@ Public Class EventsController
             '    ev.Community = Nothing
             'End If
 
-            ev.Community = Nothing
+            'ev.Community = Nothing
 
-            If viewModel.SpecialEventId.HasValue Then
-                ev.SpecialEvents = db.SpecialEvents.Where(Function(e) e.Id = viewModel.SpecialEventId.Value).FirstOrDefault
-            Else
-                ev.SpecialEvents = Nothing
-            End If
+            'If viewModel.SpecialEventId.HasValue Then
+            '    ev.SpecialEvents = db.SpecialEvents.Where(Function(e) e.Id = viewModel.SpecialEventId.Value).FirstOrDefault
+            'Else
+            '    ev.SpecialEvents = Nothing
+            'End If
 
 
             ev.LastUpdatedBy = appUser
@@ -319,7 +329,7 @@ Public Class EventsController
 
             db.SaveChanges()
 
-            Return RedirectToAction("Details", New With {.id = ev.Id, .message = DetailsMessageId.Edit})
+            Return RedirectToAction("Details", New With {.id = ev.Id, .message = DetailsMessage.Edit})
 
         Catch eEx As System.Data.Entity.Validation.DbEntityValidationException
             For Each er In eEx.EntityValidationErrors
@@ -334,9 +344,153 @@ Public Class EventsController
         End Try
     End Function
 
-    Public Enum DetailsMessageId
+
+    Async Function CheckIn(id As Integer?) As Task(Of ActionResult)
+        If Not id.HasValue Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Dim userId = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
+        If appUser Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Dim ev = db.Events.Where(Function(e) e.Id = id.Value).SingleOrDefault
+        If ev Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        ' チェックイン済みか
+        Dim ci = db.CheckIns.Where(Function(c) c.User.Id = appUser.Id AndAlso c.Event.Id = ev.Id).SingleOrDefault
+        ViewBag.CheckIned = ci IsNot Nothing
+
+        Dim viewModel = New CheckInViewModel With {
+            .Event = ev,
+            .ShareFacebook = appUser.ShareFacebook,
+            .ShareTwitter = appUser.ShareTwitter}
+
+        If ev.IsCanceled OrElse ev.IsHidden Then
+            ViewBag.StatusMessage = "このIT勉強会にはチェックインできません。"
+            Return View(viewModel)
+        End If
+
+        Return View(viewModel)
+    End Function
+
+    <HttpPost()>
+    <ValidateAntiForgeryToken()>
+    Async Function CheckIn(viewModel As CheckInViewModel) As Task(Of ActionResult)
+        Dim userId = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
+        If appUser Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Dim id = viewModel.Event.Id
+        Dim ev = db.Events.Where(Function(e) e.Id = id).SingleOrDefault
+        If ev Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Try
+            viewModel.Event = ev
+
+            If Not ModelState.IsValid Then
+                Return View(viewModel)
+            End If
+
+            If ev.IsCanceled OrElse ev.IsHidden Then
+                ViewBag.ErrorMessage = "このIT勉強会にはチェックインできません。"
+                Return View(viewModel)
+            End If
+
+            If Now < ev.StartDateTime.AddHours(-1) Then
+                ViewBag.ErrorMessage = "開始時間の1時間前からチェックインできるようになります。"
+                Return View(viewModel)
+            End If
+
+            ' Stamp
+            Dim stamp As Stamp = Nothing
+            If ev.Community IsNot Nothing Then
+                stamp = db.Stamps.Where(Function(s) s.Community.Id = ev.Community.Id).SingleOrDefault
+            End If
+
+            Dim ci = New CheckIn With {
+                .Event = ev,
+                .DateTime = Now,
+                .User = appUser,
+                .Stamp = stamp}
+
+            db.CheckIns.Add(ci)
+            Await db.SaveChangesAsync
+
+            Return RedirectToAction("Details", "Events", New With {.id = ev.Id, .message = DetailsMessage.CheckIn, .stamp = stamp})
+        Catch eEx As System.Data.Entity.Validation.DbEntityValidationException
+            For Each er In eEx.EntityValidationErrors
+                For Each e In er.ValidationErrors
+                    Debug.Print(e.ErrorMessage)
+                Next
+            Next
+            Return View(viewModel)
+        Catch ex As Exception
+            ModelState.AddInternalError(User, ex)
+            Return View(viewModel)
+        End Try
+
+    End Function
+
+
+    Async Function Today() As Task(Of ActionResult)
+
+        'Dim userId = User.Identity.GetUserId
+        'Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
+        'If appUser Is Nothing Then
+        '    Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        'End If
+
+        'Dim n = Now.Date
+        'Dim results = db.Events.Where(Function(e) Not e.IsHidden).OrderBy(Function(e) e.StartDateTime.Date <= n AndAlso n <= e.EndDateTime.Date)
+
+        'Dim viewModel = New SearchEventsViewModel With {
+        '    .TotalCount = results.Count
+        '    }
+
+        'Dim count = 10
+        'Dim pagenationCount = 5
+
+        '' Total page
+        'viewModel.TotalPages = (results.Count - 1) \ count + 1
+
+        '' Current page
+        'If Not Page.HasValue OrElse viewModel.TotalPages > Page.Value Then
+        '    viewModel.CurrentPage = 1
+        'Else
+        '    viewModel.CurrentPage = Page.Value
+        'End If
+
+        '' Start page
+        'viewModel.StartPage = viewModel.CurrentPage - pagenationCount
+        'If viewModel.StartPage < 1 Then
+        '    viewModel.StartPage = 1
+        'End If
+
+        '' End page
+        'viewModel.EndPage = viewModel.StartPage + pagenationCount - 1
+        'If viewModel.EndPage > viewModel.TotalPages Then
+        '    viewModel.EndPage = viewModel.TotalPages
+        'End If
+
+        'viewModel.Results = results.Skip((viewModel.CurrentPage - 1) * count).Take(count).ToList
+
+        'Return View(viewModel)
+    End Function
+
+
+    Public Enum DetailsMessage
         Add
         Edit
+        CheckIn
     End Enum
 
     Private Function CanEdit(appUser As ApplicationUser, ev As [Event]) As Boolean

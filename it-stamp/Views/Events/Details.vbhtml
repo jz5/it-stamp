@@ -26,7 +26,7 @@ End Code
 
         <h1>@ViewBag.Title</h1>
 
-        @If ViewBag.StatusMessage <> ""  AndAlso Request.IsAuthenticated Then
+        @If ViewBag.StatusMessage <> "" AndAlso Request.IsAuthenticated Then
             @<div class="alert alert-success fade in" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 @ViewBag.StatusMessage
@@ -106,7 +106,7 @@ End Code
                         </tr>
                         @If Model.SpecialEvents IsNot Nothing Then
                             @<tr>
-                                <td colspan="2">@html.ActionLink(Model.SpecialEvents.Name,"Details","SpecialEvents") 対象のIT勉強会です。</td>
+                                <td colspan="2">@Html.ActionLink(Model.SpecialEvents.Name, "Details", "SpecialEvents") 対象のIT勉強会です。</td>
                             </tr>
                         End If
                     </tbody>
@@ -123,11 +123,17 @@ End Code
         <h2><i class="glyphicon glyphicon-ok"></i> チェックイン</h2>
         @Using Html.BeginForm("CheckIn", "Events", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
             @Html.AntiForgeryToken()
+            @Html.Hidden("Event.Id", Model.Id)
+            @Html.Hidden("Event.Name", Model.Name)
+            @Html.Hidden("QuickCheckInEnabled", "True")
 
-            @If Model.IsCanceled OrElse Model.IsHidden Then
+            @If ViewBag.CheckIned Then
+                @<p>チェックイン済み</p>
+
+            ElseIf Model.IsCanceled OrElse Model.IsHidden Then
                 @<p>チェックインできません。</p>
 
-            ElseIf Model.StartDateTime <= Now Then
+            ElseIf Model.StartDateTime.AddHours(-1) <= Now Then
                 If Not Request.IsAuthenticated Then
                 @<p>@Html.ActionLink("ログイン", "Login", "Account", New With {.ReturnUrl = If(Request.RawUrl.ToLower.Contains("login"), "", Request.RawUrl)}, Nothing) してチェックイン！</p>
                 Else
@@ -139,7 +145,7 @@ End Code
                 </div>
                 End If
             Else
-                @<p>開始時間後にチェックインできるようになります。</p>
+                @<p>開始時間の1時間前からチェックインできるようになります。</p>
             End If
         End Using
 
@@ -152,7 +158,7 @@ End Code
         @Html.Partial("_SocialButtons")
 
         @If ViewBag.CanEdit Then
-            @<a href="@Url.Action("Edit", "Communities", New With {.id = Model.Id})"><i class="glyphicon glyphicon-pencil"></i> 編集</a>
+            @<a href="@Url.Action("Edit", "Events", New With {.id = Model.Id})"><i class="glyphicon glyphicon-pencil"></i> 編集</a>
         Else
             @<i class="glyphicon glyphicon-pencil" title="編集権限がありません"></i>
         End If

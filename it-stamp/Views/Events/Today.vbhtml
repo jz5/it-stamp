@@ -1,5 +1,5 @@
 ﻿@Code
-    ViewData("Title") = "Today"
+    ViewBag.Title = "今日のIT勉強会"
 End Code
 
 @Html.Partial("_TopBanner")
@@ -9,7 +9,7 @@ End Code
 <div class="row">
     <div class="col-sm-12 col-md-8">
 
-        <h2 @(If(Request.IsAuthenticated, Html.Raw("style=""margin-top:0;"""), ""))>開催予定のIT勉強会</h2>
+        <h1>@ViewBag.Title</h1>
 
         @Html.Partial("_EventResults")
 

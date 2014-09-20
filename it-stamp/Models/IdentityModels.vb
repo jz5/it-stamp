@@ -16,32 +16,31 @@ Public Class ApplicationUser
 
     <Url>
     <DataType(DataType.Url)>
-    <StringLength(255)>
+    <StringLength(256)>
     <Display(Name:="Webサイト")>
     Property Url As String
 
-    <StringLength(1023)>
+    <StringLength(1000)>
     <DataType(DataType.MultilineText)>
     <Display(Name:="紹介文")>
     Property Description As String
 
-    <StringLength(255)>
+    <StringLength(100)>
     Property IconPath As String
 
     <Display(Name:="プライベートモード")>
     Property IsPrivate As Boolean
 
-    <StringLength(255)>
+    <StringLength(256)>
     Property Twitter As String
-    <StringLength(255)>
+    <StringLength(256)>
     Property Facebook As String
-    <StringLength(255)>
+    <StringLength(256)>
     Property Other As String
 
     Property ShareTwitter As Boolean
     Property ShareFacebook As Boolean
     Property ShareOther As Boolean
-
 
 
     Overridable Property Favorites As ICollection(Of Favorite)
@@ -81,6 +80,8 @@ Public Class ApplicationDbContext
     Property Comments As DbSet(Of Comment)
     Property SpecialEvents As DbSet(Of SpecialEvent)
     Property Favorites As DbSet(Of Favorite)
+    Property Stamps As DbSet(Of Stamp)
+
 
     Protected Overrides Sub OnModelCreating(ByVal modelBuilder As DbModelBuilder)
         MyBase.OnModelCreating(modelBuilder)

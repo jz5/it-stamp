@@ -8,29 +8,29 @@ Public Class [Event]
     Property Id As Integer
 
     <Required>
-    <StringLength(255)>
+    <StringLength(100)>
     Property Name As String
 
     Overridable Property Community As Community
 
-    <StringLength(1023)>
+    <StringLength(1000)>
     <DataType(DataType.MultilineText)>
     Property Description As String
 
     <DataType(DataType.Url)>
-    <StringLength(255)>
+    <StringLength(256)>
     Property Url As String
 
     Property StartDateTime As DateTime
     Property EndDateTime As DateTime
 
     Overridable Property Prefecture As Prefecture
-    <StringLength(255)>
+    <StringLength(100)>
     Property Address As String
-    <StringLength(255)>
+    <StringLength(100)>
     Property Place As String
 
-    <StringLength(50)>
+    <StringLength(20)>
     Property CheckInCode As String
     Overridable Property CheckIns As ICollection(Of CheckIn)
 
@@ -45,7 +45,7 @@ Public Class [Event]
     Property IsReported As Boolean
     Property ParticipantsOfflineCount As Integer
     Property ParticipantsOnlineCount As Integer
-    <StringLength(1023)>
+    <StringLength(1000)>
     <DataType(DataType.MultilineText)>
     Property ReportMemo As String
 
@@ -74,7 +74,7 @@ Public Class SpecialEvent
     <Key>
     Property Id As Integer
     <Required>
-    <StringLength(255)>
+    <StringLength(50)>
     Property Name As String
     Property StartDateTime As DateTime
     Property EndDateTime As DateTime
@@ -98,7 +98,7 @@ Public Class CheckIn
     Property [Event] As [Event]
     <Required>
     Property User As ApplicationUser
-    <Required>
+
     Property Stamp As Stamp
     <Required>
     Property DateTime As DateTime
@@ -109,7 +109,7 @@ Public Class Comment
     Property id As Long
     <Required>
     Property [Event] As [Event]
-    <StringLength(255)>
+    <StringLength(256)>
     <DataType(DataType.Text)>
     Property Content As String
     Property CreationDateTime As DateTime
@@ -122,21 +122,31 @@ Public Class Community
     Property Id As Integer
 
     <Required>
-    <StringLength(255)>
+    <StringLength(50)>
     <Display(Name:="名前")>
     Property Name As String
 
-    <StringLength(1023)>
+    <StringLength(1000)>
     <DataType(DataType.MultilineText)>
     <Display(Name:="説明")>
     Property Description As String
 
     <DataType(DataType.Url)>
-    <StringLength(255)>
+    <StringLength(256)>
     <Display(Name:="Webサイト")>
     Property Url As String
 
-    <StringLength(255)>
+    <DataType(DataType.Url)>
+    <StringLength(256)>
+    <Display(Name:="Webサイト")>
+    Property SubUrl1 As String
+
+    <DataType(DataType.Url)>
+    <StringLength(256)>
+    <Display(Name:="Webサイト")>
+    Property SubUrl2 As String
+
+    <StringLength(100)>
     Property IconPath As String
 
     Overridable Property Members As ICollection(Of ApplicationUser)
@@ -159,12 +169,16 @@ Public Class Stamp
     <Required>
     Property Community As Community
 
+    <StringLength(50)>
+    <Display(Name:="名前")>
+    Property Name As String
+
     Property IsDefault As Boolean
 
-    <StringLength(255)>
+    <StringLength(100)>
     Property Expression As String
 
-    <StringLength(255)>
+    <StringLength(100)>
     Property Path As String
 
 End Class

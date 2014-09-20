@@ -133,6 +133,10 @@ button#Twitter {
     margin-bottom: 30px;
 }
 
+.panel-body .media {
+    margin-bottom: 0;
+}
+
 .icon24 {
     width: 24px;
     height: 24px;
