@@ -4,7 +4,7 @@
 
     Dim icon = If(Model.IconPath <> "", Href("/Uploads/" & Model.IconPath), "http://placehold.it/96x96")
     Dim userIcon = Href("/Uploads/Icons/anon.png")
-    
+
 End Code
 
 @Html.Partial("_TopBanner")
@@ -32,12 +32,28 @@ End Code
                 End If
 
                 @If Request.IsAuthenticated Then
-                    @<div class="text-center" style="margin-top: 20px;">
-                        @If Model.Members.Where(Function(m) m.Id = User.Identity.GetUserId).FirstOrDefault Is Nothing Then
-                            @Html.ActionLink("フォロー", "Edit", "CommunitiesAdmin", Nothing, New With {.class = "btn btn-default"})
-                        Else
-                            @Html.ActionLink("解除", "Edit", "CommunitiesAdmin", Nothing, New With {.class = "btn btn-default"})
-                        End If
+                    @<div class="text-center">
+                        @*@If Model.Members.Where(Function(m) m.Id = User.Identity.GetUserId).FirstOrDefault Is Nothing Then
+                                @Html.ActionLink("フォロー", "Edit", "CommunitiesAdmin", Nothing, New With {.class = "btn btn-default"})
+                            Else
+                                @Html.ActionLink("解除", "Edit", "CommunitiesAdmin", Nothing, New With {.class = "btn btn-default"})
+                            End If*@
+
+                        @Using Html.BeginForm("Follow", "Communities", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(Function(m) m.Id)
+                            @Html.HiddenFor(Function(m) m.Name)
+
+                            @Html.ValidationSummary(False, "", New With {.class = "text-danger"})
+
+                            @<div class="form-group">
+                                <div class="form-inline">
+                                    <input id="follow-btn" type="submit" value="@(if(ViewBag.Followd,"フォロー中","フォロー"))" class="btn btn-default" style="max-width:96px;" />
+                                </div>
+                            </div>
+                        End Using
+
+
                     </div>
                 End If
             </div>
@@ -66,8 +82,8 @@ End Code
                 @For Each m In Model.Members.Where(Function(u) Not u.IsPrivate)
                     @<a href="@Href("~/Users/" & m.UserName)"><img src="@(If(M.IconPath <> "", Href("/Uploads/" & m.IconPath), "http://placehold.it/16x16"))" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
                 Next
-                If Model.Members.Where(Function(u) u.IsPrivate).Count > 0 Then
-                    @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
+                                If Model.Members.Where(Function(u) u.IsPrivate).Count > 0 Then
+                @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
                 End If
 
             End If
@@ -93,12 +109,23 @@ End Code
 </div>
 
 
-@Section Scripts
-
-    @*<script>
-            $(".alert").alert();
-        </script>*@
+@section Scripts
+    <script>
+        (function ($) {
+            var followed = @(If(ViewBag.Followd, "true", "false"));
+            if (followed) {
+                $("#follow-btn").hover(function () {
+                    $(this).val("解除").removeClass("btn-default").addClass("btn-primary");
+                },function () {
+                    $(this).val("フォロー中").removeClass("btn-primary").addClass("btn-default");
+                });
+            } else {
+                $("#follow-btn").hover(function () {
+                    $(this).removeClass("btn-default").addClass("btn-primary");
+                },function () {
+                    $(this).removeClass("btn-primary").addClass("btn-default");
+                });
+            }
+        })(jQuery);
+    </script>
 End Section
-
-
-

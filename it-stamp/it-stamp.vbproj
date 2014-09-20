@@ -454,6 +454,7 @@
     <Content Include="Views\CommunitiesAdmin\Index.vbhtml" />
     <Content Include="Views\Communities\AuthorizeOwner.vbhtml" />
     <Content Include="Views\Communities\Upload.vbhtml" />
+    <Content Include="Views\Communities\Follow.vbhtml" />
     <None Include="Views\Events\Details.vbhtml" />
     <Content Include="Views\Shared\_SidebarPartial.vbhtml" />
     <Content Include="Views\Shared\_EventResults.vbhtml" />

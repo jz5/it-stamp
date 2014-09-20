@@ -88,14 +88,22 @@ Public Class CommunitiesController
             Return RedirectToAction("Index")
         End If
 
-        Dim community = Await db.Communities.FindAsync(id)
-        If IsNothing(community) Then
+        Dim com = Await db.Communities.FindAsync(id)
+        If IsNothing(com) Then
             Return HttpNotFound()
         End If
 
         ' コミュニティの編集権限があるかどうか
         Dim appUser = Await UserManager.FindByIdAsync(User.Identity.GetUserId)
-        ViewBag.CanEdit = CanEdit(appUser, community)
+        ViewBag.CanEdit = CanEdit(appUser, com)
+
+        ' フォロー済みか
+        If appUser IsNot Nothing Then
+            Dim followed = appUser.Communities.Where(Function(c) c.Id = com.Id).Count > 0
+            ViewBag.Followd = followed
+        Else
+            ViewBag.Followd = False
+        End If
 
         ' Message
         Dim msg As String
@@ -109,7 +117,7 @@ Public Class CommunitiesController
         End Select
         ViewBag.StatusMessage = msg
 
-        Return View(community)
+        Return View(com)
     End Function
 
     ' Get: Communities/Add
@@ -304,6 +312,87 @@ Public Class CommunitiesController
         End Try
     End Function
 
+    Async Function Follow(id As Integer?) As Task(Of ActionResult)
+        If Not id.HasValue Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Dim userId = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
+        If appUser Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Dim com = db.Communities.Where(Function(c) c.Id = id.Value).SingleOrDefault
+        If com Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        ' フォロー済みか
+        Dim followed = appUser.Communities.Where(Function(c) c.Id = com.Id).Count > 0
+        ViewBag.Followd = followed
+
+        If com.IsHidden Then
+            ViewBag.StatusMessage = "このコミュニティはフォローできません。"
+            Return View(com)
+        End If
+
+        Return View(com)
+    End Function
+
+    <HttpPost()>
+    <ValidateAntiForgeryToken()>
+    Async Function Follow(model As Community) As Task(Of ActionResult)
+        Dim userId = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
+        If appUser Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Dim id = model.Id
+        Dim com = db.Communities.Where(Function(c) c.Id = id).SingleOrDefault
+        If com Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Try
+            ' フォロー済みか
+            Dim followed = appUser.Communities.Where(Function(c) c.Id = com.Id).Count > 0
+            ViewBag.Followd = followed
+
+            If Not ModelState.IsValid Then
+                Return View(model)
+            End If
+
+            If com.IsHidden Then
+                ViewBag.ErrorMessage = "このコミュニティはフォローできません。"
+                Return View(model)
+            End If
+
+            ' Switch following
+            If followed Then
+                appUser.Communities.Remove(com)
+            Else
+                appUser.Communities.Add(com)
+            End If
+
+            Await db.SaveChangesAsync
+
+            Return RedirectToAction("Details", "Communities", New With {.id = com.Id})
+
+        Catch eEx As System.Data.Entity.Validation.DbEntityValidationException
+            For Each er In eEx.EntityValidationErrors
+                For Each e In er.ValidationErrors
+                    Debug.Print(e.ErrorMessage)
+                Next
+            Next
+            Return View(model)
+        Catch ex As Exception
+            ModelState.AddInternalError(User, ex)
+            Return View(model)
+        End Try
+
+    End Function
 
     Private Function CanEdit(appUser As ApplicationUser, community As Community) As Boolean
         If appUser Is Nothing Then

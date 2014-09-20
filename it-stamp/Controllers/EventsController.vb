@@ -250,6 +250,7 @@ Public Class EventsController
             Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
         End If
 
+
         Dim n = Now
         Dim hasTime = Not (ev.StartDateTime.Date = ev.EndDateTime.Date AndAlso ev.StartDateTime.TimeOfDay = ev.EndDateTime.TimeOfDay)
         Dim viewModel = New EventDetailsViewModel With {
@@ -273,9 +274,15 @@ Public Class EventsController
             .SpecialEventId = If(ev.SpecialEvents IsNot Nothing, ev.SpecialEvents.Id, Nothing),
             .PrefectureId = ev.Prefecture.Id,
             .PrefectureSelectList = New SelectList(db.Prefectures, "Id", "Name"),
-            .CommunitiesSelectList = New SelectList(db.Communities.Where(Function(c) Not c.IsHidden).OrderBy(Function(c) c.Name), "Id", "Name"),
             .CommunityId = If(ev.Community IsNot Nothing, ev.Community.Id, Nothing)
             }
+
+        If ev.Community Is Nothing OrElse User.IsInRole("Admin") Then
+            viewModel.CommunitiesSelectList = New SelectList(db.Communities.Where(Function(c) Not c.IsHidden).OrderBy(Function(c) c.Name), "Id", "Name")
+        Else
+            viewModel.CommunitiesSelectList = New SelectList(db.Communities.Where(Function(c) c.Id = ev.Community.Id), "Id", "Name")
+        End If
+
 
         Return View(viewModel)
     End Function
@@ -316,22 +323,17 @@ Public Class EventsController
 
             ev.Prefecture = db.Prefectures.Where(Function(p) p.Id = viewModel.PrefectureId).FirstOrDefault
 
-            'ev.SpecialEvents = If(viewModel.SpecialEventId.HasValue, db.SpecialEvents.Where(Function(e) e.Id = viewModel.SpecialEventId.Value).FirstOrDefault, Nothing)
+            If viewModel.CommunityId.HasValue Then
+                ev.Community = db.Communities.Where(Function(c) c.Id = viewModel.CommunityId.Value).FirstOrDefault
+            Else
+                ev.Community = Nothing
+            End If
 
-            'If viewModel.CommunityId.HasValue Then
-            '    ev.Community = db.Communities.Where(Function(c) c.Id = viewModel.CommunityId.Value).FirstOrDefault
-            'Else
-            '    ev.Community = Nothing
-            'End If
-
-            'ev.Community = Nothing
-
-            'If viewModel.SpecialEventId.HasValue Then
-            '    ev.SpecialEvents = db.SpecialEvents.Where(Function(e) e.Id = viewModel.SpecialEventId.Value).FirstOrDefault
-            'Else
-            '    ev.SpecialEvents = Nothing
-            'End If
-
+            If viewModel.SpecialEventId.HasValue Then
+                ev.SpecialEvents = db.SpecialEvents.Where(Function(e) e.Id = viewModel.SpecialEventId.Value).FirstOrDefault
+            Else
+                ev.SpecialEvents = Nothing
+            End If
 
             ev.LastUpdatedBy = appUser
             ev.LastUpdatedDateTime = Now

@@ -2,7 +2,6 @@
 
 @Code
     ViewBag.Title = "チェックイン"
-    Dim e = Model.Event
 End Code
 
 @Html.Partial("_TopBanner")
