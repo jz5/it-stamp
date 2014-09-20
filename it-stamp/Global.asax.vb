@@ -11,5 +11,6 @@ Public Class MvcApplication
         BundleConfig.RegisterBundles(BundleTable.Bundles)
         DefaultModelBinder.ResourceClassKey = "MyResource"
         DataAnnotationsModelValidatorProvider.RegisterAdapter(GetType(RequiredAttribute), GetType(MyRequiredAttributeAdapter))
+        GlobalFilters.Filters.Add(New ValidateInputAttribute(False))
     End Sub
 End Class
