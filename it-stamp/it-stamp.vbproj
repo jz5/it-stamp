@@ -268,6 +268,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\animate.css" />
     <Content Include="Content\bootflat.css" />
     <Content Include="Content\bootstrap-timepicker.css" />
     <Content Include="Content\bootstrap.css" />
@@ -361,7 +362,6 @@
     <Content Include="Scripts\bootstrap-timepicker.min.js.map">
       <DependentUpon>bootstrap-timepicker.min.js</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="images\check_flat\default.png" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-timepicker.js" />
@@ -369,14 +369,16 @@
     <Content Include="Scripts\fileinput.js" />
     <Content Include="Scripts\fileinput.min.js" />
     <Content Include="Scripts\icheck.min.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery.bxslider.js" />
     <Content Include="Scripts\jquery.bxslider.min.js" />
     <Content Include="Scripts\jquery.easing.min.js" />
     <Content Include="Scripts\jquery.fs.selecter.min.js" />
     <Content Include="Scripts\jquery.fs.stepper.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ja.js" />
     <Content Include="scss\.csscomb.json" />
     <Content Include="scss\.csslintrc" />
@@ -456,6 +458,7 @@
     <Content Include="Views\Communities\Follow.vbhtml" />
     <Content Include="Views\Communities\Delete.vbhtml" />
     <Content Include="Views\Events\Delete.vbhtml" />
+    <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Views\Events\Details.vbhtml" />
     <Content Include="Views\Shared\_SidebarPartial.vbhtml" />
     <Content Include="Views\Shared\_EventResults.vbhtml" />

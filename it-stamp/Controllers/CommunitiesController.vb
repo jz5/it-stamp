@@ -382,6 +382,11 @@ Public Class CommunitiesController
 
             Await db.SaveChangesAsync
 
+            ' for Ajax
+            If Request.IsAjaxRequest Then
+                Return Json(New With {.followed = Not followed})
+            End If
+
             Return RedirectToAction("Details", "Communities", New With {.id = com.Id})
 
         Catch eEx As System.Data.Entity.Validation.DbEntityValidationException
@@ -390,11 +395,15 @@ Public Class CommunitiesController
                     Debug.Print(e.ErrorMessage)
                 Next
             Next
-            Return View(model)
         Catch ex As Exception
             ModelState.AddInternalError(User, ex)
-            Return View(model)
         End Try
+
+        If Request.IsAjaxRequest Then
+            Return Json(Nothing)
+        Else
+            Return View(model)
+        End If
 
     End Function
 

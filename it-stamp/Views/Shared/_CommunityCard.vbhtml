@@ -22,9 +22,9 @@ End Code
             End If
         End If
 
-        @If Request.IsAuthenticated AndAlso ViewData("Details") Then
+        @If Request.IsAuthenticated AndAlso ViewData("Details") AndAlso Not Model.IsHidden Then
             @<div class="text-center">
-                @Using Html.BeginForm("Follow", "Communities", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
+                @Using Ajax.BeginForm("Follow", "Communities", New With {.id = Model.Id}, New AjaxOptions With {.HttpMethod = "POST", .OnSuccess = "onSuccess", .OnBegin = "onBegin"}, New With {.class = "form-horizontal", .role = "form"})
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(Function(m) m.Id)
                     @Html.HiddenFor(Function(m) m.Name)
@@ -52,5 +52,3 @@ End Code
         End If
     </div>
 </div>
-
-

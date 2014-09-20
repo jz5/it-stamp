@@ -23,9 +23,24 @@ End Code
             <div>@Model.Prefecture.Name @Model.Place</div>
             <div>@Model.Description.Excerpt</div>
 
-            @If Model.Community IsNot Nothing Then
-                @<div><a href="@Href("/Communities/")@Model.Community.Id">@Model.Community.Name</a></div>
-            End If
+            <div class="clearfix">
+
+                @If Model.Community IsNot Nothing Then
+                    @<div class="pull-left"><a href="@Href("/Communities/")@Model.Community.Id">@Model.Community.Name</a></div>
+                End If
+
+                @*<div style="" class="pull-right small">
+                    <div class="pull-left">
+                        <a href="#"><i class="glyphicon glyphicon-ok"></i> チェックイン 0</a>
+                    </div>
+                    <div class="pull-left" style="margin-left: 16px;">
+                        <a href="#"><i class="glyphicon glyphicon-star"></i> お気に入り 0</a>
+                    </div>
+                    <div class="pull-left" style="margin-left: 16px;">
+                        <a href="#"><i class="glyphicon glyphicon-comment"></i> コメント 0</a>
+                    </div>
+                </div>*@
+            </div>
         </div>
     </div>
 </div>

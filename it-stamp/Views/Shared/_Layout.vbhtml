@@ -89,7 +89,8 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    @*<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>*@
+    @Scripts.Render("~/bundles/jquery")
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     @Scripts.Render("~/bundles/script")
     <script>

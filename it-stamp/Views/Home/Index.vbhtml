@@ -58,3 +58,15 @@ End Code
         @Html.Partial("_SidebarPartial")
     </div>
 </div>
+
+@section Scripts
+    <script>
+        //(function ($) {
+        //    $(".media").hover(function () {
+        //        $(this).css("background-color:");
+        //    }, function () {
+        //    });
+        //})(jQuery);
+
+    </script>
+End Section

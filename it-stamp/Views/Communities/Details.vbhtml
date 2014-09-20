@@ -40,7 +40,7 @@ End Code
                 @For Each m In Model.Members.Where(Function(u) Not u.IsPrivate)
                     @<a href="@Href("~/Users/" & m.UserName)"><img src="@(If(M.IconPath <> "", Href("/Uploads/" & m.IconPath), "http://placehold.it/16x16"))" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
                 Next
-                                                                If Model.Members.Where(Function(u) u.IsPrivate).Count > 0 Then
+                                                                                                                                If Model.Members.Where(Function(u) u.IsPrivate).Count > 0 Then
                 @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
                 End If
 
@@ -66,24 +66,42 @@ End Code
     </div>
 </div>
 
-
+@section Styles
+    <link href="@Href("~/Content/animate.css")" rel="stylesheet" />
+End Section
 @section Scripts
+    @Scripts.Render("~/bundles/jqueryval")
     <script>
-        (function ($) {
-            var followed = @(If(ViewBag.Followd, "true", "false"));
-            if (followed) {
-                $("#follow-btn").hover(function () {
-                    $(this).val("解除").removeClass("btn-default").addClass("btn-primary");
-                },function () {
-                    $(this).val("フォロー中").removeClass("btn-primary").addClass("btn-default");
-                });
-            } else {
-                $("#follow-btn").hover(function () {
-                    $(this).removeClass("btn-default").addClass("btn-primary");
-                },function () {
-                    $(this).removeClass("btn-primary").addClass("btn-default");
-                });
+        var followed = @(If(ViewBag.Followd, "true", "false"));
+        function onSuccess(result) {
+            if (result) {
+                followed = result.followed;
+                $("#follow-btn")
+                    .val(result.followed ? "フォロー中" : "フォロー")
+                    .addClass("animated bounceIn")
+                    .one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", function() {
+                        $(this).removeClass("animated bounceIn");
+                    });
             }
+        }
+
+        function onBegin() {
+        }
+
+        (function ($) {
+            $("#follow-btn").hover(function () {
+                if (followed) {
+                    $(this).val("解除").removeClass("btn-default").addClass("btn-primary");
+                } else {
+                    $(this).removeClass("btn-default").addClass("btn-primary");
+                }
+            },function () {
+                if (followed) {
+                    $(this).val("フォロー中").removeClass("btn-primary").addClass("btn-default");
+                } else {
+                    $(this).removeClass("btn-primary").addClass("btn-default");
+                }
+            });
         })(jQuery);
     </script>
 End Section

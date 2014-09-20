@@ -170,6 +170,9 @@ End Code
         <p>（未実装）</p>
 
 
+        <h2>このコミュニティのIT勉強会</h2>
+        <p>（未実装）</p>
+
         @Html.Partial("_SocialButtons")
 
         @If ViewBag.CanEdit Then
