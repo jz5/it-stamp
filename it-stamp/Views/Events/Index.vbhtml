@@ -4,7 +4,7 @@
     ViewBag.Title = "IT勉強会一覧"
 End Code
 
-@Html.Partial("_TopBanner")
+@*@Html.Partial("_TopBanner")*@
 
 <div class="row">
     <div class="col-md-8">

@@ -2,6 +2,7 @@
 Imports System.ComponentModel.DataAnnotations
 Imports Microsoft.AspNet.Identity.EntityFramework
 Imports System.ComponentModel.DataAnnotations.Schema
+Imports System.Data.Entity.Spatial
 
 Public Class [Event]
     <Key>
@@ -27,6 +28,7 @@ Public Class [Event]
     Overridable Property Prefecture As Prefecture
     <StringLength(100)>
     Property Address As String
+    Property Location As DbGeography
     <StringLength(100)>
     Property Place As String
 
@@ -98,6 +100,8 @@ Public Class CheckIn
     Property [Event] As [Event]
     <Required>
     Overridable Property User As ApplicationUser
+
+    Property Location As DbGeography
 
     Overridable Property Stamp As Stamp
     <Required>

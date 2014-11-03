@@ -9,6 +9,7 @@ Imports Owin
 Imports System
 Imports Microsoft.Owin.Security.Twitter
 Imports System.Security.Claims
+Imports Microsoft.Owin.Security.Facebook
 
 Partial Public Class Startup
     ' 認証設定の詳細については、http://go.microsoft.com/fwlink/?LinkId=301864 を参照してください
@@ -44,13 +45,36 @@ Partial Public Class Startup
                     .OnAuthenticated = Async Function(context)
                                            context.Identity.AddClaim(New Claim("urn:tokens:twitter:accesstoken", context.AccessToken))
                                            context.Identity.AddClaim(New Claim("urn:tokens:twitter:accesstokensecret", context.AccessTokenSecret))
+                                           ' context.Identity.AddClaim(New Claim("urn:twitter:screenname", context.ScreenName))
                                        End Function
                     }
                 })
 
+        'app.UseFacebookAuthentication(
+        '   appId:=ConfigurationManager.AppSettings("FacebookAppId"),
+        '   appSecret:=ConfigurationManager.AppSettings("FacebookAppSecret"))
+
+
         app.UseFacebookAuthentication(
-           appId:=ConfigurationManager.AppSettings("FacebookAppId"),
-           appSecret:=ConfigurationManager.AppSettings("FacebookAppSecret"))
+            New FacebookAuthenticationOptions With {
+                .AppId = ConfigurationManager.AppSettings("FacebookAppId"),
+                .AppSecret = ConfigurationManager.AppSettings("FacebookAppSecret"),
+                .Provider = New FacebookAuthenticationProvider With {
+                    .OnAuthenticated = Async Function(context)
+                                           context.Identity.AddClaim(New Claim("urn:facebook:access_token", context.AccessToken))
+                                           'context.Identity.AddClaim(New Claim("urn:facebook:name", context.Name))
+                                           'context.Identity.AddClaim(New Claim("urn:facebook:id", context.Id))
+                                           '' Get all claims
+                                           'For Each c In context.User
+                                           '    Dim claimType = String.Format("urn:facebook:{0}", c.Key)
+                                           '    Dim claimValue = c.Value.ToString
+                                           '    If Not context.Identity.HasClaim(claimType, claimValue) Then
+                                           '        context.Identity.AddClaim(New Claim(claimType, claimValue, "XmlSchemaString", "Facebook"))
+                                           '    End If
+                                           'Next
+                                       End Function
+                    }
+                })
 
         app.UseGoogleAuthentication(New GoogleOAuth2AuthenticationOptions() With {
            .ClientId = ConfigurationManager.AppSettings("GoogleClientId"),

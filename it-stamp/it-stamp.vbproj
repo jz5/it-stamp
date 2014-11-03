@@ -48,6 +48,9 @@
     <Reference Include="CoreTweet">
       <HintPath>..\packages\CoreTweet.0.3.4\lib\net45\CoreTweet.dll</HintPath>
     </Reference>
+    <Reference Include="Facebook">
+      <HintPath>..\packages\Facebook.6.8.0\lib\net45\Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -269,6 +272,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\animate.css" />
+    <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootflat.css" />
     <Content Include="Content\bootstrap-timepicker.css" />
     <Content Include="Content\bootstrap.css" />
@@ -346,6 +350,7 @@
     <Content Include="App_Data\Uploads\Icons\icon46.png" />
     <Content Include="App_Data\Uploads\Icons\icon47.png" />
     <Content Include="images\loading.gif" />
+    <Content Include="images\nareruse.png" />
     <Content Include="images\stamprally\gold.png" />
     <Content Include="images\logo.png" />
     <Content Include="images\logo2x.png" />

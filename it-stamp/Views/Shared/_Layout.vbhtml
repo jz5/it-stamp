@@ -5,14 +5,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@(If(ViewBag.Title = "", "IT勉強会スタンプ", ViewBag.Title & " | IT勉強会スタンプ"))</title>
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
     @Styles.Render("~/Content/css")
+    @*<link rel="stylesheet" href="http://themicon.co/theme/beadmin/app/css/app.css" />*@
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("styles", required:=False)
     <meta name="description" content="IT勉強会スタンプは、IT勉強会の参加を記録できるWebサービスです。" />
 </head>
 <body>
-    <div class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -44,10 +45,25 @@
             </div>
         </div>
     </div>
+    <div class="container-fluid" style="background-color:#FF7D7C;">
+        <div class="container">
+            <div class="top-slider">
+                <ul class="bxslider">
+                    <li><a href="#"><img src="~/images/nareruse.png" class="banner-img" style="display:none" /></a></li>
+                    <li><a href="#"><img src="http://placehold.it/1140x321/ffffff/222222" class="banner-img" style="display:none" /></a></li>
+                    <li><a href="#"><img src="http://placehold.it/1140x321/ccffff/222222" class="banner-img" style="display:none" /></a></li>
+                    <li><a href="#"><img src="http://placehold.it/1140x321/ffccff/222222" class="banner-img" style="display:none" /></a></li>
+                    <li><a href="#"><img src="http://placehold.it/1140x321/ffffcc/222222" class="banner-img" style="display:none" /></a></li>
+                    <li><a href="#"><img src="http://placehold.it/1140x321/ccccff/222222" class="banner-img" style="display:none" /></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <div class="container">
         @RenderBody()
     </div>
     <div class="footer">
+
         <div class="container">
             <div class="row">
                 <div class="col-md-4">

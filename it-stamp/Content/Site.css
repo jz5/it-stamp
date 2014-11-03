@@ -5,12 +5,25 @@
 
 body {
     margin-bottom: 400px; /* for footer height*/
-    background-color: #F5F7FA;
+    background-color: #eee;
     -ms-text-autospace: ideograph-alpha;
+    font-size: 15px;
 }
+
+    body > .container {
+        background: #fff;
+    }
 
 body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: 'メイリオ', Meiryo, 'ヒラギノ角ゴ Pro W3', Osaka, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.btn {
+    font-size: 15px;
+}
+
+::selection {
+    background: #12BEBD;
 }
 
 h1 {
@@ -31,8 +44,20 @@ hr {
     border-top: 1px dashed #AAB2BD;
 }
 
-body > .container {
+body + .container {
     padding: 50px 15px 20px;
+}
+
+body > .container-fluid {
+    padding: 50px 15px 20px;
+}
+
+.container > .row {
+    margin-top: 30px;
+}
+
+.footer > .container {
+    background: #222 url(http://authenticgoods.co/wrapbootstrap/themes/sparks/img/footer-stripes.png) top left repeat-x
 }
 
 
@@ -112,7 +137,7 @@ button#Twitter {
 }
 
 .sidebar {
-    margin-top: 30px;
+    /*margin-top: 30px;*/
 }
 
 .top-slider + .row .sidebar {
@@ -134,19 +159,19 @@ button#Twitter {
     padding: 10px;
 }
 
-    .media:hover {
+/*.media:hover {
         background-color: #fff;
-    }
+    }*/
 
 h1 + .media { /* community, event details */
     padding: 0;
     margin-bottom: 30px;
 }
 
-    h1 + .media:hover {
+/*h1 + .media:hover {
         background-color: transparent;
         padding: 0;
-    }
+    }*/
 
 .panel-body .media {
     padding: 0;
@@ -162,15 +187,15 @@ h1 + .media { /* community, event details */
     margin-left: 20px;
 }
 
-.text-primary, .text-danger {
+/*.text-primary, .text-danger {
     color: #F05080;
-}
+}*/
 
 .badge {
     vertical-align: middle;
 }
 
-.dropdown-menu li a {
+/*.dropdown-menu li a {
     display: block;
     color: #d94e8c;
 }
@@ -179,7 +204,7 @@ h1 + .media { /* community, event details */
     .dropdown-menu li a:hover {
         color: #fff;
         background-color: #F05080;
-    }
+    }*/
 
 
 /* Social buttons */
@@ -281,16 +306,24 @@ h1 + .media { /* community, event details */
     bottom: 0;
     width: 100%;
     height: 400px; /* for footer height */
-    border-top: 1px dashed #AAB2BD;
+    /*border-top: 1px dashed #AAB2BD;*/
     padding: 0 0 20px;
-    background-color: #f5f5f5;
     font-size: 14px;
+    color: #fff;
 }
 
     .footer > .container {
         padding-left: 15px;
         padding-right: 15px;
     }
+
+    .footer a {
+        color: #fff;
+    }
+
+        .footer a:hover {
+            color: #12bebd;
+        }
 
 /* Special Events */
 

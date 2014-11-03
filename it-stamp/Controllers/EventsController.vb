@@ -326,13 +326,17 @@ Public Class EventsController
             If viewModel.CommunityId.HasValue Then
                 ev.Community = db.Communities.Where(Function(c) c.Id = viewModel.CommunityId.Value).FirstOrDefault
             Else
-                ev.Community = Nothing
+                If ev.Community IsNot Nothing Then
+                    ev.Community = Nothing
+                End If
             End If
 
             If viewModel.SpecialEventId.HasValue Then
                 ev.SpecialEvents = db.SpecialEvents.Where(Function(e) e.Id = viewModel.SpecialEventId.Value).FirstOrDefault
             Else
-                ev.SpecialEvents = Nothing
+                If ev.SpecialEvents IsNot Nothing Then
+                    ev.SpecialEvents = Nothing
+                End If
             End If
 
             ev.LastUpdatedBy = appUser

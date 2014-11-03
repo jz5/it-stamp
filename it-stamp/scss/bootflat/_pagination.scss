@@ -1,11 +1,11 @@
 // Variables
 //------------------------------------------------------
 $pagination-background-color:                  $white !default;
-$pagination-background-color-hover:            $mediumgray-light !default;
-$pagination-background-color-active:           $pink-dark !default;
+$pagination-background-color-hover:            $lightgray-dark !default;
+$pagination-background-color-active:           $green-light !default;
 
 $pagination-font-color:                        $darkgray-dark !default;
-$pagination-font-color-hover:                  $white !default;
+//$pagination-font-color-hover:                  $white !default;
 $pagination-font-color-disabled:               $darkgray-dark !default;
 
 // Exports
@@ -29,7 +29,7 @@ $pagination-font-color-disabled:               $darkgray-dark !default;
     & > li > span:hover,
     & > li > a:focus,
     & > li > span:focus {
-      color: $pagination-font-color-hover;
+      //color: $pagination-font-color-hover;
       background-color: $pagination-background-color-hover;
       border-color: $pagination-background-color-hover;
     }
@@ -39,7 +39,7 @@ $pagination-font-color-disabled:               $darkgray-dark !default;
     & > .active > span:hover,
     & > .active > a:focus,
     & > .active > span:focus {
-      color: $pagination-font-color-hover;
+      //color: $pagination-font-color-hover;
       background-color: $pagination-background-color-active;
       border-color: $pagination-background-color-active;
     }

@@ -236,6 +236,18 @@ Public Class AccountController
         Dim result As IdentityResult = Await UserManager.RemoveLoginAsync(User.Identity.GetUserId(), New UserLoginInfo(loginProvider, providerKey))
         If result.Succeeded Then
             Dim userInfo = Await UserManager.FindByIdAsync(User.Identity.GetUserId())
+
+            Select Case loginProvider
+                Case "Twitter"
+                    userInfo.Twitter = Nothing
+                    userInfo.ShareTwitter = False
+                    Await UserManager.UpdateAsync(userInfo)
+                Case "Facebook"
+                    userInfo.Facebook = Nothing
+                    userInfo.ShareFacebook = False
+                    Await UserManager.UpdateAsync(userInfo)
+            End Select
+
             Await SignInAsync(userInfo, isPersistent:=False)
             message = ManageMessageId.RemoveLoginSuccess
         Else
@@ -385,6 +397,9 @@ Public Class AccountController
         ' ユーザーが既にログインを持っている場合、この外部ログイン プロバイダーを使用してユーザーをサインインします
         Dim user = Await UserManager.FindAsync(loginInfo.Login)
         If user IsNot Nothing Then
+
+            Await StoreAuthTokenClaims(user)
+
             Await SignInAsync(user, isPersistent:=False)
             Return RedirectToLocal(returnUrl)
         Else
@@ -472,15 +487,54 @@ Public Class AccountController
             Dim currentClaims = Await UserManager.GetClaimsAsync(user.Id)
 
             ' Get the list of access token related claims from the identity
-            Dim tokenClaims = claimsIdentity.Claims.Where(Function(c) c.Type.StartsWith("urn:tokens:"))
+            Dim tokenClaims = claimsIdentity.Claims.Where(Function(c) c.Type.StartsWith("urn:"))
 
             ' Save the access token related claims
             For Each tokenClaim In tokenClaims
-                If Not currentClaims.Contains(tokenClaim) Then
+                Dim oldClaim = currentClaims.Where(Function(c) c.Type = tokenClaim.Type).FirstOrDefault
+                If oldClaim IsNot Nothing AndAlso oldClaim.Value <> tokenClaim.Value Then
+                    ' Replace
+                    Await UserManager.RemoveClaimAsync(user.Id, oldClaim)
+                    Await UserManager.AddClaimAsync(user.Id, tokenClaim)
+                ElseIf oldClaim Is Nothing Then
+                    ' Add
                     Await UserManager.AddClaimAsync(user.Id, tokenClaim)
                 End If
             Next
+
+            Await UpdateTwitterScreenName(user, tokenClaims)
+            Await UpdateFacebookId(user, tokenClaims)
         End If
+    End Function
+
+    Private Async Function UpdateTwitterScreenName(user As ApplicationUser, claims As IEnumerable(Of Claim)) As Task
+
+        ' Update ScreenName
+        Dim claim = claims.Where(Function(x) x.Type = "urn:twitter:screenname").SingleOrDefault
+        If claim IsNot Nothing AndAlso user.Twitter <> claim.Value Then
+            user.Twitter = claim.Value
+            Await UserManager.UpdateAsync(user)
+        End If
+
+    End Function
+
+    Private Async Function UpdateFacebookId(user As ApplicationUser, claims As IEnumerable(Of Claim)) As Task
+
+        Dim claim = claims.Where(Function(x) x.Type = "urn:facebook:access_token").SingleOrDefault
+
+        Dim fb = New Facebook.FacebookClient(claim.Value)
+        Dim post = New With {
+            .name = "Facebook SDK for .NET",
+            .caption = "Build great social apps and get more installs.",
+            .description = "The Facebook SDK for .NET makes it easier and faster to develop Facebook integrated .NET apps.",
+            .link = "http://facebooksdk.net/",
+            .picture = "http://facebooksdk.net/assets/img/logo75x75.png"
+        }
+
+        Dim fbPostTaskResult = Await fb.PostTaskAsync("/me/feed", post)
+        Dim reslut = DirectCast(fbPostTaskResult, IDictionary(Of String, Object))
+
+
     End Function
 
     '

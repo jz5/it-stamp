@@ -164,7 +164,22 @@ End Code
             End If
         End Using
 
-
+        @*<div class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title"><i class="glyphicon glyphicon-ok"></i> チェックイン</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>One fine body&hellip;</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">チェックイン</button>
+                    </div>
+                </div>
+            </div>
+        </div>*@
 
         <h2><i class="glyphicon glyphicon-comment"></i> コメント</h2>
         <p>（未実装）</p>
