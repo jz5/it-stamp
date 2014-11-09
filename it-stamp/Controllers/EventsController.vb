@@ -41,9 +41,9 @@ Public Class EventsController
 
     ' GET: Events
     <AllowAnonymous>
-    Function Index(page As Integer?, past As Boolean?) As ActionResult
+    Function Index(page As Integer?, past As Boolean?, isSpecialEvent As Boolean?) As ActionResult
 
-        Dim results As IOrderedQueryable(Of [Event])
+        Dim results As IQueryable(Of [Event])
         Dim n = Now.Date
         If past.HasValue AndAlso past.Value = True Then
             ' 過去
@@ -53,6 +53,10 @@ Public Class EventsController
             results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.StartDateTime >= n).OrderBy(Function(e) e.StartDateTime)
         End If
 
+        ' さらに絞り込む
+        If isSpecialEvent.HasValue AndAlso isSpecialEvent = True Then
+            results = (From item In results Where (item.SpecialEvents IsNot Nothing))
+        End If
 
         Dim viewModel = New SearchEventsViewModel With {
             .TotalCount = results.Count
@@ -105,11 +109,28 @@ Public Class EventsController
         ViewBag.CanEdit = CanEdit(appUser, ev)
 
         ' チェックイン済みか
+        ' TwitterやFacebookとの連携状況
         If appUser IsNot Nothing Then
             Dim ci = db.CheckIns.Where(Function(c) c.User.Id = appUser.Id AndAlso c.Event.Id = ev.Id).SingleOrDefault
             ViewBag.CheckIned = ci IsNot Nothing
+            ViewBag.AssosiatedTwitter = appUser.Twitter <> String.Empty
+            ViewBag.AssosiatedFacebook = (appUser.Facebook <> String.Empty)
+            ViewBag.ShareTwitter = appUser.ShareTwitter
+            ViewBag.ShareFacebook = appUser.ShareFacebook
+            ViewBag.IsPrivateUser = appUser.IsPrivate
         Else
             ViewBag.CheckIned = False
+            ViewBag.AssosiatedTwitter = False
+            ViewBag.AssosiatedFacebook = False
+            ViewBag.ShareTwitter = False
+            ViewBag.ShareFacebook = False
+            ViewBag.IsPrivateUser = False
+        End If
+
+        If ev.IsCanceled OrElse ev.IsHidden Then
+            ViewBag.CanCheckIn = False
+        Else
+            ViewBag.CanChackIn = True
         End If
 
         ' Message
@@ -408,6 +429,11 @@ Public Class EventsController
             Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
         End If
 
+        ' すでにチェックイン済みかどうかも調べる
+        If db.CheckIns.Where(Function(c) c.User.Id = appUser.Id AndAlso c.Event.Id = ev.Id).SingleOrDefault IsNot Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
         Try
             viewModel.Event = ev
 
@@ -438,7 +464,35 @@ Public Class EventsController
                 .Stamp = stamp}
 
             db.CheckIns.Add(ci)
+
+            If viewModel.ShareTwitter Then
+                ' TODO: Twitterへ投稿
+
+            End If
+
+            If viewModel.ShareFacebook Then
+                ' TODO: Facebookへ投稿
+
+            End If
+
+            If viewModel.AdditionalMessage <> String.Empty Then
+                ' TODO: コメントを追加
+
+                'ev.Comments.Add(New Comment() With {
+                '                .Content = viewModel.AdditionalMessage,
+                '                .CreatedBy = appUser,
+                '                .CreationDateTime = DateTime.Now,
+                '                .Event = ev,
+                '                .id = -1
+                '                })
+
+            End If
+
             Await db.SaveChangesAsync
+
+            If Request.IsAjaxRequest Then
+                Return Json(New With {.checkined = True})
+            End If
 
             Return RedirectToAction("Details", "Events", New With {.id = ev.Id, .message = DetailsMessage.CheckIn, .stamp = stamp})
         Catch eEx As System.Data.Entity.Validation.DbEntityValidationException
@@ -447,11 +501,15 @@ Public Class EventsController
                     Debug.Print(e.ErrorMessage)
                 Next
             Next
-            Return View(viewModel)
         Catch ex As Exception
             ModelState.AddInternalError(User, ex)
-            Return View(viewModel)
         End Try
+
+        If Request.IsAjaxRequest Then
+            Return Json(Nothing)
+        Else
+            Return View(viewModel)
+        End If
 
     End Function
 

@@ -8,6 +8,9 @@ End Code
     </a>
     <div class="media-body">
         <h3><a href="@Href("/Events/")@Model.Id">@Model.Name</a></h3>
+        @If Model.SpecialEvents IsNot Nothing Then
+            @<div class="special-event" />
+        End If
         <div>
             <div>
                 @Model.FriendlyDateTime

@@ -36,23 +36,29 @@ End Code
                     </div>
                 </div>
 
-                <h2>参加したIT勉強会</h2>
+        <h2>参加したIT勉強会</h2>
+        <div>
+            @If Model.CheckIns.Count = 0 Then
+                @<p class="text-muted">参加したIT勉強会はありません。</p>
+            Else
+                @For Each item In Model.CheckIns
+                    Dim stamp = If(item.Stamp IsNot Nothing AndAlso item.Stamp.Path <> "", Href("/Uploads/" & item.Stamp.Path), "http://placehold.it/96x96")
+                    @<a href="@Href("/Events/")@item.Id"><img class="img-rounded" src="@stamp" /></a>
+                Next
+            End If
+        </div>
 
-                @If Model.Communities.Count = 0 Then
-                    @<p class="text-muted">参加したIT勉強会はありません。</p>
-                Else
-                    @<p class="text-muted">（未実装）</p>
+        <h2>コミュニティ</h2>
+        <div>
+            @If Model.Communities.Count = 0 Then
+                @<p class="text-muted">フォローしているコミュニティはありません。</p>
+            Else
+                @For Each item In Model.Communities
+                    Dim stamp = If(item.IconPath <> "", Href("/Uploads/" & item.IconPath), "http://placehold.it/96x96")
+                    @<a href="@Href("/Community/")@item.Id"><img class="img-rounded" src="@stamp" /></a>
+                Next
                 End If
-
-                <h2>コミュニティ</h2>
-
-                @If Model.Communities.Count = 0 Then
-                    @<p class="text-muted">フォローしているコミュニティはありません。</p>
-                Else
-                    @<p class="text-muted">（未実装）</p>
-                End If
-
-
+        </div>
 
 
                 @Html.Partial("_SocialButtons")

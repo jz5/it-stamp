@@ -21,6 +21,7 @@ End Code
                     <a data-toggle="dropdown" href="#">検索条件 <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li>@Html.ActionLink("開催予定の勉強会", "Index", "Events", Nothing, Nothing)</li>
+                        <li>@Html.ActionLink("開催予定の勉強会（スタンプラリー対象）", "Index", "Events", New With {.isSpecialEvent = True}, Nothing)</li>
                         <li>@Html.ActionLink("過去の勉強会", "Index", "Events", New With {.past = True}, Nothing)</li>
                     </ul>
                 </div>

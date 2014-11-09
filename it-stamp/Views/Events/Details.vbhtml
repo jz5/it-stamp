@@ -16,7 +16,18 @@
     ElseIf Model.Address Is Nothing Then
         searchAddress = Model.Place
     End If
-
+    
+    Dim twitterCheckBoxOption = Nothing
+    Dim facebookCheckBoxOption = Nothing
+    
+    If Not ViewBag.AssosiatedTwitter Then
+        twitterCheckBoxOption = New With {.disabled = "disabled"}
+    End If
+    
+    If Not ViewBag.AssosiatedFacebook Then
+        facebookCheckBoxOption = New With {.disabled = "disabled"}
+    End If
+    
 End Code
 
 @Html.Partial("_TopBanner")
@@ -136,7 +147,7 @@ End Code
         </div>
 
 
-        @Using Html.BeginForm("CheckIn", "Events", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
+        @Using Ajax.BeginForm("CheckIn", "Events", New With {.id = Model.Id}, New AjaxOptions() With {.HttpMethod = "POST", .OnSuccess = "onSuccess", .OnBegin = "onBegin"}, New With {.class = "form-horizontal", .id = "checkin-form", .role = "form"})
             @Html.AntiForgeryToken()
             @Html.Hidden("Event.Id", Model.Id)
             @Html.Hidden("Event.Name", Model.Name)
@@ -148,21 +159,70 @@ End Code
             ElseIf Model.IsCanceled OrElse Model.IsHidden Then
                 @<p>チェックインできません。</p>
 
+            ElseIf Not ViewBag.CanChackIn Then
+                @<p>このIT勉強会にはチェックインできません。</p>
+                
             ElseIf Model.StartDateTime.AddHours(-1) <= Now Then
                 If Not Request.IsAuthenticated Then
                 @<p>@Html.ActionLink("ログイン", "Login", "Account", New With {.ReturnUrl = If(Request.RawUrl.ToLower.Contains("login"), "", Request.RawUrl)}, Nothing) してチェックイン！</p>
                 Else
+                    
                 @<div class="form-group">
                     <div class="form-inline">
                         <input type="submit" value="クイック チェックイン" class="btn btn-primary" />
-                        @Html.ActionLink("チェックイン", "CheckIn", "Events", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#confirm-modal">チェックイン</button>
+                        @*@Html.ActionLink("チェックイン", "CheckIn", "Events", New With {.id = Model.Id}, New With {.class = "btn btn-default"})*@
                     </div>
                 </div>
+                @<!-- Modal Window -->
+                @<div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">チェックイン</h4>
+                            </div>
+                            <div class="modal-body">
+                                @If ViewBag.IsPrivateUser Then
+                                    @<p>チェックインしますか？<br />（共有コメントの投稿にはプライベートモードを解除する必要があります）</p>
+                                Else
+                                    @Html.TextArea("AdditionalMessage", Model.Name + "にチェックイン！ #itstamp", New With {.maxlength = 1023})
+                                    @<ul class="share-options">
+                                        <li>
+                                            @Html.CheckBox("ShareTwitter", CBool(ViewBag.ShareTwitter AndAlso ViewBag.AssosiatedTwitter), twitterCheckBoxOption)
+                                            @If ViewBag.AssosiatedTwitter Then
+                                                @Html.Label("Twitterへシェア")
+                                            Else
+                                                @Html.Label("Twitterへシェア（未設定）")
+                                            End If
+                                        </li>
+                                        <li>
+                                            @Html.CheckBox("ShareFacebook", CBool(ViewBag.ShareFacebook AndAlso ViewBag.AssosiatedFacebook), facebookCheckBoxOption)
+                                            @If ViewBag.AssosiatedFacebook Then
+                                                @Html.Label("Facebookへシェア")
+                                            Else
+                                                @Html.Label("Facebookへシェア（未設定）")
+                                            End If
+                                        </li>
+                                    </ul>
+                                End If
+                             </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">キャンセル</button>
+                                <input type="submit" value="チェックイン" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 End If
             Else
                 @<p>開始時間の1時間前からチェックインできるようになります。</p>
             End If
         End Using
+
+       
+
 
         @*<div class="modal fade">
             <div class="modal-dialog">
@@ -205,11 +265,81 @@ End Code
 
 
 
-@If searchAddress <> "" Then
-    @Section Scripts
 
-        <script src='http://maps.google.com/maps/api/js?key=AIzaSyAXIgOzni2RmLCFYZH3G6ubKRExWYwd338&sensor=false&language=ja'></script>
-        <script>
+
+@section Styles
+<link href="@Href("~/Content/animate.css")" rel="stylesheet" />
+    <style>
+        #AdditionalMessage {
+            margin: 0 auto;
+            max-width: none;
+            min-height: 5em;
+            width: 100%;
+        }
+
+        .share-options>li {
+            list-style: none;
+        }
+
+
+    </style>
+End Section
+@section Scripts
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        @*var followed = @(If(ViewBag.Followd, "true", "false"));*@
+        function onSuccess(result) {
+            if (result) {
+                if ($('body').hasClass('modal-open')) {
+                    $('#confirm-modal').modal('hide');
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+                }
+
+                $("#checkin-form")
+                    .empty()
+                    .append($("<p>チェックイン済み</p>")
+                        .addClass("animated bounceIn")
+                        .one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", function () {
+                            $(this).removeClass("animated bounceIn");
+                        }));
+            }
+
+
+            //if (result) {
+            //    followed = result.followed;
+            //    $("#follow-btn")
+            //        .val(result.followed ? "フォロー中" : "フォロー")
+            //        .addClass("animated bounceIn")
+            //        .one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", function() {
+            //            $(this).removeClass("animated bounceIn");
+            //        });
+            //}
+        }
+
+        function onBegin() {
+        }
+
+        (function ($) {
+            //$("#follow-btn").hover(function () {
+            //    if (followed) {
+            //        $(this).val("解除").removeClass("btn-default").addClass("btn-primary");
+            //    } else {
+            //        $(this).removeClass("btn-default").addClass("btn-primary");
+            //    }
+            //},function () {
+            //    if (followed) {
+            //        $(this).val("フォロー中").removeClass("btn-primary").addClass("btn-default");
+            //    } else {
+            //        $(this).removeClass("btn-primary").addClass("btn-default");
+            //    }
+            //});
+        })(jQuery);
+    </script>
+
+@If searchAddress <> "" Then
+        @<script src='http://maps.google.com/maps/api/js?key=AIzaSyAXIgOzni2RmLCFYZH3G6ubKRExWYwd338&sensor=false&language=ja'></script>
+        @<script>
             (function ($) {
 
                 var map = new google.maps.Map(document.getElementById("map"), {
@@ -226,7 +356,7 @@ End Code
 
                         var marker = new google.maps.Marker({
                             position: results[0].geometry.location,
-                            animation: google.maps.Animation.DROP
+                            animation: google.maps.Animation.DROP()
                         });
                         marker.setMap(map);
                     } else {
@@ -237,6 +367,6 @@ End Code
 
             }(jQuery));
         </script>
-    End Section
+    End If
 
-End If
+End Section

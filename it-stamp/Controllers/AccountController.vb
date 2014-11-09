@@ -503,7 +503,7 @@ Public Class AccountController
             Next
 
             Await UpdateTwitterScreenName(user, tokenClaims)
-            Await UpdateFacebookId(user, tokenClaims)
+            'Await UpdateFacebookId(user, tokenClaims)
         End If
     End Function
 
@@ -521,6 +521,10 @@ Public Class AccountController
     Private Async Function UpdateFacebookId(user As ApplicationUser, claims As IEnumerable(Of Claim)) As Task
 
         Dim claim = claims.Where(Function(x) x.Type = "urn:facebook:access_token").SingleOrDefault
+
+        If claim Is Nothing Then
+            Exit Function
+        End If
 
         Dim fb = New Facebook.FacebookClient(claim.Value)
         Dim post = New With {
