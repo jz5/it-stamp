@@ -35,8 +35,7 @@ End Code
             <span class="text-muted"></span>
             <div class="form-inline">
                 <div class="input-group date">
-                    @Html.TextBoxFor(Function(m) m.StartDate, "{0:yyyy/MM/dd}", New With {.class = "form-control", .disabled = "disabled"})<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                    @Html.HiddenFor(Function(m) m.StartDate)
+                    @Html.TextBoxFor(Function(m) m.StartDate, "{0:yyyy/MM/dd}", New With {.class = "form-control"})<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
                 <div class="input-group bootstrap-timepicker">
                     @Html.TextBoxFor(Function(m) m.StartTime, New With {.class = "form-control"})<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
@@ -104,10 +103,10 @@ End Code
             @Html.LabelFor(Function(m) m.CommunityId, New With {.class = "control-label"})
             <span class="text-muted">（指定すると後から変更できません。「未指定」の場合、後から選択できます。）</span>
             <div class="form-inline">
-                <input type="search" value="" class="form-control" placeholder="絞り込み（例: ○○ユーザーグループ）（未実装）" />
+                <input id="com-search-box" type="search" value="" class="form-control" placeholder="絞り込み（例: ○○ユーザーグループ）" />
             </div>
             <div class="form-inline">
-                @Html.DropDownListFor(Function(m) m.CommunityId, Model.CommunitiesSelectList, "(未指定)", New With {.class = "form-control", .size = "10"})
+                @Html.DropDownListFor(Function(m) m.CommunityId, Model.CommunitiesSelectList, "(未指定)", New With {.class = "form-control", .size = "10", .id = "com-list", .style = "min-width:280px;"})
                 @Html.ValidationMessageFor(Function(m) m.CommunityId, "", New With {.class = "text-danger"})
             </div>
         </div>
@@ -128,7 +127,6 @@ End Using
 
 
 @Section Styles
-    @Scripts.Render("~/bundles/jqueryval")
     @Styles.Render("~/Content/datepicker3.css")
     @Styles.Render("~/Content/bootstrap-timepicker.css")
 End Section
@@ -140,34 +138,37 @@ End Section
     @Scripts.Render("~/Scripts/bootstrap-datepicker.js")
     @Scripts.Render("~/Scripts/locales/bootstrap-datepicker.ja.js")
     @Scripts.Render("~/Scripts/bootstrap-timepicker.js")
-
+    @Scripts.Render("~/Scripts/jquery.selectboxsearch.js")
     <script>
-        $('.input-group.date').datepicker({
-            startDate: "@Model.StartDate.ToString("yyyy/MM/dd")",
-            endDate: "@Now.AddYears(1).ToString("yyyy/MM/dd")",
-            todayBtn: "linked",
-            language: "ja",
-            autoclose: true,
-            todayHighlight: true
-        }).datepicker("update", "@Model.StartDate.ToString("yyyy/MM/dd")");
+        (function ($) {
+            $('.input-group.date').datepicker({
+                startDate: "@Model.StartDate.ToString("yyyy/MM/dd")",
+                endDate: "@Now.AddYears(1).ToString("yyyy/MM/dd")",
+                todayBtn: "linked",
+                language: "ja",
+                autoclose: true,
+                todayHighlight: true
+            }).datepicker("update", "@Model.StartDate.ToString("yyyy/MM/dd")");
 
-        $('#StartTime').timepicker({
-            showInputs: false,
-            defaultTime: false,
-            showMeridian: false
-        }).on("show.timepicker", function (e) {
-            if ($('#StartTime').val() == "")
-                $('#StartTime').timepicker("setTime", "00:00");
-        });
-        $('#EndTime').timepicker({
-            showInputs: false,
-            defaultTime: false,
-            showMeridian: false
-        }).on("show.timepicker", function (e) {
-            if ($('#EndTime').val() == "")
-                $('#EndTime').timepicker("setTime", "00:00");
-        });
+            $('#StartTime').timepicker({
+                showInputs: false,
+                defaultTime: false,
+                showMeridian: false
+            }).on("show.timepicker", function (e) {
+                if ($('#StartTime').val() == "")
+                    $('#StartTime').timepicker("setTime", "00:00");
+            });
+            $('#EndTime').timepicker({
+                showInputs: false,
+                defaultTime: false,
+                showMeridian: false
+            }).on("show.timepicker", function (e) {
+                if ($('#EndTime').val() == "")
+                    $('#EndTime').timepicker("setTime", "00:00");
+            });
 
+            $('#com-search-box').selectboxsearch('#com-list');
+        })(jQuery);
     </script>
 End Section
 

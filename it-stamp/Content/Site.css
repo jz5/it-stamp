@@ -16,8 +16,15 @@ body {
         background: #fff;
     }
 
-body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, code, kbd, pre, samp {
     font-family: 'メイリオ', Meiryo, 'ヒラギノ角ゴ Pro W3', Osaka, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+img.emoji {
+   height: 1em;
+   width: 1em;
+   margin: 0 .05em 0 .1em;
+   vertical-align: -0.1em;
 }
 
 .btn {
@@ -25,7 +32,7 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 ::selection {
-    /*background: #12BEBD;*/
+    background: #3BAFDA;
 }
 
 h1 {

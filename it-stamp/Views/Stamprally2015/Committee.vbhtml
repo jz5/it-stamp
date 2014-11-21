@@ -7,8 +7,23 @@ End Code
         <img src="@Href("~/images/stamprally2015/stamprally-logo.png")" alt="" class="img-responsive" />
 
         <h1>IT勉強会スタンプラリー運営委員会</h1>
-        <p>準備中</p>
+        <p>IT勉強会を主催しているコミュニティメンバーが集まり有志で運営しています。</p>
 
+        <h2>組織</h2>
+        <ul>
+            <li>IT勉強会スタンプラリー運営委員会
+                <ul>
+                    <li>運営事務局： 参加者やコミュニティとの窓口</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>運営委員</h2>
+        <ul>
+            <li>代表： @@jz5（プログラミング生放送）</li>
+            <li>副代表： @@kiyokura（Okayama IT Engineers Community）</li>
+            <li>他、若干名</li>
+        </ul>
 
     </div>
     <div class="col-sm-12 col-md-4">

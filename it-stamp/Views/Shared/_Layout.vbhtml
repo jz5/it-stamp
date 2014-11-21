@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
@@ -95,7 +95,8 @@
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    
+                    <a class="twitter-timeline" href="https://twitter.com/search?q=%23itstamp%20OR%20%22IT%E5%8B%89%E5%BC%B7%E4%BC%9A%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%97%E3%83%A9%E3%83%AA%E3%83%BC%22" data-widget-id="535866409834659841">#itstamp OR "IT勉強会スタンプラリー"に関するツイート</a>
+                    <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
                 </div>
             </div>
             <div class="row">
@@ -109,20 +110,19 @@
     @*<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>*@
     @Scripts.Render("~/bundles/jquery")
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//twemoji.maxcdn.com/twemoji.min.js"></script>
     @Scripts.Render("~/bundles/script")
     <script>
-        (function ($) {
-            $(".banner-img").show();
-            $(".bxslider").bxSlider({
-                auto: true
-            });
-
-            $('input').iCheck({
-                checkboxClass: 'icheckbox_flat',
-                radioClass: 'iradio_flat'
-            });
-
-        }(jQuery));
+    twemoji.parse(document.body, {
+        callback: function (icon, options, variant) {
+            switch (icon) {
+                case 'a9':      // copyright
+                case 'ae':      // trademark
+                    return false;
+            }
+            return ''.concat(options.base, options.size, '/', icon, options.ext);
+        }
+    });
     </script>
     @RenderSection("scripts", required:=False)
 </body>

@@ -20,12 +20,10 @@ Public Module BundleConfig
                   "~/Scripts/icheck.min.js",
                   "~/Scripts/jquery.fs.selecter.min.js",
                   "~/Scripts/jquery.fs.stepper.min.js",
-                  "~/Scripts/jquery.bxslider.min.js",
                   "~/Scripts/respond.js"))
 
         bundles.Add(New StyleBundle("~/Content/css").Include(
                   "~/Content/bootflat.css",
-                  "~/Content/jquery.bxslider.css",
                   "~/Content/site.css"))
 
         ' デバッグを行うには EnableOptimizations を false に設定します。詳細については、

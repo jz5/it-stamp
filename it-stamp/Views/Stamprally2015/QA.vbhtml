@@ -8,7 +8,7 @@ End Code
 
         <h1>Q &amp; A</h1>
 
-        <h3>一般参加者向け</h3>
+        <h2>一般参加者向け</h2>
         <ul class="list-unstyled special-event-qa">
             <li>
                 <span><i class="glyphicon glyphicon-check"></i> IT勉強会スタンプラリーって何？</span>
@@ -103,7 +103,7 @@ End Code
 
         </ul>
 
-        <h3>コミュニティ向け</h3>
+        <h2>コミュニティ向け</h2>
         <ul class="list-unstyled special-event-qa">
             <li>
                 <i class="glyphicon glyphicon-check"></i> コミュニティの参加費は？

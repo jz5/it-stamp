@@ -296,6 +296,9 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
+    <None Include="My Project\PublishProfiles\itstamp %282%29.pubxml" />
+    <None Include="My Project\PublishProfiles\itstamp %283%29.pubxml" />
+    <None Include="My Project\PublishProfiles\itstamp.pubxml" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
@@ -386,6 +389,10 @@
     <Content Include="Scripts\jquery.easing.min.js" />
     <Content Include="Scripts\jquery.fs.selecter.min.js" />
     <Content Include="Scripts\jquery.fs.stepper.min.js" />
+    <Content Include="Scripts\jquery.selectboxsearch.js" />
+    <Content Include="Scripts\jquery.selectboxsearch.min.js">
+      <DependentUpon>jquery.selectboxsearch.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ja.js" />
@@ -468,6 +475,9 @@
     <Content Include="Views\Communities\Delete.vbhtml" />
     <Content Include="Views\Events\Delete.vbhtml" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="Scripts\jquery.selectboxsearch.min.js.map">
+      <DependentUpon>jquery.selectboxsearch.min.js</DependentUpon>
+    </Content>
     <None Include="Views\Events\Details.vbhtml" />
     <Content Include="Views\Shared\_SidebarPartial.vbhtml" />
     <Content Include="Views\Shared\_EventResults.vbhtml" />

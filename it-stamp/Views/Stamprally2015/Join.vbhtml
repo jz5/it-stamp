@@ -6,12 +6,12 @@ End Code
     <div class="col-sm-12 col-md-8">
         <img src="@Href("~/images/stamprally2015/stamprally-logo.png")" alt="" class="img-responsive" />
 
-        <h1>コミュニティの募集</h1>
+        <h1>@ViewBag.Title</h1>
 
         <p>IT勉強会スタンプラリーに参加いただけるコミュニティを募集中です。</p>
         <p>参加コミュニティには、スタンプラリーの台紙を送ります。また、スポンサーのノベルティのプレゼントもあります（開催時期などにより用意できない場合もあります）。</p>
 
-        <h3>コミュニティの参加条件</h3>
+        <h2>コミュニティの参加条件</h2>
         <p>
             参加は無料ですが、スタンプもしくはシール（オリジナル・既製品問わず）はご用意ください。
         </p>
@@ -41,6 +41,11 @@ End Code
             参加検討されているコミュニティからの質問などもお待ちしています。
         </p>
 
+        <h2>参加済みのコミュニティ向け情報</h2>
+        <h3>台紙と記念品（ステッカー）の受け取り手順</h3>
+        <p>下記の内容に追記して、admin@@it-stamp.jp へメールしてください。</p>
+
+        <script src="https://gist.github.com/jz5/741b2f75f6f4e3b4e015.js"></script>
 
     </div>
     <div class="col-sm-12 col-md-4">
