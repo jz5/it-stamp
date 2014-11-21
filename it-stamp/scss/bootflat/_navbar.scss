@@ -1,13 +1,12 @@
 // Variables
 //------------------------------------------------------
-$navbar-background-color:                    $black-light !default;
-$navbar-background-color-active:             $black-light !default;
+$navbar-background-color:                    $bluejeans-dark !default;
+$navbar-background-color-active:             $bluejeans-light !default;
 
 $navbar-font-color:                          $white !default;
-$navbar-font-color-active:                   $green-light !default;
-/*$navbar-item-background-color-hover:         $navbar-background-color-active !default;*/
+$navbar-item-background-color-hover:         $navbar-background-color-active !default;
 
-/*$navbar-inverse-background-color:            $black !default;*/
+$navbar-inverse-background-color:            $black !default;
 
 // Exports
 //------------------------------------------------------
@@ -30,14 +29,14 @@ $navbar-font-color-active:                   $green-light !default;
       & .navbar-brand,
       & .navbar-link,
       & .btn-link {
-          color: $navbar-font-color;
+          color: darken($navbar-background-color, 15%);
       }
       & .navbar-brand:hover,
       & .navbar-brand:focus,
       & .navbar-link:hover,
       & .btn-link:hover,
       & .btn-link:focus {
-          color: $navbar-font-color-active;
+          color: $navbar-font-color;
           background-color: transparent;
       }
       & .navbar-text,
@@ -46,12 +45,13 @@ $navbar-font-color-active:                   $green-light !default;
       }
       & .navbar-nav > li > a:hover,
       & .navbar-nav > li > a:focus {
-          color: $navbar-font-color-active;
+          color: $navbar-font-color;
+          text-decoration: underline;
       }
       & .navbar-nav > .active > a,
       & .navbar-nav > .active > a:hover,
       & .navbar-nav > .active > a:focus {
-          color: $navbar-font-color-active;
+          color: $navbar-font-color;
           background-color: $navbar-background-color-active;
       }
       & .btn-link[disabled]:hover,
@@ -61,41 +61,35 @@ $navbar-font-color-active:                   $green-light !default;
       & .navbar-nav > .disabled > a,
       & .navbar-nav > .disabled > a:hover,
       & .navbar-nav > .disabled > a:focus {
-          color: darken($navbar-font-color, 8%);
+          color: darken($navbar-background-color, 8%);
           background-color: transparent;
       }
       & .navbar-toggle {
-          border-color: $navbar-font-color;
-          background-color: $navbar-background-color;
+          border-color: darken($navbar-background-color, 15%);
+          background-color: darken($navbar-background-color, 15%);
       }
       & .navbar-toggle:hover,
       & .navbar-toggle:focus {
-          border-color: $navbar-font-color-active;
-          background-color: $navbar-background-color-active;
+          border-color: darken($navbar-background-color, 10%);
+          background-color: darken($navbar-background-color, 10%);
       }
       & .navbar-toggle .icon-bar {
-          color: $navbar-font-color-active;
-          background-color: $navbar-font-color;
+          background-color: $navbar-background-color;
       }
-      & .navbar-toggle:hover .icon-bar,
-      & .navbar-toggle:focus .icon-bar {
-          color: $navbar-font-color-active;
-          background-color: $navbar-font-color-active;
-      }
-      /*& .navbar-collapse,
+      & .navbar-collapse,
       & .navbar-form {
           border-color: $navbar-item-background-color-hover;
-      }*/
+      }
 
 
-      /*& .navbar-nav > .open > a,
+      & .navbar-nav > .open > a,
       & .navbar-nav > .open > a:hover,
       & .navbar-nav > .open > a:focus {
           color: $navbar-font-color;
           background-color: $navbar-background-color;
-      }*/
+      }
 
-      /*@media (max-width: 767px) {
+      @media (max-width: 767px) {
           & .navbar-nav > li > a:hover,
           & .navbar-nav > li > a:focus {
               background-color: $navbar-background-color-active;
@@ -122,10 +116,10 @@ $navbar-font-color-active:                   $green-light !default;
           & .navbar-nav .open .dropdown-menu > .disabled > a:focus {
               color: darken($navbar-background-color, 10%);
           }
-      }*/
+      }
   }
 
-  /*.navbar-inverse {
+  .navbar-inverse {
       & {
           background-color: lighten($navbar-inverse-background-color, 20%);
           border-color: lighten($navbar-inverse-background-color, 20%);
@@ -218,6 +212,6 @@ $navbar-font-color-active:                   $green-light !default;
               color: lighten($navbar-inverse-background-color, 40%);
           }
       }
-  }*/
+  }
 
 }

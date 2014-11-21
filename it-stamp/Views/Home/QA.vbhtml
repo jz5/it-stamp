@@ -1,5 +1,5 @@
 ﻿@Code
-    ViewBag.Title = "お問い合わせ"
+    ViewBag.Title = "Q & A"
 End Code
 
 <div class="row">
@@ -8,7 +8,7 @@ End Code
         <h1>@ViewBag.Title</h1>
 
         <p>準備中</p>
-
+        
 
     </div>
     <div class="col-sm-12 col-md-4">

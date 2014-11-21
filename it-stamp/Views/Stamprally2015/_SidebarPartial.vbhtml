@@ -1,11 +1,21 @@
-﻿<div class="sidebar">
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 hidden-md hidden-lg">
-            <hr />
-        </div>
+﻿@code
+    Dim action = ViewContext.RouteData.GetRequiredString("action")
+End Code
+<div class="sidebar">
+
+    <div class="list-group">
+        <a href="@href("~/Stamprally/2015/")" class="list-group-item@(If(action = "Index", " active", ""))">IT勉強会スタンプラリー？</a>
+        <a href="@Href("~/Stamprally/2015/Events")" class="list-group-item@(If(action = "Events", " active", ""))">IT勉強会一覧</a>
+        <a href="@Href("~/Stamprally/2015/Communities")" class="list-group-item@(If(action = "Communities", " active", ""))">参加コミュニティ一覧</a>
+        <a href="@Href("~/Stamprally/2015/QA")" class="list-group-item@(If(action = "QA", " active", ""))">Q &amp; A</a>
+        <a href="@Href("~/Stamprally/2015/Sponsors")" class="list-group-item@(If(action = "Sponsors", " active", ""))">スポンサー紹介</a>
+        <a href="@Href("~/Stamprally/2015/Join")" class="list-group-item@(If(action = "Join", " active", ""))">コミュニティの参加</a>
+        <a href="@Href("~/Stamprally/2015/Committee")" class="list-group-item@(If(action = "Committee", " active", ""))">運営委員会</a>
+        <a href="@Href("~/Stamprally/2015/Resources")" class="list-group-item@(If(action = "Resources", " active", ""))">素材</a>
+        <a href="@Href("~/Stamprally/2015/Contact")" class="list-group-item@(If(action = "Contact", " active", ""))">お問い合わせ</a>
     </div>
 
-    <div style="margin:0 0 30px">
+    <div style="margin:40px 0">
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <!-- ITstamp2 -->
         <ins class="adsbygoogle"
@@ -17,8 +27,6 @@
             (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
     </div>
-
-    <h3><a href="@Href("~/Stamprally/2015/")"><img src="@Href("~/images/stamprally2015/stamprally-logo.png")" class="img-responsive" alt="IT勉強会スタンプラリー" /></a></h3>
 
     <h4><img src="@Href("~/images/stamprally2015/platinum.png")" alt="プラチナスポンサー" class="img-responsive" /></h4>
 
@@ -48,4 +56,5 @@
             (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
     </div>
+
 </div>

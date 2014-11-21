@@ -3,8 +3,8 @@
 $body-font-color:            $darkgray-dark !default;
 $body-background-color:      $white !default;
 
-$link-font-color:            $green-light !default; 
-$link-font-color-hover:      $darkgray-light !default; 
+$link-font-color:            $bluejeans-dark !default; 
+$link-font-color-hover:      $bluejeans-light !default; 
 
 $blockquote-border-color:    $mediumgray-light !default;
 
@@ -21,7 +21,7 @@ $image-radius:               4px !default;
    */
 
   body {
-    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    // font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     // font-family: 'Lato', sans-serif;
     color: $body-font-color;
     background-color: $body-background-color;

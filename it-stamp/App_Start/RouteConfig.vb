@@ -22,10 +22,9 @@ Public Module RouteConfig
             constraints:=New With {.id = "\d+"}
         )
         routes.MapRoute(
-            name:="SpecialEvents",
-            url:="SpecialEvents/{id}/",
-            defaults:=New With {.controller = "SpecialEvents", .action = "Details"},
-            constraints:=New With {.id = "\d+"}
+            name:="Stamprally2015",
+            url:="Stamprally/2015/{action}/",
+            defaults:=New With {.controller = "Stamprally2015", .action = "Index"}
         )
         routes.MapRoute(
             name:="Users",

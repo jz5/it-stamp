@@ -5,7 +5,7 @@ $alert-success:                 $grass-light !default;
 $alert-danger:                  $grapefruit-light !default;
 $alert-warning:                 $sunflower-light !default;
 
-$alert-close-color:             $darkgray-dark !default;
+$alert-close-color:             $black !default;
 
 $alert-link-color:              $mediumgray-light !default;
 
@@ -31,24 +31,20 @@ $alert-link-color:              $mediumgray-light !default;
       }
 
       @at-root &-info {
-          background-color: $alert-primary;/*lighten($alert-primary, 10%);*/
+          background-color: lighten($alert-primary, 10%);
           border: $alert-primary;
-          color: $white;
       }
       @at-root &-warning {
-          background-color: $alert-warning;/*lighten($alert-warning, 10%);*/
+          background-color: lighten($alert-warning, 10%);
           border: $alert-warning;
-          color: $darkgray-dark;
       }
       @at-root &-danger {
-          background-color: $alert-danger;/*lighten($alert-danger, 10%);*/
+          background-color: lighten($alert-danger, 10%);
           border: $alert-danger;
-          color: $white;
       }
       @at-root &-success {
-          background-color: $alert-success; /*lighten($alert-success, 10%);*/
+          background-color: lighten($alert-success, 10%);
           border: $alert-success;
-          color: $darkgray-dark;
       }
 
       @at-root & &-link {

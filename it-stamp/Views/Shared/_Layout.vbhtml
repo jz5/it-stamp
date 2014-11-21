@@ -27,8 +27,8 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("IT勉強会", "Index", "Events")</li>
-                    <li>@Html.ActionLink("スタンプラリー", "Details", "SpecialEvents", New With {.id = 1}, Nothing)</li>
-
+                    <li><a href="@Href("~/Stamprally/2015/")">スタンプラリー</a></li>
+                    
                     @If Request.IsAuthenticated AndAlso User.IsInRole("Admin") Then
                         @<li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid" style="background-color:#FF7D7C;">
+    @*<div class="container-fluid" style="background-color:#FF7D7C;">
         <div class="container">
             <div class="top-slider">
                 <ul class="bxslider">
@@ -58,7 +58,7 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div>*@
     <div class="container">
         @RenderBody()
     </div>
@@ -70,36 +70,37 @@
                     <h3>IT勉強会スタンプ</h3>
                     <p>IT勉強会スタンプは、IT勉強会の参加を記録できるWebサービスです。</p>
                     <ul class="list-unstyled">
-                        <li><a href="#">About</a></li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("IT勉強会一覧", "Index", "Events")</li>
                         <li>@Html.ActionLink("コミュニティ一覧", "Index", "Communities")</li>
-                        <li><a href="#">コミュニティの参加</a></li>
-                        <li><a href="#">素材</a></li>
-                        <li><a href="#">登録</a>・<a href="#">ログイン</a></li>
-                        <li><a href="#">お問い合わせ</a></li>
-                        <li><a href="#">利用規約・Privacy Policy</a></li>
+                        <li>@Html.ActionLink("登録", "Register", "Account")・@Html.ActionLink("ログイン", "Login", "Account")</li>
+                        <li>@Html.ActionLink("Q & A", "QA", "Home")</li>
+                        <li>@Html.ActionLink("お問い合わせ", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("利用規約・プライバシーポリシー", "TOS", "Home")</li>
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <h3>IT勉強会スタンプラリー</h3>
-                    <p>IT勉強会スタンプラリー開催中です。</p>
+                    <h3>IT勉強会スタンプラリー 2015</h3>
+                    <p>IT勉強会スタンプラリーを開催中です。</p>
                     <ul class="list-unstyled">
-                        <li><a href="#">IT勉強会スタンプラリー</a></li>
-                        <li><a href="#">スポンサー</a></li>
+                        <li><a href="@href("~/Stamprally/2015/")">IT勉強会スタンプラリー</a></li>
+                        <li><a href="@Href("~/Stamprally/2015/Events")">IT勉強会一覧</a></li>
+                        <li><a href="@Href("~/Stamprally/2015/Communities")">参加コミュニティ一覧</a></li>
+                        <li><a href="@Href("~/Stamprally/2015/QA")">Q &amp; A</a></li>
+                        <li><a href="@Href("~/Stamprally/2015/Sponsors")">スポンサー紹介</a></li>
+                        <li><a href="@Href("~/Stamprally/2015/Join")">コミュニティの参加</a></li>
+                        <li><a href="@Href("~/Stamprally/2015/Committee")">運営委員会</a></li>
+                        <li><a href="@Href("~/Stamprally/2015/Resources")">素材</a></li>
+                        <li><a href="@Href("~/Stamprally/2015/Contact")">お問い合わせ</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <h3>IT勉強会スタンプラリー</h3>
-                    <p>IT勉強会スタンプラリー開催中です。</p>
-                    <ul class="list-unstyled">
-                        <li><a href="#">IT勉強会スタンプラリー</a></li>
-                        <li><a href="#">スポンサー</a></li>
-                    </ul>
+                    
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12 small" style="margin: 20px 0 20px;">
-                    © 2014 IT勉強会スタンプラリー運営委員会 ・ <a href="">GitHub</a>
+                    ©2014 IT勉強会スタンプ ©2014 IT勉強会スタンプラリー運営委員会
                 </div>
             </div>
         </div>

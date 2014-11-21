@@ -16,7 +16,7 @@ Imports Owin
 Imports System.Data.Entity.Core.Objects
 
 <RequireHttps>
-Public Class SpecialEventsController
+Public Class Stamprally2015Controller
     Inherits System.Web.Mvc.Controller
 
 
@@ -39,12 +39,39 @@ Public Class SpecialEventsController
         End Set
     End Property
 
-    Function Details(id As Integer?) As ActionResult
-        If Not id.HasValue Then
-            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
-        End If
-
-        Return View(id.Value.ToString)
+    Function Index() As ActionResult
+        Return View()
     End Function
 
+    Function Events() As ActionResult
+        Return View()
+    End Function
+
+    Function Communities() As ActionResult
+        Return View()
+    End Function
+
+    Function QA() As ActionResult
+        Return View()
+    End Function
+
+    Function Sponsors() As ActionResult
+        Return View()
+    End Function
+
+    Function Join() As ActionResult
+        Return View()
+    End Function
+
+    Function Committee() As ActionResult
+        Return View()
+    End Function
+
+    Function Resources() As ActionResult
+        Return View()
+    End Function
+
+    Function Contact() As ActionResult
+        Return View()
+    End Function
 End Class
