@@ -67,3 +67,22 @@ Public Class SearchCommunitiesViewModel
 
     Property TotalCount As Integer
 End Class
+
+Public Class UploadCommunityStampViewModel
+
+    <Key>
+    Property Id As Integer
+
+    <Required>
+    <StringLength(50)>
+    <Display(Name:="名前")>
+    Property Name As String
+
+    Property StampPath As String
+
+    <Required>
+    <DisplayName("スタンプ")>
+    <UploadFile(Extensions:="png;jpeg;jpg", MaxLength:=1024 * 1024)>
+    Property File As HttpPostedFileBase
+
+End Class

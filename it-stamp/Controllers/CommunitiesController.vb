@@ -105,6 +105,27 @@ Public Class CommunitiesController
             ViewBag.Followd = False
         End If
 
+        ' 主催勉強会一覧情報
+        ViewBag.PastEvents = Nothing
+        ViewBag.FutureEvents = Nothing
+        ViewBag.NowEvents = Nothing
+
+        Dim events = From ev In db.Events Where ev.Community.Id = com.Id
+        If events IsNot Nothing Then
+            ' クエリを展開しておく
+            Dim queryDate = DateTime.Now
+            Dim pastEvents = From ev In events Where ev.EndDateTime < queryDate Order By ev.EndDateTime Descending.Take(5).ToList()
+            Dim futureEvents = From ev In events Where ev.StartDateTime > queryDate Order By ev.StartDateTime Ascending.Take(5).ToList()
+            'Dim nowEvents = events.Except(pastEvents.Union(futureEvents)).ToList()
+            Dim nowEvents = From ev In events Where ev.StartDateTime >= queryDate AndAlso ev.EndDateTime <= queryDate Order By ev.EndDateTime Ascending.Take(5).ToList()
+
+            ViewBag.PastEvents = pastEvents
+            ViewBag.FutureEvents = futureEvents
+            ViewBag.NowEvents = nowEvents
+        End If
+
+        ViewBag.OwnEvents = events
+
         ' Message
         Dim msg As String
         Select Case message
@@ -188,6 +209,9 @@ Public Class CommunitiesController
             Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
         End If
 
+        ' 管理者用編集権限を与えるか
+        ViewBag.IsOwner = CanEditDetails(appUser, com)
+
         Return View(com)
     End Function
 
@@ -223,7 +247,18 @@ Public Class CommunitiesController
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
 
-            UpdateModel(Of Community)(com)
+            ' 基本情報をアップデート
+            If CanEditDetails(appUser, com) Then
+                UpdateModel(Of Community)(com)
+            Else
+                ' Updateできる情報に制限
+                com.Name = model.Name
+                com.Description = model.Description
+                com.Url = model.Url
+                com.IconPath = model.IconPath
+            End If
+
+            'UpdateModel(Of Community)(com)
             com.LastUpdatedBy = appUser
             com.LastUpdatedDateTime = Now
 
@@ -235,6 +270,50 @@ Public Class CommunitiesController
             ModelState.AddInternalError(User, ex)
             Return View(model)
         End Try
+    End Function
+
+    <HttpPost>
+    <ValidateAntiForgeryToken>
+    Async Function EditDefaultStamp(ByVal id As Integer, ByVal defaultStamp As Integer) As Task(Of ActionResult)
+
+        Dim userId = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
+
+        Dim com = db.Communities.Where(Function(c) c.Id = id).SingleOrDefault
+
+        If Not CanEditDetails(appUser, com) Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Try
+            If Not ModelState.IsValid Then
+                Return View(com)
+            End If
+
+            ' Stampを検索
+            Dim stamp = (From st In com.Stamps Where st.Id = defaultStamp).SingleOrDefault
+            If stamp Is Nothing Then
+                Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+            End If
+
+            ' DefaultStampにセット
+            com.DefaultStamp = stamp
+            Await db.SaveChangesAsync
+
+            Return RedirectToAction("Edit", New With {.id = com.Id})
+
+        Catch eEx As System.Data.Entity.Validation.DbEntityValidationException
+            For Each er In eEx.EntityValidationErrors
+                For Each e In er.ValidationErrors
+                    Debug.Print(e.ErrorMessage)
+                Next
+            Next
+            Return View(com)
+        Catch ex As Exception
+            ModelState.AddInternalError(User, ex)
+            Return View(com)
+        End Try
+
     End Function
 
     ' GET: Communities/Upload/5
@@ -309,6 +388,106 @@ Public Class CommunitiesController
             Await db.SaveChangesAsync
 
             Return RedirectToAction("Details", New With {.id = com.Id, .message = DetailsMessage.Edit})
+
+        Catch ex As Exception
+            ModelState.AddInternalError(User, ex)
+            Return View(viewModel)
+        End Try
+    End Function
+
+
+    ' GET: Communities/Upload/5
+    Async Function UploadStamp(ByVal id As Integer?) As Task(Of ActionResult)
+        If IsNothing(id) Then
+            Return RedirectToAction("Index")
+        End If
+
+        Dim com = Await db.Communities.FindAsync(id)
+        If IsNothing(com) Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        ' 編集権限の確認
+        Dim userId = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
+        If Not CanEditDetails(appUser, com) Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Dim viewModel = New UploadCommunityStampViewModel With {
+            .Id = com.Id,
+            .Name = com.Name}
+
+        Return View(viewModel)
+    End Function
+
+    <HttpPost>
+    <ValidateAntiForgeryToken>
+    Async Function UploadStamp(viewModel As UploadCommunityStampViewModel) As Task(Of ActionResult)
+        If Not ModelState.IsValid Then
+            Return View(viewModel)
+        End If
+
+        Dim com = db.Communities.Where(Function(c) c.Id = viewModel.Id).FirstOrDefault
+        If com Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        ' 編集権限の確認
+        Dim id = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = id).SingleOrDefaultAsync
+        If Not CanEditDetails(appUser, com) Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Dim helper = New UploadHelper(viewModel.File, Server.MapPath("~/App_Data/Uploads/"))
+        ' TODO: GUIDがかぶらないことを確認するようにしたほうが良い？
+        Dim iconPath = helper.GetIconPath("UploadStamps", viewModel.Id.ToString + "_" + Guid.NewGuid().ToString())
+
+        If Not helper.IsSupportedImageFormat Then
+            ModelState.AddModelError("File", "PNG/JPEG形式の画像をアップロードしてください。")
+            Return View(viewModel)
+        End If
+
+        Try
+            ' Resize
+            Dim icon As Bitmap
+            Using bmp = New Bitmap(viewModel.File.InputStream)
+                icon = bmp.ResizeTo(New Size(96, 96))
+            End Using
+
+            ' Delete, Save
+            Dim defaultStampPath = ""
+            If com.DefaultStamp IsNot Nothing Then
+                defaultStampPath = com.DefaultStamp.Path
+            End If
+
+            helper.RelpaceFile(defaultStampPath, iconPath, icon)
+
+            ' Update
+            Dim stamp As New Stamp() With {
+                .Community = com,
+                .CreatedBy = appUser,
+                .CreationDateTime = DateTime.Now,
+                .Expression = "",
+                .LastUpdatedBy = appUser,
+                .LastUpdatedDateTime = DateTime.Now,
+                .Name = viewModel.Name,
+                .Path = iconPath}
+
+
+            com.LastUpdatedBy = appUser
+            com.LastUpdatedDateTime = Now
+
+            com.Stamps.Add(stamp)
+            If com.DefaultStamp Is Nothing Then
+                com.DefaultStamp = stamp
+            End If
+
+            Await db.SaveChangesAsync
+
+            'Return RedirectToAction("Edit", New With {.id = com.Id, .message = DetailsMessage.Edit})
+            Return RedirectToAction("Edit", New With {.id = com.Id})
 
         Catch ex As Exception
             ModelState.AddInternalError(User, ex)
@@ -467,13 +646,70 @@ Public Class CommunitiesController
 
     End Function
 
+    <HttpPost>
+    <ValidateAntiForgeryToken>
+    Async Function DeleteStamp(ByVal communityId As Integer, ByVal stampId As Integer) As Task(Of ActionResult)
+
+        Dim userId = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
+
+        Dim com = db.Communities.Where(Function(c) c.Id = communityId).SingleOrDefault
+
+        If Not CanEditDetails(appUser, com) Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Try
+            If Not ModelState.IsValid Then
+                Return View(com)
+            End If
+
+            ' Stampを検索
+            Dim stamp = (From st In com.Stamps Where st.Id = stampId).SingleOrDefault
+            If stamp Is Nothing Then
+                Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+            End If
+
+            ' 削除
+            com.Stamps.Remove(stamp)
+            If com.DefaultStamp.Id = stamp.Id Then
+                If com.Stamps.Count = 0 Then
+                    com.DefaultStamp = Nothing
+                Else
+                    com.DefaultStamp = com.Stamps(0)
+                End If
+            End If
+            ' DBからも削除
+            db.Stamps.Remove(stamp)
+            ' TODO: ストレージから削除するなら実装
+
+            Await db.SaveChangesAsync
+            Return RedirectToAction("Edit", New With {.id = com.Id})
+
+        Catch eEx As System.Data.Entity.Validation.DbEntityValidationException
+            For Each er In eEx.EntityValidationErrors
+                For Each e In er.ValidationErrors
+                    Debug.Print(e.ErrorMessage)
+                Next
+            Next
+            Return View(com)
+        Catch ex As Exception
+            ModelState.AddInternalError(User, ex)
+            Return View(com)
+        End Try
+
+    End Function
+
+
+
+
     Private Function CanEdit(appUser As ApplicationUser, community As Community) As Boolean
         If appUser Is Nothing OrElse community Is Nothing Then
             Return False
         ElseIf Not community.IsLocked Then
             ' 一般ユーザー
             Return True
-        ElseIf community.Owners.Contains(appUser) Then
+        ElseIf community.Owners.Where(Function(e) e.Id = appUser.Id).Count > 0 Then
             ' コミュニティオーナー
             Return True
         ElseIf User.IsInRole("Admin") Then
@@ -485,7 +721,7 @@ Public Class CommunitiesController
     Private Function CanEditDetails(appUser As ApplicationUser, community As Community) As Boolean
         If appUser Is Nothing OrElse community Is Nothing Then
             Return False
-        ElseIf community.Owners.Contains(appUser) Then
+        ElseIf community.Owners.Where(Function(e) e.Id = appUser.Id).Count > 0 Then
             ' コミュニティオーナー
             Return True
         ElseIf User.IsInRole("Admin") Then

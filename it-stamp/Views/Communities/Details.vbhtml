@@ -25,8 +25,38 @@ End Code
         @Html.Partial("_CommunityCard", Model, ViewData)
 
         <h2>主催しているIT勉強会</h2>
+        <div>
+            <h3>開催予定のIT勉強会</h3>
+            @If ViewBag.FutureEvents Is Nothing OrElse ViewBag.FutureEvents.Count = 0 Then
+                @<p>主催している開催予定の勉強会はありません</p>
+            Else
+                @<ul>
+                @For Each ev In ViewBag.FutureEvents
+                    @<li><p><a href="@Href("/Events/")@ev.Id">@ev.Name <br />@ev.FriendlyDateTime()</a></p></li>
+                Next
+                </ul>
+            End If
 
-        <p class="text-muted">（未実装）</p>
+            @If ViewBag.NowEvents IsNot Nothing AndAlso ViewBag.NowEvents.Count <> 0 Then
+                @<h3>現在開催中のIT勉強会</h3>
+                @<ul>
+                    @For Each ev In ViewBag.NowEvents
+                        @<li><p><a href="@Href("/Events/")@ev.Id">@ev.Name / @ev.FriendlyDateTime()</a></p></li>
+                    Next
+                </ul>
+            End If
+
+            <h3>開催したIT勉強会</h3>
+            @If ViewBag.PastEvents Is Nothing OrElse ViewBag.PastEvents.Count = 0 Then
+                @<p>主催している過去の勉強会はありません</p>
+            Else
+                @<ul>
+                    @For Each ev In ViewBag.PastEvents
+                        @<li><p><a href="@Href("/Events/")@ev.Id">@ev.Name / @ev.FriendlyDateTime()</a></p></li>
+                    Next
+                </ul>
+            End If
+        </div>
         @*<p class="text-muted">開催予定のIT勉強会はありません。</p>
             <div>
                 @Html.ActionLink("過去のIT勉強会", "Events", "Search")

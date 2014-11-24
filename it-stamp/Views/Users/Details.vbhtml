@@ -55,7 +55,7 @@ End Code
             Else
                 @For Each item In Model.Communities
                     Dim stamp = If(item.IconPath <> "", Href("/Uploads/" & item.IconPath), "http://placehold.it/96x96")
-                    @<a href="@Href("/Community/")@item.Id"><img class="img-rounded" src="@stamp" /></a>
+                    @<a href="@Href("/Communities/")@item.Id"><img class="img-rounded" src="@stamp" /></a>
                 Next
                 End If
         </div>

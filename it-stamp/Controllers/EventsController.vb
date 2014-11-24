@@ -464,6 +464,7 @@ Public Class EventsController
                 .Stamp = stamp}
 
             db.CheckIns.Add(ci)
+            ev.CheckIns.Add(ci)
 
             If viewModel.ShareTwitter Then
                 ' TODO: Twitterへ投稿
@@ -476,16 +477,15 @@ Public Class EventsController
             End If
 
             If viewModel.AdditionalMessage <> String.Empty Then
-                ' TODO: コメントを追加
-
-                'ev.Comments.Add(New Comment() With {
-                '                .Content = viewModel.AdditionalMessage,
-                '                .CreatedBy = appUser,
-                '                .CreationDateTime = DateTime.Now,
-                '                .Event = ev,
-                '                .id = -1
-                '                })
-
+                Dim comment = New Comment() With {
+                                .Content = viewModel.AdditionalMessage,
+                                .CreatedBy = appUser,
+                                .CreationDateTime = DateTime.Now,
+                                .Event = ev,
+                                .id = -1
+                                }
+                db.Comments.Add(comment)
+                ev.Comments.Add(comment)
             End If
 
             Await db.SaveChangesAsync
@@ -583,7 +583,7 @@ Public Class EventsController
 
     <HttpPost()>
     <ValidateAntiForgeryToken()>
-    Async Function Delete(model As Community) As Task(Of ActionResult)
+    Async Function Delete(model As [Event]) As Task(Of ActionResult)
 
         Dim userId = User.Identity.GetUserId
         Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync

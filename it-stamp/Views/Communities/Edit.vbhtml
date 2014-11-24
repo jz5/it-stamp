@@ -41,11 +41,28 @@ End Code
             </div>
         </div>
 
+        @If ViewBag.IsOwner Then
+        @<div class="form-group">
+            @Html.LabelFor(Function(m) m.IsLocked, New With {.class = "control-label"})
+            <span class="text-muted"></span>
+            @Html.CheckBoxFor(Function(m) m.IsLocked)
+            @Html.ValidationMessageFor(Function(m) m.IsLocked, "", New With {.class = "text-danger"})
+        </div>
+
+        @<div class="form-group">
+            @Html.LabelFor(Function(m) m.IsHidden, New With {.class = "control-label"})
+            <span class="text-muted"></span>
+            @Html.CheckBoxFor(Function(m) m.IsHidden)
+            @Html.ValidationMessageFor(Function(m) m.IsHidden, "", New With {.class = "text-danger"})
+        </div>
+            
+        End If
+
         <div class="form-group">
             <input type="submit" value="編集" class="btn btn-primary" />
         </div>
     </text>
-End Using
+        End Using
 
 
 <hr />
@@ -53,11 +70,65 @@ End Using
 @Html.ActionLink("変更", "Upload", "Communities", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
 
 <hr />
+
+<h2>コミュニティスタンプ</h2>
+@Html.ActionLink("スタンプを追加", "UploadStamp", "Communities", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
+@If Model.Stamps IsNot Nothing AndAlso Model.Stamps.Count > 0 Then
+    @Using Html.BeginForm("EditDefaultStamp", "Communities", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
+    @Html.AntiForgeryToken()
+    @<text>
+    @Html.Hidden("id", Model.Id)
+
+    <table class="table">
+    <tr>
+        <th>IsDefault</th>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Expression</th>
+        <th></th>
+    </tr>
+    @For Each item In Model.Stamps
+        @<tr>
+            <td>@Html.RadioButton("defaultStamp", item.Id, (Model.DefaultStamp.Id = item.Id), New With {.id = Nothing})</td>
+            <td>@Html.Label(item.Name)</td>
+            <td><p><img class="img-rounded" src="@Href("/Uploads/" & item.Path)" /></p></td>
+            <td>@Html.Label(item.Expression)</td>
+            <td>
+                @Html.Label("Edit")
+                @Html.ActionLink("DeleteStamp", "Delete", New With {.communityId = Model.Id, .stampId = item.Id})
+            </td>
+        </tr>
+    Next
+</table>
+    <div class="form-group">
+            <input type="submit" value="設定" class="btn btn-primary" />
+    </div>
+    </text>
+End Using
+End If
+<hr />
+
+<h2>コミュニティ管理者</h2>
+<p>(実装中)</p>
+
+<hr />
 @Html.ActionLink("削除", "Delete", "Communities", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
-
-
 
 @Section Scripts
     @Scripts.Render("~/bundles/jqueryval")
 End Section
 
+<script>
+
+    $(".stamp-item").click(function () {
+        // 探索してSelectedクラスをRemove
+        r.find(".providedGroupwareLogo").removeClass("selected");
+        $(this).addClass("selected");
+
+        // Listと同期
+
+        var e = $(this).attr("id").substring(n.length);
+        $("#cba_groupwareLogoName").val(e)
+    })
+
+</script>

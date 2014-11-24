@@ -157,8 +157,12 @@ Public Class Community
     Overridable Property Owners As ICollection(Of ApplicationUser)
 
     Overridable Property Stamps As ICollection(Of Stamp)
+    Property DefaultStamp As Stamp
 
+    <Display(Name:="プライベートコミュニティ")>
     Property IsHidden As Boolean
+
+    <Display(Name:="管理者のみが編集可能")>
     Property IsLocked As Boolean
 
     Property CreationDateTime As DateTime
@@ -177,7 +181,7 @@ Public Class Stamp
     <Display(Name:="名前")>
     Property Name As String
 
-    Property IsDefault As Boolean
+    'Property IsDefault As Boolean
 
     <StringLength(100)>
     Property Expression As String

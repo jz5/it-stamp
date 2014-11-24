@@ -478,6 +478,7 @@
     <Content Include="Scripts\jquery.selectboxsearch.min.js.map">
       <DependentUpon>jquery.selectboxsearch.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Communities\UploadStamp.vbhtml" />
     <None Include="Views\Events\Details.vbhtml" />
     <Content Include="Views\Shared\_SidebarPartial.vbhtml" />
     <Content Include="Views\Shared\_EventResults.vbhtml" />
