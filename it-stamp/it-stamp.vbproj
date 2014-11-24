@@ -479,6 +479,9 @@
       <DependentUpon>jquery.selectboxsearch.min.js</DependentUpon>
     </Content>
     <Content Include="Views\Communities\UploadStamp.vbhtml" />
+    <Content Include="Views\Communities\DeleteStamp.vbhtml" />
+    <Content Include="Views\Communities\DeleteOwner.vbhtml" />
+    <Content Include="Views\Communities\AddOwner.vbhtml" />
     <None Include="Views\Events\Details.vbhtml" />
     <Content Include="Views\Shared\_SidebarPartial.vbhtml" />
     <Content Include="Views\Shared\_EventResults.vbhtml" />

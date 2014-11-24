@@ -211,6 +211,9 @@ Public Class CommunitiesController
 
         ' 管理者用編集権限を与えるか
         ViewBag.IsOwner = CanEditDetails(appUser, com)
+        ViewBag.UserFriendlyName = appUser.FriendlyName
+        ViewBag.UserIcon = appUser.IconPath
+        ViewBag.SessionUserId = appUser.Id
 
         Return View(com)
     End Function
@@ -646,9 +649,56 @@ Public Class CommunitiesController
 
     End Function
 
+    Async Function DeleteStamp(ByVal id As Integer, ByVal stampId As Integer) As Task(Of ActionResult)
+        Dim userId = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
+
+        Dim com = db.Communities.Where(Function(c) c.Id = id).SingleOrDefault
+
+        If Not CanEditDetails(appUser, com) Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        ' Stampを検索
+        Dim stamp = (From st In com.Stamps Where st.Id = stampId).SingleOrDefault
+        If stamp Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        If Not ModelState.IsValid Then
+            Return View(stamp)
+        End If
+
+        Return View(stamp)
+    End Function
+
+    Async Function DeleteOwner(ByVal id As Integer, ByVal targetId As String) As Task(Of ActionResult)
+        Dim userId = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
+
+        Dim com = db.Communities.Where(Function(c) c.Id = id).SingleOrDefault
+
+        If Not CanEditDetails(appUser, com) Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        ' 管理者が含まれるか探索
+        Dim target = (From user In com.Owners Where user.Id = targetId).SingleOrDefault
+        If target Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        If Not ModelState.IsValid Then
+            Return View(target)
+        End If
+
+        ViewBag.CommunityId = id
+        Return View(target)
+    End Function
+
     <HttpPost>
     <ValidateAntiForgeryToken>
-    Async Function DeleteStamp(ByVal communityId As Integer, ByVal stampId As Integer) As Task(Of ActionResult)
+    Async Function RemoveStamp(ByVal communityId As Integer, ByVal stampId As Integer) As Task(Of ActionResult)
 
         Dim userId = User.Identity.GetUserId
         Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
@@ -665,14 +715,14 @@ Public Class CommunitiesController
             End If
 
             ' Stampを検索
-            Dim stamp = (From st In com.Stamps Where st.Id = stampId).SingleOrDefault
-            If stamp Is Nothing Then
+            Dim targetStamp = (From st In com.Stamps Where st.Id = stampId).SingleOrDefault
+            If targetStamp Is Nothing Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
 
             ' 削除
-            com.Stamps.Remove(stamp)
-            If com.DefaultStamp.Id = stamp.Id Then
+            com.Stamps.Remove(targetStamp)
+            If com.DefaultStamp.Id = targetStamp.Id Then
                 If com.Stamps.Count = 0 Then
                     com.DefaultStamp = Nothing
                 Else
@@ -680,10 +730,55 @@ Public Class CommunitiesController
                 End If
             End If
             ' DBからも削除
-            db.Stamps.Remove(stamp)
+            db.Stamps.Remove(targetStamp)
             ' TODO: ストレージから削除するなら実装
 
             Await db.SaveChangesAsync
+            Return RedirectToAction("Edit", New With {.id = com.Id})
+
+        Catch eEx As System.Data.Entity.Validation.DbEntityValidationException
+            For Each er In eEx.EntityValidationErrors
+                For Each e In er.ValidationErrors
+                    Debug.Print(e.ErrorMessage)
+                Next
+            Next
+            Return View(com)
+        Catch ex As Exception
+            ModelState.AddInternalError(User, ex)
+            Return View(com)
+        End Try
+
+    End Function
+
+    <HttpPost>
+   <ValidateAntiForgeryToken>
+    Async Function RemoveOwner(ByVal communityId As Integer, ByVal targetId As String) As Task(Of ActionResult)
+
+        Dim userId = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
+
+        Dim com = db.Communities.Where(Function(c) c.Id = communityId).SingleOrDefault
+
+        If Not CanEditDetails(appUser, com) Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Try
+            If Not ModelState.IsValid Then
+                Return View(com)
+            End If
+
+            Dim target = (From user In com.Owners Where user.Id = targetId).SingleOrDefault
+            If target Is Nothing OrElse (targetId = userId) Then
+                ' そのユーザー自体が含まれていない
+                ' 削除しようとしているユーザーがユーザー自身
+                ' => 何もしない
+            Else
+                ' 削除
+                com.Owners.Remove(target)
+                Await db.SaveChangesAsync
+            End If
+
             Return RedirectToAction("Edit", New With {.id = com.Id})
 
         Catch eEx As System.Data.Entity.Validation.DbEntityValidationException

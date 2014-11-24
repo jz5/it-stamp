@@ -17,8 +17,8 @@
         searchAddress = Model.Place
     End If
     
-    Dim twitterCheckBoxOption = Nothing
-    Dim facebookCheckBoxOption = Nothing
+    Dim twitterCheckBoxOption As Object = Nothing
+    Dim facebookCheckBoxOption As Object = Nothing
     
     If Not ViewBag.AssosiatedTwitter Then
         twitterCheckBoxOption = New With {.disabled = "disabled"}
@@ -175,12 +175,12 @@ End Code
                     </div>
                 </div>
                 @<!-- Modal Window -->
-                @<div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                @<div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <h4 class="modal-title" id="myModalLabel">チェックイン</h4>
+                                <h4 class="modal-title" id="modalLabel">チェックイン</h4>
                             </div>
                             <div class="modal-body">
                                 @If ViewBag.IsPrivateUser Then
@@ -189,20 +189,26 @@ End Code
                                     @Html.TextArea("AdditionalMessage", Model.Name + "にチェックイン！ #itstamp", New With {.maxlength = 1023})
                                     @<ul class="share-options">
                                         <li>
-                                            @Html.CheckBox("ShareTwitter", CBool(ViewBag.ShareTwitter AndAlso ViewBag.AssosiatedTwitter), twitterCheckBoxOption)
-                                            @If ViewBag.AssosiatedTwitter Then
-                                                @Html.Label("Twitterへシェア")
-                                            Else
-                                                @Html.Label("Twitterへシェア（未設定）")
-                                            End If
+                                            <div class="form-group">
+                                                 @Html.CheckBox("ShareTwitter", CBool(ViewBag.ShareTwitter AndAlso ViewBag.AssosiatedTwitter), twitterCheckBoxOption)
+                                                 <span class="text-muted"></span>
+                                                @If ViewBag.AssosiatedTwitter Then
+                                                     @Html.Label("Twitterへシェア", New With {.class = "control-label", .for = "ShareTwitter"})
+                                                 Else
+                                                     @Html.Label("Twitterへシェア（未設定）", New With {.class = "control-label"})
+                                                 End If
+                                            </div>
                                         </li>
                                         <li>
-                                            @Html.CheckBox("ShareFacebook", CBool(ViewBag.ShareFacebook AndAlso ViewBag.AssosiatedFacebook), facebookCheckBoxOption)
-                                            @If ViewBag.AssosiatedFacebook Then
-                                                @Html.Label("Facebookへシェア")
-                                            Else
-                                                @Html.Label("Facebookへシェア（未設定）")
-                                            End If
+                                            <div class="form-group">
+                                                 @Html.CheckBox("ShareFacebook", CBool(ViewBag.ShareFacebook AndAlso ViewBag.AssosiatedFacebook), facebookCheckBoxOption)
+                                                 <span class="text-muted"></span>
+                                                 @If ViewBag.AssosiatedFacebook Then
+                                                     @Html.Label("Facebookへシェア", New With {.class = "control-label", .for = "ShareFacebook"})
+                                                 Else
+                                                     @Html.Label("Facebookへシェア（未設定）", New With {.class = "control-label"})
+                                                 End If
+                                            </div>
                                         </li>
                                     </ul>
                                 End If

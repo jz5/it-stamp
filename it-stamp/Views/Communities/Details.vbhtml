@@ -70,7 +70,8 @@ End Code
                 @For Each m In Model.Members.Where(Function(u) Not u.IsPrivate)
                     @<a href="@Href("~/Users/" & m.UserName)"><img src="@(If(M.IconPath <> "", Href("/Uploads/" & m.IconPath), "http://placehold.it/16x16"))" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
                 Next
-                                                                                                                                If Model.Members.Where(Function(u) u.IsPrivate).Count > 0 Then
+                                                                                                                                
+                If Model.Members.Where(Function(u) u.IsPrivate).Count > 0 Then
                 @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
                 End If
 
