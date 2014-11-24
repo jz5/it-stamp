@@ -2,7 +2,6 @@
 @Imports Microsoft.AspNet.Identity
 @Code
     ViewBag.Title = "アイコンの変更"
-    Dim icon = "http://placehold.it/96x96"
 End Code
 
 <h1>@ViewBag.Title</h1>
@@ -11,7 +10,6 @@ End Code
     @Html.AntiForgeryToken()
     @<text>
         @Html.ValidationSummary(True, "", New With {.class = "text-danger"})
-        @Html.HiddenFor(Function(m) m.StampPath)
 
         <div class="form-group">
             @Html.LabelFor(Function(m) m.Name, New With {.class = "control-label"})
@@ -21,8 +19,6 @@ End Code
         </div>
 
         <div class="form-group">
-            <img class="media-object img-rounded" src="@icon" alt="@Model.Name" />
-
             <div style="margin: 30px 0 15px;">
                 <div class="form-inline">
                     @Html.TextBoxFor(Function(m) m.File, New With {.class = "form-control", .type = "file"})
