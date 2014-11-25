@@ -216,7 +216,7 @@ Public Class EventsController
             End If
 
             ' 日時処理
-            SetDateTime(viewModel.StartDate, viewModel.StartTime, viewModel.EndDate, viewModel.EndTime, ev.StartDateTime, ev.EndDateTime)
+            SetDateTime(viewModel.StartDate, viewModel.StartTime, viewModel.EndDate, viewModel.EndTime, ev.StartDateTime, ev.EndDateTime, Now)
             If Not ModelState.IsValid Then
                 Return View(viewModel)
             End If
@@ -334,7 +334,7 @@ Public Class EventsController
             End If
 
             ' 日時処理
-            SetDateTime(viewModel.StartDate, viewModel.StartTime, viewModel.EndDate, viewModel.EndTime, ev.StartDateTime, ev.EndDateTime)
+            SetDateTime(viewModel.StartDate, viewModel.StartTime, viewModel.EndDate, viewModel.EndTime, ev.StartDateTime, ev.EndDateTime, ev.CreationDateTime)
             If Not ModelState.IsValid Then
                 Return View(viewModel)
             End If
@@ -665,7 +665,7 @@ Public Class EventsController
     End Function
 
 
-    Private Sub SetDateTime(startDate As DateTime, startTime As DateTime?, endDate As DateTime, endTime As DateTime?, ByRef startDateTime As DateTime, ByRef endDateTime As DateTime)
+    Private Sub SetDateTime(startDate As DateTime, startTime As DateTime?, endDate As DateTime, endTime As DateTime?, ByRef startDateTime As DateTime, ByRef endDateTime As DateTime, baseDateTime As DateTime)
 
         startDateTime = startDate.Date
         endDateTime = endDate.Date
@@ -685,11 +685,11 @@ Public Class EventsController
             ModelState.AddModelError("EndDate", "開始日時より後の日時を設定してください。")
         End If
 
-        If startDateTime < Now.AddYears(-1) Then
+        If startDateTime < baseDateTime.AddYears(-1) Then
             ModelState.AddModelError("StartDate", "1年以上古い日時は登録できません。")
         End If
 
-        If startDateTime > Now.AddYears(1) Then
+        If startDateTime > baseDateTime.AddYears(1) Then
             ModelState.AddModelError("StartDate", "1年以上先の日時は登録できません。")
         End If
 
