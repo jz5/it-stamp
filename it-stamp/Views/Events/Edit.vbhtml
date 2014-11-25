@@ -145,13 +145,8 @@ End Section
     @Scripts.Render("~/Scripts/locales/bootstrap-datepicker.ja.js")
     @Scripts.Render("~/Scripts/bootstrap-timepicker.js")
 
-
-
-
-    @*<script>
+    <script>
             $('.input-group.date').datepicker({
-                startDate: "@Now.AddYears(-1).ToString("yyyy/M/d")",
-                endDate: "@Now.AddYears(1).ToString("yyyy/M/d")",
                 todayBtn: "linked",
                 language: "ja",
                 autoclose: true,
@@ -162,13 +157,18 @@ End Section
                 showInputs: false,
                 defaultTime: false,
                 showMeridian: false
+            }).on("show.timepicker", function (e) {
+                if ($('#StartTime').val() == "")
+                    $('#StartTime').timepicker("setTime", "00:00");
             });
-
             $('#EndTime').timepicker({
                 showInputs: false,
                 defaultTime: false,
                 showMeridian: false
+            }).on("show.timepicker", function (e) {
+                if ($('#EndTime').val() == "")
+                    $('#EndTime').timepicker("setTime", "00:00");
             });
-        </script>*@
+        </script>
 End Section
 
