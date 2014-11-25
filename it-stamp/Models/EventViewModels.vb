@@ -47,25 +47,26 @@ Public Class AddEventDetailsViewModel
 
 
     <Required>
+    <StringLength(100)>
     <Display(Name:="名前")>
     Property Name As String
 
-    <StringLength(1023)>
+    <StringLength(1000)>
     <Display(Name:="説明")>
     <DataType(DataType.MultilineText)>
     Property Description As String
 
     <Url>
-    <StringLength(255)>
+    <StringLength(256)>
     <DataType(DataType.Url)>
     <Display(Name:="Webサイト")>
     Property Url As String
 
-    <StringLength(255)>
+    <StringLength(100)>
     <Display(Name:="住所")>
     Property Address As String
 
-    <StringLength(255)>
+    <StringLength(100)>
     <Display(Name:="会場名")>
     Property Place As String
 
@@ -110,25 +111,26 @@ Public Class EventDetailsViewModel
 
 
     <Required>
+    <StringLength(100)>
     <Display(Name:="名前")>
     Property Name As String
 
-    <StringLength(1023)>
+    <StringLength(1000)>
     <Display(Name:="説明")>
     <DataType(DataType.MultilineText)>
     Property Description As String
 
     <Url>
-    <StringLength(255)>
+    <StringLength(256)>
     <DataType(DataType.Url)>
     <Display(Name:="Webサイト")>
     Property Url As String
 
-    <StringLength(255)>
+    <StringLength(100)>
     <Display(Name:="住所")>
     Property Address As String
 
-    <StringLength(255)>
+    <StringLength(100)>
     <Display(Name:="会場名")>
     Property Place As String
 
@@ -153,7 +155,7 @@ Public Class EventDetailsViewModel
     Property ParticipantsOfflineCount As Integer
     Property ParticipantsOnlineCount As Integer
 
-    <StringLength(1023)>
+    <StringLength(1000)>
     <DataType(DataType.MultilineText)>
     Property ReportMemo As String
 End Class
@@ -183,7 +185,7 @@ Public Class CheckInViewModel
 
     Property ShareFacebook As Boolean
 
-    <StringLength(1023)>
+    <StringLength(256)>
     <Display(Name:="追加メッセージ")>
     <DataType(DataType.MultilineText)>
     Property AdditionalMessage As String

@@ -18,8 +18,9 @@ Public Class [Event]
     <DataType(DataType.MultilineText)>
     Property Description As String
 
-    <DataType(DataType.Url)>
+    <Url>
     <StringLength(256)>
+    <DataType(DataType.Url)>
     Property Url As String
 
     Property StartDateTime As DateTime
