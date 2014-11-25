@@ -133,7 +133,6 @@ End Using
 
 
 @Section Styles
-    @Scripts.Render("~/bundles/jqueryval")
     @Styles.Render("~/Content/datepicker3.css")
     @Styles.Render("~/Content/bootstrap-timepicker.css")
 End Section
