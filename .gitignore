@@ -159,4 +159,5 @@ $RECYCLE.BIN/
 Authentication.config
 App_Data/Communities/
 App_Data/Users/
-
+*.pubxml
+*.pubxml.user

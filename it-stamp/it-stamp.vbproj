@@ -298,6 +298,9 @@
     </None>
     <None Include="My Project\PublishProfiles\itstamp %282%29.pubxml" />
     <None Include="My Project\PublishProfiles\itstamp %283%29.pubxml" />
+    <None Include="My Project\PublishProfiles\itstamp %284%29.pubxml" />
+    <None Include="My Project\PublishProfiles\itstamp %285%29.pubxml" />
+    <None Include="My Project\PublishProfiles\itstamp %286%29.pubxml" />
     <None Include="My Project\PublishProfiles\itstamp.pubxml" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -362,10 +365,15 @@
     <Content Include="images\stamprally2015\logo-conoha2x.png" />
     <Content Include="images\stamprally2015\logo-cybozulive.png" />
     <Content Include="images\stamprally2015\logo-cybozulive2x.png" />
+    <Content Include="images\stamprally2015\logo-forest.png" />
+    <Content Include="images\stamprally2015\logo-forest2x.png" />
+    <Content Include="images\stamprally2015\logo-gihyo.png" />
+    <Content Include="images\stamprally2015\logo-gihyo2x.png" />
     <Content Include="images\stamprally2015\logo-microsoft.png" />
     <Content Include="images\stamprally2015\logo-microsoft2x.png" />
     <Content Include="images\stamprally2015\nareru1.jpg" />
     <Content Include="images\stamprally2015\nareru1.png" />
+    <Content Include="images\stamprally2015\nareru2.jpg" />
     <Content Include="images\stamprally2015\nareru2.png" />
     <Content Include="images\stamprally2015\platinum.png" />
     <Content Include="images\stamprally2015\silver.png" />
@@ -479,9 +487,9 @@
       <DependentUpon>jquery.selectboxsearch.min.js</DependentUpon>
     </Content>
     <Content Include="Views\Communities\UploadStamp.vbhtml" />
-    <Content Include="Views\Communities\DeleteStamp.vbhtml" />
     <Content Include="Views\Communities\DeleteOwner.vbhtml" />
     <Content Include="Views\Communities\AddOwner.vbhtml" />
+    <Content Include="Views\Communities\DeleteStamp.vbhtml" />
     <None Include="Views\Events\Details.vbhtml" />
     <Content Include="Views\Shared\_SidebarPartial.vbhtml" />
     <Content Include="Views\Shared\_EventResults.vbhtml" />
@@ -528,7 +536,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
