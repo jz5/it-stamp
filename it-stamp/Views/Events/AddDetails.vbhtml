@@ -138,7 +138,7 @@ End Section
     @Scripts.Render("~/Scripts/bootstrap-datepicker.js")
     @Scripts.Render("~/Scripts/locales/bootstrap-datepicker.ja.js")
     @Scripts.Render("~/Scripts/bootstrap-timepicker.js")
-    @Scripts.Render("~/Scripts/jquery.selectboxsearch.js")
+    @Scripts.Render("~/Scripts/jquery.selectboxsearch.min.js")
     <script>
         (function ($) {
             $('.input-group.date').datepicker({
