@@ -74,7 +74,7 @@ Public Class UsersController
         Dim msg As String
         Select Case message
             Case UsersController.Message.Edit
-                msg = "編集しました。"
+                msg = "保存しました。"
             Case Else
                 msg = ""
         End Select

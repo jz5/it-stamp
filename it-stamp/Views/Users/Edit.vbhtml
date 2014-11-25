@@ -71,13 +71,10 @@ End Code
                     <p class="text-muted">
                         プライベートモード「ON」の場合、ユーザー名（@Model.UserName）以外のユーザー情報は表示されません。
                     </p>
-
                 </div>
 
-
-
                 <div class="form-group">
-                    <input type="submit" value="編集" class="btn btn-primary" />
+                    <input type="submit" value="保存" class="btn btn-primary" />
                 </div>
             </text>
         End Using
@@ -85,19 +82,25 @@ End Code
 
 
         <hr />
-        @Html.ActionLink(Model.FriendlyName & "のプロフィールページの確認", "Details", "Users", New With {.userName = Model.UserName}, Nothing)
-
-
-
+        @Html.ActionLink(Model.FriendlyName & "のプロフィールページ", "Details", "Users", New With {.userName = Model.UserName}, Nothing)
+        
     </div>
     <div class="col-md-4">
         @Html.Partial("_SidebarPartial")
     </div>
 </div>
 
-
+@section styles
+    @Styles.Render("~/Content/skins/square/blue.css")
+End Section
 
 @Section Scripts
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue'
+        });
+    </script>
 End Section
 

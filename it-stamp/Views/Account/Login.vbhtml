@@ -57,6 +57,17 @@ End Code
     </div>
 </div>
 
+@section styles
+    @Styles.Render("~/Content/skins/square/blue.css")
+End Section
+
 @Section Scripts
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/icheck.min.js")
+    <script>
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue'
+        });
+    </script>
 End Section
