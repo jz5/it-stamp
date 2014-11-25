@@ -29,11 +29,9 @@ End Code
                     @Html.HiddenFor(Function(m) m.Id)
                     @Html.HiddenFor(Function(m) m.Name)
 
-                    @Html.ValidationSummary(False, "", New With {.class = "text-danger"})
-
                     @<div class="form-group">
                         <div class="form-inline">
-                            <input id="follow-btn" type="submit" value="@(if(ViewBag.Followd,"フォロー中","フォロー"))" class="btn btn-default" style="max-width:96px;" />
+                            <input id="follow-btn" type="submit" value="@(if(ViewBag.Followd,"フォロー中","フォロー"))" class="btn btn-default" style="min-width:auto;width:96px;font-size:14px;" />
                         </div>
                     </div>
                 End Using
