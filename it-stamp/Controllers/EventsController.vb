@@ -94,7 +94,7 @@ Public Class EventsController
 
     ' GET: Events/5
     <AllowAnonymous>
-    Async Function Details(ByVal id As Integer?, message As DetailsMessage?, stamp As Stamp) As Task(Of ActionResult)
+    Async Function Details(ByVal id As Integer?, message As DetailsMessage?) As Task(Of ActionResult)
         If IsNothing(id) Then
             Return RedirectToAction("Index")
         End If
@@ -113,15 +113,11 @@ Public Class EventsController
         If appUser IsNot Nothing Then
             Dim ci = db.CheckIns.Where(Function(c) c.User.Id = appUser.Id AndAlso c.Event.Id = ev.Id).SingleOrDefault
             ViewBag.CheckIned = ci IsNot Nothing
-            ViewBag.AssosiatedTwitter = appUser.Twitter <> String.Empty
-            ViewBag.AssosiatedFacebook = (appUser.Facebook <> String.Empty)
             ViewBag.ShareTwitter = appUser.ShareTwitter
             ViewBag.ShareFacebook = appUser.ShareFacebook
             ViewBag.IsPrivateUser = appUser.IsPrivate
         Else
             ViewBag.CheckIned = False
-            ViewBag.AssosiatedTwitter = False
-            ViewBag.AssosiatedFacebook = False
             ViewBag.ShareTwitter = False
             ViewBag.ShareFacebook = False
             ViewBag.IsPrivateUser = False
@@ -131,6 +127,14 @@ Public Class EventsController
             ViewBag.CanCheckIn = False
         Else
             ViewBag.CanChackIn = True
+        End If
+
+        ' フォロー済みか
+        If appUser IsNot Nothing Then
+            Dim followed = appUser.Favorites.Where(Function(f) f.Event.Id = ev.Id).Count > 0
+            ViewBag.Followd = followed
+        Else
+            ViewBag.Followd = False
         End If
 
         ' Message
@@ -513,6 +517,75 @@ Public Class EventsController
 
     End Function
 
+    <HttpPost()>
+    <ValidateAntiForgeryToken()>
+    Async Function Follow(model As [Event]) As Task(Of ActionResult)
+        Dim userId = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
+        If appUser Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Dim id = model.Id
+        Dim ev = db.Events.Where(Function(e) e.Id = id).SingleOrDefault
+        If ev Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Try
+            ' フォロー済みか
+            Dim fv = appUser.Favorites.Where(Function(f) f.Event.Id = id AndAlso f.User.Id = userId).SingleOrDefault
+            Dim followed = fv IsNot Nothing
+            ViewBag.Followd = followed
+
+            If Not ModelState.IsValid Then
+                Return View(model)
+            End If
+
+            If ev.IsHidden Then
+                ViewBag.ErrorMessage = "このIT勉強会はフォローできません。"
+                Return View(model)
+            End If
+
+            ' Switch following
+            If followed Then
+                db.Favorites.Remove(fv)
+            Else
+                Dim newFv = New Favorite() With {
+                    .Event = ev,
+                    .User = appUser,
+                    .DateTime = Now}
+                db.Favorites.Add(newFv)
+                appUser.Favorites.Add(newFv)
+
+            End If
+
+            Await db.SaveChangesAsync
+
+            ' for Ajax
+            If Request.IsAjaxRequest Then
+                Return Json(New With {.followed = Not followed})
+            End If
+
+            Return RedirectToAction("Details", "Events", New With {.id = ev.Id})
+
+        Catch eEx As System.Data.Entity.Validation.DbEntityValidationException
+            For Each er In eEx.EntityValidationErrors
+                For Each e In er.ValidationErrors
+                    Debug.Print(e.ErrorMessage)
+                Next
+            Next
+        Catch ex As Exception
+            ModelState.AddInternalError(User, ex)
+        End Try
+
+        If Request.IsAjaxRequest Then
+            Return Json(Nothing)
+        Else
+            Return View(model)
+        End If
+
+    End Function
 
     Async Function Today() As Task(Of ActionResult)
 
