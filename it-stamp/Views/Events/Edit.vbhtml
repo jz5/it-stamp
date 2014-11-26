@@ -101,7 +101,7 @@ End Code
         Else
             @<div class="form-group">
                 @Html.LabelFor(Function(m) m.CommunityId, New With {.class = "control-label"})
-                 <span class="text-muted">（変更できません）</span>
+                <span class="text-muted">（変更できません）</span>
                 <div class="form-inline">
                     @Html.TextBox("DummyName", Model.Community.Name, New With {.class = "form-control", .disabled = "disabled"})
                 </div>
@@ -169,10 +169,31 @@ End Using
             @<span>💡 @(Model.Community.Name)の方ですか？　<a href="@Href("~/Home/Contact/")">申請</a>すると詳細情報を編集できます。</span>
         End If
     </div>
+Else
+    @<h2>開催メモ</h2>
+    @<table class="table table-responsive">
+        <tbody>
+            <tr>
+                <td style="border-top-width:0;">参加人数（オフライン）</td>
+                <td style="border-top-width:0;">@(If(Model.IsReported, Model.ParticipantsOfflineCount.ToString & "名","未登録"))</td>
+            </tr>
+            <tr>
+                <td>参加人数（オンライン）</td>
+                <td>@(If(Model.IsReported, Model.ParticipantsOnlineCount.ToString & "名", "未登録"))</td>
+            </tr>
+            <tr>
+                <td>備考</td>
+                <td>@Html.Raw(Html.Encode(Model.ReportMemo).Replace(vbCrLf, "<br />"))</td>
+            </tr>
+        </tbody>
+    </table>
+
+    @Html.ActionLink("編集", "EditReport", "Events", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
+
 End If
 
 @If ViewBag.CanDelete Then
-    @<hr />
+    @<h2>IT勉強会の削除</h2>
     @Html.ActionLink("削除", "Delete", "Events", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
 End If
 

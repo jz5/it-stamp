@@ -39,54 +39,54 @@ h1, h2 {
 h3 {
   margin-top: 30px; }
 
-/* line 85, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
-h1:first-of-type, h2:first-of-type, h3:first-of-type, h1 + h2, h2 + h3 {
+/* line 83, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+h1:first-of-type, h1 + h2, h2 + h3 {
   margin-top: 30px; }
 
-/* line 90, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 88, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 h4, h5, h6 {
   margin-top: 15px;
   margin-bottom: 15px; }
 
-/* line 94, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 92, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 h6 {
   font-weight: normal; }
 
-/* line 98, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 96, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 h1, .h1 {
   font-size: 51px; }
 
-/* line 102, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 100, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 h2, .h2 {
   font-size: 43px; }
 
-/* line 106, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 104, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 h3, .h3 {
   font-size: 30px; }
 
-/* line 110, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 108, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 h4, .h4 {
   font-size: 19px; }
 
-/* line 114, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 112, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 h5, .h5 {
   font-size: 18px; }
 
-/* line 118, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 116, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 h6, .h6 {
   font-size: 14px; }
 
-/* line 121, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 119, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 blockquote {
   border-left: 3px solid #CCD1D9; }
 
-/* line 124, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 122, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 .img-rounded {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px; }
 
-/* line 127, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 125, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 .img-comment {
   font-size: 15px;
   line-height: 1.2;

@@ -12,7 +12,7 @@ End Code
     </div>
 </div>
 
-<p>削除すると元に戻せません。</p>
+<p>💡 削除すると元に戻せません。</p>
 
 @If ViewBag.CanDelete Then
     @Using Html.BeginForm("Delete", "Events", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})

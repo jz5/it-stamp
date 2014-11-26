@@ -33,6 +33,10 @@ End Code
             @<div class="alert alert-warning fade in" role="alert">
                 中止になったIT勉強会です。
             </div>
+        ElseIf Model.EndDateTime < Now.Date Then
+            @<div class="alert alert-warning fade in" role="alert">
+                終了したIT勉強会です。
+            </div>
         End If
         @If Model.IsHidden Then
             @<div class="alert alert-warning fade in" role="alert">
@@ -54,8 +58,6 @@ End Code
                             @Html.AntiForgeryToken()
                             @Html.HiddenFor(Function(m) m.Id)
                             @Html.HiddenFor(Function(m) m.Name)
-
-                            @Html.ValidationSummary(False, "", New With {.class = "text-danger"})
 
                             @<div class="form-group">
                                 <div class="form-inline">
@@ -124,6 +126,20 @@ End Code
                                 <td colspan="2"><span>⭐</span> @Html.ActionLink(Model.SpecialEvents.Name, Model.SpecialEvents.Id.ToString, "SpecialEvents")対象のIT勉強会です。</td>
                             </tr>
                         End If
+                        @If Model.IsReported Then
+                            @<tr>
+                                <td>参加人数（オフライン）</td>
+                                <td>@(Model.ParticipantsOfflineCount.ToString & "名")</td>
+                            </tr>
+                            @<tr>
+                                <td>参加人数（オンライン）</td>
+                                <td>@(Model.ParticipantsOnlineCount.ToString & "名")</td>
+                            </tr>
+                            @<tr>
+                                <td>備考</td>
+                                <td>@Html.Raw(Html.Encode(Model.ReportMemo).Replace(vbCrLf, "<br />"))</td>
+                            </tr>
+                        End If
                     </tbody>
                 </table>
             </div>
@@ -141,7 +157,7 @@ End Code
                 @For Each m In Model.CheckIns.Where(Function(c) Not c.User.IsPrivate).Select(Function(c) c.User)
                     @<a href="@Href("~/Users/" & m.UserName)"><img src="@(If(M.IconPath <> "", Href("/Uploads/" & m.IconPath), userIcon))" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
                 Next
-                                                                                                                                                                                                                                                                                                                                                                                If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
+                                                                                                                                                                                                                                                                                                                                                                                                If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
                 @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
                 End If
             End If

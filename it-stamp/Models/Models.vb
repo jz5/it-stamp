@@ -48,10 +48,13 @@ Public Class [Event]
     Property IsCanceled As Boolean
 
     Property IsReported As Boolean
+    <Display(Name:="参加人数（オフライン）")>
     Property ParticipantsOfflineCount As Integer
+    <Display(Name:="参加人数（オンライン）")>
     Property ParticipantsOnlineCount As Integer
     <StringLength(1000)>
     <DataType(DataType.MultilineText)>
+    <Display(Name:="備考")>
     Property ReportMemo As String
 
     Property CreationDateTime As DateTime

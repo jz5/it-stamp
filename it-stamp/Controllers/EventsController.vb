@@ -44,7 +44,7 @@ Public Class EventsController
     Function Index(page As Integer?, past As Boolean?, specialEvent As Integer?, message As DetailsMessage?) As ActionResult
 
         Dim results As IQueryable(Of [Event])
-        Dim n = Now
+        Dim n = Now.Date
         If past.HasValue AndAlso past.Value = True Then
             ' 過去
             results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.EndDateTime < n).OrderByDescending(Function(e) e.StartDateTime)
@@ -303,6 +303,7 @@ Public Class EventsController
             .IsCanceled = ev.IsCanceled,
             .IsHidden = ev.IsHidden,
             .IsLocked = ev.IsLocked,
+            .IsReported = ev.IsReported,
             .ParticipantsOfflineCount = ev.ParticipantsOfflineCount,
             .ParticipantsOnlineCount = ev.ParticipantsOnlineCount,
             .ReportMemo = ev.ReportMemo,
@@ -424,6 +425,76 @@ Public Class EventsController
         End Try
     End Function
 
+    ' GET: Events/EditReport
+    Async Function EditReport(id As Integer?) As Task(Of ActionResult)
+        If Not id.HasValue Then
+            Return HttpNotFound()
+        End If
+
+        Dim ev As [Event] = Await db.Events.FindAsync(id)
+        If ev Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        ' 編集権限の確認
+        Dim userId = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
+        If Not CanEditDetails(appUser, ev) Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Return View(ev)
+    End Function
+
+    <HttpPost()>
+    <ValidateAntiForgeryToken()>
+    Async Function EditReport(ByVal model As [Event]) As Task(Of ActionResult)
+        Try
+            Dim ev = db.Events.Where(Function(c) c.Id = model.Id).FirstOrDefault
+            If ev Is Nothing Then
+                Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+            End If
+
+            ' 編集権限の確認
+            Dim id = User.Identity.GetUserId
+            Dim appUser = Await db.Users.Where(Function(u) u.Id = id).SingleOrDefaultAsync
+            If Not CanEditDetails(appUser, ev) Then
+                Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+            End If
+
+            ' ModalState
+            If Not ModelState.IsValid Then
+                Return View(ev)
+            End If
+
+            ' 値修正
+            model.ReportMemo = If(model.ReportMemo IsNot Nothing, model.ReportMemo.Trim, "")
+
+            ' プロパティ更新
+            ev.ParticipantsOfflineCount = model.ParticipantsOfflineCount
+            ev.ParticipantsOnlineCount = model.ParticipantsOnlineCount
+            ev.ReportMemo = model.ReportMemo
+            ev.IsReported = True
+
+            ev.LastUpdatedBy = appUser
+            ev.LastUpdatedDateTime = Now
+
+            db.SaveChanges()
+
+            Return RedirectToAction("Details", New With {.id = ev.Id, .message = DetailsMessage.Edit})
+
+        Catch eEx As System.Data.Entity.Validation.DbEntityValidationException
+            For Each er In eEx.EntityValidationErrors
+                For Each e In er.ValidationErrors
+                    Debug.Print(e.ErrorMessage)
+                Next
+            Next
+            Return View(model)
+        Catch ex As Exception
+            ModelState.AddInternalError(User, ex)
+            Return View(model)
+        End Try
+    End Function
 
     Async Function CheckIn(id As Integer?) As Task(Of ActionResult)
         If Not id.HasValue Then
@@ -581,7 +652,7 @@ Public Class EventsController
             ViewBag.Followd = followed
 
             If Not ModelState.IsValid Then
-                Return View(model)
+                Return View(ev)
             End If
 
             If ev.IsHidden Then
@@ -699,20 +770,19 @@ Public Class EventsController
     <HttpPost()>
     <ValidateAntiForgeryToken()>
     Async Function Delete(model As [Event]) As Task(Of ActionResult)
-
-        Dim userId = User.Identity.GetUserId
-        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
-
-        Dim id = model.Id
-        Dim ev = db.Events.Where(Function(e) e.Id = id).SingleOrDefault
-
-        If Not CanDelete(appUser, ev) Then
-            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
-        End If
-
         Try
+            Dim userId = User.Identity.GetUserId
+            Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
+
+            Dim id = model.Id
+            Dim ev = db.Events.Where(Function(e) e.Id = id).SingleOrDefault
+
+            If Not CanDelete(appUser, ev) Then
+                Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+            End If
+
             If Not ModelState.IsValid Then
-                Return View(model)
+                Return View(ev)
             End If
 
             db.Events.Remove(ev)

@@ -528,7 +528,6 @@
     <Content Include="Views\Shared\_SidebarPartial.vbhtml" />
     <Content Include="Views\Shared\_EventResults.vbhtml" />
     <Content Include="Views\UsersAdmin\Edit.vbhtml" />
-    <Content Include="Views\Events\CheckIn.vbhtml" />
     <Content Include="Views\Shared\_TopBanner.vbhtml" />
     <Content Include="Views\Events\Index.vbhtml" />
     <Content Include="Views\Shared\_SocialButtons.vbhtml" />
@@ -556,6 +555,7 @@
     <Content Include="Views\Stamprally2015\Sponsors.vbhtml" />
     <Content Include="Views\Home\TOS.vbhtml" />
     <Content Include="Views\Home\QA.vbhtml" />
+    <Content Include="Views\Events\EditReport.vbhtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
