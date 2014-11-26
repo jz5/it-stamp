@@ -732,7 +732,7 @@ Public Class EventsController
         ElseIf Not ev.IsLocked Then
             ' 一般ユーザー
             Return True
-        ElseIf ev.Community IsNot Nothing AndAlso appUser.OwnerCommunities.Contains(ev.Community) Then
+        ElseIf ev.Community IsNot Nothing AndAlso appUser.OwnerCommunities.Where(Function(c) c.Id = ev.Community.Id).Count > 0 Then
             ' コミュニティオーナー
             Return True
         ElseIf User.IsInRole("Admin") Then
@@ -744,7 +744,7 @@ Public Class EventsController
     Private Function CanEditDetails(appUser As ApplicationUser, ev As [Event]) As Boolean
         If appUser Is Nothing OrElse ev Is Nothing Then
             Return False
-        ElseIf ev.Community IsNot Nothing AndAlso appUser.OwnerCommunities.Contains(ev.Community) Then
+        ElseIf ev.Community IsNot Nothing AndAlso appUser.OwnerCommunities.Where(Function(c) c.Id = ev.Community.Id).Count > 0 Then
             ' コミュニティオーナー
             Return True
         ElseIf User.IsInRole("Admin") Then
@@ -756,9 +756,16 @@ Public Class EventsController
     Private Function CanDelete(appUser As ApplicationUser, ev As [Event]) As Boolean
         If appUser Is Nothing OrElse ev Is Nothing Then
             Return False
-        ElseIf ev.CheckIns.Count > 0 OrElse ev.Favorites.Count > 0 OrElse ev.Comments.Count > 0 OrElse ev.IsLocked OrElse ev.IsReported Then
+        ElseIf User.IsInRole("Admin") Then
+            Return True
+        ElseIf ev.CheckIns.Count > 0 OrElse ev.Favorites.Count > 0 OrElse ev.Comments.Count > 0 OrElse ev.IsReported Then
+            ' チェックイン済み・フォロー済み・コメントあり・報告済みの場合削除不可
             Return False
-        Else
+        ElseIf ev.Community IsNot Nothing AndAlso appUser.OwnerCommunities.Where(Function(c) c.Id = ev.Community.Id).Count > 0 Then
+            ' コミュニティオーナー
+            Return True
+        ElseIf ev.CreatedBy.Id = appUser.Id AndAlso Not ev.IsLocked Then
+            ' 作成者
             Return True
         End If
         Return False

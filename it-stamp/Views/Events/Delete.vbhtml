@@ -11,21 +11,6 @@ End Code
     <div class="col-sm-12 col-md-8">
 
         <h1>@ViewBag.Title</h1>
-
-        @*@If ViewBag.StatusMessage <> "" Then
-                @<div class="alert alert-success fade in" role="alert">
-                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    @ViewBag.StatusMessage
-                </div>
-            End If
-
-            @If ViewBag.ErrorMessage <> "" Then
-                @<div class="alert alert-danger fade in" role="alert">
-                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    @ViewBag.ErrorMessage
-                </div>
-            End If*@
-
         <div class="panel">
             <div class="panel-body">
                 @Html.Partial("_EventCard", Model)
