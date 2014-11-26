@@ -320,6 +320,7 @@ Public Class EventsController
         End If
 
         ViewBag.CanEditDetails = CanEditDetails(appUser, ev)
+        ViewBag.CanDelete = CanDelete(appUser, ev)
 
         Return View(viewModel)
     End Function
@@ -347,17 +348,18 @@ Public Class EventsController
 
             ' ModelState check
             ViewBag.CanEditDetails = CanEditDetails(appUser, ev)
+            ViewBag.CanDelete = CanDelete(appUser, ev)
             If Not ModelState.IsValid Then
                 Return View(viewModel)
             End If
 
             ' 値修正
-            viewModel.Name = viewModel.Name.Trim
-            viewModel.Description = viewModel.Description.Trim
-            viewModel.CheckInCode = viewModel.CheckInCode.Trim
-            viewModel.Url = viewModel.Url.Trim
-            viewModel.Address = viewModel.Address.Trim
-            viewModel.Place = viewModel.Place.Trim
+            viewModel.Name = If(viewModel.Name IsNot Nothing, viewModel.Name.Trim, "")
+            viewModel.Description = If(viewModel.Description IsNot Nothing, viewModel.Description.Trim, "")
+            viewModel.CheckInCode = If(viewModel.CheckInCode IsNot Nothing, viewModel.CheckInCode.Trim, "")
+            viewModel.Url = If(viewModel.Url IsNot Nothing, viewModel.Url.Trim, "")
+            viewModel.Address = If(viewModel.Address IsNot Nothing, viewModel.Address.Trim, "")
+            viewModel.Place = If(viewModel.Place IsNot Nothing, viewModel.Place.Trim, "")
 
             ' 日時処理
             SetDateTime(viewModel.StartDate, viewModel.StartTime, viewModel.EndDate, viewModel.EndTime, ev.StartDateTime, ev.EndDateTime, ev.CreationDateTime)
