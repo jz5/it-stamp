@@ -224,8 +224,8 @@
     <Compile Include="Controllers\SpecialEventsAdminController.vb" />
     <Compile Include="Controllers\TempController.vb" />
     <Compile Include="Controllers\UsersAdminController.vb" />
+    <Compile Include="Helpers\HtmlHelpers.vb" />
     <Compile Include="Migrations\Configuration.vb" />
-    <Compile Include="MvcHtmlHelpers.vb" />
     <Compile Include="MyRequiredAttributeAdapter.vb" />
     <Compile Include="EventApi\AddressHelper.vb" />
     <Compile Include="EventApi\Atnd.vb" />
@@ -604,6 +604,8 @@
     <Content Include="Views\Communities\DeleteOwner.vbhtml" />
     <Content Include="Views\Communities\AddOwner.vbhtml" />
     <Content Include="Views\Communities\DeleteStamp.vbhtml" />
+    <Content Include="Views\Communities\EditOwners.vbhtml" />
+    <Content Include="Views\Communities\EditStamps.vbhtml" />
     <None Include="Views\Events\Details.vbhtml" />
     <Content Include="Views\Shared\_SidebarPartial.vbhtml" />
     <Content Include="Views\Shared\_EventResults.vbhtml" />
