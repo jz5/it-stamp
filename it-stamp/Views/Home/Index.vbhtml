@@ -2,12 +2,7 @@
 
 @Code
     Dim icon = "http://placehold.it/96x96"
-
 End Code
-
-
-@*@Html.Partial("_TopBanner")*@
-
 
 <div class="row">
     <div class="col-sm-12 col-md-8">
@@ -15,9 +10,9 @@ End Code
         @If Not Request.IsAuthenticated Then
             @<div class="jumbotron">
                 <div class="jumbotron-contents">
-                    <p><a href="@Href("~/Home/About")">IT勉強会スタンプ</a> は、IT勉強会の参加を記録できるWebサービスです。</p>
-                    <p>IT勉強会に参加してスタンプを集める “<a href="@Href("~/Stamprally/2015/")">IT勉強会スタンプラリー</a>” を開催中！（※ 台紙でスタンプを集めます。Webサービスの記録機能とは関連していません。）</p>
-                    @*<hr />*@
+                    <p><a href="@Href("~/Home/About/")">IT勉強会スタンプ</a>は、IT勉強会の参加を記録できるWebサービスです。</p>
+                    <p>IT勉強会に参加してスタンプを集める “<a href="@Href("~/Stamprally/2015/")">IT勉強会スタンプラリー</a>” を開催中！　<a href="@Href("~/Events/?SpecialEvent=1")">対象のIT勉強会</a>を探してみよう！（※ 開催中のスタンプラリーは、台紙を使います。Webサービスの記録機能とは関連していません。）</p>
+
                     @Html.ActionLink("アカウント登録", "Register", "Account", Nothing, New With {.class = "btn btn-primary"})
                 </div>
             </div>

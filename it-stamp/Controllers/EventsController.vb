@@ -41,7 +41,7 @@ Public Class EventsController
 
     ' GET: Events
     <AllowAnonymous>
-    Function Index(page As Integer?, past As Boolean?, isSpecialEvent As Boolean?, message As DetailsMessage?) As ActionResult
+    Function Index(page As Integer?, past As Boolean?, specialEvent As Integer?, message As DetailsMessage?) As ActionResult
 
         Dim results As IQueryable(Of [Event])
         Dim n = Now
@@ -54,8 +54,8 @@ Public Class EventsController
         End If
 
         ' さらに絞り込む
-        If isSpecialEvent.HasValue AndAlso isSpecialEvent = True Then
-            results = (From item In results Where (item.SpecialEvents IsNot Nothing))
+        If specialEvent.HasValue Then
+            results = From item In results Where item.SpecialEvents.Id = specialEvent.Value
         End If
 
         Dim viewModel = New SearchEventsViewModel With {

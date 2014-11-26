@@ -24,7 +24,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("🔰 初めての方", "About", "Home")</li>
                     <li>@Html.ActionLink("IT勉強会", "Index", "Events")</li>
                     <li><a href="@Href("~/Stamprally/2015/")">スタンプラリー</a></li>
                    
@@ -69,7 +69,7 @@
                     <h3>IT勉強会スタンプ</h3>
                     <p>IT勉強会スタンプは、IT勉強会の参加を記録できるWebサービスです。</p>
                     <ul class="list-unstyled">
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("初めての方", "About", "Home")</li>
                         <li>@Html.ActionLink("IT勉強会一覧", "Index", "Events")</li>
                         <li>@Html.ActionLink("コミュニティ一覧", "Index", "Communities")</li>
                         <li>@Html.ActionLink("登録", "Register", "Account")・@Html.ActionLink("ログイン", "Login", "Account")</li>

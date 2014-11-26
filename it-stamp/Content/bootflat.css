@@ -30,55 +30,63 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small {
   color: #e7e9ec; }
 
-/* line 75, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
-h1, h2, h3 {
-  margin-top: 30px;
+/* line 74, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+h1, h2 {
+  margin-top: 80px;
   margin-bottom: 15px; }
 
-/* line 81, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 78, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+h3 {
+  margin-top: 30px; }
+
+/* line 85, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+h1:first-of-type, h2:first-of-type, h3:first-of-type, h1 + h2, h2 + h3 {
+  margin-top: 30px; }
+
+/* line 90, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 h4, h5, h6 {
   margin-top: 15px;
   margin-bottom: 15px; }
 
-/* line 85, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 94, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 h6 {
   font-weight: normal; }
 
-/* line 89, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 98, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 h1, .h1 {
   font-size: 51px; }
 
-/* line 93, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 102, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 h2, .h2 {
   font-size: 43px; }
 
-/* line 97, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 106, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 h3, .h3 {
   font-size: 30px; }
 
-/* line 101, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 110, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 h4, .h4 {
   font-size: 19px; }
 
-/* line 105, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 114, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 h5, .h5 {
   font-size: 18px; }
 
-/* line 109, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 118, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 h6, .h6 {
   font-size: 14px; }
 
-/* line 112, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 121, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 blockquote {
   border-left: 3px solid #CCD1D9; }
 
-/* line 115, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 124, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 .img-rounded {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px; }
 
-/* line 118, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+/* line 127, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 .img-comment {
   font-size: 15px;
   line-height: 1.2;
@@ -322,20 +330,20 @@ blockquote {
 .tooltip {
   @at-root -inner {
     color: #FFF;
-    background-color: #434A54; }
+    background-color: #000; }
  }
   /* line 24, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tooltip */
   .tooltip.top .tooltip-arrow, .tooltip.top-left .tooltip-arrow, .tooltip.top-right .tooltip-arrow {
-    border-top-color: #434A54; }
+    border-top-color: #000; }
   /* line 27, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tooltip */
   .tooltip.right .tooltip-arrow {
-    border-right-color: #434A54; }
+    border-right-color: #000; }
   /* line 30, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tooltip */
   .tooltip.left .tooltip-arrow {
-    border-left-color: #434A54; }
+    border-left-color: #000; }
   /* line 35, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tooltip */
   .tooltip.bottom .tooltip-arrow, .tooltip.bottom-left .tooltip-arrow, .tooltip.bottom-right .tooltip-arrow {
-    border-bottom-color: #434A54; }
+    border-bottom-color: #000; }
 
 /**
    * popover
