@@ -144,7 +144,7 @@ End Code
             End If
         </div>
 
-        @Using Ajax.BeginForm("CheckIn", "Events", New With {.id = Model.Id}, New AjaxOptions() With {.HttpMethod = "POST", .OnSuccess = "onSuccess", .OnBegin = "onBegin"}, New With {.class = "form-horizontal", .id = "checkin-form", .role = "form"})
+        @Using Ajax.BeginForm("CheckIn", "Events", New With {.id = Model.Id}, New AjaxOptions() With {.HttpMethod = "POST", .OnSuccess = "onCheckInSuccess", .OnBegin = "onCheckInBegin"}, New With {.class = "form-horizontal", .id = "checkin-form", .role = "form"})
             @Html.AntiForgeryToken()
             @Html.Hidden("Event.Id", Model.Id)
             @Html.Hidden("Event.Name", Model.Name)
@@ -268,6 +268,9 @@ End Section
                             $(this).removeClass("animated fadeIn");
                         }));
             }
+        }
+
+        function onCheckInBegin() {
         }
 
         var followed = @(If(ViewBag.Followd, "true", "false"));
