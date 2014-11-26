@@ -225,6 +225,7 @@
     <Compile Include="Controllers\TempController.vb" />
     <Compile Include="Controllers\UsersAdminController.vb" />
     <Compile Include="Migrations\Configuration.vb" />
+    <Compile Include="MvcHtmlHelpers.vb" />
     <Compile Include="MyRequiredAttributeAdapter.vb" />
     <Compile Include="EventApi\AddressHelper.vb" />
     <Compile Include="EventApi\Atnd.vb" />

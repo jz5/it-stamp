@@ -289,6 +289,7 @@ Public Class EventsController
             .Address = ev.Address,
             .Place = ev.Place,
             .Url = ev.Url,
+            .CheckInCode = ev.CheckInCode,
             .IsCanceled = ev.IsCanceled,
             .IsHidden = ev.IsHidden,
             .IsLocked = ev.IsLocked,
@@ -308,6 +309,7 @@ Public Class EventsController
             viewModel.CommunitiesSelectList = New SelectList(db.Communities.Where(Function(c) c.Id = ev.Community.Id), "Id", "Name")
         End If
 
+        ViewBag.CanEditDetails = CanEditDetails(appUser, ev)
 
         Return View(viewModel)
     End Function
@@ -319,10 +321,6 @@ Public Class EventsController
         viewModel.SpecialEventsSelectList = New SelectList(db.SpecialEvents.Where(Function(e) e.StartDateTime <= n AndAlso n <= e.EndDateTime), "Id", "Name")
         viewModel.PrefectureSelectList = New SelectList(db.Prefectures, "Id", "Name")
         viewModel.CommunitiesSelectList = New SelectList(db.Communities.Where(Function(c) Not c.IsHidden).OrderBy(Function(c) c.Name), "Id", "Name")
-
-        If Not ModelState.IsValid Then
-            Return View(viewModel)
-        End If
 
         Try
             Dim ev = db.Events.Where(Function(c) c.Id = viewModel.Id).FirstOrDefault
@@ -337,30 +335,59 @@ Public Class EventsController
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
 
+            ' ModelState check
+            ViewBag.CanEditDetails = CanEditDetails(appUser, ev)
+            If Not ModelState.IsValid Then
+                Return View(viewModel)
+            End If
+
+            ' 値修正
+            viewModel.Name = viewModel.Name.Trim
+            viewModel.Description = viewModel.Description.Trim
+            viewModel.CheckInCode = viewModel.CheckInCode.Trim
+            viewModel.Url = viewModel.Url.Trim
+            viewModel.Address = viewModel.Address.Trim
+            viewModel.Place = viewModel.Place.Trim
+
             ' 日時処理
             SetDateTime(viewModel.StartDate, viewModel.StartTime, viewModel.EndDate, viewModel.EndTime, ev.StartDateTime, ev.EndDateTime, ev.CreationDateTime)
             If Not ModelState.IsValid Then
                 Return View(viewModel)
             End If
 
-            ' 単純なプロパティ更新
-            UpdateModel(Of [Event])(ev)
+            ' プロパティ更新
+            If CanEditDetails(appUser, ev) Then
+                UpdateModel(Of [Event])(ev)
 
-            ev.Prefecture = db.Prefectures.Where(Function(p) p.Id = viewModel.PrefectureId).FirstOrDefault
-
-            If viewModel.CommunityId.HasValue Then
-                ev.Community = db.Communities.Where(Function(c) c.Id = viewModel.CommunityId.Value).FirstOrDefault
-            Else
-                If ev.Community IsNot Nothing Then
-                    ev.Community = Nothing
+                ' SpecialEvent
+                If viewModel.SpecialEventId.HasValue Then
+                    ev.SpecialEvents = db.SpecialEvents.Where(Function(e) e.Id = viewModel.SpecialEventId.Value).FirstOrDefault
+                Else
+                    If ev.SpecialEvents IsNot Nothing Then
+                        ev.SpecialEvents = Nothing
+                    End If
                 End If
+            Else
+                ' 一般ユーザーは更新項目に制限
+                ev.Name = viewModel.Name
+                ev.Description = viewModel.Description
+                ev.Address = viewModel.Address
+                ev.Place = viewModel.Place
+                ev.Url = viewModel.Url
             End If
 
-            If viewModel.SpecialEventId.HasValue Then
-                ev.SpecialEvents = db.SpecialEvents.Where(Function(e) e.Id = viewModel.SpecialEventId.Value).FirstOrDefault
-            Else
-                If ev.SpecialEvents IsNot Nothing Then
-                    ev.SpecialEvents = Nothing
+            ' 都道府県更新
+            ev.Prefecture = db.Prefectures.Where(Function(p) p.Id = viewModel.PrefectureId).FirstOrDefault
+
+            ' コミュニティの更新
+            ' 一般ユーザーとコミュニティオーナー: コミュニティ未指定の場合のみ設定可能
+            If ev.Community Is Nothing OrElse User.IsInRole("Admin") Then
+                If viewModel.CommunityId.HasValue Then
+                    ev.Community = db.Communities.Where(Function(c) c.Id = viewModel.CommunityId.Value).FirstOrDefault
+                Else
+                    If ev.Community IsNot Nothing Then
+                        ev.Community = Nothing
+                    End If
                 End If
             End If
 

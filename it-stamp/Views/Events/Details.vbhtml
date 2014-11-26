@@ -253,7 +253,7 @@ End Section
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         function onCheckInSuccess(result) {
-            if (result) {
+            if (result && $) {
                 if ($('body').hasClass('modal-open')) {
                     $('#confirm-modal').modal('hide');
                     $('body').removeClass('modal-open');
@@ -275,7 +275,7 @@ End Section
 
         var followed = @(If(ViewBag.Followd, "true", "false"));
         function onFollowSuccess(result) {
-            if (result) {
+            if (result && $) {
                 followed = result.followed;
                 $("#follow-btn")
                     .val(result.followed ? "フォロー中" : "フォロー")

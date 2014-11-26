@@ -145,11 +145,18 @@ Public Class EventDetailsViewModel
 
     Property SpecialEventsSelectList As SelectList
 
+    <StringLength(20)>
+    <Display(Name:="チェックインコード")>
+    Property CheckInCode As String
+
     <Display(Name:="イベント")>
     Property SpecialEventId As Integer?
 
+    <Display(Name:="IT勉強会一覧に含めない")>
     Property IsHidden As Boolean
+    <Display(Name:="一般ユーザーの編集禁止")>
     Property IsLocked As Boolean
+    <Display(Name:="中止されたIT勉強会")>
     Property IsCanceled As Boolean
 
     Property ParticipantsOfflineCount As Integer
