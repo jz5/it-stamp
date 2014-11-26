@@ -42,8 +42,26 @@ Public Class UploadHelper
 
     End Function
 
-    Public Sub RelpaceFile(oldFilePath As String, newFilePath As String, icon As Bitmap)
+    Public Sub CloneFile(baseFilePath As String, newFilePath As String)
+        If baseFilePath <> "" Then
+            Dim baseFile = IO.Path.Combine(_Path, baseFilePath)
+            If IO.File.Exists(baseFile) Then
+                Dim newFile = IO.Path.Combine(_Path, newFilePath)
+                IO.File.Copy(baseFile, newFile)
+            End If
+        End If
+    End Sub
 
+    Public Shared Sub DeleteFile(ByVal basePath As String, ByVal filePath As String)
+        If filePath <> "" AndAlso Not filePath.StartsWith("Icons/") Then
+            Dim deleteFile = IO.Path.Combine(basePath, filePath)
+            If IO.File.Exists(deleteFile) Then
+                IO.File.Delete(deleteFile)
+            End If
+        End If
+    End Sub
+
+    Public Sub RelpaceFile(oldFilePath As String, newFilePath As String, icon As Bitmap)
         If oldFilePath <> "" AndAlso Not oldFilePath.StartsWith("Icons/") Then
             Dim deleteFile = IO.Path.Combine(_Path, oldFilePath)
             If IO.File.Exists(deleteFile) Then

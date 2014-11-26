@@ -62,21 +62,21 @@ Namespace Migrations
             End If
 
             ' Users
-            'For i = 1 To 20
-            '    Dim name = "user" & i.ToString
-            '    user = userManager.FindByName(name)
-            '    If user Is Nothing Then
-            '        user = New ApplicationUser With {
-            '            .UserName = name,
-            '            .Email = name & "@example.com",
-            '            .DisplayName = "ユーザー" & i.ToString,
-            '            .IsPrivate = False}
+            For i = 1 To 20
+                Dim name = "user" & i.ToString
+                user = userManager.FindByName(name)
+                If user Is Nothing Then
+                    user = New ApplicationUser With {
+                        .UserName = name,
+                        .Email = name & "@example.com",
+                        .DisplayName = "ユーザー" & i.ToString,
+                        .IsPrivate = False}
 
-            '        Dim result = userManager.Create(user, name & "123456")
-            '        result = userManager.SetLockoutEnabled(user.Id, False)
+                    Dim result = userManager.Create(user, name & "123456")
+                    result = userManager.SetLockoutEnabled(user.Id, False)
 
-            '    End If
-            'Next
+                End If
+            Next
 
             ' Add prefectures
             Dim prefs = New String() {"北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県", "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県", "鳥取県", "島根県", "岡山県", "広島県", "山口県", "徳島県", "香川県", "愛媛県", "高知県", "福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県", "オンライン", "海外"}
@@ -86,47 +86,47 @@ Namespace Migrations
             Next
 
             '' Communities
-            'Dim r = New Random
-            'For i = 1 To 20
-            '    Dim c = New Community With {
-            '        .Id = i,
-            '        .Name = "コミュニティ " & i.ToString,
-            '        .Description = "説明 " & i.ToString,
-            '        .Url = "http://google.com/?" & i.ToString,
-            '        .IconPath = "Icons/icon" & (r.Next(47) + 1).ToString("00") & ".png",
-            '        .CreationDateTime = Now,
-            '        .LastUpdatedDateTime = Now,
-            '        .CreatedBy = user,
-            '        .LastUpdatedBy = user
-            '        }
-            '    context.Communities.AddOrUpdate(c)
-            'Next
+            Dim r = New Random
+            For i = 1 To 20
+                Dim c = New Community With {
+                    .Id = i,
+                    .Name = "コミュニティ " & i.ToString,
+                    .Description = "説明 " & i.ToString,
+                    .Url = "http://google.com/?" & i.ToString,
+                    .IconPath = "Icons/icon" & (r.Next(47) + 1).ToString("00") & ".png",
+                    .CreationDateTime = Now,
+                    .LastUpdatedDateTime = Now,
+                    .CreatedBy = user,
+                    .LastUpdatedBy = user
+                    }
+                context.Communities.AddOrUpdate(c)
+            Next
 
-            'context.SaveChanges()
+            context.SaveChanges()
 
-            'context.Communities.First.Members = New List(Of ApplicationUser)
-            'context.Communities.First.Members.Add(user)
+            context.Communities.First.Members = New List(Of ApplicationUser)
+            context.Communities.First.Members.Add(user)
 
-            'For i = 1 To 20
-            '    Dim id = i
-            '    Dim e = New [Event] With {
-            '        .Id = i,
-            '        .Name = "勉強会" & i.ToString,
-            '        .Description = "説明1" & vbCrLf & "説明2",
-            '        .Url = "http://google.com/?" & i.ToString,
-            '        .CreationDateTime = Now,
-            '        .LastUpdatedDateTime = Now,
-            '        .CreatedBy = user,
-            '        .LastUpdatedBy = user,
-            '        .StartDateTime = Now.AddDays(i),
-            '        .EndDateTime = .StartDateTime.AddHours(8),
-            '        .Prefecture = context.Prefectures.Where(Function(p) p.Id = id).FirstOrDefault,
-            '        .Address = "千代田区千代田１−１",
-            '        .Place = "○○会場",
-            '        .Community = If(i Mod 5 <> 0, context.Communities.Where(Function(c) c.Id = id).FirstOrDefault, Nothing)
-            '        }
-            '    context.Events.AddOrUpdate(e)
-            'Next
+            For i = 1 To 20
+                Dim id = i
+                Dim e = New [Event] With {
+                    .Id = i,
+                    .Name = "勉強会" & i.ToString,
+                    .Description = "説明1" & vbCrLf & "説明2",
+                    .Url = "http://google.com/?" & i.ToString,
+                    .CreationDateTime = Now,
+                    .LastUpdatedDateTime = Now,
+                    .CreatedBy = user,
+                    .LastUpdatedBy = user,
+                    .StartDateTime = Now.AddDays(i),
+                    .EndDateTime = .StartDateTime.AddHours(8),
+                    .Prefecture = context.Prefectures.Where(Function(p) p.Id = id).FirstOrDefault,
+                    .Address = "千代田区千代田１−１",
+                    .Place = "○○会場",
+                    .Community = If(i Mod 5 <> 0, context.Communities.Where(Function(c) c.Id = id).FirstOrDefault, Nothing)
+                    }
+                context.Events.AddOrUpdate(e)
+            Next
 
             context.SaveChanges()
 

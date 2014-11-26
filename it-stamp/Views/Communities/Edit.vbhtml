@@ -72,72 +72,13 @@ End Code
 <hr />
 
 @If ViewBag.IsOwner Then
-    @<h2>コミュニティスタンプ</h2>
-    @Html.ActionLink("スタンプを追加", "UploadStamp", "Communities", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
-    @If Model.Stamps IsNot Nothing AndAlso Model.Stamps.Count > 0 Then
-        @Using Html.BeginForm("EditDefaultStamp", "Communities", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
-            @Html.AntiForgeryToken()
-            @<text>
-                @Html.Hidden("id", Model.Id)
-
-                <table class="table">
-                    <tr>
-                        <th>IsDefault</th>
-                        <th>Name</th>
-                        <th>Image</th>
-                        <th>Expression</th>
-                        <th></th>
-                    </tr>
-                    @For Each item In Model.Stamps
-                        @<tr>
-                            <td>@Html.RadioButton("defaultStamp", item.Id, (Model.DefaultStamp.Id = item.Id), New With {.id = Nothing})</td>
-                            <td>@Html.Label(item.Name)</td>
-                            <td><p><img class="img-rounded" src="@Href("/Uploads/" & item.Path)" /></p></td>
-                            <td>@Html.Label(item.Expression)</td>
-                            <td>
-                                @Html.Label("Edit")
-                                @Html.ActionLink("Delete", "DeleteStamp", New With {.id = Model.Id, .stampId = item.Id})
-                            </td>
-                        </tr>
-                    Next
-                </table>
-                <div class="form-group">
-                    <input type="submit" value="設定" class="btn btn-primary" />
-                </div>
-            </text>
-        End Using
-    Else
-        @<p>コミュニティスタンプがまだ登録されていません。</p>
-    End If
+    @<h2>コミュニティスタンプの管理</h2>
+    @Html.ActionLink("編集", "EditStamps", "Communities", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
     @<hr />
-@<h2>コミュニティ管理者</h2>
-@Html.ActionLink("管理者を追加", "AddOwner", "Communities", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
-@<table class="table">
-    <tr>
-        <th>Image</th>
-        <th>Name</th>
-        <th></th>
-    </tr>
-    <tr>
-        <td><p><img class="img-rounded" src="@(If(ViewBag.UserIcon <> "", Href("/Uploads/" & ViewBag.UserIcon), "http://placehold.it/96x96"))" /></p></td>
-        <td>@ViewBag.UserFriendlyName</td>
-        <td></td>
-    </tr>
-    @For Each item In Model.Owners
-        @If item.Id = ViewBag.SessionUserId Then
-                Continue For
-            End If
-        @<tr>
-            <td><p><img class="img-rounded" src="@(If(item.IconPath <> "", Href("/Uploads/" & item.IconPath), "http://placehold.it/96x96"))" /></p></td>
-            <td>@Html.Label(item.FriendlyName)</td>
-            <td>
-                @Html.ActionLink("Delete", "DeleteOwner", New With {.id = Model.Id, .targetId = item.Id})
-            </td>
-        </tr>
-    Next
-</table>
+    @<h2>コミュニティ管理者</h2>
+    @Html.ActionLink("編集", "EditOwners", "Communities", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
+    @<hr />
 End If
-
 <hr />
 <h2>コミュニティの削除</h2>
 @Html.ActionLink("削除", "Delete", "Communities", New With {.id = Model.Id}, New With {.class = "btn btn-default"})

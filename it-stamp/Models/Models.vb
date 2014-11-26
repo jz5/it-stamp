@@ -32,6 +32,8 @@ Public Class [Event]
     Property Location As DbGeography
     <StringLength(100)>
     Property Place As String
+    <StringLength(20)>
+    Property Hashtag As String
 
     <StringLength(20)>
     Property CheckInCode As String
