@@ -44,7 +44,7 @@ Public Class EventsController
     Function Index(page As Integer?, past As Boolean?, isSpecialEvent As Boolean?, message As DetailsMessage?) As ActionResult
 
         Dim results As IQueryable(Of [Event])
-        Dim n = Now.Date
+        Dim n = Now
         If past.HasValue AndAlso past.Value = True Then
             ' 過去
             results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.EndDateTime < n).OrderByDescending(Function(e) e.StartDateTime)

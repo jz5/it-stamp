@@ -224,6 +224,7 @@
     <Compile Include="Controllers\SpecialEventsAdminController.vb" />
     <Compile Include="Controllers\TempController.vb" />
     <Compile Include="Controllers\UsersAdminController.vb" />
+    <Compile Include="Helpers\DateTimeHelpers.vb" />
     <Compile Include="Helpers\HtmlHelpers.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="MyRequiredAttributeAdapter.vb" />

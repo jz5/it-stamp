@@ -16,7 +16,9 @@
     ElseIf Model.Address Is Nothing Then
         searchAddress = Model.Place
     End If
-
+    
+    Dim privateCommentCount = (From item In Model.Comments Where item.CreatedBy.IsPrivate).Count
+    
 End Code
 <div class="row">
     <div class="col-md-8">
@@ -228,7 +230,33 @@ End Code
         End Using
 
         <h2>💬 コメント</h2>
-        <p>（未実装）</p>
+        @If Model.Comments IsNot Nothing AndAlso Model.Comments.Count > 0 Then
+        @<div class="comment-container">
+            @For Each item As Comment In Model.Comments
+                If item.CreatedBy.IsPrivate Then
+                    Continue For
+                End If
+            @<div class="comment">
+                    <div class="comment-time">
+                        <time datetime="@item.CreationDateTime.ToString("yyyy-MM-ddTH:mm:ssK")">@(item.CreationDateTime.ToRelativeTimeString())前</time>
+                    </div>
+                    <div class="comment-body">
+                        <p>
+                            <a href="@Href("/Users/" & item.CreatedBy.UserName)">
+                                <img src="@(If(item.CreatedBy.IconPath <> "", Href("/Uploads/" & item.CreatedBy.IconPath), "http://placehold.it/96x96"))">
+                            </a>
+                            @item.Content
+                        </p>
+                    </div>
+                </div>
+            Next
+        </div>
+            @If privateCommentCount > 0 Then
+                @<p>他、@(privateCommentCount)人のプライベートユーザー</p>
+            End If
+        Else
+            @<p>コメントは投稿されていません</p>
+        End If
 
         @If Model.Community IsNot Nothing Then
             @<h2>このコミュニティのその他のIT勉強会</h2>
@@ -238,8 +266,6 @@ End Code
         @Html.Partial("_SocialButtons")
         @If ViewBag.CanEdit Then
             @<a href="@Url.Action("Edit", "Events" , new with {.id=Model.Id})"><i class="glyphicon glyphicon-pencil"></i> 編集</a>
-        Else
-            @<i class="glyphicon glyphicon-pencil" title="編集権限がありません"></i>
         End If
     </div>
     <div class="col-md-4">
@@ -252,6 +278,21 @@ End Code
 @section Styles
     @Styles.Render("~/Content/skins/square/blue.css")
     @Styles.Render("~/Content/animate.css")
+
+    <style>
+        .comment-time time {
+            color: gray;
+            font-size: 0.8em;
+        }
+
+        .comment img {
+            width: 30px;
+            height: 30px;
+        }
+
+    </style>
+
+
 End Section
 @section Scripts
     @Scripts.Render("~/bundles/jqueryval")

@@ -86,18 +86,3 @@ End If
 @Section Scripts
     @Scripts.Render("~/bundles/jqueryval")
 End Section
-
-<script>
-
-    $(".stamp-item").click(function () {
-        // 探索してSelectedクラスをRemove
-        r.find(".providedGroupwareLogo").removeClass("selected");
-        $(this).addClass("selected");
-
-        // Listと同期
-
-        var e = $(this).attr("id").substring(n.length);
-        $("#cba_groupwareLogoName").val(e)
-    })
-
-</script>
