@@ -266,8 +266,6 @@ End Code
         @Html.Partial("_SocialButtons")
         @If ViewBag.CanEdit Then
             @<a href="@Url.Action("Edit", "Events" , new with {.id=Model.Id})"><i class="glyphicon glyphicon-pencil"></i> 編集</a>
-        Else
-            @<i class="glyphicon glyphicon-pencil" title="編集権限がありません"></i>
         End If
     </div>
     <div class="col-md-4">
