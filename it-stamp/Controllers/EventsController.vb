@@ -41,7 +41,7 @@ Public Class EventsController
 
     ' GET: Events
     <AllowAnonymous>
-    Function Index(page As Integer?, past As Boolean?, isSpecialEvent As Boolean?) As ActionResult
+    Function Index(page As Integer?, past As Boolean?, isSpecialEvent As Boolean?, message As DetailsMessage?) As ActionResult
 
         Dim results As IQueryable(Of [Event])
         Dim n = Now.Date
@@ -86,6 +86,16 @@ Public Class EventsController
         If viewModel.EndPage > viewModel.TotalPages Then
             viewModel.EndPage = viewModel.TotalPages
         End If
+
+        ' Message
+        Dim msg As String
+        Select Case message
+            Case DetailsMessage.Delete
+                msg = "削除しました。"
+            Case Else
+                msg = ""
+        End Select
+        ViewBag.StatusMessage = msg
 
         viewModel.Results = results.Skip((viewModel.CurrentPage - 1) * count).Take(count).ToList
 
@@ -525,7 +535,9 @@ Public Class EventsController
                 Return Json(New With {.checkined = True})
             End If
 
-            Return RedirectToAction("Details", "Events", New With {.id = ev.Id, .message = DetailsMessage.CheckIn, .stamp = stamp})
+            ' MEMO Ajax 処理のみになったの通常実行しない
+            Return RedirectToAction("Details", "Events", New With {.id = ev.Id, .message = DetailsMessage.CheckIn})
+
         Catch eEx As System.Data.Entity.Validation.DbEntityValidationException
             For Each er In eEx.EntityValidationErrors
                 For Each e In er.ValidationErrors
@@ -703,7 +715,7 @@ Public Class EventsController
             db.Events.Remove(ev)
             Await db.SaveChangesAsync
 
-            Return RedirectToAction("Index", "Communities")
+            Return RedirectToAction("Index", "Events", New With {.message = DetailsMessage.Delete})
 
         Catch eEx As System.Data.Entity.Validation.DbEntityValidationException
             For Each er In eEx.EntityValidationErrors
@@ -723,6 +735,7 @@ Public Class EventsController
     Public Enum DetailsMessage
         Add
         Edit
+        Delete
         CheckIn
     End Enum
 

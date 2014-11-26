@@ -4,13 +4,16 @@
     ViewBag.Title = "IT勉強会一覧"
 End Code
 
-@*@Html.Partial("_TopBanner")*@
-
 <div class="row">
     <div class="col-md-8">
 
         <h1>@ViewBag.Title</h1>
-
+        @If ViewBag.StatusMessage <> "" AndAlso Request.IsAuthenticated Then
+            @<div class="alert alert-success fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                @ViewBag.StatusMessage
+            </div>
+        End If
         <div class="clearfix">
             <div class="pull-left">
                 <span><small>@(Model.TotalCount)件@(If(Model.CurrentPage > 1, " " & Model.CurrentPage & "ページ目", ""))</small></span>
