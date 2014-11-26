@@ -2,9 +2,12 @@
 @If Request.IsAuthenticated Then
     @Using Html.BeginForm("LogOff", "Account", FormMethod.Post, New With {.id = "logoutForm", .class = "navbar-right"})
         @Html.AntiForgeryToken()
+        @If Session("IconPath") <> "" Then
+            @<img src="@Href("~/Uploads/" & Session("IconPath"))" class="navbar-brand" style="padding-right:0;" alt="" />
+        End If
         @<ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">@User.Identity.GetUserName <span class="caret"></span></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">@Session("DisplayName") <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="@Href("~/Events/CheckIn")">チェックイン</a></li>
                     <li class="divider"></li>
@@ -21,4 +24,3 @@ Else
         <li>@Html.ActionLink("ログイン", "Login", "Account", New With {.ReturnUrl = If(Request.RawUrl.ToLower.Contains("login"), "", Request.RawUrl)}, htmlAttributes:=New With {.id = "loginLink"})</li>
     </ul>
 End If
-

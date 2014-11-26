@@ -20,8 +20,8 @@ End Code
 
         <h2>運営委員</h2>
         <ul>
-            <li>代表： @@jz5（プログラミング生放送）</li>
-            <li>副代表： @@kiyokura（Okayama IT Engineers Community）</li>
+            <li>代表： @@jz5（<a href="http://pronama.jp/">プログラミング生放送</a>）</li>
+            <li>副代表： @@kiyokura（<a href="http://oitec.vbstation.net/">Okayama IT Engineers Community</a>）</li>
             <li>他、若干名</li>
         </ul>
 

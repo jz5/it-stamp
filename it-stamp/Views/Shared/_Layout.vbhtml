@@ -7,7 +7,6 @@
     <title>@(If(ViewBag.Title = "", "IT勉強会スタンプ", ViewBag.Title & " | IT勉強会スタンプ"))</title>
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
     @Styles.Render("~/Content/css")
-    @*<link rel="stylesheet" href="http://themicon.co/theme/beadmin/app/css/app.css" />*@
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("styles", required:=False)
     <meta name="description" content="IT勉強会スタンプは、IT勉強会の参加を記録できるWebサービスです。" />
@@ -28,7 +27,7 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("IT勉強会", "Index", "Events")</li>
                     <li><a href="@Href("~/Stamprally/2015/")">スタンプラリー</a></li>
-                    
+                   
                     @If Request.IsAuthenticated AndAlso User.IsInRole("Admin") Then
                         @<li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>

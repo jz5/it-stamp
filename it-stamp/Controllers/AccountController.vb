@@ -547,6 +547,7 @@ Public Class AccountController
     <ValidateAntiForgeryToken>
     Public Function LogOff() As ActionResult
         AuthenticationManager.SignOut()
+        Session.RemoveAll()
         Return RedirectToAction("Index", "Home")
     End Function
 
@@ -589,6 +590,10 @@ Public Class AccountController
     Private Async Function SignInAsync(user As ApplicationUser, isPersistent As Boolean) As Task
         AuthenticationManager.SignOut(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ExternalCookie)
         AuthenticationManager.SignIn(New AuthenticationProperties() With {.IsPersistent = isPersistent}, Await user.GenerateUserIdentityAsync(UserManager))
+
+
+        Session("DisplayName") = user.DisplayName
+        Session("IconPath") = user.IconPath
     End Function
 
     Private Sub AddErrors(result As IdentityResult)

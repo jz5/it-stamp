@@ -7,14 +7,14 @@ End Code
         <img src="@Href("~/images/stamprally2015/stamprally-logo.png")" alt="" class="img-responsive" />
 
         <h1>スポンサー紹介</h1>
-        <p>IT勉強会スタンプラリー 2015 に協賛いただいているスポンサーを紹介します。スタンプラリーの運営は、協賛金および当サイトの収入により行っています。</p>
+        <p>IT勉強会スタンプラリー 2015 に協賛いただいているスポンサーを紹介します。</p>
 
 
         <h2><img src="@Href("~/images/stamprally2015/platinum.png")" alt="プラチナスポンサー" class="img-responsive" /></h2>
 
         <div class="row">
             <div class="col-md-4" style="vertical-align:top;">
-                <img src="@Href("~/images/stamprally2015/logo-microsoft.png")" srcset="@Href("~/images/stamprally2015/logo-microsoft2x.png") 2x" alt="日本マイクロソフト株式会社" class="img-responsive" style="margin-top:30px;" />
+                <a href="http://www.microsoft.com/ja-jp/communities/mvp/default.aspx"><img src="@Href("~/images/stamprally2015/logo-microsoft.png")" srcset="@Href("~/images/stamprally2015/logo-microsoft2x.png") 2x" alt="日本マイクロソフト株式会社" class="img-responsive" style="margin-top:30px;" /></a>
             </div>
             <div class="col-md-8">
                 <h3>日本マイクロソフト株式会社</h3>
@@ -31,7 +31,10 @@ End Code
             <div class="col-md-8">
                 <h3>GMOインターネット株式会社</h3>
                 <h4><a href="https://www.conoha.jp/">ConoHa</a></h4>
-                <p>準備中</p>
+                <p>ConoHaは、高性能・高機能なクラウド環境をもっともリーズナブルに提供します。従来のVPSのイメージをくつがえす「ローカルネットワーク」や「コンソール」、「ISOイメージアップロード」などの機能により、かつてオンプレミスや高価なクラウドでしか実現できなかった自由で柔軟なシステム構成を体験できます。</p>
+
+                <h4><a href="https://www.conoha.jp/community">ConoHa支援プログラム</a></h4>
+                <p>「ConoHa支援プログラム」は、オープンソースソフトウェアの開発コミュニティやユーザー会、スタートアップ企業など、IT業界を盛り上げるみなさまを応援する支援制度です。これを活用することで、スタートアップ企業やコミュニティの負担とされていたインフラにかかる費用の問題も解消され、事業や活動に専念いただくことができます。ConoHaのVPSは新規事業の開発環境や既存インフラの移行、Webサイト運用など、さまざまな用途でご利用いただくことができますので、お気軽にご相談ください。</p>
             </div>
 
         </div>
@@ -63,6 +66,7 @@ End Code
                 <h4><a href="http://live.cybozu.co.jp/">サイボウズLive</a></h4>
                 <p>サイボウズ Live は無料で使えるコラボレーションツールです。メンバーだけでファイル共有やディスカッションができる情報共有スペースを、インターネット上で簡単に作ることができます。ソフトウェア開発プロジェクトの情報共有にぴったりのサービスです。</p>
 
+                <p><a href="https://live.cybozu.co.jp/casestudy.html?q=2894">[活用事例] IT勉強会スタンプラリー</a></p>
             </div>
         </div>
 

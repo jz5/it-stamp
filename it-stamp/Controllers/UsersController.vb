@@ -103,6 +103,8 @@ Public Class UsersController
             UpdateModel(Of ApplicationUser)(appUser)
             Await db.SaveChangesAsync()
 
+            Session("DisplayName") = model.DisplayName
+
             Return RedirectToAction("Edit", New With {.message = Message.Edit})
 
         Catch ex As Exception
@@ -159,6 +161,8 @@ Public Class UsersController
             ' Update
             appUser.IconPath = iconPath
             Await db.SaveChangesAsync()
+
+            Session("IconPath") = iconPath
 
             Return RedirectToAction("Edit", New With {.userName = appUser.UserName, .message = Message.Edit})
 
