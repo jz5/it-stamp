@@ -35,7 +35,11 @@ End Code
 
         @If Request.IsAuthenticated Then
             @<div>
-                <a href="@Url.Action("Add", "Events")"><i class="glyphicon glyphicon-plus"></i> IT勉強会の登録</a>
+                 <p>💡 チェックインするIT勉強会が見つかりませんか？　あなたが、<a href="@Url.Action("Add", "Events")">IT勉強会を登録してください</a>。</p>
+            </div>
+        Else
+            @<div>
+                <p>💡 チェックインするIT勉強会が見つかりませんか？　<a href="@Url.Action("Add", "Events")">ログイン</a>してIT勉強会を登録しましょう。</p>
             </div>
         End If
 

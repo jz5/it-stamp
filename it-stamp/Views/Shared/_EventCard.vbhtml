@@ -7,10 +7,12 @@ End Code
         <img class="media-object img-rounded" src="@(If(Model.Community isnot Nothing andalso Model.Community.IconPath<>"", "/Uploads/" & Model.Community.IconPath, icon))" alt="@Model.Name">
     </a>
     <div class="media-body">
-        <h3><a href="@Href("/Events/")@Model.Id">@Model.Name</a></h3>
-        @If Model.SpecialEvents IsNot Nothing Then
-            @<div class="special-event" />
-        End If
+        <h3>
+            <a href="@Href("/Events/")@Model.Id">@Model.Name</a>
+            @If Model.SpecialEvents IsNot Nothing Then
+                @<span title="@(Model.SpecialEvents.Name & "対象")">⭐</span>
+            End If
+        </h3>
         <div>
             <div>
                 @Model.FriendlyDateTime
@@ -22,27 +24,23 @@ End Code
                     @<span class="text-muted small">（昨日）</span>
                 End If
             </div>
-
             <div>@Model.Prefecture.Name @Model.Place</div>
             <div>@Model.Description.Excerpt</div>
-
             <div class="clearfix">
-
                 @If Model.Community IsNot Nothing Then
                     @<div class="pull-left"><a href="@Href("/Communities/")@Model.Community.Id">@Model.Community.Name</a></div>
                 End If
-
                 @*<div style="" class="pull-right small">
-                    <div class="pull-left">
-                        <a href="#"><i class="glyphicon glyphicon-ok"></i> チェックイン 0</a>
-                    </div>
-                    <div class="pull-left" style="margin-left: 16px;">
-                        <a href="#"><i class="glyphicon glyphicon-star"></i> お気に入り 0</a>
-                    </div>
-                    <div class="pull-left" style="margin-left: 16px;">
-                        <a href="#"><i class="glyphicon glyphicon-comment"></i> コメント 0</a>
-                    </div>
-                </div>*@
+                        <div class="pull-left">
+                            <a href="#"><i class="glyphicon glyphicon-ok"></i> チェックイン 0</a>
+                        </div>
+                        <div class="pull-left" style="margin-left: 16px;">
+                            <a href="#"><i class="glyphicon glyphicon-star"></i> お気に入り 0</a>
+                        </div>
+                        <div class="pull-left" style="margin-left: 16px;">
+                            <a href="#"><i class="glyphicon glyphicon-comment"></i> コメント 0</a>
+                        </div>
+                    </div>*@
             </div>
         </div>
     </div>

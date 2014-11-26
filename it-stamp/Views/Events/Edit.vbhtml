@@ -89,7 +89,7 @@ End Code
             </div>
         </div>
 
-        @If Model.Community IsNot Nothing OrElse User.IsInRole("Admin") Then
+        @If Model.Community Is Nothing OrElse User.IsInRole("Admin") Then
             @<div class="form-group">
                 @Html.LabelFor(Function(m) m.CommunityId, New With {.class = "control-label"})
                 <span class="text-muted"></span>
@@ -98,9 +98,17 @@ End Code
                     @Html.ValidationMessageFor(Function(m) m.CommunityId, "", New With {.class = "text-danger"})
                 </div>
             </div>
+        Else
+            @<div class="form-group">
+                @Html.LabelFor(Function(m) m.CommunityId, New With {.class = "control-label"})
+                 <span class="text-muted">（変更できません）</span>
+                <div class="form-inline">
+                    @Html.TextBox("DummyName", Model.Community.Name, New With {.class = "form-control", .disabled = "disabled"})
+                </div>
+            </div>
         End If
 
-        @If ViewBag.CanEditDetails = True Then
+        @If ViewBag.CanEditDetails Then
             @<div class="form-group">
                 @Html.LabelFor(Function(m) m.CheckInCode, New With {.class = "control-label"})
                 <span class="text-muted"></span>
@@ -152,6 +160,16 @@ End Code
         </div>
     </text>
 End Using
+
+@If Not ViewBag.CanEditDetails Then
+    @<div>
+        @If Model.Community Is Nothing Then
+            @<span>💡 主催コミュニティの方は、<a href="@Href("~/Home/Contact/")">申請</a>すると詳細情報を編集できます。</span>
+        Else
+            @<span>💡 @(Model.Community.Name)の方ですか？　<a href="@Href("~/Home/Contact/")">申請</a>すると詳細情報を編集できます。</span>
+        End If
+    </div>
+End If
 
 @If ViewBag.CanDelete Then
     @<hr />

@@ -306,7 +306,7 @@ Public Class EventsController
             .ParticipantsOfflineCount = ev.ParticipantsOfflineCount,
             .ParticipantsOnlineCount = ev.ParticipantsOnlineCount,
             .ReportMemo = ev.ReportMemo,
-            .SpecialEventsSelectList = New SelectList(db.SpecialEvents.Where(Function(e) e.StartDateTime <= n AndAlso n <= e.EndDateTime), "Id", "Name"),
+            .SpecialEventsSelectList = New SelectList(db.SpecialEvents.Where(Function(e) n <= e.EndDateTime), "Id", "Name"),
             .SpecialEventId = If(ev.SpecialEvents IsNot Nothing, ev.SpecialEvents.Id, Nothing),
             .PrefectureId = ev.Prefecture.Id,
             .PrefectureSelectList = New SelectList(db.Prefectures, "Id", "Name"),
@@ -316,7 +316,8 @@ Public Class EventsController
         If ev.Community Is Nothing OrElse User.IsInRole("Admin") Then
             viewModel.CommunitiesSelectList = New SelectList(db.Communities.Where(Function(c) Not c.IsHidden).OrderBy(Function(c) c.Name), "Id", "Name")
         Else
-            viewModel.CommunitiesSelectList = New SelectList(db.Communities.Where(Function(c) c.Id = ev.Community.Id), "Id", "Name")
+            'viewModel.CommunitiesSelectList = New SelectList(db.Communities.Where(Function(c) c.Id = ev.Community.Id), "Id", "Name")
+            viewModel.Community = db.Communities.Where(Function(c) c.Id = ev.Community.Id).SingleOrDefault
         End If
 
         ViewBag.CanEditDetails = CanEditDetails(appUser, ev)

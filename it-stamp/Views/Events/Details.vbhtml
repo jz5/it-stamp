@@ -16,13 +16,12 @@
     ElseIf Model.Address Is Nothing Then
         searchAddress = Model.Place
     End If
-    
+
     Dim privateCommentCount = (From item In Model.Comments Where item.CreatedBy.IsPrivate).Count
-    
+
 End Code
 <div class="row">
     <div class="col-md-8">
-
         <h1>@ViewBag.Title</h1>
         @If ViewBag.StatusMessage <> "" AndAlso Request.IsAuthenticated Then
             @<div class="alert alert-success fade in" role="alert">
@@ -49,7 +48,6 @@ End Code
                 Else
                     @<img class="media-object img-rounded" src="@icon" alt="@Model.Name">
                 End If
-
                 @If Request.IsAuthenticated AndAlso Not Model.IsHidden Then
                     @<div class="text-center">
                         @Using Ajax.BeginForm("Follow", "Events", New With {.id = Model.Id}, New AjaxOptions With {.HttpMethod = "POST", .OnSuccess = "onFollowSuccess", .OnBegin = "onFollowBegin"}, New With {.class = "form-horizontal", .role = "form"})
@@ -72,7 +70,6 @@ End Code
                 <p>@Html.Raw(Html.Encode(Model.Description).Replace(vbCrLf, "<br />"))</p>
             </div>
         </div>
-
         <div class="row">
             <div id="details" class="col-md-12">
                 <table class="table">
@@ -100,9 +97,9 @@ End Code
                                 @<td>@Model.Place（@(If(Model.Prefecture.Id < 49, Model.Prefecture.Name, ""))@Model.Address）</td>
                             ElseIf Model.Address Is Nothing Then
                                 If Model.Place IsNot Nothing Then
-                                    @<td>@Model.Place</td>
+                                @<td>@Model.Place</td>
                                 Else
-                                    @<td><span class="text-muted">未登録</span></td>
+                                @<td><span class="text-muted">未登録</span></td>
                                 End If
                             End If
                         </tr>
@@ -124,7 +121,7 @@ End Code
                         </tr>
                         @If Model.SpecialEvents IsNot Nothing Then
                             @<tr>
-                                <td colspan="2">@Html.ActionLink(Model.SpecialEvents.Name, "Details", "SpecialEvents") 対象のIT勉強会です。</td>
+                                <td colspan="2"><span>⭐</span> @Html.ActionLink(Model.SpecialEvents.Name, Model.SpecialEvents.Id.ToString, "SpecialEvents")対象のIT勉強会です。</td>
                             </tr>
                         End If
                     </tbody>
@@ -144,12 +141,11 @@ End Code
                 @For Each m In Model.CheckIns.Where(Function(c) Not c.User.IsPrivate).Select(Function(c) c.User)
                     @<a href="@Href("~/Users/" & m.UserName)"><img src="@(If(M.IconPath <> "", Href("/Uploads/" & m.IconPath), userIcon))" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
                 Next
-                                                                                                                                                                                                                                                                                                                                                                If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
+                                                                                                                                                                                                                                                                                                                                                                                If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
                 @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
                 End If
             End If
         </div>
-
         @Using Ajax.BeginForm("CheckIn", "Events", New With {.id = Model.Id}, New AjaxOptions() With {.HttpMethod = "POST", .OnSuccess = "onCheckInSuccess", .OnBegin = "onCheckInBegin"}, New With {.class = "form-horizontal", .id = "checkin-form", .role = "form"})
             @Html.AntiForgeryToken()
             @Html.Hidden("Event.Id", Model.Id)
@@ -228,57 +224,58 @@ End Code
                 @<p>開始時間の1時間前からチェックインできるようになります。</p>
             End If
         End Using
-
         <h2>💬 コメント</h2>
         @If Model.Comments IsNot Nothing AndAlso Model.Comments.Count > 0 Then
-        @<div class="comment-container">
-            @For Each item As Comment In Model.Comments
+            @<div class="comment-container">
+                @For Each item As Comment In Model.Comments
                 If item.CreatedBy.IsPrivate Then
                     Continue For
                 End If
-            @<div class="comment">
-                    <div class="comment-time">
-                        <time datetime="@item.CreationDateTime.ToString("yyyy-MM-ddTH:mm:ssK")">@(item.CreationDateTime.ToRelativeTimeString())前</time>
+                    @<div class="comment">
+                        <div class="comment-time">
+                            <time datetime="@item.CreationDateTime.ToString("yyyy-MM-ddTH:mm:ssK")">@(item.CreationDateTime.ToRelativeTimeString())前</time>
+                        </div>
+                        <div class="comment-body">
+                            <p>
+                                <a href="@Href("/Users/" & item.CreatedBy.UserName)">
+                                    <img src="@(If(item.CreatedBy.IconPath <> "", Href("/Uploads/" & item.CreatedBy.IconPath), "http://placehold.it/96x96"))">
+                                </a>
+                                @item.Content
+                            </p>
+                        </div>
                     </div>
-                    <div class="comment-body">
-                        <p>
-                            <a href="@Href("/Users/" & item.CreatedBy.UserName)">
-                                <img src="@(If(item.CreatedBy.IconPath <> "", Href("/Uploads/" & item.CreatedBy.IconPath), "http://placehold.it/96x96"))">
-                            </a>
-                            @item.Content
-                        </p>
-                    </div>
-                </div>
-            Next
-        </div>
+                Next
+            </div>
             @If privateCommentCount > 0 Then
                 @<p>他、@(privateCommentCount)人のプライベートユーザー</p>
             End If
         Else
             @<p>コメントは投稿されていません</p>
         End If
-
         @If Model.Community IsNot Nothing Then
             @<h2>このコミュニティのその他のIT勉強会</h2>
             @<p>（未実装）</p>
         End If
-
         @Html.Partial("_SocialButtons")
-        @If ViewBag.CanEdit Then
-            @<a href="@Url.Action("Edit", "Events" , new with {.id=Model.Id})"><i class="glyphicon glyphicon-pencil"></i> 編集</a>
-        End If
+
+        <div>
+            @If ViewBag.CanEdit Then
+                @<a href="@Url.Action("Edit", "Events" , new with {.id=Model.Id})">✏ 編集</a>
+            ElseIf Model.IsLocked Then
+                @<span>🔒 編集が制限されています。</span>
+            ElseIf Not Request.IsAuthenticated Then
+                @<span>✏ <a href="@Url.Action("Edit", "Events" , new with {.id=Model.Id})">ログイン</a>して編集しませんか？</span>
+            End If
+        </div>
     </div>
     <div class="col-md-4">
         @Html.Partial("_SidebarPartial")
     </div>
 </div>
 
-
-
 @section Styles
     @Styles.Render("~/Content/skins/square/blue.css")
     @Styles.Render("~/Content/animate.css")
-
     <style>
         .comment-time time {
             color: gray;
@@ -289,9 +286,7 @@ End Code
             width: 30px;
             height: 30px;
         }
-
     </style>
-
 
 End Section
 @section Scripts

@@ -44,7 +44,11 @@ Public Class SpecialEventsController
             Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
         End If
 
-        Return View(id.Value.ToString)
+        If id.Value = 1 Then
+            Return Redirect("~/Stamprally/2015")
+        Else
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
     End Function
 
 End Class
