@@ -97,7 +97,11 @@ End Code
                                 '会場（住所）
                                 @<td>@Model.Place（@(If(Model.Prefecture.Id < 49, Model.Prefecture.Name, ""))@Model.Address）</td>
                             ElseIf Model.Address Is Nothing Then
-                                @<td>@Model.Place</td>
+                                If Model.Place IsNot Nothing Then
+                                    @<td>@Model.Place</td>
+                                Else
+                                    @<td><span class="text-muted">未登録</span></td>
+                                End If
                             End If
                         </tr>
                         <tr>
@@ -138,7 +142,7 @@ End Code
                 @For Each m In Model.CheckIns.Where(Function(c) Not c.User.IsPrivate).Select(Function(c) c.User)
                     @<a href="@Href("~/Users/" & m.UserName)"><img src="@(If(M.IconPath <> "", Href("/Uploads/" & m.IconPath), userIcon))" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
                 Next
-                                                                                                                                                                                                                                                                                                                                                If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
+                                                                                                                                                                                                                                                                                                                                                                If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
                 @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
                 End If
             End If

@@ -5,42 +5,34 @@
 
 End Code
 
-@Html.Partial("_TopBanner")
+<h1>@ViewBag.Title</h1>
+<div class="jumbotron">
+    <div class="jumbotron-contents">
+        @Html.Partial("_EventCard", Model)
+    </div>
+</div>
 
-<div class="row">
-    <div class="col-sm-12 col-md-8">
+<p>削除すると元に戻せません。</p>
 
-        <h1>@ViewBag.Title</h1>
-        <div class="panel">
-            <div class="panel-body">
-                @Html.Partial("_EventCard", Model)
+@If ViewBag.CanDelete Then
+    @Using Html.BeginForm("Delete", "Events", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(Function(m) m.Id)
+        @Html.HiddenFor(Function(m) m.Name)
+
+        @Html.ValidationSummary(False, "", New With {.class = "text-danger"})
+
+        @<div class="form-group">
+            <div class="form-inline">
+                <input id="follow-btn" type="submit" value="削除" class="btn btn-primary" />
             </div>
         </div>
 
-        @If ViewBag.CanDelete Then
-            @Using Html.BeginForm("Delete", "Events", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
-                @Html.AntiForgeryToken()
-                @Html.HiddenFor(Function(m) m.Id)
-                @Html.HiddenFor(Function(m) m.Name)
+    End Using
+Else
+    @<p>削除できません。</p>
+End If
 
-                @Html.ValidationSummary(False, "", New With {.class = "text-danger"})
+<hr />
+@Html.ActionLink("戻る", "Edit", "Events", New With {.id = Model.Id}, Nothing)
 
-                @<div class="form-group">
-                    <div class="form-inline">
-                        <input id="follow-btn" type="submit" value="削除" class="btn btn-primary" />
-                    </div>
-                </div>
-
-            End Using
-        Else
-            @<p>削除できません。</p>
-        End If
-
-        <hr />
-        @Html.ActionLink("戻る", "Edit", "Events", New With {.id = Model.Id}, Nothing)
-
-    </div>
-    <div class="col-sm-12 col-md-4">
-        @Html.Partial("_SidebarPartial")
-    </div>
-</div>

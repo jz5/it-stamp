@@ -103,11 +103,11 @@ End Code
         @If ViewBag.CanEditDetails = True Then
             @<div class="form-group">
                 @Html.LabelFor(Function(m) m.CheckInCode, New With {.class = "control-label"})
-                 <span class="text-muted"></span>
-                 <div class="form-inline" data-toggle="tooltip" data-placement="right" title="aaa">
-                     @Html.TextBoxFor(Function(m) m.CheckInCode, New With {.class = "form-control"})
-                     @Html.ValidationMessageFor(Function(m) m.CheckInCode, "", New With {.class = "text-danger"})
-                 </div>
+                <span class="text-muted"></span>
+                <div class="form-inline" data-toggle="tooltip" data-placement="right" title="aaa">
+                    @Html.TextBoxFor(Function(m) m.CheckInCode, New With {.class = "form-control"})
+                    @Html.ValidationMessageFor(Function(m) m.CheckInCode, "", New With {.class = "text-danger"})
+                </div>
             </div>
 
             @<div class="form-group">
@@ -153,8 +153,10 @@ End Code
     </text>
 End Using
 
-<hr />
-@Html.ActionLink("削除", "Delete", "Events", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
+@If ViewBag.CanDelete Then
+    @<hr />
+    @Html.ActionLink("削除", "Delete", "Events", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
+End If
 
 @Section Styles
     @Styles.Render("~/Content/skins/square/blue.css")
