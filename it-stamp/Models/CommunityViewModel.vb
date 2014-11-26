@@ -86,3 +86,16 @@ Public Class UploadCommunityStampViewModel
     Property File As HttpPostedFileBase
 
 End Class
+
+Public Class AddCommunityOwnerViewModel
+
+    <Key>
+    Property Id As Integer
+
+    '<Remote("IsUserNameExsits", "Communities", ErrorMessage:="ユーザーが存在しません")>
+    <Required>
+    <RegularExpression("^[A-Za-z0-9_]+$", ErrorMessage:="英数字のみ使えます。")>
+    <Display(Name:="追加するユーザー名")>
+    Property UserName As String
+
+End Class

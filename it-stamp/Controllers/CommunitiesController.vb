@@ -192,6 +192,81 @@ Public Class CommunitiesController
         End Try
     End Function
 
+    Async Function AddOwner(ByVal id As Integer?) As Task(Of ActionResult)
+        If IsNothing(id) Then
+            Return RedirectToAction("Index")
+        End If
+
+        Dim com = Await db.Communities.FindAsync(id)
+        If IsNothing(com) Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        ' 編集権限の確認
+        Dim appUser = Await UserManager.FindByIdAsync(User.Identity.GetUserId)
+        If Not CanEditDetails(appUser, com) Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Dim viewModel As New AddCommunityOwnerViewModel() With {
+            .Id = com.Id
+        }
+
+        Return View(viewModel)
+
+    End Function
+
+    <HttpPost>
+    <ValidateAntiForgeryToken>
+    Async Function AddOwner(ByVal viewModel As AddCommunityOwnerViewModel) As Task(Of ActionResult)
+
+        If Not ModelState.IsValid Then
+            Return View(viewModel)
+        End If
+
+        Dim com = db.Communities.Where(Function(c) c.Id = viewModel.Id).FirstOrDefault
+        If com Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        ' 編集権限の確認
+        Dim id = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = id).SingleOrDefaultAsync
+        If Not CanEditDetails(appUser, com) Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Try
+            ' ユーザーを探す
+            Dim targetUser = (From item In db.Users Where item.UserName = viewModel.UserName).SingleOrDefault
+            If targetUser Is Nothing Then
+                ModelState.AddModelError("UserName", "指定されたユーザーが存在しません")
+                Return View(viewModel)
+            ElseIf targetUser.Id = id Then
+                ModelState.AddModelError("UserName", "自分自身を再追加することはできません")
+                Return View(viewModel)
+            ElseIf com.Owners.Where(Function(e) e.Id = targetUser.Id).Count > 0 Then
+                ModelState.AddModelError("UserName", "既に追加されています")
+                Return View(viewModel)
+            End If
+
+            ' ユーザーを追加
+            com.Owners.Add(targetUser)
+            Await db.SaveChangesAsync
+
+            ViewBag.UserFriendlyName = appUser.FriendlyName
+            ViewBag.UserIcon = appUser.IconPath
+            ViewBag.SessionUserId = appUser.Id
+
+            Return RedirectToAction("EditOwners", New With {.id = com.Id})
+
+        Catch ex As Exception
+            ModelState.AddInternalError(User, ex)
+            Return View(viewModel)
+        End Try
+    End Function
+
+
     ' GET: Communities/Edit/5
     Async Function Edit(ByVal id As Integer?) As Task(Of ActionResult)
         If IsNothing(id) Then
@@ -750,12 +825,12 @@ Public Class CommunitiesController
 
     <HttpPost>
    <ValidateAntiForgeryToken>
-    Async Function DeleteOwner(ByVal communityId As Integer, ByVal targetId As String) As Task(Of ActionResult)
+    Async Function DeleteOwner(ByVal id As Integer, ByVal targetId As String) As Task(Of ActionResult)
 
         Dim userId = User.Identity.GetUserId
         Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
 
-        Dim com = db.Communities.Where(Function(c) c.Id = communityId).SingleOrDefault
+        Dim com = db.Communities.Where(Function(c) c.Id = id).SingleOrDefault
 
         If Not CanEditDetails(appUser, com) Then
             Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
@@ -781,7 +856,7 @@ Public Class CommunitiesController
             ViewBag.UserFriendlyName = appUser.FriendlyName
             ViewBag.UserIcon = appUser.IconPath
             ViewBag.SessionUserId = appUser.Id
-            Return RedirectToAction("EditOwner", New With {.id = com.Id})
+            Return RedirectToAction("EditOwners", New With {.id = com.Id})
 
         Catch eEx As System.Data.Entity.Validation.DbEntityValidationException
             For Each er In eEx.EntityValidationErrors
