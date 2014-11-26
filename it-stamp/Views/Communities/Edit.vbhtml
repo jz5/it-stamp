@@ -59,7 +59,7 @@ End Code
         End If
 
         <div class="form-group">
-            <input type="submit" value="編集" class="btn btn-primary" />
+            <input type="submit" value="保存" class="btn btn-primary" />
         </div>
     </text>
         End Using

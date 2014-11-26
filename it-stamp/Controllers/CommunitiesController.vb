@@ -132,7 +132,7 @@ Public Class CommunitiesController
             Case DetailsMessage.Add
                 msg = "登録しました。"
             Case DetailsMessage.Edit
-                msg = "編集しました。"
+                msg = "保存しました。"
             Case Else
                 msg = ""
         End Select

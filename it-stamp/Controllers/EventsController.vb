@@ -143,7 +143,7 @@ Public Class EventsController
             Case DetailsMessage.Add
                 msg = "登録しました。"
             Case DetailsMessage.Edit
-                msg = "編集しました。"
+                msg = "保存しました。"
             Case DetailsMessage.CheckIn
                 msg = ev.Name & "にチェックイン！"
             Case Else
