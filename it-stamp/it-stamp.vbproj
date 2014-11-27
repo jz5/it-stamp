@@ -226,6 +226,7 @@
     <Compile Include="Controllers\UsersAdminController.vb" />
     <Compile Include="Helpers\DateTimeHelpers.vb" />
     <Compile Include="Helpers\HtmlHelpers.vb" />
+    <Compile Include="Helpers\SocialHelpers.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="MyAttributeAdapter.vb" />
     <Compile Include="EventApi\AddressHelper.vb" />
@@ -511,7 +512,6 @@
     <Content Include="Views\CommunitiesAdmin\Edit.vbhtml" />
     <Content Include="Views\CommunitiesAdmin\Index.vbhtml" />
     <Content Include="Views\Communities\Upload.vbhtml" />
-    <Content Include="Views\Communities\Follow.vbhtml" />
     <Content Include="Views\Communities\Delete.vbhtml" />
     <Content Include="Views\Events\Delete.vbhtml" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />

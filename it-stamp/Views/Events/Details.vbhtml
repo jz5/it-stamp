@@ -126,7 +126,7 @@ End Code
                                 <td colspan="2"><span>⭐</span> @Html.ActionLink(Model.SpecialEvents.Name, Model.SpecialEvents.Id.ToString, "SpecialEvents")対象のIT勉強会です。</td>
                             </tr>
                         End If
-                        @If Model.IsReported Then
+                        @If Model.IsReported AndAlso ViewBag.CanEditDetails Then
                             @<tr>
                                 <td>参加人数（オフライン）</td>
                                 <td>@(Model.ParticipantsOfflineCount.ToString & "名")</td>
@@ -157,7 +157,7 @@ End Code
                 @For Each m In Model.CheckIns.Where(Function(c) Not c.User.IsPrivate).Select(Function(c) c.User)
                     @<a href="@Href("~/Users/" & m.UserName)"><img src="@(If(M.IconPath <> "", Href("/Uploads/" & m.IconPath), userIcon))" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
                 Next
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
                 @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
                 End If
             End If
@@ -203,14 +203,14 @@ End Code
                                         <li>
                                             <div class="checkbox">
                                                 @Html.CheckBox("PostComment")
-                                                @Html.Label("コメントを投稿", New With {.for = "PostComment"})
+                                                @Html.Label("コメントを投稿する", New With {.for = "PostComment"})
                                             </div>
                                         </li>
-                                        @If ViewBag.ShareTwitter Then
+                                        @If ViewBag.Twitter <> "" Then
                                             @<li>
                                                 <div class="checkbox">
                                                     @Html.CheckBox("ShareTwitter")
-                                                    @Html.Label("Twitterへシェア", New With {.for = "ShareTwitter"})
+                                                    @Html.Label("ツイートする（" & ViewBag.Twitter.ToString & "）", New With {.for = "ShareTwitter"})
                                                 </div>
                                             </li>
                                         End If
@@ -223,6 +223,9 @@ End Code
                                             </li>
                                         End If
                                     </ul>
+                                    @If ViewBag.Twitter <> "" Then
+                                        @<p>💡 ツイートは、ハッシュタグとURLが付きます。コメントが長い場合、140字以下に省略されます。</p>
+                                    End If
                                 End If
                             </div>
                             <div class="modal-footer">
@@ -237,16 +240,16 @@ End Code
                 @<p>開始時間の1時間前からチェックインできます。</p>
             End If
         End Using
-        <h2>💬 コメント <span class="badge badge-primary @(If(Model.Comments.Count > 0, "hidden", ""))">>@Model.Comments.Count</span></h2>
+        <h2>💬 コメント <span class="badge badge-primary @(If(Model.Comments.Count = 0, "hidden", ""))">@Model.Comments.Count</span></h2>
         @If Model.Comments IsNot Nothing AndAlso Model.Comments.Count > 0 Then
             @<ul class="list-unstyled">
                 @For Each item As Comment In Model.Comments
                 If item.CreatedBy.IsPrivate Then
                     Continue For
                 End If
-                    @<li>
+                    @<li style="margin-bottom:5px;">
                         <a href="@Href("~/Users/" & item.CreatedBy.Id)"><img src="@(If(item.CreatedBy.IconPath <> "", Href("/Uploads/" & item.CreatedBy.IconPath), Href("/Uploads/Icons/anon.png")))" class="icon24" /></a>
-                        <a href="@Href("~/Users/" & item.CreatedBy.Id)">@item.CreatedBy.DisplayName</a>： @item.Content <time class="text-muted small" datetime="@item.CreationDateTime.ToString("yyyy-MM-ddTH:mm:ssK")">（@item.CreationDateTime.ToString("yyyy/MM/dd HH:mm")）</time>
+                        <a href="@Href("~/Users/" & item.CreatedBy.Id)">@item.CreatedBy.DisplayName</a> @item.Content <time class="text-muted small" datetime="@item.CreationDateTime.ToString("yyyy-MM-ddTH:mm:ssK")">（@item.CreationDateTime.ToString("yyyy/MM/dd HH:mm")）</time>
                     </li>
                 Next
             </ul>

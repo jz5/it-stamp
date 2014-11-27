@@ -117,14 +117,16 @@ Public Class EventsController
         ' イベントの編集権限があるかどうか
         Dim appUser = UserManager.FindById(User.Identity.GetUserId)
         ViewBag.CanEdit = CanEdit(appUser, ev)
+        ViewBag.CanEditDetails = CanEditDetails(appUser, ev)
 
         ' チェックイン済みか
         ' TwitterやFacebookとの連携状況
         If appUser IsNot Nothing Then
             Dim ci = db.CheckIns.Where(Function(c) c.User.Id = appUser.Id AndAlso c.Event.Id = ev.Id).SingleOrDefault
             ViewBag.CheckIned = ci IsNot Nothing
-            ViewBag.ShareTwitter = appUser.ShareTwitter
-            ViewBag.ShareFacebook = appUser.ShareFacebook
+            ViewBag.Twitter = appUser.Twitter
+            ViewBag.ShareTwitter = appUser.ShareTwitter ' MEMO: ShareTwitter はツイートするかどうかの既定値用（予約）
+            ViewBag.ShareFacebook = False ' TODO: Facebook対応
             ViewBag.IsPrivateUser = appUser.IsPrivate
         Else
             ViewBag.CheckIned = False
@@ -548,12 +550,21 @@ Public Class EventsController
                 .User = appUser,
                 .Stamp = stamp}
 
-            db.CheckIns.Add(ci)
             ev.CheckIns.Add(ci)
 
             If viewModel.ShareTwitter Then
-                ' TODO: Twitterへ投稿
+                ' Tweet
+                Dim words = New List(Of String)
+                words.Add(If(viewModel.AdditionalMessage <> "", viewModel.AdditionalMessage.Trim, ""))
+                words.Add(String.Format("http://example.jp/{0}", ev.Id))
+                words.Add(If(ev.Hashtag <> "", "#" & ev.Hashtag.Trim, ""))
+                words.Add("#itstamp")
 
+                Try
+                    Await SocialHelpers.Tweet(Await UserManager.GetClaimsAsync(userId), String.Join(" ", words.ToArray))
+                Catch ex As Exception
+                    ' Ignore
+                End Try
             End If
 
             If viewModel.ShareFacebook Then
@@ -561,15 +572,12 @@ Public Class EventsController
 
             End If
 
-            If viewModel.AdditionalMessage <> String.Empty Then
+            If viewModel.PostComment AndAlso viewModel.AdditionalMessage <> "" Then
                 Dim comment = New Comment() With {
-                                .Content = viewModel.AdditionalMessage,
+                                .Content = viewModel.AdditionalMessage.Trim,
                                 .CreatedBy = appUser,
                                 .CreationDateTime = DateTime.Now,
-                                .Event = ev,
-                                .id = -1
-                                }
-                db.Comments.Add(comment)
+                                .Event = ev}
                 ev.Comments.Add(comment)
             End If
 

@@ -193,6 +193,8 @@ Public Class CheckInViewModel
 
     Property [Event] As [Event]
 
+    Property PostComment As Boolean
+
     Property ShareTwitter As Boolean
 
     Property ShareFacebook As Boolean

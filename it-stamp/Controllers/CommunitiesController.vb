@@ -618,34 +618,6 @@ Public Class CommunitiesController
         End Try
     End Function
 
-    Async Function Follow(id As Integer?) As Task(Of ActionResult)
-        If Not id.HasValue Then
-            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
-        End If
-
-        Dim userId = User.Identity.GetUserId
-        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
-        If appUser Is Nothing Then
-            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
-        End If
-
-        Dim com = db.Communities.Where(Function(c) c.Id = id.Value).SingleOrDefault
-        If com Is Nothing Then
-            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
-        End If
-
-        ' フォロー済みか
-        Dim followed = appUser.Communities.Where(Function(c) c.Id = com.Id).Count > 0
-        ViewBag.Followd = followed
-
-        If com.IsHidden Then
-            ViewBag.StatusMessage = "このコミュニティはフォローできません。"
-            Return View(com)
-        End If
-
-        Return View(com)
-    End Function
-
     <HttpPost()>
     <ValidateAntiForgeryToken()>
     Async Function Follow(model As Community) As Task(Of ActionResult)

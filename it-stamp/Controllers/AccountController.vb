@@ -280,12 +280,16 @@ Public Class AccountController
                 msg = "パスワードを設定しました。"
             Case ManageMessageId.RemoveLoginSuccess
                 msg = "別サービスの関連付けを削除しました。"
-            Case ManageMessageId.Error
-                msg = "エラーが発生しました。"
+            Case ManageMessageId.AddLoginSuccess
+                msg = "別サービスの関連付けを追加しました。"
             Case Else
                 msg = ""
         End Select
         ViewBag.StatusMessage = msg
+
+        If message = ManageMessageId.Error Then
+            ViewBag.ErrorMessage = "エラーが発生しました。"
+        End If
 
         ViewBag.HasLocalPassword = appUser.PasswordHash IsNot Nothing
         ViewBag.HasEmail = appUser.Email IsNot Nothing
@@ -436,7 +440,9 @@ Public Class AccountController
         End If
         Dim result = Await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login)
         If result.Succeeded Then
-            Return RedirectToAction("Manage")
+            Await StoreAuthTokenClaims(UserManager.FindById(User.Identity.GetUserId))
+
+            Return RedirectToAction("Manage", New With {.Message = ManageMessageId.AddLoginSuccess})
         End If
         Return RedirectToAction("Manage", New With {
             .Message = ManageMessageId.Error
@@ -635,6 +641,7 @@ Public Class AccountController
         ChangePasswordSuccess
         SetPasswordSuccess
         RemoveLoginSuccess
+        AddLoginSuccess
         [Error]
     End Enum
 

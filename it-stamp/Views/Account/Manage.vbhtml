@@ -6,9 +6,21 @@ End Code
 
 <h1>@ViewBag.Title</h1>
 
-<p class="text-success">@ViewBag.StatusMessage</p>
+@If ViewBag.StatusMessage <> "" AndAlso Request.IsAuthenticated Then
+    @<div class="alert alert-success fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        @ViewBag.StatusMessage
+    </div>
+End If
+@If ViewBag.ErrorMessage <> "" AndAlso Request.IsAuthenticated Then
+    @<div class="alert alert-danger fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        @ViewBag.ErrorMessage
+    </div>
+End If
 
 <section>
+    <h2>メールアドレスの変更</h2>
     @Using Html.BeginForm("Manage", "Account", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
 
         @Html.AntiForgeryToken()
@@ -30,6 +42,8 @@ End Code
 </section>
 
 <section>
+    <h2>パスワードの変更</h2>
+
     @If ViewBag.HasLocalPassword Then
         @Html.ActionLink("パスワードの変更", "ChangePassword")
     Else
