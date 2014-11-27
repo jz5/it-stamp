@@ -65,6 +65,15 @@ Namespace Resources
         End Property
         
         '''<summary>
+        '''  画像ファイルを選択してください。 に類似したローカライズされた文字列を検索します。
+        '''</summary>
+        Friend Shared ReadOnly Property ImageFilePropertyValueRequired() As String
+            Get
+                Return ResourceManager.GetString("ImageFilePropertyValueRequired", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  {0}を入力してください。 に類似したローカライズされた文字列を検索します。
         '''</summary>
         Friend Shared ReadOnly Property PropertyValueRequired() As String

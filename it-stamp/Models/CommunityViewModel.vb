@@ -48,7 +48,7 @@ Public Class UploadCommunityIconViewModel
 
     Property IconPath As String
 
-    <Required>
+    <Required(ErrorMessageResourceName:="ImageFilePropertyValueRequired")>
     <DisplayName("アイコン")>
     <UploadFile(Extensions:="png;jpeg;jpg", MaxLength:=1024 * 1024)>
     Property File As HttpPostedFileBase
@@ -80,7 +80,7 @@ Public Class UploadCommunityStampViewModel
 
     Property StampPath As String
 
-    <Required>
+    <Required(ErrorMessageResourceName:="ImageFilePropertyValueRequired")>
     <DisplayName("スタンプ")>
     <UploadFile(Extensions:="png;jpeg;jpg", MaxLength:=1024 * 1024)>
     Property File As HttpPostedFileBase

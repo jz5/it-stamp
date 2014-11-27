@@ -11,8 +11,8 @@
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="@Href("~/Events/CheckIn")">チェックイン</a></li>
                     <li class="divider"></li>
-                    <li><a href="@Href("~/Users/" & User.Identity.GetUserName & "/Edit")"><i class="glyphicon glyphicon-cog"></i> 設定</a></li>
-                    <li><a href="@Href("~/Account/Manage")"><i class="glyphicon glyphicon-user"></i> アカウント</a></li>
+                    <li><a href="@Href("~/Users/" & User.Identity.GetUserName & "/Edit")"><i class="glyphicon glyphicon-user"></i> プロフィール</a></li>
+                    <li><a href="@Href("~/Account/Manage")">アカウント管理</a></li>
                     <li class="divider"></li>
                     <li><a href="javascript:document.getElementById('logoutForm').submit()">ログオフ</a></li>
                 </ul>

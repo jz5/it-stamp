@@ -6,8 +6,14 @@ Public Class MyAttributeAdapter
 
     Sub New(metadata As ModelMetadata, context As ControllerContext, attribute As RequiredAttribute)
         MyBase.New(metadata, context, attribute)
-        attribute.ErrorMessageResourceType = GetType(MyResource)
-        attribute.ErrorMessageResourceName = "PropertyValueRequired"
+        If attribute.ErrorMessage Is Nothing Then
+            If attribute.ErrorMessageResourceType Is Nothing Then
+                attribute.ErrorMessageResourceType = GetType(MyResource)
+            End If
+            If attribute.ErrorMessageResourceName Is Nothing Then
+                attribute.ErrorMessageResourceName = "PropertyValueRequired"
+            End If
+        End If
     End Sub
 
 End Class

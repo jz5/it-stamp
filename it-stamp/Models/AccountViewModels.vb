@@ -111,7 +111,7 @@ Public Class UploadUserIconViewModel
 
     Property IconPath As String
 
-    <Required>
+    <Required(ErrorMessageResourceName:="ImageFilePropertyValueRequired")>
     <DisplayName("アイコン")>
     <UploadFile(Extensions:="png;jpeg;jpg", MaxLength:=1024 * 1024)>
     Property File As HttpPostedFileBase
