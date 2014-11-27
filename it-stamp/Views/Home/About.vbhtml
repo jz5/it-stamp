@@ -4,7 +4,7 @@ End Code
 
 <div class="row">
     <div class="col-sm-12 col-md-8">
-        @*<h1>@ViewBag.Title</h1>*@
+        <h1>🔰 初めての方へ</h1>
 
         <h2>✅ IT勉強会にチェックイン！</h2>
 

@@ -44,35 +44,20 @@
             </div>
         </div>
     </div>
-    @*<div class="container-fluid" style="background-color:#FF7D7C;">
-        <div class="container">
-            <div class="top-slider">
-                <ul class="bxslider">
-                    <li><a href="#"><img src="~/images/nareruse.png" class="banner-img" style="display:none" /></a></li>
-                    <li><a href="#"><img src="http://placehold.it/1140x321/ffffff/222222" class="banner-img" style="display:none" /></a></li>
-                    <li><a href="#"><img src="http://placehold.it/1140x321/ccffff/222222" class="banner-img" style="display:none" /></a></li>
-                    <li><a href="#"><img src="http://placehold.it/1140x321/ffccff/222222" class="banner-img" style="display:none" /></a></li>
-                    <li><a href="#"><img src="http://placehold.it/1140x321/ffffcc/222222" class="banner-img" style="display:none" /></a></li>
-                    <li><a href="#"><img src="http://placehold.it/1140x321/ccccff/222222" class="banner-img" style="display:none" /></a></li>
-                </ul>
-            </div>
-        </div>
-    </div>*@
     <div class="container">
         @RenderBody()
     </div>
     <div class="footer">
-
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
                     <h3>IT勉強会スタンプ</h3>
                     <p>IT勉強会スタンプは、IT勉強会の参加を記録できるWebサービスです。</p>
                     <ul class="list-unstyled">
-                        <li>@Html.ActionLink("初めての方", "About", "Home")</li>
-                        <li>@Html.ActionLink("IT勉強会一覧", "Index", "Events")</li>
-                        <li>@Html.ActionLink("コミュニティ一覧", "Index", "Communities")</li>
-                        <li>@Html.ActionLink("登録", "Register", "Account")・@Html.ActionLink("ログイン", "Login", "Account")</li>
+                        <li>@Html.ActionLink("🔰 初めての方", "About", "Home")</li>
+                        <li>@Html.ActionLink("IT勉強会一覧", "Index", "Events")・@Html.ActionLink("登録", "Add", "Events")</li>
+                        <li>@Html.ActionLink("コミュニティ一覧", "Index", "Communities")・@Html.ActionLink("登録", "Add", "Communities")</li>
+                        <li>@Html.ActionLink("アカウント登録", "Register", "Account")・@Html.ActionLink("ログイン", "Login", "Account")</li>
                         <li>@Html.ActionLink("Q & A", "QA", "Home")</li>
                         <li>@Html.ActionLink("お問い合わせ", "Contact", "Home")</li>
                         <li>@Html.ActionLink("利用規約・プライバシーポリシー", "TOS", "Home")</li>
