@@ -196,10 +196,10 @@ End Code
                                 <h4 class="modal-title" id="modalLabel">チェックイン</h4>
                             </div>
                             <div class="modal-body">
-                                @If Not ViewBag.IsPrivateUser Then
-                                    @<p>※ プライベートモードを「OFF」にするとチェックインをシェアできます。</p>
+                                @If ViewBag.IsPrivateUser Then
+                                    @<p>💡 プライベートモードを「OFF」にするとチェックインをシェアできます。</p>
                                 Else
-                                    @Html.TextArea("AdditionalMessage", Model.Name + "にチェックイン！ #itstamp", New With {.maxlength = 256, .class = "form-control", .style = "max-width:none;"})
+                                    @Html.TextArea("AdditionalMessage", Model.Name + "にチェックイン！", New With {.maxlength = 256, .class = "form-control", .style = "max-width:none;"})
                                     @<ul class="list-unstyled">
                                         @If False Then@*TODO コメント実装*@
                                         @<li>

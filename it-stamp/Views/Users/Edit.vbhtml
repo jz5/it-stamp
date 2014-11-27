@@ -69,7 +69,7 @@ End Code
                         @Html.ValidationMessageFor(Function(m) m.IsPrivate, "", New With {.class = "text-danger"})
                     </div>
                     <p class="text-muted">
-                        プライベートモード「ON」の場合、ユーザー名（@Model.UserName）以外のユーザー情報は表示されません。
+                        💡 プライベートモード「ON」の場合、ユーザー名（@Model.UserName）以外の情報は表示されません。
                     </p>
                 </div>
 
@@ -82,7 +82,9 @@ End Code
 
 
         <hr />
-        @Html.ActionLink(Model.FriendlyName & "のプロフィールページ", "Details", "Users", New With {.userName = Model.UserName}, Nothing)
+        <span>
+            🔎 @Html.ActionLink(Model.FriendlyName & "のプロフィールページを確認", "Details", "Users", New With {.userName = Model.UserName}, Nothing)
+        </span>
         
     </div>
     <div class="col-md-4">
