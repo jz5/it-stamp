@@ -9,8 +9,6 @@
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">@Session("DisplayName") <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="@Href("~/Events/CheckIn")">チェックイン</a></li>
-                    <li class="divider"></li>
                     <li><a href="@Href("~/Users/" & User.Identity.GetUserName & "/Edit")"><i class="glyphicon glyphicon-user"></i> プロフィール</a></li>
                     <li><a href="@Href("~/Account/Manage")">アカウント管理</a></li>
                     <li class="divider"></li>
