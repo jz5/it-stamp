@@ -110,7 +110,12 @@ Public Class AccountController
         End If
 
         ' ユーザーにサインインする前にローカル ログインを作成します。
-        Dim user = New ApplicationUser() With {.UserName = model.UserName, .Email = model.Email, .DisplayName = model.UserName, .IsPrivate = True}
+        Dim user = New ApplicationUser() With {
+            .UserName = model.UserName,
+            .Email = model.Email,
+            .DisplayName = model.UserName,
+            .IsPrivate = True,
+            .IconPath = "Icons/anon.png"}
         Dim result = Await UserManager.CreateAsync(user, model.Password)
         If result.Succeeded Then
             ' アカウント確認とパスワード リセットを有効にする方法の詳細については、http://go.microsoft.com/fwlink/?LinkID=320771 を参照してください
@@ -454,7 +459,11 @@ Public Class AccountController
             If info Is Nothing Then
                 Return View("ExternalLoginFailure")
             End If
-            Dim user = New ApplicationUser() With {.UserName = model.UserName, .DisplayName = model.UserName, .IsPrivate = True}
+            Dim user = New ApplicationUser() With {
+                .UserName = model.UserName,
+                .DisplayName = model.UserName,
+                .IsPrivate = True,
+                .IconPath = "Icons/anon.png"}
             Dim result = Await UserManager.CreateAsync(user)
             If result.Succeeded Then
                 result = Await UserManager.AddLoginAsync(user.Id, info.Login)

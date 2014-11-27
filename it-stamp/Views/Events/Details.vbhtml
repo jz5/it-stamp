@@ -166,7 +166,6 @@ End Code
             @Html.AntiForgeryToken()
             @Html.Hidden("Event.Id", Model.Id)
             @Html.Hidden("Event.Name", Model.Name)
-            @Html.Hidden("QuickCheckInEnabled", "True")
 
             @If ViewBag.CheckIned Then
                 @<p>チェックイン済み</p>
@@ -237,7 +236,7 @@ End Code
 
                 End If
             Else
-                @<p>開始時間の1時間前からチェックインできるようになります。</p>
+                @<p>開始時間の1時間前からチェックインできます。</p>
             End If
         End Using
         <h2>💬 コメント</h2>

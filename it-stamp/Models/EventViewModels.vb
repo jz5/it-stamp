@@ -198,10 +198,8 @@ Public Class CheckInViewModel
     Property ShareFacebook As Boolean
 
     <StringLength(256)>
-    <Display(Name:="追加メッセージ")>
+    <Display(Name:="コメント")>
     <DataType(DataType.MultilineText)>
     Property AdditionalMessage As String
-
-    Property QuickCheckInEnabled As Boolean
 
 End Class

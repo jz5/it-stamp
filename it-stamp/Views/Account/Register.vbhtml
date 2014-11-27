@@ -44,7 +44,7 @@ End Code
                 </div>
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="登録" />
+                <a href="@Href("~/Home/TOS")">利用規約</a>に同意して <input type="submit" class="btn btn-primary" value="登録" />
             </div>
         </text>
     End Using

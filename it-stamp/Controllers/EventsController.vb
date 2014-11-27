@@ -496,39 +496,6 @@ Public Class EventsController
         End Try
     End Function
 
-    Async Function CheckIn(id As Integer?) As Task(Of ActionResult)
-        If Not id.HasValue Then
-            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
-        End If
-
-        Dim userId = User.Identity.GetUserId
-        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
-        If appUser Is Nothing Then
-            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
-        End If
-
-        Dim ev = db.Events.Where(Function(e) e.Id = id.Value).SingleOrDefault
-        If ev Is Nothing Then
-            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
-        End If
-
-        ' チェックイン済みか
-        Dim ci = db.CheckIns.Where(Function(c) c.User.Id = appUser.Id AndAlso c.Event.Id = ev.Id).SingleOrDefault
-        ViewBag.CheckIned = ci IsNot Nothing
-
-        Dim viewModel = New CheckInViewModel With {
-            .Event = ev,
-            .ShareFacebook = appUser.ShareFacebook,
-            .ShareTwitter = appUser.ShareTwitter}
-
-        If ev.IsCanceled OrElse ev.IsHidden Then
-            ViewBag.StatusMessage = "このIT勉強会にはチェックインできません。"
-            Return View(viewModel)
-        End If
-
-        Return View(viewModel)
-    End Function
-
     <HttpPost()>
     <ValidateAntiForgeryToken()>
     Async Function CheckIn(viewModel As CheckInViewModel) As Task(Of ActionResult)
@@ -569,7 +536,10 @@ Public Class EventsController
             ' Stamp
             Dim stamp As Stamp = Nothing
             If ev.Community IsNot Nothing Then
-                stamp = db.Stamps.Where(Function(s) s.Community.Id = ev.Community.Id).SingleOrDefault
+                If ev.Community.DefaultStamp IsNot Nothing Then
+                    stamp = ev.Community.DefaultStamp
+                End If
+                ' TODO Stamp expression 処理
             End If
 
             Dim ci = New CheckIn With {

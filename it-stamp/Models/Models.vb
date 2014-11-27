@@ -105,7 +105,7 @@ Public Class CheckIn
     <Key>
     Property Id As Long
     <Required>
-    Property [Event] As [Event]
+    Overridable Property [Event] As [Event]
     <Required>
     Overridable Property User As ApplicationUser
 
@@ -183,7 +183,7 @@ Public Class Stamp
     <Key>
     Property Id As Integer
     <Required>
-    Property Community As Community
+    Overridable Property Community As Community
 
     <StringLength(50)>
     <Display(Name:="名前")>

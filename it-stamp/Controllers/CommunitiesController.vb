@@ -564,8 +564,7 @@ Public Class CommunitiesController
         End If
 
         Dim helper = New UploadHelper(viewModel.File, Server.MapPath("~/App_Data/Uploads/"))
-        ' TODO: GUIDがかぶらないことを確認するようにしたほうが良い？
-        Dim iconPath = helper.GetIconPath("Stamps", viewModel.Id.ToString + "_" + Guid.NewGuid().ToString())
+        Dim iconPath = helper.GetIconPath("Stamps", Guid.NewGuid().ToString)
 
         If Not helper.IsSupportedImageFormat Then
             ModelState.AddModelError("File", "PNG/JPEG形式の画像をアップロードしてください。")
