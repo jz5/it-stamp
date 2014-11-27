@@ -11,7 +11,8 @@ Public Class MvcApplication
         RouteConfig.RegisterRoutes(RouteTable.Routes)
         BundleConfig.RegisterBundles(BundleTable.Bundles)
         DefaultModelBinder.ResourceClassKey = "MyResource"
-        DataAnnotationsModelValidatorProvider.RegisterAdapter(GetType(RequiredAttribute), GetType(MyRequiredAttributeAdapter))
+        DataAnnotationsModelValidatorProvider.RegisterAdapter(GetType(RequiredAttribute), GetType(MyAttributeAdapter))
+        DataAnnotationsModelValidatorProvider.RegisterAdapter(GetType(StringLengthAttribute), GetType(MyStringLengthAttributeAdapter))
         GlobalFilters.Filters.Add(New ValidateInputAttribute(False))
 
         If Boolean.Parse(ConfigurationManager.AppSettings("MigrateDatabaseToLatestVersion")) Then

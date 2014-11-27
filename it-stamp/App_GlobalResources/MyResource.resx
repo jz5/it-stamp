@@ -120,4 +120,7 @@
   <data name="PropertyValueRequired" xml:space="preserve">
     <value>{0}を入力してください。</value>
   </data>
+  <data name="StringLengthMessage" xml:space="preserve">
+    <value>{1}文字以下で入力してください。</value>
+  </data>
 </root>

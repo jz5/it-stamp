@@ -49,8 +49,10 @@ Public Class [Event]
 
     Property IsReported As Boolean
     <Display(Name:="参加人数（オフライン）")>
+    <RegularExpression("^\d+$", ErrorMessage:="数字を入力してください。")>
     Property ParticipantsOfflineCount As Integer
     <Display(Name:="参加人数（オンライン）")>
+    <RegularExpression("^\d+$", ErrorMessage:="数字を入力してください。")>
     Property ParticipantsOnlineCount As Integer
     <StringLength(1000)>
     <DataType(DataType.MultilineText)>

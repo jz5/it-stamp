@@ -72,5 +72,14 @@ Namespace Resources
                 Return ResourceManager.GetString("PropertyValueRequired", resourceCulture)
             End Get
         End Property
+        
+        '''<summary>
+        '''  {1}文字以下で入力してください。 に類似したローカライズされた文字列を検索します。
+        '''</summary>
+        Friend Shared ReadOnly Property StringLengthMessage() As String
+            Get
+                Return ResourceManager.GetString("StringLengthMessage", resourceCulture)
+            End Get
+        End Property
     End Class
 End Namespace
