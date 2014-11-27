@@ -60,8 +60,8 @@ End Code
                                 @For Each item In Model.Communities
                                 Dim src = If(item.IconPath <> "", Href("/Uploads/" & item.IconPath), "http://placehold.it/96x96")
                                     @<tr>
-                                        <td style="border-top-width:0;width:32px;"><a href="@Href("/Events/")@item.Id"><img class="img-rounded icon24" src="@src" /></a></td>
-                                        <td style="border-top-width:0;vertical-align:bottom;"><a href="@Href("/Events/")@item.Id">@item.Name</a></td>
+                                        <td style="border-top-width:0;width:32px;"><a href="@Href("/Communities/")@item.Id"><img class="img-rounded icon24" src="@src" /></a></td>
+                                        <td style="border-top-width:0;vertical-align:bottom;"><a href="@Href("/Communities/")@item.Id">@item.Name</a></td>
                                     </tr>
                                 Next
                             </tbody>

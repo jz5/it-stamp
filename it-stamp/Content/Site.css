@@ -57,7 +57,9 @@ body > .container-fluid {
     margin-top: 30px;
 }
 
-
+mark, .mark {
+    background-color: #ffc;
+}
 
 
 /* Forms */

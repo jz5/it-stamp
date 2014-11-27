@@ -16,6 +16,9 @@ End Code
             <li><a href="https://pronama.stores.jp/#!/tokushoho">プロ生ストア</a></li>
         </ul>
 
+        <h2>コミュニティ管理者の申請</h2>
+        <p>コミュニティ管理者の申請は、メールでご連絡ください。原則、コミュニティのWebサイトのドメインのメールまたは記載されている連絡先からご連絡お願いします。</p>
+
 
     </div>
     <div class="col-sm-12 col-md-4">

@@ -14,6 +14,7 @@ Namespace Migrations
 
         Public Sub New()
             AutomaticMigrationsEnabled = True
+            'AutomaticMigrationDataLossAllowed = True
             ContextKey = "it_stamp.ApplicationDbContext"
         End Sub
 
