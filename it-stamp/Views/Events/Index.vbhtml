@@ -33,15 +33,13 @@ End Code
 
         @Html.Partial("_EventResults")
 
-        @If Request.IsAuthenticated Then
-            @<div>
-                 <p>💡 チェックインするIT勉強会が見つかりませんか？　あなたが、<a href="@Url.Action("Add", "Events")">IT勉強会を登録してください</a>。</p>
-            </div>
-        Else
-            @<div>
-                <p>💡 チェックインするIT勉強会が見つかりませんか？　<a href="@Url.Action("Add", "Events")">ログイン</a>してIT勉強会を登録しましょう。</p>
-            </div>
-        End If
+        <aside>
+            @If Request.IsAuthenticated Then
+                @<span>💡 チェックインするIT勉強会が見つかりませんか？　あなたが、<a href="@Url.Action("Add", "Events")">IT勉強会を登録してください</a>。</span>
+            Else
+                @<span>💡 チェックインするIT勉強会が見つかりませんか？　<a href="@Url.Action("Add", "Events")">ログイン</a>してIT勉強会を登録しましょう。</span>
+            End If
+        </aside>
 
 
     </div>

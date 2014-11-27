@@ -157,7 +157,7 @@ End Code
                 @For Each m In Model.CheckIns.Where(Function(c) Not c.User.IsPrivate).Select(Function(c) c.User)
                     @<a href="@Href("~/Users/" & m.UserName)"><img src="@(If(M.IconPath <> "", Href("/Uploads/" & m.IconPath), userIcon))" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
                 Next
-                                                                                                                                                                                                                                                                                                                                                                                                If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
+                                                                                                                                                                                                                                                                                                                                                                                                                If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
                 @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
                 End If
             End If
@@ -272,9 +272,12 @@ End Code
             @<h2>このコミュニティのその他のIT勉強会</h2>
             @<p>（未実装）</p>
         End If
-        @Html.Partial("_SocialButtons")
 
-        <div>
+        @If ViewBag.StatusMessage = "" Then
+            @Html.Partial("_SocialButtons")
+        End If
+
+        <aside class="edit-menu-bar">
             @If ViewBag.CanEdit Then
                 @<a href="@Url.Action("Edit", "Events" , new with {.id=Model.Id})">✏ 編集</a>
             ElseIf Model.IsLocked Then
@@ -282,7 +285,7 @@ End Code
             ElseIf Not Request.IsAuthenticated Then
                 @<span>✏ <a href="@Url.Action("Edit", "Events" , new with {.id=Model.Id})">ログイン</a>して編集しませんか？</span>
             End If
-        </div>
+        </aside>
     </div>
     <div class="col-md-4">
         @Html.Partial("_SidebarPartial")

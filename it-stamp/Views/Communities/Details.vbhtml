@@ -78,11 +78,19 @@ End Code
             End If
         </div>
 
-        @Html.Partial("_SocialButtons")
-
-        @If ViewBag.CanEdit Then
-            @<a href="@Url.Action("Edit", "Communities", New With {.id = Model.Id})"><i class="glyphicon glyphicon-pencil"></i> 編集</a>
+        @If ViewBag.StatusMessage = "" Then
+            @Html.Partial("_SocialButtons")
         End If
+
+        <aside class="edit-menu-bar">
+            @If ViewBag.CanEdit Then
+                @<a href="@Url.Action("Edit", "Communities", New With {.id = Model.Id})">✏ 編集</a>
+            ElseIf Model.IsLocked Then
+                @<span>🔒 編集が制限されています。</span>
+            ElseIf Not Request.IsAuthenticated Then
+                @<span>✏ <a href="@Url.Action("Edit", "Communities", New With {.id = Model.Id})">ログイン</a>して編集しませんか？</span>
+            End If
+        </aside>
 
     </div>
     <div class="col-md-4">

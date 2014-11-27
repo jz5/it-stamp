@@ -225,6 +225,14 @@ h1 + .media { /* community, event details */
         vertical-align: top;
     }
 
+    /* */
+.edit-menu-bar {
+    margin-top: 50px;
+}
+.social-buttons + .edit-menu-bar {
+    margin-top: 10px;
+}
+
 /* navbar */
 .navbar-custom {
     position: fixed;

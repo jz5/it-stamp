@@ -33,16 +33,13 @@ End Code
             <li class="@(If(Model.CurrentPage = Model.TotalPages, "disabled", ""))">@Html.ActionLink("»", "Index", "Communities", New With {.page = Model.TotalPages}, Nothing)</li>
         </ul>
 
-
-        @If Request.IsAuthenticated Then
-            @<div>
-                <a href="@Url.Action("Add", "Communities")"><i class="glyphicon glyphicon-plus"></i> コミュニティの登録</a>
-            </div>
-        End If
-
-
-        @Html.Partial("_SocialButtons")
-
+        <aside>
+            @If Request.IsAuthenticated Then
+                @<span>💡 コミュニティが見つかりませんか？　あなたが、<a href="@Url.Action("Add", "Communities")">コミュニティを登録してください</a>。</span>
+            Else
+                @<span>💡 コミュニティが見つかりませんか？　<a href="@Url.Action("Add", "Communities")">ログイン</a>してコミュニティを登録しましょう。</span>
+            End If
+        </aside>
 
     </div>
     <div class="col-md-4">
