@@ -23,8 +23,14 @@ Public Class MyStringLengthAttributeAdapter
 
     Sub New(metadata As ModelMetadata, context As ControllerContext, attribute As StringLengthAttribute)
         MyBase.New(metadata, context, attribute)
-        attribute.ErrorMessageResourceType = GetType(MyResource)
-        attribute.ErrorMessageResourceName = "StringLengthMessage"
+        If attribute.ErrorMessage Is Nothing Then
+            If attribute.ErrorMessageResourceType Is Nothing Then
+                attribute.ErrorMessageResourceType = GetType(MyResource)
+            End If
+            If attribute.ErrorMessageResourceName Is Nothing Then
+                attribute.ErrorMessageResourceName = "StringLengthMessage"
+            End If
+        End If
     End Sub
 
 End Class

@@ -10,6 +10,7 @@ Imports System.ComponentModel.DataAnnotations
 Public Class ApplicationUser
     Inherits IdentityUser
 
+    <Required>
     <StringLength(50)>
     <Display(Name:="表示名")>
     Property DisplayName As String
