@@ -61,6 +61,9 @@ mark, .mark {
     background-color: #ffc;
 }
 
+table.table > tbody > tr:first-child > td {
+    border-top-width:0;
+}
 
 /* Forms */
 input,

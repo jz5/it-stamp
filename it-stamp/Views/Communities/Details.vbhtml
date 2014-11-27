@@ -24,53 +24,51 @@ End Code
 
         @Html.Partial("_CommunityCard", Model, ViewData)
 
-        <h2>主催しているIT勉強会</h2>
-        <div>
-            <h3>開催予定のIT勉強会</h3>
-            @If ViewBag.FutureEvents Is Nothing OrElse ViewBag.FutureEvents.Count = 0 Then
-                @<p>主催している開催予定の勉強会はありません</p>
-            Else
-                @<ul>
-                @For Each ev In ViewBag.FutureEvents
-                    @<li><p><a href="@Href("/Events/")@ev.Id">@ev.Name <br />@ev.FriendlyDateTime()</a></p></li>
-                Next
-                </ul>
-            End If
-
-            @If ViewBag.NowEvents IsNot Nothing AndAlso ViewBag.NowEvents.Count <> 0 Then
-                @<h3>現在開催中のIT勉強会</h3>
-                @<ul>
-                    @For Each ev In ViewBag.NowEvents
-                        @<li><p><a href="@Href("/Events/")@ev.Id">@ev.Name / @ev.FriendlyDateTime()</a></p></li>
+        <h2>📢 開催予定のIT勉強会 <span class="badge badge-primary @(If(ViewBag.FutureEvents Is Nothing OrElse ViewBag.FutureEvents.Count = 0, "hidden", ""))">@ViewBag.FutureEvents.Count</span></h2>
+        @If ViewBag.FutureEvents Is Nothing OrElse ViewBag.FutureEvents.Count = 0 Then
+            @<p class="text-muted">開催予定のIT勉強会はまだありません。</p>
+        Else
+            @<table class="table">
+                <tbody>
+                    @For Each ev In ViewBag.FutureEvents
+                        @<tr>
+                            <td style="width:35%;"><time class="text-muted small">@ev.FriendlyDateTime</time></td>
+                            <td><a href="@Href("~/Events/" & ev.Id)">@ev.Name</a></td>
+                        </tr>
                     Next
-                </ul>
-            End If
+                </tbody>
+            </table>
+        End If
 
-            <h3>開催したIT勉強会</h3>
-            @If ViewBag.PastEvents Is Nothing OrElse ViewBag.PastEvents.Count = 0 Then
-                @<p>主催している過去の勉強会はありません</p>
-            Else
-                @<ul>
+        <h2>📢 開催したIT勉強会 <span class="badge badge-primary @(If(ViewBag.PastEvents Is Nothing OrElse ViewBag.PastEvents.Count = 0, "hidden", ""))">@ViewBag.PastEvents.Count</span></h2>
+        @If ViewBag.PastEvents Is Nothing OrElse ViewBag.PastEvents.Count = 0 Then
+            @<p class="text-muted">開催したIT勉強会はまだありません。</p>
+        Else
+            @<table class="table">
+                <tbody>
                     @For Each ev In ViewBag.PastEvents
-                        @<li><p><a href="@Href("/Events/")@ev.Id">@ev.Name / @ev.FriendlyDateTime()</a></p></li>
+                        @<tr>
+                            <td style="width:35%;"><time class="text-muted small">@ev.FriendlyDateTime</time></td>
+                            <td><a href="@Href("~/Events/" & ev.Id)">@ev.Name</a></td>
+                        </tr>
                     Next
-                </ul>
-            End If
-        </div>
-        @*<p class="text-muted">開催予定のIT勉強会はありません。</p>
-            <div>
-                @Html.ActionLink("過去のIT勉強会", "Events", "Search")
-            </div>*@
+                </tbody>
+            </table>
+        End If
 
         <h2>フォロワー <span class="badge badge-primary @(If(Model.Members.Count = 0, "hidden", ""))">@Model.Members.Count</span></h2>
         <div>
             @If Model.Members.Count = 0 Then
-                @<p class="text-muted">フォロワーはいません。</p>
+                If Request.IsAuthenticated Then
+                @<p class="text-muted">最初のフォロワーになりませんか？</p>
+                Else
+                @<p class="text-muted">ログインして最初のフォロワーになりませんか？</p>
+                End If
             Else
                 @For Each m In Model.Members.Where(Function(u) Not u.IsPrivate)
                     @<a href="@Href("~/Users/" & m.UserName)"><img src="@(If(M.IconPath <> "", Href("/Uploads/" & m.IconPath), "http://placehold.it/16x16"))" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
                 Next
-                                                                                                                                
+
                 If Model.Members.Where(Function(u) u.IsPrivate).Count > 0 Then
                 @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
                 End If

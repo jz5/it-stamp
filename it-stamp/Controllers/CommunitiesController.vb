@@ -108,20 +108,16 @@ Public Class CommunitiesController
         ' 主催勉強会一覧情報
         ViewBag.PastEvents = Nothing
         ViewBag.FutureEvents = Nothing
-        ViewBag.NowEvents = Nothing
 
         Dim events = From ev In db.Events Where ev.Community.Id = com.Id
         If events IsNot Nothing Then
             ' クエリを展開しておく
-            Dim queryDate = DateTime.Now
-            Dim pastEvents = From ev In events Where ev.EndDateTime < queryDate Order By ev.EndDateTime Descending.Take(5).ToList()
-            Dim futureEvents = From ev In events Where ev.StartDateTime > queryDate Order By ev.StartDateTime Ascending.Take(5).ToList()
-            'Dim nowEvents = events.Except(pastEvents.Union(futureEvents)).ToList()
-            Dim nowEvents = From ev In events Where ev.StartDateTime >= queryDate AndAlso ev.EndDateTime <= queryDate Order By ev.EndDateTime Ascending.Take(5).ToList()
+            Dim queryDate = DateTime.Now.Date
+            Dim pastEvents = From ev In events Where ev.EndDateTime < queryDate Order By ev.EndDateTime Descending.ToList
+            Dim futureEvents = From ev In events Where ev.StartDateTime >= queryDate Order By ev.StartDateTime Ascending.ToList
 
             ViewBag.PastEvents = pastEvents
             ViewBag.FutureEvents = futureEvents
-            ViewBag.NowEvents = nowEvents
         End If
 
         ViewBag.OwnEvents = events
