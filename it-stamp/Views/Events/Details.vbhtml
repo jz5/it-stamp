@@ -157,7 +157,7 @@ End Code
                 @For Each m In Model.CheckIns.Where(Function(c) Not c.User.IsPrivate).Select(Function(c) c.User)
                     @<a href="@Href("~/Users/" & m.UserName)"><img src="@(If(M.IconPath <> "", Href("/Uploads/" & m.IconPath), userIcon))" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
                 Next
-                                                                                                                                                                                                                                                                                                                                                                                                                If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
                 @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
                 End If
             End If
@@ -200,14 +200,12 @@ End Code
                                 Else
                                     @Html.TextArea("AdditionalMessage", Model.Name + "にチェックイン！", New With {.maxlength = 256, .class = "form-control", .style = "max-width:none;"})
                                     @<ul class="list-unstyled">
-                                        @If False Then@*TODO コメント実装*@
-                                        @<li>
+                                        <li>
                                             <div class="checkbox">
                                                 @Html.CheckBox("PostComment")
                                                 @Html.Label("コメントを投稿", New With {.for = "PostComment"})
                                             </div>
                                         </li>
-                                        End If
                                         @If ViewBag.ShareTwitter Then
                                             @<li>
                                                 <div class="checkbox">
@@ -239,33 +237,24 @@ End Code
                 @<p>開始時間の1時間前からチェックインできます。</p>
             End If
         End Using
-        <h2>💬 コメント</h2>
+        <h2>💬 コメント <span class="badge badge-primary @(If(Model.Comments.Count > 0, "hidden", ""))">>@Model.Comments.Count</span></h2>
         @If Model.Comments IsNot Nothing AndAlso Model.Comments.Count > 0 Then
-            @<div class="comment-container">
+            @<ul class="list-unstyled">
                 @For Each item As Comment In Model.Comments
                 If item.CreatedBy.IsPrivate Then
                     Continue For
                 End If
-                    @<div class="comment">
-                        <div class="comment-time">
-                            <time datetime="@item.CreationDateTime.ToString("yyyy-MM-ddTH:mm:ssK")">@(item.CreationDateTime.ToRelativeTimeString())前</time>
-                        </div>
-                        <div class="comment-body">
-                            <p>
-                                <a href="@Href("/Users/" & item.CreatedBy.UserName)">
-                                    <img src="@(If(item.CreatedBy.IconPath <> "", Href("/Uploads/" & item.CreatedBy.IconPath), "http://placehold.it/96x96"))">
-                                </a>
-                                @item.Content
-                            </p>
-                        </div>
-                    </div>
+                    @<li>
+                        <a href="@Href("~/Users/" & item.CreatedBy.Id)"><img src="@(If(item.CreatedBy.IconPath <> "", Href("/Uploads/" & item.CreatedBy.IconPath), Href("/Uploads/Icons/anon.png")))" class="icon24" /></a>
+                        <a href="@Href("~/Users/" & item.CreatedBy.Id)">@item.CreatedBy.DisplayName</a>： @item.Content <time class="text-muted small" datetime="@item.CreationDateTime.ToString("yyyy-MM-ddTH:mm:ssK")">（@item.CreationDateTime.ToString("yyyy/MM/dd HH:mm")）</time>
+                    </li>
                 Next
-            </div>
+            </ul>
             @If privateCommentCount > 0 Then
                 @<p>他、@(privateCommentCount)人のプライベートユーザー</p>
             End If
         Else
-            @<p>コメントは投稿されていません</p>
+            @<p>コメントは投稿されていません。</p>
         End If
         @If Model.Community IsNot Nothing Then
             @<h2>このコミュニティのその他のIT勉強会</h2>
@@ -294,18 +283,6 @@ End Code
 @section Styles
     @Styles.Render("~/Content/skins/square/blue.css")
     @Styles.Render("~/Content/animate.css")
-    <style>
-        .comment-time time {
-            color: gray;
-            font-size: 0.8em;
-        }
-
-        .comment img {
-            width: 30px;
-            height: 30px;
-        }
-    </style>
-
 End Section
 @section Scripts
     @Scripts.Render("~/bundles/jqueryval")

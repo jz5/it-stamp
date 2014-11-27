@@ -43,7 +43,7 @@ End Code
                                     @<tr>
                                         <td style="border-top-width:0;width:32px;"><a href="@Href("/Events/")@item.Event.Id"><img class="img-rounded icon24" src="@src" /></a></td>
                                         <td style="border-top-width:0;vertical-align:bottom;"><a href="@Href("/Events/")@item.Event.Id">@item.Event.Name</a></td>
-                                        <td style="border-top-width:0;vertical-align:bottom;"><span class="text-muted small">@item.DateTime.ToString("yyyy/MM/dd HH:mm")</span></td>
+                                        <td style="border-top-width:0;vertical-align:bottom;"><time class="text-muted small" datetime="@item.DateTime.ToString("yyyy-MM-ddTH:mm:ssK")">@item.DateTime.ToString("yyyy/MM/dd HH:mm")</time></td>
                                     </tr>
                                 Next
                             </tbody>
