@@ -118,7 +118,7 @@ End Code
                             @If Model.Community Is Nothing Then
                                 @<td><span class="text-muted">未登録</span></td>
                             Else
-                                @<td>@Html.ActionLink(Model.Community.Name, "Details", "Communities", New With {.id = Model.Id}, Nothing)</td>
+                                @<td>@Html.ActionLink(Model.Community.Name, "Details", "Communities", New With {.id = Model.Community.Id}, Nothing)</td>
                             End If
                         </tr>
                         @If Model.SpecialEvents IsNot Nothing Then
