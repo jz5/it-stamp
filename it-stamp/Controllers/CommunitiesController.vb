@@ -285,10 +285,8 @@ Public Class CommunitiesController
         End If
 
         ' 管理者用編集権限を与えるか
-        ViewBag.IsOwner = CanEditDetails(appUser, com)
-        ViewBag.UserFriendlyName = appUser.FriendlyName
-        ViewBag.UserIcon = appUser.IconPath
-        ViewBag.SessionUserId = appUser.Id
+        ViewBag.CanEditDetails = CanEditDetails(appUser, com)
+        ViewBag.CanDelete = CanDelete(appUser, com)
 
         Return View(com)
     End Function
@@ -298,10 +296,6 @@ Public Class CommunitiesController
     <HttpPost>
     <ValidateAntiForgeryToken>
     Async Function Edit(model As Community) As Task(Of ActionResult)
-        If Not ModelState.IsValid Then
-            Return View(model)
-        End If
-
         Try
             Dim com = db.Communities.Where(Function(c) c.Id = model.Id).FirstOrDefault
             If com Is Nothing Then
@@ -325,8 +319,17 @@ Public Class CommunitiesController
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
 
+            ' ModalState
+            Dim editableDetails = CanEditDetails(appUser, com)
+            ViewBag.CanEditDetails = editableDetails
+            ViewBag.CanDelete = CanDelete(appUser, com)
+
+            If Not ModelState.IsValid Then
+                Return View(com)
+            End If
+
             ' 基本情報をアップデート
-            If CanEditDetails(appUser, com) Then
+            If editableDetails Then
                 UpdateModel(Of Community)(com)
             Else
                 ' Updateできる情報に制限
@@ -336,7 +339,6 @@ Public Class CommunitiesController
                 com.IconPath = model.IconPath
             End If
 
-            'UpdateModel(Of Community)(com)
             com.LastUpdatedBy = appUser
             com.LastUpdatedDateTime = Now
 
@@ -902,9 +904,13 @@ Public Class CommunitiesController
     Private Function CanDelete(appUser As ApplicationUser, community As Community) As Boolean
         If appUser Is Nothing OrElse community Is Nothing Then
             Return False
+        ElseIf User.IsInRole("Admin") Then
+            Return True
         ElseIf community.Members.Count > 0 OrElse community.Owners.Count > 0 OrElse db.Events.Where(Function(e) e.Community IsNot Nothing AndAlso e.Community.Id = community.Id).Count > 0 Then
+            ' フォロー済み・管理者がいる・コミュニティを参照している勉強会がある
             Return False
-        Else
+        ElseIf community.CreatedBy.Id = appUser.Id AndAlso Not community.IsLocked Then
+            ' 作成者
             Return True
         End If
         Return False

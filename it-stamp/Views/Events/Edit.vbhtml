@@ -162,20 +162,20 @@ End Code
 End Using
 
 @If Not ViewBag.CanEditDetails Then
-    @<div>
+    @<aside>
         @If Model.Community Is Nothing Then
             @<span>💡 主催コミュニティの方は、<a href="@Href("~/Home/Contact/")">申請</a>すると詳細情報を編集できます。</span>
         Else
             @<span>💡 @(Model.Community.Name)の方ですか？　<a href="@Href("~/Home/Contact/")">申請</a>すると詳細情報を編集できます。</span>
         End If
-    </div>
+    </aside>
 Else
     @<h2>開催メモ</h2>
     @<table class="table table-responsive">
         <tbody>
             <tr>
                 <td style="border-top-width:0;">参加人数（オフライン）</td>
-                <td style="border-top-width:0;">@(If(Model.IsReported, Model.ParticipantsOfflineCount.ToString & "名","未登録"))</td>
+                <td style="border-top-width:0;">@(If(Model.IsReported, Model.ParticipantsOfflineCount.ToString & "名", "未登録"))</td>
             </tr>
             <tr>
                 <td>参加人数（オンライン）</td>
@@ -188,13 +188,16 @@ Else
         </tbody>
     </table>
 
-    @Html.ActionLink("編集", "EditReport", "Events", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
-
+    @<div class="form-group">
+        @Html.ActionLink("編集", "EditReport", "Events", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
+    </div>
 End If
 
 @If ViewBag.CanDelete Then
     @<h2>IT勉強会の削除</h2>
-    @Html.ActionLink("削除", "Delete", "Events", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
+    @<div class="form-group">
+        @Html.ActionLink("削除", "Delete", "Events", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
+    </div>
 End If
 
 @Section Styles

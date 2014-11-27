@@ -2,61 +2,37 @@
 
 @Code
     ViewBag.Title = "コミュニティの削除"
-    
+
 End Code
 
-@Html.Partial("_TopBanner")
+<h1>@ViewBag.Title</h1>
+<div class="jumbotron">
+    <div class="jumbotron-contents">
+        @Html.Partial("_CommunityCard", Model)
+    </div>
+</div>
 
-<div class="row">
-    <div class="col-sm-12 col-md-8">
+<p>💡 削除すると元に戻せません。</p>
 
-        <h1>@ViewBag.Title</h1>
+@If ViewBag.CanDelete Then
+    @Using Html.BeginForm("Delete", "Communities", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(Function(m) m.Id)
+        @Html.HiddenFor(Function(m) m.Name)
 
-        @*@If ViewBag.StatusMessage <> "" Then
-            @<div class="alert alert-success fade in" role="alert">
-                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                @ViewBag.StatusMessage
-            </div>
-        End If
+        @Html.ValidationSummary(False, "", New With {.class = "text-danger"})
 
-        @If ViewBag.ErrorMessage <> "" Then
-            @<div class="alert alert-danger fade in" role="alert">
-                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                @ViewBag.ErrorMessage
-            </div>
-        End If*@
-
-        <div class="panel">
-            <div class="panel-body">
-                @Html.Partial("_CommunityCard", Model)
+        @<div class="form-group">
+            <div class="form-inline">
+                <input id="follow-btn" type="submit" value="削除" class="btn btn-primary" />
             </div>
         </div>
 
-        @If ViewBag.CanDelete Then
-            @Using Html.BeginForm("Delete", "Communities", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
-                @Html.AntiForgeryToken()
-                @Html.HiddenFor(Function(m) m.Id)
-                @Html.HiddenFor(Function(m) m.Name)
+    End Using
+Else
+    @<p>削除できません。</p>
+End If
 
-                @Html.ValidationSummary(False, "", New With {.class = "text-danger"})
+<hr />
+@Html.ActionLink("戻る", "Edit", "Communities", New With {.id = Model.Id}, Nothing)
 
-                @<div class="form-group">
-                    <div class="form-inline">
-                        <input id="follow-btn" type="submit" value="削除" class="btn btn-primary" />
-                    </div>
-                </div>
-
-            End Using
-        Else
-            @<p>削除できません。</p>
-        End If
-
-        <hr />
-        @Html.ActionLink("戻る", "Edit", "Communities", New With {.id = Model.Id}, Nothing)
-
-
-    </div>
-    <div class="col-sm-12 col-md-4">
-        @Html.Partial("_SidebarPartial")
-    </div>
-</div>

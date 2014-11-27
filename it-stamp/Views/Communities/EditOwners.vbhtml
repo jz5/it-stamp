@@ -1,85 +1,96 @@
 ﻿@ModelType Community
 @Code
-    ViewData("Title") = "管理者の管理"
+    ViewBag.Title = "コミュニティ管理者"
 End Code
-<h2>管理者の管理</h2>
-@Html.ActionLink("管理者を追加", "AddOwner", "Communities", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
+<h1>@ViewBag.Title</h1>
+<div class="form-group">
+    @Html.ActionLink("管理者を追加", "AddOwner", "Communities", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
+</div>
+
 <table class="table">
-    <tr>
-        <th>Image</th>
-        <th>Name</th>
-        <th></th>
-    </tr>
-    <tr>
-        <td><p><img class="img-rounded" src="@(If(ViewBag.UserIcon <> "", Href("/Uploads/" & ViewBag.UserIcon), "http://placehold.it/96x96"))" /></p></td>
-        <td>@ViewBag.UserFriendlyName</td>
-        <td></td>
-    </tr>
-    @For Each item In Model.Owners
-        @If item.Id = ViewBag.SessionUserId Then
-            Continue For
-        End If
-        @<tr>
-            <td><p><img class="img-rounded" src="@(If(item.IconPath <> "", Href("/Uploads/" & item.IconPath), "http://placehold.it/96x96"))" /></p></td>
-            <td>@Html.Label(item.FriendlyName)</td>
-            <td>
-                <button type="button" class="btn btn-default delete-button" data-targetid="@item.Id" data-targetsrc="@(If(item.IconPath <> "", Href("/Uploads/" & item.IconPath), "http://placehold.it/96x96"))" data-targetname="@item.FriendlyName">Delete</button>
-            </td>
+    <thead>
+        <tr>
+            <th></th>
+            <th>名前</th>
+            <th></th>
         </tr>
-    Next
+    </thead>
+    <tbody>
+        <tr>
+            <td><img class="img-responsive img-rounded" src="@(If(ViewBag.UserIcon <> "", Href("/Uploads/" & ViewBag.UserIcon), "http://placehold.it/96x96"))" /></td>
+            <td>@ViewBag.UserFriendlyName</td>
+            <td></td>
+        </tr>
+        @For Each item In Model.Owners
+            @If item.Id = ViewBag.SessionUserId Then
+                Continue For
+            End If
+            @<tr>
+                <td><img class="img-responsive img-rounded" src="@(If(item.IconPath <> "", Href("/Uploads/" & item.IconPath), "http://placehold.it/96x96"))" /></td>
+                <td>@Html.Label(item.FriendlyName)</td>
+                <td>
+                    <button type="button" class="btn btn-default delete-button" data-target-id="@item.Id" data-target-src="@(If(item.IconPath <> "", Href("/Uploads/" & item.IconPath), "http://placehold.it/96x96"))" data-target-name="@item.FriendlyName">削除</button>
+                </td>
+            </tr>
+        Next
+    </tbody>
 </table>
 
 <!-- Modal Window -->
-<div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="modalLabel">確認</h4>
-            </div>
-            <div class="modal-body">
-                <div class="panel">
-                    <div class="panel-body">
-                        <p id="target-name"></p>
-                        <p><img class="img-rounded" src="" id="target-image" /></p>
+@Using Html.BeginForm("DeleteOwner", "Communities", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
+    @Html.AntiForgeryToken()
+    @Html.Hidden("id", Model.Id)
+    @<text>
+        <input id="targetId" type="hidden" name="targetId" value="" />
+        <div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="modalLabel">管理者から除外</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="jumbotron">
+                            <div class="jumbotron-contents">
+                                <div class="media">
+                                    <img class="img-responsive img-rounded pull-left" src="" id="target-image" />
+                                    <div class="media-body">
+                                        <h5 id="target-name" style="margin-top: 0;"></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p>管理者から除外します。</p>
+                        <p>💡 除外してもまた追加できます。</p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" value="削除" class="btn btn-primary" />
                     </div>
                 </div>
-                <p>削除してもよろしいですか？</p>
-            </div>
-            <div class="modal-footer">
-                @Using Html.BeginForm("DeleteOwner", "Communities", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
-                    @Html.AntiForgeryToken()
-                    @<text>
-                        <input id="targetId" type="hidden" name="targetId" value="" />
-                        @Html.Hidden("id", Model.Id)
-                        <div class="form-group">
-                            <input type="submit" value="削除" class="btn btn-primary" />
-                        </div>
-                    </text>
-                End Using
             </div>
         </div>
-    </div>
-</div>
+    </text>
+End Using
 
 <hr />
 @Html.ActionLink("戻る", "Edit", "Communities", New With {.id = Model.Id}, Nothing)
 
 @Section Scripts
     @Scripts.Render("~/bundles/jqueryval")
-
     <script>
-    $(".delete-button").on("click", function () {
-        var targetId = $(this).attr("data-targetid");
-        var targetName = $(this).attr("data-targetname");
-        var targetSrc = $(this).attr("data-targetsrc");
+        (function ($) {
+            $(".delete-button").on("click", function () {
+                var targetId = $(this).attr("data-target-id");
+                var targetName = $(this).attr("data-target-name");
+                var targetSrc = $(this).attr("data-target-src");
 
-        $("#target-name").text(targetName);
-        $("#target-image").attr("src",targetSrc);
-        $("#targetId").attr("value",targetId);
+                $("#target-name").text(targetName);
+                $("#target-image").attr("src", targetSrc);
+                $("#targetId").attr("value", targetId);
 
-        $('#confirm-modal').modal('show');
-    });
+                $('#confirm-modal').modal('show');
+            });
+        })(jQuery);
 
     </script>
 End Section

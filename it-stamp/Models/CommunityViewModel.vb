@@ -75,7 +75,7 @@ Public Class UploadCommunityStampViewModel
 
     <Required>
     <StringLength(50)>
-    <Display(Name:="名前")>
+    <Display(Name:="スタンプの名前")>
     Property Name As String
 
     Property StampPath As String
@@ -92,10 +92,9 @@ Public Class AddCommunityOwnerViewModel
     <Key>
     Property Id As Integer
 
-    '<Remote("IsUserNameExsits", "Communities", ErrorMessage:="ユーザーが存在しません")>
     <Required>
     <RegularExpression("^[A-Za-z0-9_]+$", ErrorMessage:="英数字のみ使えます。")>
-    <Display(Name:="追加するユーザー名")>
+    <Display(Name:="ユーザー名")>
     Property UserName As String
 
 End Class

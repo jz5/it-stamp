@@ -167,10 +167,10 @@ Public Class Community
     Overridable Property Stamps As ICollection(Of Stamp)
     Property DefaultStamp As Stamp
 
-    <Display(Name:="プライベートコミュニティ")>
+    <Display(Name:="コミュニティ一覧に含めない")>
     Property IsHidden As Boolean
 
-    <Display(Name:="管理者のみが編集可能")>
+    <Display(Name:="一般ユーザーの編集禁止")>
     Property IsLocked As Boolean
 
     Property CreationDateTime As DateTime
