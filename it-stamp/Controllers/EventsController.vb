@@ -233,17 +233,56 @@ Public Class EventsController
 
             ' 日時処理
             SetDateTime(viewModel.StartDate, viewModel.StartTime, viewModel.EndDate, viewModel.EndTime, ev.StartDateTime, ev.EndDateTime, Now)
+
+            ' Community
+            If viewModel.CommunityName <> "" Then
+                viewModel.CommunityName = viewModel.CommunityName.Trim
+                If db.Communities.Where(Function(c) c.Name = viewModel.CommunityName).FirstOrDefault IsNot Nothing Then
+                    ModelState.AddModelError("CommunityName", "既に登録されている名前です。")
+                End If
+            End If
+
+            ' ModalState
             If Not ModelState.IsValid Then
                 Return View(viewModel)
             End If
 
+            ' 値修正
+            ev.Name = If(ev.Name IsNot Nothing, ev.Name.Trim, "")
+            ev.Description = If(ev.Description IsNot Nothing, ev.Description.Trim, "")
+            ev.CheckInCode = If(ev.CheckInCode IsNot Nothing, ev.CheckInCode.Trim, "")
+            ev.Url = If(ev.Url IsNot Nothing, ev.Url.Trim, "")
+            ev.Address = If(ev.Address IsNot Nothing, ev.Address.Trim, "")
+            ev.Place = If(ev.Place IsNot Nothing, ev.Place.Trim, "")
+
             ' 単純なプロパティ更新
             UpdateModel(Of [Event])(ev)
 
-            If viewModel.CommunityId.HasValue Then
+            ' Community
+            If viewModel.CommunityName <> "" Then
+                ' 新規追加
+                Dim newCom = New Community With {
+                    .Name = viewModel.CommunityName}
+
+                Dim n = Now
+                newCom.CreatedBy = appUser
+                newCom.CreationDateTime = n
+                newCom.LastUpdatedBy = appUser
+                newCom.LastUpdatedDateTime = n
+
+                ' Random icon
+                newCom.IconPath = "Icons/icon" & ((New Random).Next(47) + 1).ToString("00") & ".png"
+
+                Dim com = db.Communities.Add(newCom)
+                Await db.SaveChangesAsync
+
+                ev.Community = com
+
+            ElseIf viewModel.CommunityId.HasValue Then
                 ev.Community = db.Communities.Where(Function(c) c.Id = viewModel.CommunityId.Value).FirstOrDefault
             End If
 
+            ' Datetime
             Dim time = Now
             ev.CreatedBy = appUser
             ev.CreationDateTime = time

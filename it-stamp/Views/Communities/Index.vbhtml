@@ -2,10 +2,7 @@
 @Imports Microsoft.AspNet.Identity
 @Code
     ViewBag.Title = "コミュニティ一覧"
-    ViewData("InternalLink") = True
 End Code
-
-@Html.Partial("_TopBanner")
 
 <div class="row">
     <div class="col-md-8">
@@ -46,14 +43,3 @@ End Code
         @Html.Partial("_SidebarPartial")
     </div>
 </div>
-
-
-@Section Scripts
-
-    @*<script>
-            $(".alert").alert();
-        </script>*@
-End Section
-
-
-

@@ -11,7 +11,6 @@ End Code
     @<text>
         @Html.ValidationSummary(True, "", New With {.class = "text-danger"})
 
-
         <div class="form-group">
             @Html.LabelFor(Function(m) m.Name, New With {.class = "control-label"})
             <span class="text-primary">*</span><span class="text-muted"></span>
@@ -106,18 +105,18 @@ End Code
                 <input id="com-search-box" type="search" value="" class="form-control" placeholder="絞り込み（例: ○○ユーザーグループ）" style="min-width:280px;" />
             </div>
             <div class="form-inline">
-                @Html.DropDownListFor(Function(m) m.CommunityId, Model.CommunitiesSelectList, "(未指定)", New With {.class = "form-control", .size = "10", .id = "com-list", .style = "max-width:500px;"})
+                @Html.DropDownListFor(Function(m) m.CommunityId, Model.CommunitiesSelectList, "(未指定)", New With {.class = "form-control", .size = "10", .id = "com-list", .style = "max-width:500px;min-width:280px;"})
                 @Html.ValidationMessageFor(Function(m) m.CommunityId, "", New With {.class = "text-danger"})
             </div>
         </div>
         <div class="form-group">
-            <label>コミュニティを新しく登録（未実装）</label>
+            @Html.LabelFor(Function(m) m.CommunityName, New With {.class = "control-label"})
+            <span class="text-muted"></span>
             <div class="form-inline">
-
-                <input type="text" class="form-control" />
+                @Html.TextBoxFor(Function(m) m.CommunityName, New With {.class = "form-control"})
+                @Html.ValidationMessageFor(Function(m) m.CommunityName, "", New With {.class = "text-danger"})
             </div>
         </div>
-
 
         <div class="form-group">
             <input type="submit" value="登録" class="btn btn-primary" />
@@ -167,7 +166,23 @@ End Section
                     $('#EndTime').timepicker("setTime", "00:00");
             });
 
-            $('#com-search-box').selectboxsearch('#com-list');
+            $("#com-search-box").selectboxsearch("#com-list");
+
+            $("#CommunityName").keyup(function () {
+                if ($(this).val() != "") {
+                    $("#com-search-box").attr("disabled", "disabled");
+                    $("#com-list").attr("disabled", "disabled");
+                } else {
+                    $("#com-search-box").removeAttr("disabled");
+                    $("#com-list").removeAttr("disabled");
+                }
+            });
+
+            if ($("#CommunityName").val() != "") {
+                $("#com-search-box").attr("disabled", "disabled");
+                $("#com-list").attr("disabled", "disabled");
+            }
+
         })(jQuery);
     </script>
 End Section

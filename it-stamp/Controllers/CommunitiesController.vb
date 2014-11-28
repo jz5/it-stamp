@@ -151,14 +151,20 @@ Public Class CommunitiesController
         End If
 
         Try
-            If db.Communities.Where(Function(c) c.Name = model.Name).FirstOrDefault IsNot Nothing Then
-                ModelState.AddModelError("Name", "既に登録されている名前です。")
-                Return View(model)
+            If model.Name <> "" Then
+                model.Name = model.Name.Trim
+                If db.Communities.Where(Function(c) c.Name = model.Name).FirstOrDefault IsNot Nothing Then
+                    ModelState.AddModelError("Name", "既に登録されている名前です。")
+                    Return View(model)
+                End If
             End If
 
-            If db.Communities.Where(Function(c) c.Url = model.Url).FirstOrDefault IsNot Nothing Then
-                ModelState.AddModelError("Url", "既に登録されているURLです。")
-                Return View(model)
+            If model.Url <> "" Then
+                model.Url = model.Url.Trim
+                If db.Communities.Where(Function(c) c.Url = model.Url).FirstOrDefault IsNot Nothing Then
+                    ModelState.AddModelError("Url", "既に登録されているURLです。")
+                    Return View(model)
+                End If
             End If
 
             ' 編集権限の確認
@@ -168,16 +174,20 @@ Public Class CommunitiesController
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
 
+            Dim newCom = New Community With {
+                .Name = model.Name,
+                .Url = model.Url}
+
             Dim time = Now
-            model.CreatedBy = appUser
-            model.CreationDateTime = time
-            model.LastUpdatedBy = appUser
-            model.LastUpdatedDateTime = time
+            newCom.CreatedBy = appUser
+            newCom.CreationDateTime = time
+            newCom.LastUpdatedBy = appUser
+            newCom.LastUpdatedDateTime = time
 
             ' Random icon
-            model.IconPath = "Icons/icon" & ((New Random).Next(47) + 1).ToString("00") & ".png"
+            newCom.IconPath = "Icons/icon" & ((New Random).Next(47) + 1).ToString("00") & ".png"
 
-            Dim com = db.Communities.Add(model)
+            Dim com = db.Communities.Add(newCom)
             Await db.SaveChangesAsync
 
             Return RedirectToAction("Details", New With {.id = com.Id, .message = DetailsMessage.Add})

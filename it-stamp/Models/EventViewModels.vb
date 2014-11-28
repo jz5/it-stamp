@@ -76,6 +76,10 @@ Public Class AddEventDetailsViewModel
     <Display(Name:="コミュニティ")>
     Property CommunityId As Integer?
 
+    <StringLength(50)>
+    <Display(Name:="コミュニティの名前（新規登録）")>
+    Property CommunityName As String
+
     Function IsOnline() As Boolean
         Return PrefectureId = 48
     End Function

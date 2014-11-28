@@ -90,11 +90,47 @@ Public Class Stamprally2015Controller
         Return View(viewModel)
     End Function
 
-    Function Schedule() As ActionResult
-        Return View()
+
+    ' GET: Communities
+    <AllowAnonymous>
+    Function Communities(page As Integer?) As ActionResult
+
+        Dim results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.SpecialEvents.Id = 1 AndAlso e.Community IsNot Nothing AndAlso Not e.Community.IsHidden).Select(Function(e) e.Community).Distinct.OrderBy(Function(c) c.Name)
+
+        Dim viewModel = New SearchCommunitiesViewModel With {
+            .TotalCount = results.Count}
+
+        Dim count = 10
+        Dim pagenationCount = 5
+
+        ' Total page
+        viewModel.TotalPages = (results.Count - 1) \ count + 1
+
+        ' Current page
+        If Not page.HasValue OrElse viewModel.TotalPages > page.Value Then
+            viewModel.CurrentPage = 1
+        Else
+            viewModel.CurrentPage = page.Value
+        End If
+
+        ' Start page
+        viewModel.StartPage = viewModel.CurrentPage - pagenationCount
+        If viewModel.StartPage < 1 Then
+            viewModel.StartPage = 1
+        End If
+
+        ' End page
+        viewModel.EndPage = viewModel.StartPage + pagenationCount - 1
+        If viewModel.EndPage > viewModel.TotalPages Then
+            viewModel.EndPage = viewModel.TotalPages
+        End If
+
+        viewModel.Results = results.Skip((viewModel.CurrentPage - 1) * count).Take(count).ToList
+
+        Return View(viewModel)
     End Function
 
-    Function Communities() As ActionResult
+    Function Schedule() As ActionResult
         Return View()
     End Function
 

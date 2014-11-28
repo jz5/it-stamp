@@ -68,6 +68,7 @@
                     <p>IT勉強会スタンプラリーを開催中です。</p>
                     <ul class="list-unstyled">
                         <li><a href="@href("~/Stamprally/2015/")">IT勉強会スタンプラリー</a></li>
+                        <li><a href="@Href("~/Stamprally/2015/Schedule")">スケジュール</a></li>
                         <li><a href="@Href("~/Stamprally/2015/Events")">IT勉強会一覧</a></li>
                         <li><a href="@Href("~/Stamprally/2015/Communities")">参加コミュニティ一覧</a></li>
                         <li><a href="@Href("~/Stamprally/2015/QA")">Q &amp; A</a></li>
