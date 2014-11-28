@@ -69,7 +69,7 @@ Public Class EventsController
         viewModel.TotalPages = (results.Count - 1) \ count + 1
 
         ' Current page
-        If Not page.HasValue OrElse viewModel.TotalPages > page.Value Then
+        If Not page.HasValue OrElse viewModel.TotalPages < page.Value Then
             viewModel.CurrentPage = 1
         Else
             viewModel.CurrentPage = page.Value

@@ -65,6 +65,10 @@ table.table > tbody > tr:first-child > td {
     border-top-width:0;
 }
 
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;    
+}
+
 /* Forms */
 input,
 select,
