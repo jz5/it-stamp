@@ -322,6 +322,26 @@ End Code
             End Using
         End If
 
+        <h2>フォロワー <span class="badge badge-primary @(If(Model.Favorites.Count = 0, "hidden", ""))">@Model.Favorites.Count</span></h2>
+        <div>
+            @If Model.Favorites.Count = 0 Then
+                If Request.IsAuthenticated Then
+                @<p class="text-muted">最初のフォロワーになりませんか？</p>
+                Else
+                @<p class="text-muted">ログインして最初のフォロワーになりませんか？</p>
+                End If
+            Else
+                @For Each f In Model.Favorites.Where(Function(fv) Not fv.User.IsPrivate)
+                    @<a href="@Href("~/Users/" & f.User.UserName)"><img src="@(If(f.User.IconPath <> "", Href("/Uploads/" & f.User.IconPath), "http://placehold.it/16x16"))" class="img-rounded icon24" alt="" title="@f.User.FriendlyName" /></a>
+                Next
+
+                If Model.Favorites.Where(Function(fv) fv.User.IsPrivate).Count > 0 Then
+                @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
+                End If
+
+            End If
+        </div>
+
         @If ViewBag.StatusMessage = "" Then
             @Html.Partial("_SocialButtons")
         End If
