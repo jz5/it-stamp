@@ -4,9 +4,9 @@ End Code
 
 <div class="row">
     <div class="col-sm-12 col-md-8">
-        <img src="@Href("~/images/stamprally2015/stamprally-logo.png")" alt="" class="img-responsive" />
+        <a href="@Href("~/Stamprally/2015")"><img src="@Href("~/images/stamprally2015/stamprally-logo.png")" alt="" class="img-responsive" /></a>
 
-        <h1>IT勉強会スタンプラリー運営委員会</h1>
+        <h1>@ViewBag.Title</h1>
         <p>IT勉強会を主催しているコミュニティメンバーが集まり有志で運営しています。</p>
 
         <h2>組織</h2>

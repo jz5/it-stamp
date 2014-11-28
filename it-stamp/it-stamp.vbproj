@@ -556,6 +556,7 @@
     <Content Include="Views\Home\TOS.vbhtml" />
     <Content Include="Views\Home\QA.vbhtml" />
     <Content Include="Views\Events\EditReport.vbhtml" />
+    <Content Include="Views\Stamprally2015\Schedule.vbhtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

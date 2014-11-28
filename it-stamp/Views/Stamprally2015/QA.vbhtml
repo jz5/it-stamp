@@ -4,9 +4,9 @@ End Code
 
 <div class="row">
     <div class="col-sm-12 col-md-8">
-        <img src="@Href("~/images/stamprally2015/stamprally-logo.png")" alt="" class="img-responsive" />
+        <a href="@Href("~/Stamprally/2015")"><img src="@Href("~/images/stamprally2015/stamprally-logo.png")" alt="" class="img-responsive" /></a>
 
-        <h1>Q &amp; A</h1>
+        <h1>@ViewBag.Title</h1>
 
         <h2>一般参加者向け</h2>
         <ul class="list-unstyled special-event-qa">

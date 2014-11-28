@@ -4,7 +4,7 @@ End Code
 
 <div class="row">
     <div class="col-sm-12 col-md-8">
-        <img src="@Href("~/images/stamprally2015/stamprally-logo.png")" alt="" class="img-responsive" />
+        <a href="@Href("~/Stamprally/2015")"><img src="@Href("~/images/stamprally2015/stamprally-logo.png")" alt="" class="img-responsive" /></a>
 
         <h1>スポンサー紹介</h1>
         <p>IT勉強会スタンプラリー 2015 に協賛いただいているスポンサーを紹介します。</p>

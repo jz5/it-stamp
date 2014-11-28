@@ -4,7 +4,8 @@ End Code
 <div class="sidebar">
 
     <div class="list-group">
-        <a href="@href("~/Stamprally/2015/")" class="list-group-item@(If(action = "Index", " active", ""))">IT勉強会スタンプラリー？</a>
+        <a href="@href("~/Stamprally/2015/")" class="list-group-item@(If(action = "Index", " active", ""))">IT勉強会スタンプラリー</a>
+        <a href="@Href("~/Stamprally/2015/Schedule")" class="list-group-item@(If(action = "Schedule", " active", ""))">スケジュール</a>
         <a href="@Href("~/Stamprally/2015/Events")" class="list-group-item@(If(action = "Events", " active", ""))">IT勉強会一覧</a>
         <a href="@Href("~/Stamprally/2015/Communities")" class="list-group-item@(If(action = "Communities", " active", ""))">参加コミュニティ一覧</a>
         <a href="@Href("~/Stamprally/2015/QA")" class="list-group-item@(If(action = "QA", " active", ""))">Q &amp; A</a>

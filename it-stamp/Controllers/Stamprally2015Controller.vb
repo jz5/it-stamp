@@ -43,7 +43,54 @@ Public Class Stamprally2015Controller
         Return View()
     End Function
 
-    Function Events() As ActionResult
+    ' GET: Events
+    <AllowAnonymous>
+    Function Events(page As Integer?, past As Boolean?) As ActionResult
+
+        Dim results As IQueryable(Of [Event])
+        Dim n = Now.Date
+        If past.HasValue AndAlso past.Value = True Then
+            ' 過去
+            results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.EndDateTime < n AndAlso e.SpecialEvents.Id = 1).OrderByDescending(Function(e) e.StartDateTime)
+        Else
+            ' 開催予定
+            results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.StartDateTime >= n AndAlso e.SpecialEvents.Id = 1).OrderBy(Function(e) e.StartDateTime)
+        End If
+
+        Dim viewModel = New SearchEventsViewModel With {
+            .TotalCount = results.Count}
+
+        Dim count = 10
+        Dim pagenationCount = 5
+
+        ' Total page
+        viewModel.TotalPages = (results.Count - 1) \ count + 1
+
+        ' Current page
+        If Not page.HasValue OrElse viewModel.TotalPages > page.Value Then
+            viewModel.CurrentPage = 1
+        Else
+            viewModel.CurrentPage = page.Value
+        End If
+
+        ' Start page
+        viewModel.StartPage = viewModel.CurrentPage - pagenationCount
+        If viewModel.StartPage < 1 Then
+            viewModel.StartPage = 1
+        End If
+
+        ' End page
+        viewModel.EndPage = viewModel.StartPage + pagenationCount - 1
+        If viewModel.EndPage > viewModel.TotalPages Then
+            viewModel.EndPage = viewModel.TotalPages
+        End If
+
+        viewModel.Results = results.Skip((viewModel.CurrentPage - 1) * count).Take(count).ToList
+
+        Return View(viewModel)
+    End Function
+
+    Function Schedule() As ActionResult
         Return View()
     End Function
 

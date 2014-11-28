@@ -4,9 +4,9 @@ End Code
 
 <div class="row">
     <div class="col-sm-12 col-md-8">
-        <img src="@Href("~/images/stamprally2015/stamprally-logo.png")" alt="" class="img-responsive" />
+        <a href="@Href("~/Stamprally/2015")"><img src="@Href("~/images/stamprally2015/stamprally-logo.png")" alt="" class="img-responsive" /></a>
 
-        <h1>お問い合わせ</h1>
+        <h1>@ViewBag.Title</h1>
         <h2>メール</h2>
         <p>
             IT勉強会スタンプラリーに関わる内容は <mark>admin@@it-stamp.jp</mark> までお問い合わせください。

@@ -16,7 +16,13 @@ End Code
                     @Html.ActionLink("アカウント登録", "Register", "Account", Nothing, New With {.class = "btn btn-primary"})
                 </div>
             </div>
-
+        Else
+            @<div class="jumbotron">
+                <div class="jumbotron-contents">
+                    <p>✅ IT勉強会を選んで、チェックインしましょう！</p>
+                    @Html.ActionLink("IT勉強会の検索・登録", "Add", "Events", Nothing, New With {.class = "btn btn-primary"})
+                </div>
+            </div>
         End If
 
         <h2 @(If(Request.IsAuthenticated, Html.Raw("style=""margin-top:0;"""), ""))>開催予定のIT勉強会</h2>
@@ -57,15 +63,3 @@ End Code
         @Html.Partial("_SidebarPartial")
     </div>
 </div>
-
-@section Scripts
-    <script>
-        //(function ($) {
-        //    $(".media").hover(function () {
-        //        $(this).css("background-color:");
-        //    }, function () {
-        //    });
-        //})(jQuery);
-
-    </script>
-End Section

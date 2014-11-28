@@ -103,10 +103,10 @@ End Code
             @Html.LabelFor(Function(m) m.CommunityId, New With {.class = "control-label"})
             <span class="text-muted">（指定すると後から変更できません。「未指定」の場合、後から選択できます。）</span>
             <div class="form-inline">
-                <input id="com-search-box" type="search" value="" class="form-control" placeholder="絞り込み（例: ○○ユーザーグループ）" />
+                <input id="com-search-box" type="search" value="" class="form-control" placeholder="絞り込み（例: ○○ユーザーグループ）" style="min-width:280px;" />
             </div>
             <div class="form-inline">
-                @Html.DropDownListFor(Function(m) m.CommunityId, Model.CommunitiesSelectList, "(未指定)", New With {.class = "form-control", .size = "10", .id = "com-list", .style = "min-width:280px;"})
+                @Html.DropDownListFor(Function(m) m.CommunityId, Model.CommunitiesSelectList, "(未指定)", New With {.class = "form-control", .size = "10", .id = "com-list", .style = "max-width:500px;"})
                 @Html.ValidationMessageFor(Function(m) m.CommunityId, "", New With {.class = "text-danger"})
             </div>
         </div>
