@@ -61,7 +61,7 @@ End Code
 
                             @<div class="form-group">
                                 <div class="form-inline">
-                                    <input id="follow-btn" type="submit" value="@(if(ViewBag.Followd,"フォロー中","フォロー"))" class="btn btn-default" style="min-width:auto;width:96px;font-size:14px;" />
+                                    <input id="follow-btn" type="submit" value="@(if(ViewBag.Followd,"フォロー中","フォロー"))" class="btn btn-default" style="min-width:96px;width:96px;font-size:14px;" />
                                 </div>
                             </div>
                         End Using
@@ -157,67 +157,150 @@ End Code
                 @For Each m In Model.CheckIns.Where(Function(c) Not c.User.IsPrivate).Select(Function(c) c.User)
                     @<a href="@Href("~/Users/" & m.UserName)"><img src="@(If(M.IconPath <> "", Href("/Uploads/" & m.IconPath), userIcon))" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
                 Next
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
                 @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
                 End If
             End If
         </div>
-        @Using Ajax.BeginForm("CheckIn", "Events", New With {.id = Model.Id}, New AjaxOptions() With {.HttpMethod = "POST", .OnSuccess = "onCheckInSuccess", .OnBegin = "onCheckInBegin"}, New With {.class = "form-horizontal", .id = "checkin-form", .role = "form"})
-            @Html.AntiForgeryToken()
-            @Html.Hidden("Event.Id", Model.Id)
-            @Html.Hidden("Event.Name", Model.Name)
 
-            @If ViewBag.CheckIned Then
-                @<p>チェックイン済み</p>
 
-            ElseIf Model.IsCanceled OrElse Model.IsHidden Then
-                @<p>チェックインできません。</p>
+        @If ViewBag.CheckIned Then
+            @<p>チェックイン済み</p>
 
-            ElseIf Not ViewBag.CanChackIn Then
-                @<p>このIT勉強会にはチェックインできません。</p>
+        ElseIf Model.IsCanceled OrElse Model.IsHidden Then
+            @<p>チェックインできません。</p>
 
-            ElseIf Model.StartDateTime.AddHours(-1) <= Now Then
-                If Not Request.IsAuthenticated Then
+        ElseIf Not ViewBag.CanChackIn Then
+            @<p>このIT勉強会にはチェックインできません。</p>
+
+        ElseIf Model.StartDateTime.AddHours(-1) <= Now Then
+            If Not Request.IsAuthenticated Then
                 @<p>@Html.ActionLink("ログイン", "Login", "Account", New With {.ReturnUrl = If(Request.RawUrl.ToLower.Contains("login"), "", Request.RawUrl)}, Nothing) してチェックイン！</p>
-                Else
+            Else
+                Using Ajax.BeginForm("CheckIn", "Events", New With {.id = Model.Id}, New AjaxOptions() With {.HttpMethod = "POST", .OnSuccess = "onCheckInSuccess", .OnBegin = "onCheckInBegin"}, New With {.class = "form-horizontal", .id = "checkin-form", .role = "form"})
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("Event.Id", Model.Id)
+                    @Html.Hidden("Event.Name", Model.Name)
+
+                    @<div class="form-group">
+                        <div class="form-inline">
+                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#confirm-modal">チェックイン</button>
+                        </div>
+                    </div>
+                    'Modal Window
+                    @<div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title" id="modalLabel">✅ チェックイン</h4>
+                                </div>
+                                <div class="modal-body">
+                                    @If ViewBag.IsPrivateUser Then
+                                        @<p>💡 プライベートモードを「OFF」にするとチェックインをシェアできます。</p>
+                                    Else
+                                        @Html.TextArea("AdditionalMessage", Model.Name + "にチェックイン！", New With {.maxlength = 256, .class = "form-control", .style = "max-width:none;"})
+                                        @<ul class="list-unstyled">
+                                            <li>
+                                                <div class="checkbox">
+                                                    @Html.CheckBox("PostComment")
+                                                    @Html.Label("コメントを投稿する", New With {.for = "PostComment"})
+                                                </div>
+                                            </li>
+                                            @If ViewBag.Twitter <> "" Then
+                                                @<li>
+                                                    <div class="checkbox">
+                                                        @Html.CheckBox("ShareTwitter")
+                                                        @Html.Label("ツイートする（" & ViewBag.Twitter.ToString & "）", New With {.for = "ShareTwitter"})
+                                                    </div>
+                                                </li>
+                                            End If
+                                            @If ViewBag.ShareFacebook Then
+                                                @<li>
+                                                    <div class="checkbox">
+                                                        @Html.CheckBox("ShareFacebook")
+                                                        @Html.Label("Facebookへシェア", New With {.for = "ShareFacebook"})
+                                                    </div>
+                                                </li>
+                                            End If
+                                        </ul>
+                                        @If ViewBag.Twitter <> "" Then
+                                            @<p>💡 ツイートは、ハッシュタグとURLが付きます。コメントが長い場合、140字以下に省略されます。</p>
+                                        End If
+                                    End If
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="submit" value="チェックイン" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                End Using
+            End If
+        Else
+            @<p>開始時間の1時間前からチェックインできます。</p>
+        End If
+
+        <h2>💬 コメント <span class="badge badge-primary @(If(Model.Comments.Count = 0, "hidden", ""))">@Model.Comments.Count</span></h2>
+        @If Model.Comments IsNot Nothing AndAlso Model.Comments.Count > 0 Then
+            @<ul class="list-unstyled" id="comment-list" style="margin-bottom:20px;">
+                @For Each item As Comment In Model.Comments
+                If item.CreatedBy.IsPrivate Then
+                    Continue For
+                End If
+                    @<li style="margin-bottom:5px;">
+                        <a href="@Href("~/Users/" & item.CreatedBy.Id)"><img src="@(If(item.CreatedBy.IconPath <> "", Href("/Uploads/" & item.CreatedBy.IconPath), Href("/Uploads/Icons/anon.png")))" class="icon24" /></a>
+                        <a href="@Href("~/Users/" & item.CreatedBy.Id)">@item.CreatedBy.DisplayName</a> @item.Content <time class="text-muted small" datetime="@item.CreationDateTime.ToString("yyyy-MM-ddTH:mm:ssK")">（@item.CreationDateTime.ToString("yyyy/MM/dd HH:mm")）</time>
+                    </li>
+                Next
+            </ul>
+        Else
+            @<p>コメントは投稿されていません。</p>
+        End If
+
+        @If Request.IsAuthenticated AndAlso Not ViewBag.IsPrivateUser Then
+            @Using Ajax.BeginForm("Comment", "Events", New With {.id = Model.Id}, New AjaxOptions() With {.HttpMethod = "POST", .OnSuccess = "onCommentSuccess", .OnBegin = "onCommentBegin"}, New With {.class = "form-horizontal", .id = "comment-form", .role = "form"})
+                @Html.AntiForgeryToken()
+                @Html.Hidden("Event.Id", Model.Id, New With {.id = "EventId2"})
+                @Html.Hidden("Event.Name", Model.Name, New With {.id = "EventName2"})
 
                 @<div class="form-group">
                     <div class="form-inline">
-                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#confirm-modal">チェックイン</button>
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#comment-modal">コメント</button>
                     </div>
                 </div>
-                    'Modal Window
-                @<div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                'Modal Window
+                @<div class="modal fade" id="comment-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <h4 class="modal-title" id="modalLabel">チェックイン</h4>
+                                <h4 class="modal-title" id="modalLabel">💬 コメント</h4>
                             </div>
                             <div class="modal-body">
                                 @If ViewBag.IsPrivateUser Then
-                                    @<p>💡 プライベートモードを「OFF」にするとチェックインをシェアできます。</p>
+                                    @*@<p>💡 プライベートモードを「OFF」にするとチェックインをシェアできます。</p>*@
                                 Else
-                                    @Html.TextArea("AdditionalMessage", Model.Name + "にチェックイン！", New With {.maxlength = 256, .class = "form-control", .style = "max-width:none;"})
+                                    @Html.TextArea("AdditionalMessage", "", New With {.maxlength = 256, .class = "form-control", .style = "max-width:none;", .id = "AdditionalMessage2"})
                                     @<ul class="list-unstyled">
-                                        <li>
+                                        @*<li>
                                             <div class="checkbox">
                                                 @Html.CheckBox("PostComment")
                                                 @Html.Label("コメントを投稿する", New With {.for = "PostComment"})
                                             </div>
-                                        </li>
+                                        </li>*@
                                         @If ViewBag.Twitter <> "" Then
                                             @<li>
                                                 <div class="checkbox">
-                                                    @Html.CheckBox("ShareTwitter")
-                                                    @Html.Label("ツイートする（" & ViewBag.Twitter.ToString & "）", New With {.for = "ShareTwitter"})
+                                                    @Html.CheckBox("ShareTwitter", New With {.id = "ShareTwitter2"})
+                                                    @Html.Label("ツイートする（" & ViewBag.Twitter.ToString & "）", New With {.for = "ShareTwitter2"})
                                                 </div>
                                             </li>
                                         End If
                                         @If ViewBag.ShareFacebook Then
                                             @<li>
                                                 <div class="checkbox">
-                                                    @Html.CheckBox("ShareFacebook")
+                                                    @Html.CheckBox("ShareFacebook", New With {.id = "ShareFacebook2"})
                                                     @Html.Label("Facebookへシェア", New With {.for = "ShareFacebook"})
                                                 </div>
                                             </li>
@@ -229,35 +312,12 @@ End Code
                                 End If
                             </div>
                             <div class="modal-footer">
-                                <input type="submit" value="チェックイン" class="btn btn-primary" />
+                                <input type="submit" value="コメント" class="btn btn-primary" id="comment-btn" disabled="disabled" />
                             </div>
                         </div>
                     </div>
                 </div>
-
-                End If
-            Else
-                @<p>開始時間の1時間前からチェックインできます。</p>
-            End If
-        End Using
-        <h2>💬 コメント <span class="badge badge-primary @(If(Model.Comments.Count = 0, "hidden", ""))">@Model.Comments.Count</span></h2>
-        @If Model.Comments IsNot Nothing AndAlso Model.Comments.Count > 0 Then
-            @<ul class="list-unstyled">
-                @For Each item As Comment In Model.Comments
-                If item.CreatedBy.IsPrivate Then
-                    Continue For
-                End If
-                    @<li style="margin-bottom:5px;">
-                        <a href="@Href("~/Users/" & item.CreatedBy.Id)"><img src="@(If(item.CreatedBy.IconPath <> "", Href("/Uploads/" & item.CreatedBy.IconPath), Href("/Uploads/Icons/anon.png")))" class="icon24" /></a>
-                        <a href="@Href("~/Users/" & item.CreatedBy.Id)">@item.CreatedBy.DisplayName</a> @item.Content <time class="text-muted small" datetime="@item.CreationDateTime.ToString("yyyy-MM-ddTH:mm:ssK")">（@item.CreationDateTime.ToString("yyyy/MM/dd HH:mm")）</time>
-                    </li>
-                Next
-            </ul>
-            @If privateCommentCount > 0 Then
-                @<p>他、@(privateCommentCount)人のプライベートユーザー</p>
-            End If
-        Else
-            @<p>コメントは投稿されていません。</p>
+            End Using
         End If
 
         @If ViewBag.StatusMessage = "" Then
@@ -306,6 +366,35 @@ End Section
 
         function onCheckInBegin() {
         }
+
+        function onCommentSuccess(result) {
+            if (result && $) {
+                if ($('body').hasClass('modal-open')) {
+                    $('#comment-modal').modal('hide');
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+                }
+
+                $("#AdditionalMessage2").val("");
+                $("#comment-list")
+                    .append($('<li>コメントしました！　<a href="@Href("~/Events/")@Model.Id">確認しますか？</a></li>')
+                        .addClass("animated fadeIn")
+                        .one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", function () {
+                            $(this).removeClass("animated fadeIn");
+                        }));
+            }
+        }
+
+        function onCommentBegin() {
+        }
+
+        $("#AdditionalMessage2").keyup(function() {
+            if ($(this).val() != "") {
+                $("#comment-btn").removeAttr("disabled");
+            } else {
+                $("#comment-btn").attr("disabled","disabled");
+            }
+        });
 
         var followed = @(If(ViewBag.Followd, "true", "false"));
         function onFollowSuccess(result) {

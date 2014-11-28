@@ -650,6 +650,90 @@ Public Class EventsController
 
     <HttpPost()>
     <ValidateAntiForgeryToken()>
+    Async Function Comment(viewModel As CheckInViewModel) As Task(Of ActionResult)
+        Dim userId = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
+        If appUser Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Dim id = viewModel.Event.Id
+        Dim ev = db.Events.Where(Function(e) e.Id = id).SingleOrDefault
+        If ev Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        ' 連投制限
+        Dim lastComment = db.Comments.Where(Function(c) c.CreatedBy.Id = appUser.Id AndAlso c.Event.Id = ev.Id).OrderByDescending(Function(c) c.CreationDateTime).FirstOrDefault
+        If lastComment IsNot Nothing AndAlso lastComment.CreationDateTime.AddMinutes(1) > Now Then
+            Return View(viewModel) ' TODO: 連投制限処理
+        End If
+
+        Try
+            viewModel.Event = ev
+
+            If Not ModelState.IsValid Then
+                Return View(viewModel)
+            End If
+
+            If viewModel.ShareTwitter Then
+                ' Tweet
+                Dim words = New List(Of String)
+                words.Add(If(viewModel.AdditionalMessage <> "", viewModel.AdditionalMessage.Trim, ""))
+                words.Add(String.Format("http://example.jp/{0}", ev.Id))
+                words.Add(If(ev.Hashtag <> "", "#" & ev.Hashtag.Trim, ""))
+                words.Add("#itstamp")
+
+                Try
+                    Await SocialHelpers.Tweet(Await UserManager.GetClaimsAsync(userId), String.Join(" ", words.ToArray))
+                Catch ex As Exception
+                    ' Ignore
+                End Try
+            End If
+
+            If viewModel.ShareFacebook Then
+                ' TODO: Facebookへ投稿
+
+            End If
+
+            If viewModel.AdditionalMessage <> "" Then
+                Dim c = New Comment() With {
+                                .Content = viewModel.AdditionalMessage.Trim,
+                                .CreatedBy = appUser,
+                                .CreationDateTime = DateTime.Now,
+                                .Event = ev}
+                ev.Comments.Add(c)
+            End If
+
+            Await db.SaveChangesAsync
+
+            If Request.IsAjaxRequest Then
+                Return Json(New With {.checkined = True})
+            End If
+
+            ' MEMO Ajax 処理のみになったの通常実行しない
+            Return RedirectToAction("Details", "Events", New With {.id = ev.Id})
+
+        Catch eEx As System.Data.Entity.Validation.DbEntityValidationException
+            For Each er In eEx.EntityValidationErrors
+                For Each e In er.ValidationErrors
+                    Debug.Print(e.ErrorMessage)
+                Next
+            Next
+        Catch ex As Exception
+            ModelState.AddInternalError(User, ex)
+        End Try
+
+        If Request.IsAjaxRequest Then
+            Return Json(Nothing)
+        Else
+            Return View(viewModel)
+        End If
+
+    End Function
+
+    <HttpPost()>
+    <ValidateAntiForgeryToken()>
     Async Function Follow(model As [Event]) As Task(Of ActionResult)
         Dim userId = User.Identity.GetUserId
         Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
