@@ -43,7 +43,7 @@ Public Class ApplicationUser
     Property ShareFacebook As Boolean
     Property ShareOther As Boolean
 
-
+    Property IsRemoved As Boolean = False
     Overridable Property Favorites As ICollection(Of Favorite)
     Overridable Property CheckIns As ICollection(Of CheckIn)
     Overridable Property Communities As ICollection(Of Community)
@@ -61,6 +61,26 @@ Public Class ApplicationUser
             Return If(Me.IsPrivate, Me.UserName, String.Format("{0}（{1}）", Me.DisplayName, Me.UserName)) & "さん"
         End Get
     End Property
+
+    Public Sub RemoveUserInformation()
+        If Me.OwnerCommunities.Count > 0 Then
+            Throw New Exception("管理しているコミュニティが1件以上あります")
+            Exit Sub
+        End If
+
+        Me.CheckIns.Clear()
+        Me.Claims.Clear()
+        Me.Communities.Clear()
+        Me.Description = ""
+        Me.DisplayName = ""
+        Me.Email = ""
+        Me.Facebook = ""
+        Me.Favorites.Clear()
+        Me.IconPath = ""
+        Me.IsRemoved = True
+        Me.Logins.Clear()
+        Me.OwnerCommunities.Clear()
+    End Sub
 
 End Class
 
