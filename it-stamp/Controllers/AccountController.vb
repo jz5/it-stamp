@@ -122,7 +122,12 @@ Public Class AccountController
             ' このリンクを含む電子メールを送信します
             Dim code = Await UserManager.GenerateEmailConfirmationTokenAsync(user.Id)
             Dim callbackUrl = Url.Action("ConfirmEmail", "Account", New With {.code = code, .userId = user.Id}, protocol:=Request.Url.Scheme)
-            Await UserManager.SendEmailAsync(user.Id, "アカウントの確認", "このリンクをクリックすることによってアカウントを確認してください <a href=""" & callbackUrl & """>こちら</a>")
+            Await UserManager.SendEmailAsync(user.Id, "アカウントの確認",
+                "下記のURLをクリックしてアカウントの確認を完了してください。<br>" &
+                "<a href=""" & callbackUrl & """>" & callbackUrl & "</a><br>" &
+                "<br>" &
+                "※ このメールに身に覚えがない場合は、破棄してください。"
+                )
             ViewBag.Link = callbackUrl
             Return View("DisplayEmail")
         Else
@@ -174,7 +179,12 @@ Public Class AccountController
             ' このリンクを含む電子メールを送信します
             Dim code As String = Await UserManager.GeneratePasswordResetTokenAsync(user.Id)
             Dim callbackUrl = Url.Action("ResetPassword", "Account", New With {.code = code, .userId = user.Id}, protocol:=Request.Url.Scheme)
-            Await UserManager.SendEmailAsync(user.Id, "パスワードのリセット", "パスワードをリセットするには、<a href=""" & callbackUrl & """>ここ</a>をクリックしてください。")
+            Await UserManager.SendEmailAsync(user.Id, "パスワードのリセット",
+                "パスワードをリセットするには下記のURLをクリックしてください。<br>" &
+                "<a href=""" & callbackUrl & """>" & callbackUrl & "</a><br>" &
+                "<br>" &
+                "※ このメールに身に覚えがない場合は、破棄してください。"
+                )
             ViewBag.Link = callbackUrl
             Return View("ForgotPasswordConfirmation")
         End If
@@ -325,7 +335,12 @@ Public Class AccountController
         If result.Succeeded Then
             Dim code = Await UserManager.GenerateEmailConfirmationTokenAsync(appUser.Id)
             Dim callbackUrl = Url.Action("ConfirmEmail", "Account", New With {.code = code, .userId = appUser.Id}, protocol:=Request.Url.Scheme)
-            Await UserManager.SendEmailAsync(appUser.Id, "アカウントの確認", "このリンクをクリックすることによってアカウントを確認してください <a href=""" & callbackUrl & """>こちら</a>")
+            Await UserManager.SendEmailAsync(appUser.Id, "アカウントの確認",
+                "下記のURLをクリックしてアカウントの確認を完了してください。<br>" &
+                "<a href=""" & callbackUrl & """>" & callbackUrl & "</a><br>" &
+                "<br>" &
+                "※ このメールに身に覚えがない場合は、破棄してください。"
+                )
             ViewBag.Link = callbackUrl
             Return View("DisplayEmail")
         Else

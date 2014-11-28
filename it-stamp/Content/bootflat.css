@@ -1,92 +1,105 @@
 /**
-   * typography
-   * --------------------------------------------------
-   */
-/* line 23, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
+ * typography
+ * --------------------------------------------------
+ */
 body {
-  color: #434A54;
-  background-color: #FFF; }
+  color: #434a54;
+  background-color: white; }
 
-/* line 29, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 a {
-  color: #4A89DC;
+  color: #4a89dc;
   text-decoration: none; }
-  /* line 34, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
   a:hover, a:focus {
-    color: #5D9CEC;
+    color: #5d9cec;
     text-decoration: none; }
-  /* line 38, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
   a:focus {
     outline: none; }
 
-/* line 53, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
   font-family: inherit;
   font-weight: 700;
   line-height: 1.1;
   color: inherit; }
 
-/* line 70, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
-h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small {
+h1 small,
+h2 small,
+h3 small,
+h4 small,
+h5 small,
+h6 small,
+.h1 small,
+.h2 small,
+.h3 small,
+.h4 small,
+.h5 small,
+.h6 small {
   color: #e7e9ec; }
 
-/* line 74, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
-h1, h2 {
+h1,
+h2 {
   margin-top: 80px;
   margin-bottom: 15px; }
 
-/* line 78, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 h3 {
   margin-top: 30px; }
 
-/* line 83, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
-h1:first-of-type, h1 + h2, h2 + h3 {
+h1:first-of-type,
+h1 + h2,
+h2 + h3 {
   margin-top: 30px; }
 
-/* line 88, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
-h4, h5, h6 {
+h4,
+h5,
+h6 {
   margin-top: 15px;
   margin-bottom: 15px; }
 
-/* line 92, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 h6 {
   font-weight: normal; }
 
-/* line 96, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
-h1, .h1 {
+h1,
+.h1 {
   font-size: 20px; }
 
-/* line 100, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
-h2, .h2 {
+h2,
+.h2 {
   font-size: 18px; }
 
-/* line 104, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
-h3, .h3 {
+h3,
+.h3 {
   font-size: 16px; }
 
-/* line 108, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
-h4, .h4 {
+h4,
+.h4 {
   font-size: 16px; }
 
-/* line 112, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
-h5, .h5 {
+h5,
+.h5 {
   font-size: 15px; }
 
-/* line 116, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
-h6, .h6 {
+h6,
+.h6 {
   font-size: 14px; }
 
-/* line 119, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 blockquote {
-  border-left: 3px solid #CCD1D9; }
+  border-left: 3px solid #ccd1d9; }
 
-/* line 122, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 .img-rounded {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px; }
 
-/* line 125, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/typography */
 .img-comment {
   font-size: 15px;
   line-height: 1.2;
@@ -94,375 +107,280 @@ blockquote {
   margin: 24px 0; }
 
 /**
-   * button
-   * --------------------------------------------------
-   */
-/* line 34, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button */
+ * button
+ * --------------------------------------------------
+ */
 .btn {
-  color: #FFF;
-  @at-root -link {
-    /* line 68, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button */
-    :hover, :focus, :active, .active, .disabled, [disabled] {
-      border-color: transparent;
-      background-color: transparent;
-      color: #4A89DC;
-      -webkit-box-shadow: none;
-      -moz-box-shadow: none;
-      box-shadow: none; }
-
-    /* line 75, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button */
-    :hover, :focus {
-      text-decoration: underline; } }
-
-  @at-root -default {
-    color: #434A54;
-    border-color: #AAB2BD !important;
-    /* line 87, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button */
-    :hover, :focus, :active, .active {
-      border-color: #CCD1D9;
-      background-color: #CCD1D9; }
-
-    /* line 93, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button */
-    .disabled, [disabled] {
-      background-color: #FFF; } }
-
-  @at-root .open .dropdown-toggle.btn-default {
-    border-color: #CCD1D9;
-    background-color: #CCD1D9; }
-
-  @at-root -primary {
-    /* line 107, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button */
-    :active, .active, .disabled, [disabled] {
-      border-color: #4A89DC;
-      background-color: #4A89DC; }
-
-    /* line 112, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button */
-    :hover, :focus {
-      border-color: #5D9CEC;
-      background-color: #5D9CEC; } }
-
-  @at-root .open .dropdown-toggle.btn-primary {
-    border-color: #5D9CEC;
-    background-color: #5D9CEC; }
-
-  @at-root -info {
-    /* line 127, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button */
-    :active, .active, .disabled, [disabled] {
-      border-color: #37BC9B;
-      background-color: #37BC9B; }
-
-    /* line 132, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button */
-    :hover, :focus {
-      border-color: #48CFAD;
-      background-color: #48CFAD; } }
-
-  @at-root .open .dropdown-toggle.btn-info {
-    border-color: #48CFAD;
-    background-color: #48CFAD; }
-
-  @at-root -success {
-    /* line 147, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button */
-    :active, .active, .disabled, [disabled] {
-      border-color: #8CC152;
-      background-color: #8CC152; }
-
-    /* line 152, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button */
-    :hover, :focus {
-      border-color: #A0D468;
-      background-color: #A0D468; } }
-
-  @at-root .open .dropdown-toggle.btn-success {
-    border-color: #A0D468;
-    background-color: #A0D468; }
-
-  @at-root -warning {
-    /* line 167, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button */
-    :active, .active, .disabled, [disabled] {
-      border-color: #F6BB42;
-      background-color: #F6BB42; }
-
-    /* line 172, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button */
-    :hover, :focus {
-      border-color: #FFCE54;
-      background-color: #FFCE54; } }
-
-  @at-root .open .dropdown-toggle.btn-warning {
-    border-color: #FFCE54;
-    background-color: #FFCE54; }
-
-  @at-root -danger {
-    /* line 188, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button */
-    :active, .active, .disabled, [disabled], .open .dropdown-toggle.btn {
-      border-color: #DA4453;
-      background-color: #DA4453; }
-
-    /* line 193, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button */
-    :hover, :focus {
-      border-color: #ED5565;
-      background-color: #ED5565; } }
-
-  @at-root .open .dropdown-toggle.btn-danger {
-    border-color: #ED5565;
-    background-color: #ED5565; }
- }
-  /* line 39, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button */
+  color: white; }
   .btn, .btn.disabled, .btn[disabled] {
-    border-color: #AAB2BD;
-    background-color: #AAB2BD; }
-  /* line 46, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button */
+    border-color: #aab2bd;
+    background-color: #aab2bd; }
   .btn:hover, .btn:focus, .btn:active, .btn.active {
-    color: #FFF;
-    border-color: #CCD1D9;
-    background-color: #CCD1D9;
+    color: white;
+    border-color: #ccd1d9;
+    background-color: #ccd1d9;
     outline: none !important; }
-  /* line 53, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button */
   .btn:active, .btn.active {
     -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.125);
     -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.125);
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.125); }
-  /* line 57, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button */
   .btn.disabled, .btn[disabled] {
     opacity: 0.45;
     filter: alpha(opacity=45); }
+  .btn-link, .btn-link:hover, .btn-link:focus, .btn-link:active, .btn-link.active, .btn-link.disabled, .btn-link[disabled] {
+    border-color: transparent;
+    background-color: transparent;
+    color: #4a89dc;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none; }
+  .btn-link:hover, .btn-link:focus {
+    text-decoration: underline; }
+  .btn-default {
+    color: #434a54;
+    border-color: #aab2bd !important; }
+    .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active {
+      border-color: #ccd1d9;
+      background-color: #ccd1d9; }
+    .btn-default, .btn-default.disabled, .btn-default[disabled] {
+      background-color: white; }
+  .open .dropdown-toggle.btn-default {
+    border-color: #ccd1d9;
+    background-color: #ccd1d9; }
+  .btn-primary, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] {
+    border-color: #4a89dc;
+    background-color: #4a89dc; }
+  .btn-primary:hover, .btn-primary:focus {
+    border-color: #5d9cec;
+    background-color: #5d9cec; }
+  .open .dropdown-toggle.btn-primary {
+    border-color: #5d9cec;
+    background-color: #5d9cec; }
+  .btn-info, .btn-info:active, .btn-info.active, .btn-info.disabled, .btn-info[disabled] {
+    border-color: #37bc9b;
+    background-color: #37bc9b; }
+  .btn-info:hover, .btn-info:focus {
+    border-color: #48cfad;
+    background-color: #48cfad; }
+  .open .dropdown-toggle.btn-info {
+    border-color: #48cfad;
+    background-color: #48cfad; }
+  .btn-success, .btn-success:active, .btn-success.active, .btn-success.disabled, .btn-success[disabled] {
+    border-color: #8cc152;
+    background-color: #8cc152; }
+  .btn-success:hover, .btn-success:focus {
+    border-color: #a0d468;
+    background-color: #a0d468; }
+  .open .dropdown-toggle.btn-success {
+    border-color: #a0d468;
+    background-color: #a0d468; }
+  .btn-warning, .btn-warning:active, .btn-warning.active, .btn-warning.disabled, .btn-warning[disabled] {
+    border-color: #f6bb42;
+    background-color: #f6bb42; }
+  .btn-warning:hover, .btn-warning:focus {
+    border-color: #ffce54;
+    background-color: #ffce54; }
+  .open .dropdown-toggle.btn-warning {
+    border-color: #ffce54;
+    background-color: #ffce54; }
+  .btn-danger, .btn-danger:active, .btn-danger.active, .btn-danger.disabled, .btn-danger[disabled],
+  .btn-danger .open .dropdown-toggle.btn {
+    border-color: #da4453;
+    background-color: #da4453; }
+  .btn-danger:hover, .btn-danger:focus {
+    border-color: #ed5565;
+    background-color: #ed5565; }
+  .open .dropdown-toggle.btn-danger {
+    border-color: #ed5565;
+    background-color: #ed5565; }
 
 /**
-   * button-group
-   * --------------------------------------------------
-   */
-/* line 10, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button_group */
-.btn-group {
-  @at-root .open .dropdown-toggle {
-    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.125);
-    -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.125);
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.125); }
+ * button-group
+ * --------------------------------------------------
+ */
+.btn-group.open .dropdown-toggle {
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.125);
+  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.125); }
+.btn-group .btn {
+  border-left-color: #96a0ad; }
+.btn-group.open .btn-default.dropdown-toggle, .btn-group .btn-default:focus, .btn-group .btn-default:active, .btn-group .btn-default.active {
+  color: white; }
+.btn-group .btn-primary, .btn-group .btn-primary:focus, .btn-group .btn-primary:active, .btn-group .btn-primary.active {
+  border-left-color: #2c75d6; }
+.btn-group .btn-success, .btn-group .btn-success:focus, .btn-group .btn-success:active, .btn-group .btn-success.active {
+  border-left-color: #7ab03f; }
+.btn-group .btn-warning, .btn-group .btn-warning:focus, .btn-group .btn-warning:active, .btn-group .btn-warning.active {
+  border-left-color: #efa50b; }
+.btn-group .btn-danger, .btn-group .btn-danger:focus, .btn-group .btn-danger:active, .btn-group .btn-danger.active {
+  border-left-color: #d1293a; }
+.btn-group .btn-info, .btn-group .btn-info:focus, .btn-group .btn-info:active, .btn-group .btn-info.active {
+  border-left-color: #2fa084; }
+.btn-group .btn:first-child, .btn-group .btn-primary:first-child, .btn-group .btn-success:first-child, .btn-group .btn-warning:first-child, .btn-group .btn-danger:first-child, .btn-group .btn-info:first-child {
+  border-left-color: transparent; }
 
-  @at-root .open .btn-default.dropdown-toggle, .btn-default:focus, .btn-default:active, .btn-default.active {
-    color: #FFF; }
- }
-  /* line 15, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button_group */
-  .btn-group .btn {
-    border-left-color: #96a0ad; }
-  /* line 29, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button_group */
-  .btn-group .btn-primary, .btn-group .btn-primary:focus, .btn-group .btn-primary:active, .btn-group .btn-primary.active {
-    border-left-color: #2c75d6; }
-  /* line 36, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button_group */
-  .btn-group .btn-success, .btn-group .btn-success:focus, .btn-group .btn-success:active, .btn-group .btn-success.active {
-    border-left-color: #7ab03f; }
-  /* line 43, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button_group */
-  .btn-group .btn-warning, .btn-group .btn-warning:focus, .btn-group .btn-warning:active, .btn-group .btn-warning.active {
-    border-left-color: #efa50b; }
-  /* line 50, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button_group */
-  .btn-group .btn-danger, .btn-group .btn-danger:focus, .btn-group .btn-danger:active, .btn-group .btn-danger.active {
-    border-left-color: #d1293a; }
-  /* line 57, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button_group */
-  .btn-group .btn-info, .btn-group .btn-info:focus, .btn-group .btn-info:active, .btn-group .btn-info.active {
-    border-left-color: #2fa084; }
-  /* line 66, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button_group */
-  .btn-group .btn:first-child, .btn-group .btn-primary:first-child, .btn-group .btn-success:first-child, .btn-group .btn-warning:first-child, .btn-group .btn-danger:first-child, .btn-group .btn-info:first-child {
-    border-left-color: transparent; }
-
-/* line 73, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button_group */
 .btn-group-vertical .btn, .btn-group-vertical .btn-group .btn-primary {
   border-top-color: #96a0ad !important; }
-/* line 81, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button_group */
 .btn-group-vertical .btn-primary, .btn-group-vertical .btn-primary:focus, .btn-group-vertical .btn-primary:active, .btn-group-vertical .btn-primary.active, .btn-group-vertical .btn-group .btn-primary {
   border-top-color: #2c75d6 !important; }
-/* line 89, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button_group */
 .btn-group-vertical .btn-success, .btn-group-vertical .btn-success:focus, .btn-group-vertical .btn-success:active, .btn-group-vertical .btn-success.active, .btn-group-vertical .btn-group .btn-success {
   border-top-color: #7ab03f !important; }
-/* line 97, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button_group */
 .btn-group-vertical .btn-warning, .btn-group-vertical .btn-warning:focus, .btn-group-vertical .btn-warning:active, .btn-group-vertical .btn-warning.active, .btn-group-vertical .btn-group .btn-warning {
   border-top-color: #efa50b !important; }
-/* line 105, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button_group */
 .btn-group-vertical .btn-danger, .btn-group-vertical .btn-danger:focus, .btn-group-vertical .btn-danger:active, .btn-group-vertical .btn-danger.active, .btn-group-vertical .btn-group .btn-danger {
   border-top-color: #d1293a !important; }
-/* line 113, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button_group */
 .btn-group-vertical .btn-info, .btn-group-vertical .btn-info:focus, .btn-group-vertical .btn-info:active, .btn-group-vertical .btn-info.active, .btn-group-vertical .btn-group .btn-info {
   border-top-color: #2fa084 !important; }
-/* line 122, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/button_group */
 .btn-group-vertical .btn:not(.btn-default):first-child, .btn-group-vertical .btn-primary:first-child, .btn-group-vertical .btn-success:first-child, .btn-group-vertical .btn-warning:first-child, .btn-group-vertical .btn-danger:first-child, .btn-group-vertical .btn-info:first-child {
   border-top: none; }
 
 /**
-   * labels and badges
-   * --------------------------------------------------
-   */
-/* line 23, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/label_badge */
-.label, .badge {
-  background-color: #AAB2BD; }
+ * labels and badges
+ * --------------------------------------------------
+ */
+.label,
+.badge {
+  background-color: #aab2bd; }
 
-/* line 28, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/label_badge */
-.label-default, .badge-default {
-  border: 1px solid #AAB2BD;
-  background-color: #FFF;
-  color: #434A54; }
+.label-default,
+.badge-default {
+  border: 1px solid #aab2bd;
+  background-color: white;
+  color: #434a54; }
 
-/* line 35, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/label_badge */
-.label-primary, .badge-primary {
-  border-color: #4A89DC;
-  background-color: #4A89DC; }
+.label-primary,
+.badge-primary {
+  border-color: #4a89dc;
+  background-color: #4a89dc; }
 
-/* line 41, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/label_badge */
-.label-success, .badge-success {
-  border-color: #8CC152;
-  background-color: #8CC152; }
+.label-success,
+.badge-success {
+  border-color: #8cc152;
+  background-color: #8cc152; }
 
-/* line 47, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/label_badge */
-.label-danger, .badge-danger {
-  border-color: #DA4453;
-  background-color: #DA4453; }
+.label-danger,
+.badge-danger {
+  border-color: #da4453;
+  background-color: #da4453; }
 
-/* line 53, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/label_badge */
-.label-warning, .badge-warning {
-  border-color: #F6BB42;
-  background-color: #F6BB42; }
+.label-warning,
+.badge-warning {
+  border-color: #f6bb42;
+  background-color: #f6bb42; }
 
-/* line 59, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/label_badge */
-.label-info, .badge-info {
-  border-color: #37BC9B;
-  background-color: #37BC9B; }
-
-/**
-   * tooltip
-   * --------------------------------------------------
-   */
-/* line 17, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tooltip */
-.tooltip {
-  @at-root -inner {
-    color: #FFF;
-    background-color: #000; }
- }
-  /* line 24, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tooltip */
-  .tooltip.top .tooltip-arrow, .tooltip.top-left .tooltip-arrow, .tooltip.top-right .tooltip-arrow {
-    border-top-color: #000; }
-  /* line 27, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tooltip */
-  .tooltip.right .tooltip-arrow {
-    border-right-color: #000; }
-  /* line 30, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tooltip */
-  .tooltip.left .tooltip-arrow {
-    border-left-color: #000; }
-  /* line 35, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tooltip */
-  .tooltip.bottom .tooltip-arrow, .tooltip.bottom-left .tooltip-arrow, .tooltip.bottom-right .tooltip-arrow {
-    border-bottom-color: #000; }
+.label-info,
+.badge-info {
+  border-color: #37bc9b;
+  background-color: #37bc9b; }
 
 /**
-   * popover
-   * --------------------------------------------------
-   */
-/* line 18, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/popover */
+ * tooltip
+ * --------------------------------------------------
+ */
+.tooltip-inner {
+  color: white;
+  background-color: black; }
+.tooltip.top .tooltip-arrow, .tooltip.top-left .tooltip-arrow, .tooltip.top-right .tooltip-arrow {
+  border-top-color: black; }
+.tooltip.right .tooltip-arrow {
+  border-right-color: black; }
+.tooltip.left .tooltip-arrow {
+  border-left-color: black; }
+.tooltip.bottom .tooltip-arrow, .tooltip.bottom-left .tooltip-arrow, .tooltip.bottom-right .tooltip-arrow {
+  border-bottom-color: black; }
+
+/**
+ * popover
+ * --------------------------------------------------
+ */
 .popover {
-  background-color: #434A54;
-  color: #FFF;
-  border-color: #434A54;
-  @at-root -title {
+  background-color: #434a54;
+  color: white;
+  border-color: #434a54; }
+  .popover-title {
     padding-bottom: 0;
     font-weight: bold;
-    color: #AAB2BD;
+    color: #aab2bd;
     background-color: transparent;
     border-bottom: none; }
- }
-  /* line 31, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/popover */
   .popover.top .arrow, .popover.top .arrow:after {
-    border-top-color: #434A54; }
-  /* line 35, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/popover */
+    border-top-color: #434a54; }
   .popover.right .arrow, .popover.right .arrow:after {
-    border-right-color: #434A54; }
-  /* line 39, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/popover */
+    border-right-color: #434a54; }
   .popover.bottom .arrow, .popover.bottom .arrow:after {
-    border-bottom-color: #434A54; }
-  /* line 43, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/popover */
+    border-bottom-color: #434a54; }
   .popover.left .arrow, .popover.left .arrow:after {
-    border-left-color: #434A54; }
+    border-left-color: #434a54; }
 
 /**
-   * progress
-   * --------------------------------------------------
-   */
-/* line 19, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/progress */
+ * progress
+ * --------------------------------------------------
+ */
 .progress {
-  background-color: #E6E9ED;
+  background-color: #e6e9ed;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none; }
-  /* line 23, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/progress */
   .progress-bar {
-    background-color: #3BAFDA;
+    background-color: #3bafda;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none; }
-  /* line 27, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/progress */
   .progress-bar-success {
-    background-color: #8CC152; }
-  /* line 30, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/progress */
+    background-color: #8cc152; }
   .progress-bar-info {
-    background-color: #37BC9B; }
-  /* line 33, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/progress */
+    background-color: #37bc9b; }
   .progress-bar-warning {
-    background-color: #F6BB42; }
-  /* line 36, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/progress */
+    background-color: #f6bb42; }
   .progress-bar-danger {
-    background-color: #DA4453; }
+    background-color: #da4453; }
 
 /**
-   * breadcrumb
-   * --------------------------------------------------
-   */
-/* line 20, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
+ * breadcrumb
+ * --------------------------------------------------
+ */
 .breadcrumb {
-  color: #434A54;
-  background-color: #E6E9ED; }
-  /* line 23, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
+  color: #434a54;
+  background-color: #e6e9ed; }
   .breadcrumb > .active {
-    color: #434A54; }
-  /* line 26, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
+    color: #434a54; }
   .breadcrumb a {
-    color: #3BAFDA; }
+    color: #3bafda; }
 
-/* line 31, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
 .breadcrumb-arrow {
   padding: 0;
   list-style: none;
-  background-color: #E6E9ED;
+  background-color: #e6e9ed;
   height: 36px;
   line-height: 36px; }
-  /* line 38, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
   .breadcrumb-arrow li:first-child a {
     -webkit-border-radius: 4px 0 0 4px;
     -moz-border-radius: 4px 0 0 4px;
     border-radius: 4px 0 0 4px; }
-  /* line 43, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
   .breadcrumb-arrow li, .breadcrumb-arrow li a, .breadcrumb-arrow li span {
     display: inline-block;
     vertical-align: top; }
-  /* line 47, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
   .breadcrumb-arrow li:not(:first-child) {
     margin-left: -5px; }
-  /* line 50, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
   .breadcrumb-arrow li + li:before {
     padding: 0;
     content: ""; }
-  /* line 54, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
   .breadcrumb-arrow li span {
     padding: 0 10px; }
-  /* line 58, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
   .breadcrumb-arrow li a, .breadcrumb-arrow li:not(:first-child) span {
     padding: 0 10px 0 25px;
     height: 36px;
     line-height: 36px; }
-  /* line 63, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
   .breadcrumb-arrow li:first-child a {
     padding: 0 10px; }
-  /* line 66, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
   .breadcrumb-arrow li a {
     position: relative;
-    border: 1px solid #3BAFDA;
-    color: #FFF;
-    background-color: #3BAFDA;
+    border: 1px solid #3bafda;
+    color: white;
+    background-color: #3bafda;
     text-decoration: none; }
-  /* line 73, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
   .breadcrumb-arrow li:first-child a {
     padding-left: 10px; }
-  /* line 77, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
   .breadcrumb-arrow li a:before, .breadcrumb-arrow li a:after {
     position: absolute;
     top: -1px;
@@ -471,171 +389,135 @@ blockquote {
     height: 0;
     border-top: 18px solid transparent;
     border-bottom: 18px solid transparent; }
-  /* line 86, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
   .breadcrumb-arrow li a:before {
     right: -10px;
     border-left-width: 11px;
     border-left-style: solid;
-    border-left-color: #3BAFDA;
+    border-left-color: #3bafda;
     z-index: 3; }
-  /* line 93, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
   .breadcrumb-arrow li a:after {
     right: -11px;
     border-left: 11px solid #2494be;
     z-index: 2; }
-  /* line 99, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
   .breadcrumb-arrow li a:hover, .breadcrumb-arrow li a:focus {
-    background-color: #4FC1E9;
-    border: 1px solid #4FC1E9; }
-  /* line 104, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
+    background-color: #4fc1e9;
+    border: 1px solid #4fc1e9; }
   .breadcrumb-arrow li a:hover:before, .breadcrumb-arrow li a:focus:before {
-    border-left-color: #4FC1E9; }
-  /* line 107, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
+    border-left-color: #4fc1e9; }
   .breadcrumb-arrow li a:active {
     background-color: #2494be;
     border: 1px solid #2494be; }
-  /* line 112, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
   .breadcrumb-arrow li a:active:before, .breadcrumb-arrow li a:active:after {
     border-left-color: #2494be; }
-  /* line 115, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/breadcrumb */
   .breadcrumb-arrow li span {
-    color: #434A54; }
+    color: #434a54; }
 
 /**
-   * pagination
-   * --------------------------------------------------
-   */
-/* line 23, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pagination */
+ * pagination
+ * --------------------------------------------------
+ */
 .pagination > li > a, .pagination > li > span {
-  color: #434A54;
-  background-color: #FFF;
-  border-color: #5D9CEC; }
-/* line 31, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pagination */
+  color: #434a54;
+  background-color: white;
+  border-color: #5d9cec; }
 .pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus {
-  color: #FFF;
-  background-color: #5D9CEC;
-  border-color: #5D9CEC; }
-/* line 41, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pagination */
+  color: white;
+  background-color: #5d9cec;
+  border-color: #5d9cec; }
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
-  color: #FFF;
-  background-color: #4A89DC;
-  border-color: #4A89DC; }
-/* line 51, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pagination */
+  color: white;
+  background-color: #4a89dc;
+  border-color: #4a89dc; }
 .pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
-  color: #E6E9ED;
-  background-color: #FFF;
-  border-color: #5D9CEC; }
+  color: #e6e9ed;
+  background-color: white;
+  border-color: #5d9cec; }
 
 /**
-   * pager
-   * --------------------------------------------------
-   */
-/* line 21, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pager */
+ * pager
+ * --------------------------------------------------
+ */
 .pager li > a, .pager li > span {
-  color: #FFF;
-  background-color: #8CC152;
-  border-color: #8CC152; }
-/* line 27, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pager */
+  color: white;
+  background-color: #8cc152;
+  border-color: #8cc152; }
 .pager li > a:hover, .pager li > a:focus {
-  background-color: #A0D468;
-  border-color: #A0D468; }
-/* line 34, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pager */
+  background-color: #a0d468;
+  border-color: #a0d468; }
 .pager .disabled > a, .pager .disabled > a:hover, .pager .disabled > a:focus, .pager .disabled > span {
-  color: #E6E9ED;
-  background-color: #FFF;
-  border-color: #E6E9ED; }
+  color: #e6e9ed;
+  background-color: white;
+  border-color: #e6e9ed; }
 
 /**
-   * form
-   * --------------------------------------------------
-   */
-/* line 34, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
+ * form
+ * --------------------------------------------------
+ */
 .form-control {
-  color: #434A54;
-  border-color: #AAB2BD; }
-  /* line 39, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
+  color: #434a54;
+  border-color: #aab2bd; }
   .form-control, .form-control:focus {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none; }
-  /* line 42, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
   .form-control:focus {
-    border-color: #4A89DC; }
-  /* line 47, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
+    border-color: #4a89dc; }
   .form-control::-moz-placeholder, .form-control:-ms-input-placeholder, .form-control::-webkit-input-placeholder {
-    color: #E6E9ED; }
-  /* line 52, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
+    color: #e6e9ed; }
   .form-control.disabled, .form-control[disabled] {
-    border-color: #E6E9ED;
-    background-color: #E6E9ED; }
+    border-color: #e6e9ed;
+    background-color: #e6e9ed; }
 
-/* line 59, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
 .input-group-btn .btn + .btn {
   border-width: 1px;
   border-style: solid;
   border-color: #96a0ad; }
-/* line 64, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
 .input-group-btn .btn + .btn.btn-default {
   border-color: #ededed; }
-/* line 67, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
 .input-group-btn .btn + .btn.btn-primary {
   border-color: #2c75d6; }
-/* line 70, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
 .input-group-btn .btn + .btn.btn-info {
   border-color: #2fa084; }
-/* line 73, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
 .input-group-btn .btn + .btn.btn-success {
   border-color: #7ab03f; }
-/* line 76, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
 .input-group-btn .btn + .btn.btn-warning {
   border-color: #f4af20; }
-/* line 79, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
 .input-group-btn .btn + .btn.btn-danger {
   border-color: #d1293a; }
 
-/* line 84, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
 .input-group-addon {
-  background-color: #AAB2BD;
+  background-color: #aab2bd;
   border-color: #96a0ad;
-  color: #FFF; }
-  /* line 90, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
+  color: white; }
   .input-group-addon .radio, .input-group-addon .checkbox {
     margin: -3px 0 -4px !important; }
 
-/* line 95, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
-.form-search {
-  @at-root .input-group .form-control:last-child {
-    -webkit-border-top-left-radius: 0;
-    -moz-border-radius-topleft: 0;
-    border-top-left-radius: 0;
-    -webkit-border-bottom-left-radius: 0;
-    -moz-border-radius-bottomleft: 0;
-    border-bottom-left-radius: 0; }
+.form-search .search-query, .form-search .search-query:first-child, .form-search .search-query:last-child {
+  padding: 0 17px;
+  -webkit-border-radius: 17px;
+  -moz-border-radius: 17px;
+  border-radius: 17px; }
+.input-group .form-control:last-child {
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topleft: 0;
+  border-top-left-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -moz-border-radius-bottomleft: 0;
+  border-bottom-left-radius: 0; }
+.input-group .form-control:first-child {
+  -webkit-border-top-right-radius: 0;
+  -moz-border-radius-topright: 0;
+  border-top-right-radius: 0;
+  -webkit-border-bottom-right-radius: 0;
+  -moz-border-radius-bottomright: 0;
+  border-bottom-right-radius: 0; }
+.form-search .btn {
+  -webkit-border-radius: 17px;
+  -moz-border-radius: 17px;
+  border-radius: 17px; }
 
-  @at-root .input-group .form-control:first-child {
-    -webkit-border-top-right-radius: 0;
-    -moz-border-radius-topright: 0;
-    border-top-right-radius: 0;
-    -webkit-border-bottom-right-radius: 0;
-    -moz-border-radius-bottomright: 0;
-    border-bottom-right-radius: 0; }
- }
-  /* line 98, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
-  .form-search .search-query, .form-search .search-query:first-child, .form-search .search-query:last-child {
-    padding: 0 17px;
-    -webkit-border-radius: 17px;
-    -moz-border-radius: 17px;
-    border-radius: 17px; }
-  /* line 111, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
-  .form-search .btn {
-    -webkit-border-radius: 17px;
-    -moz-border-radius: 17px;
-    border-radius: 17px; }
-
-/* line 116, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
 .search-only {
   position: relative; }
-  /* line 118, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
   .search-only .search-icon {
     position: absolute;
     top: 2px;
@@ -644,96 +526,77 @@ blockquote {
     line-height: 30px;
     text-align: center;
     font-size: 17px;
-    color: #E6E9ED;
+    color: #e6e9ed;
     z-index: 20; }
-  /* line 129, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
   .search-only .form-control:last-child {
     padding-left: 40px; }
 
-/* line 140, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
 .has-success .help-block, .has-success .control-label, .has-success .radio, .has-success .checkbox, .has-success .radio-inline, .has-success .checkbox-inline {
-  color: #8CC152; }
-/* line 143, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
+  color: #8cc152; }
 .has-success .form-control {
-  border-color: #8CC152;
+  border-color: #8cc152;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none; }
-/* line 147, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
 .has-success .form-control:focus {
-  border-color: #8CC152;
+  border-color: #8cc152;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none; }
-/* line 151, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
 .has-success .input-group-addon {
-  background-color: #8CC152;
-  border-color: #8CC152; }
-/* line 155, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
+  background-color: #8cc152;
+  border-color: #8cc152; }
 .has-success .form-control-feedback {
-  color: #8CC152; }
+  color: #8cc152; }
 
-/* line 165, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
 .has-warning .help-block, .has-warning .control-label, .has-warning .radio, .has-warning .checkbox, .has-warning .radio-inline, .has-warning .checkbox-inline {
-  color: #F6BB42; }
-/* line 168, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
+  color: #f6bb42; }
 .has-warning .form-control {
-  border-color: #F6BB42;
+  border-color: #f6bb42;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none; }
-/* line 172, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
 .has-warning .form-control:focus {
-  border-color: #F6BB42;
+  border-color: #f6bb42;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none; }
-/* line 176, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
 .has-warning .input-group-addon {
-  background-color: #F6BB42;
-  border-color: #F6BB42; }
-/* line 180, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
+  background-color: #f6bb42;
+  border-color: #f6bb42; }
 .has-warning .form-control-feedback {
-  color: #F6BB42; }
+  color: #f6bb42; }
 
-/* line 190, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
 .has-error .help-block, .has-error .control-label, .has-error .radio, .has-error .checkbox, .has-error .radio-inline, .has-error .checkbox-inline {
-  color: #DA4453; }
-/* line 193, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
+  color: #da4453; }
 .has-error .form-control {
-  border-color: #DA4453;
+  border-color: #da4453;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none; }
-/* line 197, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
 .has-error .form-control:focus {
-  border-color: #DA4453;
+  border-color: #da4453;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none; }
-/* line 201, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
 .has-error .input-group-addon {
-  background-color: #DA4453;
-  border-color: #DA4453; }
-/* line 205, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/form */
+  background-color: #da4453;
+  border-color: #da4453; }
 .has-error .form-control-feedback {
-  color: #DA4453; }
+  color: #da4453; }
 
 /**
-   * stepper
-   * --------------------------------------------------
-   */
-/* line 19, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/stepper */
+ * stepper
+ * --------------------------------------------------
+ */
 .stepper .stepper-input {
   overflow: hidden;
   -moz-appearance: textfield; }
-  /* line 24, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/stepper */
   .stepper .stepper-input::-webkit-inner-spin-button, .stepper .stepper-input::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0; }
-/* line 30, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/stepper */
 .stepper .stepper-arrow {
-  background-color: #3BAFDA;
+  background-color: #3bafda;
   cursor: pointer;
   display: block;
   height: 50%;
@@ -741,23 +604,19 @@ blockquote {
   right: 15px;
   text-indent: -99999px;
   width: 20px; }
-  /* line 41, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/stepper */
   .stepper .stepper-arrow:hover, .stepper .stepper-arrow:active {
-    background-color: #4FC1E9; }
-/* line 45, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/stepper */
+    background-color: #4fc1e9; }
 .stepper .up {
   -webkit-border-top-right-radius: 3px;
   -moz-border-radius-topright: 3px;
   border-top-right-radius: 3px;
   border: 1px solid #269ecb;
   top: 0; }
-/* line 50, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/stepper */
 .stepper .down {
   -webkit-border-bottom-right-radius: 3px;
   -moz-border-radius-bottomright: 3px;
   border-bottom-right-radius: 3px;
   bottom: 0; }
-/* line 55, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/stepper */
 .stepper .up::before, .stepper .down::before {
   content: "";
   position: absolute;
@@ -765,23 +624,19 @@ blockquote {
   height: 0;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent; }
-/* line 63, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/stepper */
 .stepper .up::before {
   top: 5px;
   left: 5px;
-  border-bottom: 4px solid #FFF; }
-/* line 68, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/stepper */
+  border-bottom: 4px solid white; }
 .stepper .down:before {
   bottom: 5px;
   left: 6px;
-  border-top: 4px solid #FFF; }
-/* line 73, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/stepper */
+  border-top: 4px solid white; }
 .stepper.disabled .stepper-arrow {
-  background-color: #3BAFDA;
+  background-color: #3bafda;
   opacity: 0.45;
   filter: alpha(opacity=45); }
 
-/* line 25, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
 .selecter {
   display: block;
   position: relative;
@@ -795,7 +650,6 @@ blockquote {
   /* Multiple Select */
   /* 'Disabled' State */
   /* Scroller Support */ }
-  /* line 32, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
   .selecter .selecter-element {
     display: none;
     *left: -999999px;
@@ -806,15 +660,13 @@ blockquote {
     filter: alpha(opacity=0);
     width: 100%;
     z-index: 0; }
-  /* line 43, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
   .selecter .selecter-element, .selecter .selecter-element:focus {
     outline: none;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
     -webkit-tap-highlight-color: transparent; }
-  /* line 49, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
   .selecter .selecter-selected {
-    background-color: #FFF;
-    border: 1px solid #AAB2BD;
+    background-color: white;
+    border: 1px solid #aab2bd;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
@@ -825,7 +677,6 @@ blockquote {
     position: relative;
     text-overflow: clip;
     z-index: 2; }
-    /* line 61, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
     .selecter .selecter-selected:after {
       position: absolute;
       top: 14px;
@@ -833,12 +684,11 @@ blockquote {
       content: "";
       width: 0;
       height: 0;
-      border-top: 4px solid #000;
+      border-top: 4px solid black;
       border-left: 4px solid transparent;
       border-right: 4px solid transparent; }
-  /* line 73, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
   .selecter .selecter-options {
-    border: 1px solid #AAB2BD;
+    border: 1px solid #aab2bd;
     border-width: 0 1px 1px;
     -webkit-border-radius: 0 0 4px 4px;
     -moz-border-radius: 0 0 4px 4px;
@@ -846,7 +696,7 @@ blockquote {
     -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
     -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-    background-color: #FFF;
+    background-color: white;
     display: none;
     left: 0;
     max-height: 260px;
@@ -857,19 +707,17 @@ blockquote {
     width: 100%;
     *width: auto;
     z-index: 50; }
-  /* line 90, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
   .selecter .selecter-group {
-    border-bottom: 1px solid #E6E9ED;
-    color: #AAB2BD;
-    background-color: #F5F7FA;
+    border-bottom: 1px solid #e6e9ed;
+    color: #aab2bd;
+    background-color: #f5f7fa;
     display: block;
     font-size: 11px;
     padding: 5px 10px 4px;
     text-transform: uppercase; }
-  /* line 99, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
   .selecter .selecter-item {
-    background-color: #FFF;
-    border-bottom: 1px solid #E6E9ED;
+    background-color: white;
+    border-bottom: 1px solid #e6e9ed;
     cursor: pointer;
     display: block;
     margin: 0;
@@ -877,98 +725,78 @@ blockquote {
     padding: 6px 10px;
     text-overflow: ellipsis;
     width: 100%; }
-    /* line 110, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
     .selecter .selecter-item.selected {
-      color: #FFF;
-      border-bottom-color: #4FC1E9;
-      background-color: #3BAFDA; }
-    /* line 115, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
+      color: white;
+      border-bottom-color: #4fc1e9;
+      background-color: #3bafda; }
     .selecter .selecter-item.disabled {
-      color: #AAB2BD;
+      color: #aab2bd;
       cursor: default; }
-    /* line 119, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
     .selecter .selecter-item:first-child {
       -webkit-border-radius: 0;
       -moz-border-radius: 0;
       border-radius: 0; }
-    /* line 122, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
     .selecter .selecter-item:last-child {
       -webkit-border-radius: 0 0 4px 4px;
       -moz-border-radius: 0 0 4px 4px;
       border-radius: 0 0 4px 4px;
       border-bottom: 0; }
-  /* line 128, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
   .selecter .selecter-item:hover {
-    background-color: #E6E9ED; }
-  /* line 131, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
+    background-color: #e6e9ed; }
   .selecter .selecter-item.selected:hover {
-    background-color: #3BAFDA; }
-  /* line 137, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
+    background-color: #3bafda; }
   .selecter .selecter-item.disabled:hover, .selecter:hover .selecter-selected, .selecter.disabled .selecter-item:hover {
-    background-color: #FFF; }
-  /* line 142, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
+    background-color: white; }
   .selecter.open {
     outline: 0;
     z-index: 3; }
-    /* line 146, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
     .selecter.open .selecter-selected {
-      border: 1px solid #3BAFDA;
+      border: 1px solid #3bafda;
       -webkit-border-radius: 4px 4px 0 0;
       -moz-border-radius: 4px 4px 0 0;
       border-radius: 4px 4px 0 0;
       z-index: 51; }
-  /* line 154, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
   .selecter.open .selecter-selected, .selecter.focus .selecter-selected {
-    background-color: #FFF; }
-  /* line 160, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
+    background-color: white; }
   .selecter.cover .selecter-options {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
     border-width: 1px;
     top: 0; }
-    /* line 165, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
     .selecter.cover .selecter-options .selecter-item.first {
       -webkit-border-radius: 4px 4px 0 0;
       -moz-border-radius: 4px 4px 0 0;
       border-radius: 4px 4px 0 0; }
-  /* line 171, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
   .selecter.cover.open .selecter-selected {
     -webkit-border-radius: 4px 4px 0 0;
     -moz-border-radius: 4px 4px 0 0;
     border-radius: 4px 4px 0 0;
     z-index: 49; }
-  /* line 180, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
   .selecter.bottom .selecter-options {
     border-width: 1px 1px 0;
     bottom: 100%;
     top: auto; }
-  /* line 185, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
   .selecter.bottom .selecter-item:last-child {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
     border: none; }
-  /* line 189, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
   .selecter.bottom.open .selecter-selected {
     -webkit-border-radius: 0 0 4px 4px;
     -moz-border-radius: 0 0 4px 4px;
     border-radius: 0 0 4px 4px; }
-  /* line 192, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
   .selecter.bottom.open .selecter-options {
     -webkit-border-radius: 4px 4px 0 0;
     -moz-border-radius: 4px 4px 0 0;
     border-radius: 4px 4px 0 0; }
-  /* line 199, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
   .selecter.bottom.cover .selecter-options {
     bottom: 0;
     top: auto; }
-  /* line 204, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
   .selecter.bottom.cover.open .selecter-selected, .selecter.bottom.cover.open .selecter-options {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px; }
-  /* line 211, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
   .selecter.multiple .selecter-options {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -978,53 +806,45 @@ blockquote {
     display: block;
     position: static;
     width: 100%; }
-  /* line 222, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
   .selecter.disabled .selecter-selected {
-    background-color: #E6E9ED;
-    border-color: #E6E9ED;
-    color: #AAB2BD;
+    background-color: #e6e9ed;
+    border-color: #e6e9ed;
+    color: #aab2bd;
     cursor: default; }
-  /* line 228, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
   .selecter.disabled .selecter-options {
-    background-color: #E6E9ED;
-    border-color: #E6E9ED; }
-  /* line 233, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
+    background-color: #e6e9ed;
+    border-color: #e6e9ed; }
   .selecter.disabled .selecter-group, .selecter.disabled .selecter-item {
-    background-color: #E6E9ED;
-    border-color: #E6E9ED;
-    color: #AAB2BD;
+    background-color: #e6e9ed;
+    border-color: #e6e9ed;
+    color: #aab2bd;
     cursor: default; }
-  /* line 239, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
   .selecter.disabled .selecter-item.selected {
-    background-color: #3BAFDA;
+    background-color: #3bafda;
     opacity: 0.45;
     filter: alpha(opacity=45);
-    color: #FFF; }
-  /* line 248, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
+    color: white; }
   .selecter .selecter-options.scroller {
     overflow: hidden; }
-    /* line 251, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/selecter */
     .selecter .selecter-options.scroller .scroller-content {
       max-height: 260px;
       padding: 0; }
 
 /**
-   * checkbox and radio
-   * --------------------------------------------------
-   */
-/* line 14, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/checkbox_radio */
+ * checkbox and radio
+ * --------------------------------------------------
+ */
 .checkbox, .radio {
   margin-top: 0;
   padding-left: 0; }
 
-/* line 18, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/checkbox_radio */
 .checkbox label, .radio label {
   position: relative;
   top: 2px;
   padding-left: 5px; }
 
-/* line 24, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/checkbox_radio */
-.icheckbox_flat, .iradio_flat {
+.icheckbox_flat,
+.iradio_flat {
   display: inline-block;
   *display: inline;
   vertical-align: middle;
@@ -1036,42 +856,32 @@ blockquote {
   border: none;
   cursor: pointer; }
 
-/* line 37, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/checkbox_radio */
 .icheckbox_flat {
   background-position: 0 0; }
-  /* line 40, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/checkbox_radio */
   .icheckbox_flat.checked {
     background-position: -22px 0; }
-  /* line 43, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/checkbox_radio */
   .icheckbox_flat.disabled {
     background-position: -44px 0;
     cursor: default; }
-  /* line 47, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/checkbox_radio */
   .icheckbox_flat.checked.disabled {
     background-position: -66px 0; }
 
-/* line 52, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/checkbox_radio */
 .iradio_flat {
   background-position: -88px 0; }
-  /* line 55, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/checkbox_radio */
   .iradio_flat.checked {
     background-position: -110px 0; }
-  /* line 58, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/checkbox_radio */
   .iradio_flat.disabled {
     background-position: -132px 0;
     cursor: default; }
-  /* line 62, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/checkbox_radio */
   .iradio_flat.checked.disabled {
     background-position: -154px 0; }
 
 /**
-   * toggle
-   * --------------------------------------------------
-   */
-/* line 33, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/toggle */
+ * toggle
+ * --------------------------------------------------
+ */
 .toggle {
   height: 32px; }
-  /* line 37, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/toggle */
   .toggle input[type="checkbox"], .toggle input[type="radio"] {
     width: 0;
     height: 0;
@@ -1080,7 +890,6 @@ blockquote {
     text-indent: -100000px;
     opacity: 0;
     filter: alpha(opacity=0); }
-  /* line 46, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/toggle */
   .toggle .handle {
     display: block;
     position: relative;
@@ -1088,14 +897,13 @@ blockquote {
     left: 0;
     width: 50px;
     height: 32px;
-    background-color: #FFF;
+    background-color: white;
     -webkit-border-radius: 19px;
     -moz-border-radius: 19px;
     border-radius: 19px;
     -webkit-box-shadow: inset 0 0 0 1px #b8bfc8;
     -moz-box-shadow: inset 0 0 0 1px #b8bfc8;
     box-shadow: inset 0 0 0 1px #b8bfc8; }
-    /* line 58, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/toggle */
     .toggle .handle:before, .toggle .handle:after {
       content: "";
       position: absolute;
@@ -1110,64 +918,55 @@ blockquote {
       -webkit-transition: all 0.25s ease-in-out;
       -moz-transition: all 0.25s ease-in-out;
       transition: all 0.25s ease-in-out;
-      background-color: #FFF;
+      background-color: white;
       -webkit-box-shadow: inset 0 0 0 1px #b8bfc8, 1px 1px 1px #c7ccd3;
       -moz-box-shadow: inset 0 0 0 1px #b8bfc8, 1px 1px 1px #c7ccd3;
       box-shadow: inset 0 0 0 1px #b8bfc8, 1px 1px 1px #c7ccd3; }
-  /* line 78, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/toggle */
   .toggle input[type="checkbox"]:disabled + .handle, .toggle input[type="radio"]:disabled + .handle, .toggle input[type="checkbox"]:disabled + .handle:before, .toggle input[type="radio"]:disabled + .handle:before, .toggle input[type="checkbox"]:disabled + .handle:after, .toggle input[type="radio"]:disabled + .handle:after {
     opacity: 0.6;
     filter: alpha(opacity=60);
-    background-color: #E6E9ED; }
-  /* line 84, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/toggle */
+    background-color: #e6e9ed; }
   .toggle input[type="checkbox"]:checked + .handle:before, .toggle input[type="radio"]:checked + .handle:before {
     width: 50px;
-    background-color: #A0D468; }
-  /* line 89, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/toggle */
+    background-color: #a0d468; }
   .toggle input[type="checkbox"]:checked + .handle:after, .toggle input[type="radio"]:checked + .handle:after {
     left: 20px;
-    -webkit-box-shadow: inset 0 0 0 1px #F5F7FA, 1px 1px 1px #c7ccd3;
-    -moz-box-shadow: inset 0 0 0 1px #F5F7FA, 1px 1px 1px #c7ccd3;
-    box-shadow: inset 0 0 0 1px #F5F7FA, 1px 1px 1px #c7ccd3; }
+    -webkit-box-shadow: inset 0 0 0 1px #f5f7fa, 1px 1px 1px #c7ccd3;
+    -moz-box-shadow: inset 0 0 0 1px #f5f7fa, 1px 1px 1px #c7ccd3;
+    box-shadow: inset 0 0 0 1px #f5f7fa, 1px 1px 1px #c7ccd3; }
 
 /**
-   * calendar
-   * --------------------------------------------------
-   */
-/* line 21, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/calendar */
+ * calendar
+ * --------------------------------------------------
+ */
 .calendar {
   padding: 20px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  color: #FFF;
+  color: white;
   background-color: #fd9883;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); }
-  /* line 28, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/calendar */
   .calendar .unit {
     float: left;
     width: 14.28%;
     text-align: center; }
-  /* line 36, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/calendar */
   .calendar .years .prev {
     text-align: left; }
-  /* line 39, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/calendar */
   .calendar .years .next {
     text-align: right; }
-  /* line 43, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/calendar */
   .calendar .years .prev em, .calendar .years .next em {
     position: relative;
     display: inline-block;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
-    border: 1px solid #FFF;
+    border: 1px solid white;
     width: 34px;
     height: 34px;
     cursor: pointer; }
-  /* line 53, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/calendar */
   .calendar .years .prev em:before, .calendar .years .next em:before {
     position: absolute;
     display: block;
@@ -1178,44 +977,35 @@ blockquote {
     width: 0;
     height: 0;
     font-size: 0; }
-  /* line 64, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/calendar */
   .calendar .years .prev em:before {
     top: 3px;
     left: 4px;
-    border-color: transparent #FFF transparent transparent; }
-  /* line 69, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/calendar */
+    border-color: transparent white transparent transparent; }
   .calendar .years .next em:before {
     top: 3px;
     left: 13px;
-    border-color: transparent transparent transparent #FFF; }
-  /* line 77, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/calendar */
+    border-color: transparent transparent transparent white; }
   .calendar .years .prev em:hover, .calendar .years .next em:hover, .calendar .years .prev em:active, .calendar .years .next em:active {
-    border-color: #E9573F; }
-  /* line 81, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/calendar */
+    border-color: #e9573f; }
   .calendar .years .prev em:hover:before, .calendar .years .prev em:active:before {
-    border-color: transparent #E9573F transparent transparent; }
-  /* line 86, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/calendar */
+    border-color: transparent #e9573f transparent transparent; }
   .calendar .years .next em:hover:before, .calendar .years .next em:active:before {
-    border-color: transparent transparent transparent #E9573F; }
-  /* line 90, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/calendar */
+    border-color: transparent transparent transparent #e9573f; }
   .calendar .years .monyear {
     float: left;
     width: 71.42%;
     text-align: center;
     height: 34px;
     line-height: 34px; }
-  /* line 99, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/calendar */
   .calendar .days {
     margin-top: 15px;
     padding-top: 15px;
     border-top: 1px solid #ee7f6d; }
-    /* line 103, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/calendar */
     .calendar .days .unit {
       margin-bottom: 3px;
       text-align: center;
       height: 34px;
       line-height: 34px; }
-      /* line 109, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/calendar */
       .calendar .days .unit b {
         -webkit-border-radius: 50%;
         -moz-border-radius: 50%;
@@ -1223,32 +1013,28 @@ blockquote {
         font-weight: normal;
         width: 34px;
         height: 34px; }
-      /* line 117, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/calendar */
       .calendar .days .unit:hover b, .calendar .days .unit:active b, .calendar .days .unit.active b {
         display: inline-block;
-        background-color: #FFF;
-        color: #E9573F;
+        background-color: white;
+        color: #e9573f;
         cursor: pointer;
         -webkit-transition: all 0.2s ease-in-out;
         -moz-transition: all 0.2s ease-in-out;
         transition: all 0.2s ease-in-out; }
-      /* line 124, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/calendar */
       .calendar .days .unit.older b {
-        color: #E9573F;
+        color: #e9573f;
         background-color: transparent;
         cursor: default;
         width: auto;
         height: auto; }
 
 /**
-   * pricing
-   * --------------------------------------------------
-   */
-/* line 26, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
+ * pricing
+ * --------------------------------------------------
+ */
 .pricing ul {
   list-style: none;
   padding: 0; }
-/* line 31, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
 .pricing .unit {
   position: relative;
   display: inline-block;
@@ -1260,7 +1046,6 @@ blockquote {
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); }
-  /* line 39, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
   .pricing .unit.active {
     top: 5px;
     margin-left: -36px;
@@ -1269,24 +1054,18 @@ blockquote {
     -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
     -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.6); }
-    /* line 46, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
     .pricing .unit.active .price-title h3 {
       font-size: 40px; }
 @media screen and (max-width: 767px) {
-  /* line 53, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
   .pricing .unit {
     display: block;
     margin-bottom: 20px; }
-    /* line 57, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
     .pricing .unit.active {
       top: 0;
       margin-left: 0;
       margin-right: 0; }
-      /* line 62, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
       .pricing .unit.active .price-title h3 {
-        font-size: 30px; }
- }
-/* line 69, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
+        font-size: 30px; } }
 .pricing .price-title {
   padding: 20px 20px 10px;
   -webkit-border-top-left-radius: 4px;
@@ -1296,22 +1075,16 @@ blockquote {
   -moz-border-radius-topright: 4px;
   border-top-right-radius: 4px;
   color: #FFF; }
-  /* line 76, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
   .pricing .price-title h3, .pricing .price-title h3 > p {
     margin: 0; }
-/* line 81, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
 .pricing .price-body {
   padding: 20px 20px 10px; }
-  /* line 84, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
   .pricing .price-body ul {
     padding-top: 10px; }
-  /* line 88, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
   .pricing .price-body li {
     margin-bottom: 10px; }
-  /* line 92, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
   .pricing .price-body h4 {
     margin: 0; }
-/* line 97, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
 .pricing .price-foot {
   padding: 20px;
   -webkit-border-bottom-left-radius: 4px;
@@ -1320,850 +1093,647 @@ blockquote {
   -webkit-border-bottom-right-radius: 4px;
   -moz-border-radius-bottomright: 4px;
   border-bottom-right-radius: 4px;
-  background-color: #E6E9ED; }
-/* line 106, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
+  background-color: #e6e9ed; }
 .pricing .price-primary .price-title {
-  background-color: #4FC1E9; }
-/* line 109, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
+  background-color: #4fc1e9; }
 .pricing .price-primary .price-body {
   background-color: #d7f1fa; }
-  /* line 111, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
   .pricing .price-primary .price-body ul {
     border-top: 1px solid #aae1f4; }
-/* line 117, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
 .pricing .price-success .price-title {
-  background-color: #A0D468; }
-/* line 120, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
+  background-color: #a0d468; }
 .pricing .price-success .price-body {
   background-color: #ebf6df; }
-  /* line 122, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
   .pricing .price-success .price-body ul {
     border-top: 1px solid #d2ebb7; }
-/* line 128, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
 .pricing .price-warning .price-title {
-  background-color: #FFCE54; }
-/* line 131, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
+  background-color: #ffce54; }
 .pricing .price-warning .price-body {
   background-color: #fffaed; }
-  /* line 133, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pricing */
   .pricing .price-warning .price-body ul {
     border-top: 1px solid #ffebba; }
 
 /**
-   * alert
-   * --------------------------------------------------
-   */
-/* line 22, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/alert */
-.alert {
-  @at-root -info {
-    background-color: #7cd1ef;
-    border: #4FC1E9; }
-
-  @at-root -warning {
-    background-color: #ffdd87;
-    border: #FFCE54; }
-
-  @at-root -danger {
-    background-color: #f2838f;
-    border: #ED5565; }
-
-  @at-root -success {
-    background-color: #b9df90;
-    border: #A0D468; }
-
-  @at-root -link {
-    cursor: pointer;
-    text-decoration: underline;
-    opacity: 0.65;
-    filter: alpha(opacity=65);
-    /* line 55, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/alert */
-    :hover, :focus {
-      opacity: 0.45;
-      filter: alpha(opacity=45); } }
-
-  @at-root .btn-link, .btn-link:hover, .btn-link:focus {
-    color: #000;
-    opacity: 0.65;
-    filter: alpha(opacity=65); }
-
-  @at-root .btn-link:focus, .btn-link:hover {
-    text-decoration: none;
-    opacity: 0.4;
-    filter: alpha(opacity=40); }
- }
-  /* line 24, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/alert */
-  .alert h4 {
-    margin-bottom: 10px;
-    font-weight: bold; }
-  /* line 29, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/alert */
-  .alert-dismissable .close {
-    color: #000; }
+ * alert
+ * --------------------------------------------------
+ */
+.alert h4 {
+  margin-bottom: 10px;
+  font-weight: bold; }
+.alert-dismissable .close {
+  color: black; }
+.alert-info {
+  background-color: #7cd1ef;
+  border: #4fc1e9; }
+.alert-warning {
+  background-color: #ffdd87;
+  border: #ffce54; }
+.alert-danger {
+  background-color: #f2838f;
+  border: #ed5565; }
+.alert-success {
+  background-color: #b9df90;
+  border: #a0d468; }
+.alert .alert-link {
+  cursor: pointer;
+  text-decoration: underline;
+  opacity: 0.65;
+  filter: alpha(opacity=65); }
+  .alert .alert-link:hover, .alert .alert-link:focus {
+    opacity: 0.45;
+    filter: alpha(opacity=45); }
+.alert .btn-link, .alert .btn-link:hover, .alert .btn-link:focus {
+  color: black;
+  opacity: 0.65;
+  filter: alpha(opacity=65); }
+.alert .btn-link:focus, .alert .btn-link:hover {
+  text-decoration: none;
+  opacity: 0.4;
+  filter: alpha(opacity=40); }
 
 /**
-   * tab
-   * --------------------------------------------------
-   */
-/* line 22, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
+ * tab
+ * --------------------------------------------------
+ */
 .nav-tabs {
   border-bottom: none;
-  background-color: #E6E9ED;
+  background-color: #e6e9ed;
   -webkit-border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
-  border-radius: 4px 4px 0 0;
-  @at-root .tab-content {
-    padding: 10px; }
- }
-  /* line 27, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
+  border-radius: 4px 4px 0 0; }
   .nav-tabs > li {
     margin-bottom: 0;
-    border-left: 1px solid #CCD1D9; }
-  /* line 31, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
+    border-left: 1px solid #ccd1d9; }
   .nav-tabs > li:first-child {
     border-left: none; }
-  /* line 34, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
   .nav-tabs > li > a {
     margin-right: 0;
     border: none;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
-    color: #434A54; }
-  /* line 40, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
+    color: #434a54; }
   .nav-tabs > li:first-child > a {
     -webkit-border-radius: 4px 0 0 0;
     -moz-border-radius: 4px 0 0 0;
     border-radius: 4px 0 0 0; }
-  /* line 44, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
   .nav-tabs > li > a:focus, .nav-tabs > li > a:hover {
     border: none;
-    background-color: #F5F7FA; }
-  /* line 50, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
+    background-color: #f5f7fa; }
   .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
     border: none;
-    background-color: #FFF !important; }
-  /* line 57, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
+    background-color: white !important; }
   .nav-tabs .dropdown-toggle, .nav-tabs .dropdown-toggle:hover, .nav-tabs .dropdown-toggle:focus {
-    color: #434A54; }
-  /* line 61, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
+    color: #434a54; }
   .nav-tabs li.dropdown.open .dropdown-toggle {
-    color: #434A54;
-    background-color: #F5F7FA; }
-  /* line 65, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
+    color: #434a54;
+    background-color: #f5f7fa; }
   .nav-tabs li.dropdown.active.open .dropdown-toggle {
-    color: #434A54; }
-  /* line 69, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
+    color: #434a54; }
   .nav-tabs li.dropdown.active.open .dropdown-toggle .caret, .nav-tabs li.dropdown.active .dropdown-toggle .caret {
-    border-top-color: #434A54;
-    border-bottom-color: #434A54; }
-  /* line 79, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
+    border-top-color: #434a54;
+    border-bottom-color: #434a54; }
   .nav-tabs li.dropdown.open .caret, .nav-tabs li.dropdown.open.active .caret, .nav-tabs li.dropdown.open a:hover .caret, .nav-tabs li.dropdown.open a:focus .caret, .nav-tabs .dropdown-toggle .caret, .nav-tabs .dropdown-toggle:hover .caret, .nav-tabs .dropdown-toggle:focus .caret {
-    border-top-color: #434A54;
-    border-bottom-color: #434A54; }
-  /* line 84, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
+    border-top-color: #434a54;
+    border-bottom-color: #434a54; }
   .nav-tabs.nav-justified > li > a {
     margin-bottom: 0;
     text-align: center; }
-  /* line 88, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
   .nav-tabs.nav-justified > .dropdown .dropdown-menu {
     top: auto;
     left: auto; }
-  /* line 92, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
   .nav-tabs.nav-justified > li > a {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0; }
-  /* line 95, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
   .nav-tabs.nav-justified > li:first-child > a {
     -webkit-border-radius: 4px 0 0 0;
     -moz-border-radius: 4px 0 0 0;
     border-radius: 4px 0 0 0; }
-  /* line 98, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
   .nav-tabs.nav-justified > li:last-child > a {
     -webkit-border-radius: 0 4px 0 0;
     -moz-border-radius: 0 4px 0 0;
     border-radius: 0 4px 0 0; }
-  /* line 103, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
   .nav-tabs.nav-justified > .active > a, .nav-tabs.nav-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:focus {
     border: none; }
   @media (min-width: 768px) {
-    /* line 107, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
     .nav-tabs.nav-justified > li > a {
       border-bottom: none;
       -webkit-border-radius: 0;
       -moz-border-radius: 0;
       border-radius: 0; }
-
-    /* line 113, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
     .nav-tabs.nav-justified > .active > a, .nav-tabs.nav-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:focus {
-      border-bottom: none; }
- }
+      border-bottom: none; } }
+  .tab-content {
+    padding: 10px; }
 
-/* line 124, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
 .tabs-below .nav-tabs {
   -webkit-border-radius: 0 0 4px 4px;
   -moz-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px; }
-/* line 127, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
 .tabs-below .nav-tabs > li:first-child > a {
   -webkit-border-radius: 0 0 0 4px;
   -moz-border-radius: 0 0 0 4px;
   border-radius: 0 0 0 4px; }
-/* line 130, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
 .tabs-below .nav-tabs.nav-justified > li:last-child > a {
   -webkit-border-radius: 0 0 4px 0;
   -moz-border-radius: 0 0 4px 0;
   border-radius: 0 0 4px 0; }
 
-/* line 136, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
-.tabs-left .nav-tabs > li, .tabs-right .nav-tabs > li {
+.tabs-left .nav-tabs > li,
+.tabs-right .nav-tabs > li {
   float: none;
   border-left: none;
-  border-top: 1px solid #CCD1D9; }
+  border-top: 1px solid #ccd1d9; }
 
-/* line 142, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
-.tabs-left .nav-tabs > li:first-child, .tabs-right .nav-tabs > li:first-child {
+.tabs-left .nav-tabs > li:first-child,
+.tabs-right .nav-tabs > li:first-child {
   border-top: none; }
 
-/* line 146, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
-.tabs-left .nav-tabs > li > a, .tabs-right .nav-tabs > li > a {
+.tabs-left .nav-tabs > li > a,
+.tabs-right .nav-tabs > li > a {
   min-width: 74px;
   margin-right: 0; }
 
-/* line 151, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
 .tabs-left .nav-tabs {
   float: left;
   margin-right: 19px;
   -webkit-border-radius: 4px 0 0 4px;
   -moz-border-radius: 4px 0 0 4px;
   border-radius: 4px 0 0 4px; }
-/* line 156, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
 .tabs-left .nav-tabs > li:first-child > a {
   -webkit-border-radius: 4px 0 0 0;
   -moz-border-radius: 4px 0 0 0;
   border-radius: 4px 0 0 0; }
-/* line 159, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
 .tabs-left .nav-tabs > li:last-child > a {
   -webkit-border-radius: 0 0 0 4px;
   -moz-border-radius: 0 0 0 4px;
   border-radius: 0 0 0 4px; }
 
-/* line 164, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
 .tabs-right .nav-tabs {
   float: right;
   margin-left: 19px;
   -webkit-border-radius: 0 4px 4px 0;
   -moz-border-radius: 0 4px 4px 0;
   border-radius: 0 4px 4px 0; }
-/* line 169, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
 .tabs-right .nav-tabs > li:first-child > a {
   -webkit-border-radius: 0 4px 0 0;
   -moz-border-radius: 0 4px 0 0;
   border-radius: 0 4px 0 0; }
-/* line 172, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/tab */
 .tabs-right .nav-tabs > li:last-child > a {
   -webkit-border-radius: 0 0 4px 0;
   -moz-border-radius: 0 0 4px 0;
   border-radius: 0 0 4px 0; }
 
 /**
-   * pill
-   * --------------------------------------------------
-   */
-/* line 21, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pill */
+ * pill
+ * --------------------------------------------------
+ */
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
-  color: #FFF;
-  background-color: #4A89DC; }
-/* line 25, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pill */
+  color: white;
+  background-color: #4a89dc; }
 .nav-pills > li > a {
-  color: #4A89DC; }
-/* line 28, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pill */
+  color: #4a89dc; }
 .nav-pills > li > a:hover {
-  color: #434A54;
-  background-color: #E6E9ED; }
-/* line 32, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pill */
+  color: #434a54;
+  background-color: #e6e9ed; }
 .nav-pills > .active > a > .badge {
-  color: #4A89DC; }
-/* line 37, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/pill */
+  color: #4a89dc; }
 .nav-pills .open > a, .nav-pills .open > a:focus, .nav-pills .open > a:hover {
-  color: #434A54;
-  background-color: #E6E9ED; }
+  color: #434a54;
+  background-color: #e6e9ed; }
 
 /**
-   * navbar
-   * --------------------------------------------------
-   */
-/* line 20, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
+ * navbar
+ * --------------------------------------------------
+ */
 .navbar-form {
   padding: 0 !important; }
 
-/* line 25, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
 .navbar-default {
-  background-color: #4A89DC;
-  border-color: #4A89DC; }
-/* line 31, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
+  background-color: #4a89dc;
+  border-color: #4a89dc; }
 .navbar-default .navbar-brand, .navbar-default .navbar-link, .navbar-default .btn-link {
   color: #2363b6; }
-/* line 38, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus, .navbar-default .navbar-link:hover, .navbar-default .btn-link:hover, .navbar-default .btn-link:focus {
-  color: #FFF;
+  color: white;
   background-color: transparent; }
-/* line 43, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
 .navbar-default .navbar-text, .navbar-default .navbar-nav > li > a {
-  color: #FFF; }
-/* line 47, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
+  color: white; }
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-  color: #FFF;
+  color: white;
   text-decoration: underline; }
-/* line 53, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-  color: #FFF;
-  background-color: #5D9CEC; }
-/* line 63, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
+  color: white;
+  background-color: #5d9cec; }
 .navbar-default .btn-link[disabled]:hover, fieldset[disabled] .navbar-default .btn-link:hover, .navbar-default .btn-link[disabled]:focus, fieldset[disabled] .navbar-default .btn-link:focus, .navbar-default .navbar-nav > .disabled > a, .navbar-default .navbar-nav > .disabled > a:hover, .navbar-default .navbar-nav > .disabled > a:focus {
   color: #2973d4;
   background-color: transparent; }
-/* line 67, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
 .navbar-default .navbar-toggle {
   border-color: #2363b6;
   background-color: #2363b6; }
-/* line 72, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
   border-color: #276ecc;
   background-color: #276ecc; }
-/* line 76, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
 .navbar-default .navbar-toggle .icon-bar {
-  background-color: #4A89DC; }
-/* line 80, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
+  background-color: #4a89dc; }
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
-  border-color: #5D9CEC; }
-/* line 87, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
+  border-color: #5d9cec; }
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-  color: #FFF;
-  background-color: #4A89DC; }
+  color: white;
+  background-color: #4a89dc; }
 @media (max-width: 767px) {
-  /* line 94, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
   .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-    background-color: #5D9CEC; }
-
-  /* line 97, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
+    background-color: #5d9cec; }
   .navbar-default .navbar-nav .open .dropdown-menu > .divider {
-    background-color: #5D9CEC; }
-
-  /* line 100, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
+    background-color: #5d9cec; }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #2363b6; }
-
-  /* line 107, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus, .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #FFF;
-    background-color: #5D9CEC; }
-
-  /* line 111, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
+    color: white;
+    background-color: #5d9cec; }
   .navbar-default .navbar-nav .open .dropdown-menu > .dropdown-header {
     color: #2363b6; }
-
-  /* line 116, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {
-    color: #276ecc; }
- }
+    color: #276ecc; } }
 
-/* line 123, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
 .navbar-inverse {
   background-color: #333333;
   border-color: #333333; }
-/* line 129, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
 .navbar-inverse .navbar-brand, .navbar-inverse .navbar-link, .navbar-inverse .btn-link {
   color: #8c8c8c; }
-/* line 136, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
 .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus, .navbar-inverse .navbar-link:hover, .navbar-inverse .btn-link:hover, .navbar-inverse .btn-link:focus {
-  color: #FFF;
+  color: white;
   background-color: transparent; }
-/* line 141, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
 .navbar-inverse .navbar-text, .navbar-inverse .navbar-nav > li > a {
   color: #8c8c8c; }
-/* line 145, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
 .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
-  color: #FFF; }
-/* line 150, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
+  color: white; }
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
-  color: #FFF;
-  background-color: #000; }
-/* line 160, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
+  color: white;
+  background-color: black; }
 .navbar-inverse .btn-link[disabled]:hover, fieldset[disabled] .navbar-inverse .btn-link:hover, .navbar-inverse .btn-link[disabled]:focus, fieldset[disabled] .navbar-inverse .btn-link:focus, .navbar-inverse .navbar-nav > .disabled > a, .navbar-inverse .navbar-nav > .disabled > a:hover, .navbar-inverse .navbar-nav > .disabled > a:focus {
   color: #666666;
   background-color: transparent; }
-/* line 164, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
 .navbar-inverse .navbar-toggle {
-  border-color: #000;
-  background-color: #000; }
-/* line 169, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
+  border-color: black;
+  background-color: black; }
 .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
   border-color: #1a1a1a;
   background-color: #1a1a1a; }
-/* line 173, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
 .navbar-inverse .navbar-toggle .icon-bar {
   background-color: #8c8c8c; }
-/* line 177, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-  border-color: #000; }
-/* line 182, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
+  border-color: black; }
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
-  color: #FFF;
-  background-color: #000; }
+  color: white;
+  background-color: black; }
 @media (max-width: 767px) {
-  /* line 189, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
   .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
-    background-color: #000; }
-
-  /* line 192, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
+    background-color: black; }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .divider {
-    background-color: #000; }
-
-  /* line 195, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
+    background-color: black; }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
     color: #8c8c8c; }
-
-  /* line 202, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #FFF;
-    background-color: #000; }
-
-  /* line 206, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
+    color: white;
+    background-color: black; }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
     color: #bfbfbf; }
-
-  /* line 211, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/navbar */
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus {
-    color: #666666; }
- }
+    color: #666666; } }
 
 /**
-   * list
-   * --------------------------------------------------
-   */
-/* line 36, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
+ * list
+ * --------------------------------------------------
+ */
 .list-group {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
-  border-radius: 4px;
-  @at-root -item {
+  border-radius: 4px; }
+  .list-group-item {
     border-color: transparent;
-    border-top-color: #E6E9ED;
-    @at-root -heading {
-      color: #434A54; }
+    border-top-color: #e6e9ed; }
+    .list-group-item:first-child {
+      border-top: none; }
+    .list-group-item-heading {
+      color: #434a54; }
 
-    /* line 42, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
-    :first-child {
-      border-top: none; } }
- }
-
-/* line 52, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
 a.list-group-item {
-  color: #434A54; }
-  /* line 55, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
+  color: #434a54; }
   a.list-group-item .list-group-item-heading {
     font-size: 16px;
-    color: #434A54; }
-  /* line 61, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
+    color: #434a54; }
   a.list-group-item:hover, a.list-group-item:focus {
-    background-color: #E6E9ED; }
-  /* line 66, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
+    background-color: #e6e9ed; }
   a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.active:focus {
-    background-color: #5D9CEC;
-    border-color: #5D9CEC; }
-  /* line 72, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
+    background-color: #5d9cec;
+    border-color: #5d9cec; }
   a.list-group-item.active .list-group-item-text, a.list-group-item.active:hover .list-group-item-text, a.list-group-item.active:focus .list-group-item-text {
-    color: #FFF; }
+    color: white; }
 
-/* line 76, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
 .list-group-item-primary {
   color: #2f80e7;
-  border-color: #4A89DC transparent transparent transparent;
-  background-color: #5D9CEC;
-  @at-root a.list-group-item-primary {
-    color: #12509e;
-    /* line 86, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
-    :hover, :focus {
-      color: #FFF;
-      background-color: #4A89DC; }
-
-    /* line 92, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
-    .active, :hover, :focus {
-      background-color: #4A89DC;
-      border-color: #5D9CEC transparent transparent transparent; } }
- }
-  /* line 80, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
+  border-color: #4a89dc transparent transparent transparent;
+  background-color: #5d9cec; }
   .list-group-item-primary:first-child {
     border-color: transparent; }
+  a.list-group-item-primary {
+    color: #12509e; }
+    a.list-group-item-primary:hover, a.list-group-item-primary:focus {
+      color: white;
+      background-color: #4a89dc; }
+    a.list-group-item-primary.active, a.list-group-item-primary:hover, a.list-group-item-primary:focus {
+      background-color: #4a89dc;
+      border-color: #5d9cec transparent transparent transparent; }
 
-/* line 98, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
 .list-group-item-success {
   color: #87c940;
-  border-color: #8CC152 transparent transparent transparent;
-  background-color: #A0D468;
-  @at-root a.list-group-item-success {
-    color: #537f24;
-    /* line 108, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
-    :hover, :focus {
-      color: #FFF;
-      background-color: #8CC152; }
-
-    /* line 114, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
-    .active, :hover, :focus {
-      background-color: #8CC152;
-      border-color: #A0D468 transparent transparent transparent; } }
- }
-  /* line 102, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
+  border-color: #8cc152 transparent transparent transparent;
+  background-color: #a0d468; }
   .list-group-item-success:first-child {
     border-color: transparent; }
+  a.list-group-item-success {
+    color: #537f24; }
+    a.list-group-item-success:hover, a.list-group-item-success:focus {
+      color: white;
+      background-color: #8cc152; }
+    a.list-group-item-success.active, a.list-group-item-success:hover, a.list-group-item-success:focus {
+      background-color: #8cc152;
+      border-color: #a0d468 transparent transparent transparent; }
 
-/* line 120, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
 .list-group-item-warning {
   color: #ffbf21;
-  border-color: #F6BB42 transparent transparent transparent;
-  background-color: #FFCE54;
-  @at-root a.list-group-item-warning {
-    color: #876000;
-    /* line 130, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
-    :hover, :focus {
-      color: #FFF;
-      background-color: #F6BB42; }
-
-    /* line 136, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
-    .active, :hover, :focus {
-      background-color: #F6BB42;
-      border-color: #FFCE54 transparent transparent transparent; } }
- }
-  /* line 124, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
+  border-color: #f6bb42 transparent transparent transparent;
+  background-color: #ffce54; }
   .list-group-item-warning:first-child {
     border-color: transparent; }
+  a.list-group-item-warning {
+    color: #876000; }
+    a.list-group-item-warning:hover, a.list-group-item-warning:focus {
+      color: white;
+      background-color: #f6bb42; }
+    a.list-group-item-warning.active, a.list-group-item-warning:hover, a.list-group-item-warning:focus {
+      background-color: #f6bb42;
+      border-color: #ffce54 transparent transparent transparent; }
 
-/* line 142, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
 .list-group-item-info {
   color: #2fb593;
-  border-color: #37BC9B transparent transparent transparent;
-  background-color: #48CFAD;
-  @at-root a.list-group-item-info {
-    color: #1a6451;
-    /* line 152, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
-    :hover, :focus {
-      color: #FFF;
-      background-color: #37BC9B; }
-
-    /* line 158, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
-    .active, :hover, :focus {
-      background-color: #37BC9B;
-      border-color: #48CFAD transparent transparent transparent; } }
- }
-  /* line 146, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
+  border-color: #37bc9b transparent transparent transparent;
+  background-color: #48cfad; }
   .list-group-item-info:first-child {
     border-color: transparent; }
+  a.list-group-item-info {
+    color: #1a6451; }
+    a.list-group-item-info:hover, a.list-group-item-info:focus {
+      color: white;
+      background-color: #37bc9b; }
+    a.list-group-item-info.active, a.list-group-item-info:hover, a.list-group-item-info:focus {
+      background-color: #37bc9b;
+      border-color: #48cfad transparent transparent transparent; }
 
-/* line 164, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
 .list-group-item-danger {
   color: #e8273b;
-  border-color: #DA4453 transparent transparent transparent;
-  background-color: #ED5565;
-  @at-root a.list-group-item-danger {
-    color: #99101f;
-    /* line 174, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
-    :hover, :focus {
-      color: #FFF;
-      background-color: #DA4453; }
-
-    /* line 180, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
-    .active, :hover, :focus {
-      background-color: #DA4453;
-      border-color: #ED5565 transparent transparent transparent; } }
- }
-  /* line 168, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/list */
+  border-color: #da4453 transparent transparent transparent;
+  background-color: #ed5565; }
   .list-group-item-danger:first-child {
     border-color: transparent; }
+  a.list-group-item-danger {
+    color: #99101f; }
+    a.list-group-item-danger:hover, a.list-group-item-danger:focus {
+      color: white;
+      background-color: #da4453; }
+    a.list-group-item-danger.active, a.list-group-item-danger:hover, a.list-group-item-danger:focus {
+      background-color: #da4453;
+      border-color: #ed5565 transparent transparent transparent; }
 
 /**
-   * media list
-   * --------------------------------------------------
-   */
-/* line 16, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/media_list */
+ * media list
+ * --------------------------------------------------
+ */
 .media-list {
-  color: #AAB2BD;
-  @at-root .media-heading {
+  color: #aab2bd; }
+  .media-heading {
     font-size: 14px;
-    color: #434A54; }
- }
+    color: #434a54; }
 
 /**
-   * modal
-   * --------------------------------------------------
-   */
-/* line 20, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/modal */
+ * modal
+ * --------------------------------------------------
+ */
 .modal-content {
   border: none;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  color: #434A54;
+  color: #434a54;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); }
-/* line 26, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/modal */
 .modal-header {
   border-bottom: none; }
-/* line 29, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/modal */
 .modal-body {
   padding: 0 15px; }
-/* line 32, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/modal */
 .modal-footer {
   border-top: none; }
 
 /**
-   * well
-   * --------------------------------------------------
-   */
-/* line 22, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/well */
+ * well
+ * --------------------------------------------------
+ */
 .well {
   padding: 10px;
   border: none;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  color: #434A54;
-  background-color: #FFF;
+  color: #434a54;
+  background-color: white;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  @at-root -lg {
-    padding: 20px; }
-
-  @at-root -sm {
-    padding: 5px; }
- }
-  /* line 30, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/well */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); }
   .well blockquote {
-    border-color: #CCD1D9; }
+    border-color: #ccd1d9; }
+  .well-lg {
+    padding: 20px; }
+  .well-sm {
+    padding: 5px; }
 
 /**
-   * thumbnail
-   * --------------------------------------------------
-   */
-/* line 18, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/thumbnail */
+ * thumbnail
+ * --------------------------------------------------
+ */
 .thumbnail {
   border: none;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); }
-  /* line 22, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/thumbnail */
   .thumbnail a > img, .thumbnail > img {
     width: 100%; }
-  /* line 26, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/thumbnail */
   .thumbnail .caption {
     font-size: 14px; }
-  /* line 35, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/thumbnail */
   .thumbnail .caption h1, .thumbnail .caption h2, .thumbnail .caption h3, .thumbnail .caption h4, .thumbnail .caption h5, .thumbnail .caption h6 {
     margin: 5px 0 10px;
     font-size: 16px; }
 
 /**
-   * jumbotron
-   * --------------------------------------------------
-   */
-/* line 20, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/jumbotron */
+ * jumbotron
+ * --------------------------------------------------
+ */
 .jumbotron {
   margin-bottom: 20px;
   padding: 0;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  background-color: #E6E9ED;
-  @at-root .container {
+  background-color: #e6e9ed; }
+  .container .jumbotron {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px; }
- }
-  /* line 31, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/jumbotron */
   .jumbotron > .jumbotron-photo img {
     -webkit-border-radius: 4px 4px 0 0;
     -moz-border-radius: 4px 4px 0 0;
     border-radius: 4px 4px 0 0;
     width: 100%; }
-  /* line 36, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/jumbotron */
   .jumbotron .jumbotron-contents {
     padding: 20px;
-    color: #434A54; }
-  /* line 42, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/jumbotron */
+    color: #434a54; }
   .jumbotron .carousel, .jumbotron .carousel-inner, .jumbotron .carousel-inner > .item.active img {
     -webkit-border-radius: 4px 4px 0 0;
     -moz-border-radius: 4px 4px 0 0;
     border-radius: 4px 4px 0 0; }
-  /* line 46, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/jumbotron */
-  .jumbotron .carousel-inner > .item > a > img, .jumbotron .carousel-inner > .item > img {
+  .jumbotron .carousel-inner > .item > a > img,
+  .jumbotron .carousel-inner > .item > img {
     width: 100%; }
-  /* line 49, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/jumbotron */
   .jumbotron .carousel-control.left {
     -webkit-border-radius: 4px 0 0 0;
     -moz-border-radius: 4px 0 0 0;
     border-radius: 4px 0 0 0; }
-  /* line 52, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/jumbotron */
   .jumbotron .carousel-control.right {
     -webkit-border-radius: 0 4px 0 0;
     -moz-border-radius: 0 4px 0 0;
     border-radius: 0 4px 0 0; }
-  /* line 57, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/jumbotron */
   .jumbotron h1, .jumbotron .h1, .jumbotron h2, .jumbotron .h2 {
     font-weight: 400; }
-  /* line 61, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/jumbotron */
   .jumbotron h1, .jumbotron .h1 {
     font-size: 28px; }
-  /* line 64, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/jumbotron */
   .jumbotron h2, .jumbotron .h2 {
     font-size: 24px; }
-  /* line 67, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/jumbotron */
   .jumbotron p {
     font-size: 14px; }
   @media screen and (min-width: 768px) {
-    /* line 73, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/jumbotron */
     .jumbotron, .container .jumbotron {
       padding: 0; }
-
-    /* line 77, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/jumbotron */
     .jumbotron h1, .jumbotron .h1 {
-      font-size: 28px; }
- }
+      font-size: 28px; } }
 
 /**
-   * panel
-   * --------------------------------------------------
-   */
-/* line 27, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
+ * panel
+ * --------------------------------------------------
+ */
 .panel {
-  background-color: #FFF;
+  background-color: white;
   border: none;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  @at-root -default {
-    border-color: #E6E9ED;
-    /* line 56, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
-    > .panel-heading {
-      color: #434A54;
-      background-color: #E6E9ED;
-      border-color: #E6E9ED; } }
-
-  @at-root -primary {
-    border-color: #4A89DC;
-    /* line 64, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
-    > .panel-heading {
-      color: #FFF;
-      background-color: #4A89DC;
-      border-color: #4A89DC; } }
-
-  @at-root -success {
-    border-color: #8CC152;
-    /* line 72, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
-    > .panel-heading {
-      color: #FFF;
-      background-color: #8CC152;
-      border-color: #8CC152; } }
-
-  @at-root -info {
-    border-color: #37BC9B;
-    /* line 80, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
-    > .panel-heading {
-      color: #FFF;
-      background-color: #37BC9B;
-      border-color: #37BC9B; } }
-
-  @at-root -warning {
-    border-color: #F6BB42;
-    /* line 88, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
-    > .panel-heading {
-      color: #FFF;
-      background-color: #F6BB42;
-      border-color: #F6BB42; } }
-
-  @at-root -danger {
-    border-color: #DA4453;
-    /* line 96, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
-    > .panel-heading {
-      color: #FFF;
-      background-color: #DA4453;
-      border-color: #DA4453; } }
-
-  @at-root -primary > -heading > -title, -success > -heading > -title, -info > -heading > -title, -warning > -heading > -title, -danger > -heading > -title {
-    color: #FFF; }
- }
-  /* line 33, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); }
   .panel .list-group {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none; }
-  /* line 36, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
   .panel .list-group-item:first-child {
-    border-top: 1px solid #E6E9ED; }
-  /* line 40, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
+    border-top: 1px solid #e6e9ed; }
   .panel-heading {
     -webkit-border-radius: 4px 4px 0 0;
     -moz-border-radius: 4px 4px 0 0;
     border-radius: 4px 4px 0 0; }
-  /* line 43, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
   .panel-title {
     font-size: 14px;
-    color: #434A54;
+    color: #434a54;
     font-weight: normal; }
-  /* line 48, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
   .panel-footer {
-    background-color: #E6E9ED;
-    border-top-color: #E6E9ED;
+    background-color: #e6e9ed;
+    border-top-color: #e6e9ed;
     -webkit-border-radius: 0 0 4px 4px;
     -moz-border-radius: 0 0 4px 4px;
     border-radius: 0 0 4px 4px; }
-  /* line 113, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
+  .panel-default {
+    border-color: #e6e9ed; }
+    .panel-default > .panel-heading {
+      color: #434a54;
+      background-color: #e6e9ed;
+      border-color: #e6e9ed; }
+  .panel-primary {
+    border-color: #4a89dc; }
+    .panel-primary > .panel-heading {
+      color: white;
+      background-color: #4a89dc;
+      border-color: #4a89dc; }
+  .panel-success {
+    border-color: #8cc152; }
+    .panel-success > .panel-heading {
+      color: white;
+      background-color: #8cc152;
+      border-color: #8cc152; }
+  .panel-info {
+    border-color: #37bc9b; }
+    .panel-info > .panel-heading {
+      color: white;
+      background-color: #37bc9b;
+      border-color: #37bc9b; }
+  .panel-warning {
+    border-color: #f6bb42; }
+    .panel-warning > .panel-heading {
+      color: white;
+      background-color: #f6bb42;
+      border-color: #f6bb42; }
+  .panel-danger {
+    border-color: #da4453; }
+    .panel-danger > .panel-heading {
+      color: white;
+      background-color: #da4453;
+      border-color: #da4453; }
+  .panel-primary > .panel-heading > .panel-title, .panel-success > .panel-heading > .panel-title, .panel-info > .panel-heading > .panel-title, .panel-warning > .panel-heading > .panel-title, .panel-danger > .panel-heading > .panel-title {
+    color: white; }
   .panel > .list-group:first-child .list-group-item:first-child, .panel > .table:first-child, .panel > .table-responsive:first-child > .table:first-child {
     -webkit-border-radius: 4px 4px 0 0;
     -moz-border-radius: 4px 4px 0 0;
     border-radius: 4px 4px 0 0; }
-  /* line 116, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
   .panel > .list-group:last-child .list-group-item:last-child {
     -webkit-border-radius: 0 0 4px 4px;
     -moz-border-radius: 0 0 4px 4px;
     border-radius: 0 0 4px 4px; }
-  /* line 126, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
   .panel > .table:first-child > thead:first-child > tr:first-child td:first-child, .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:first-child, .panel > .table:first-child > tbody:first-child > tr:first-child td:first-child, .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:first-child, .panel > .table:first-child > thead:first-child > tr:first-child th:first-child, .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:first-child, .panel > .table:first-child > tbody:first-child > tr:first-child th:first-child, .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:first-child {
     -webkit-border-radius: 4px 0 0 0;
     -moz-border-radius: 4px 0 0 0;
     border-radius: 4px 0 0 0; }
-  /* line 136, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
   .panel > .table:first-child > thead:first-child > tr:first-child td:last-child, .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:last-child, .panel > .table:first-child > tbody:first-child > tr:first-child td:last-child, .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:last-child, .panel > .table:first-child > thead:first-child > tr:first-child th:last-child, .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:last-child, .panel > .table:first-child > tbody:first-child > tr:first-child th:last-child, .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:last-child {
     -webkit-border-radius: 0 4px 0 0;
     -moz-border-radius: 0 4px 0 0;
     border-radius: 0 4px 0 0; }
-  /* line 140, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
   .panel > .table:last-child, .panel > .table-responsive:last-child > .table:last-child {
     -webkit-border-radius: 0 0 4px 4px;
     -moz-border-radius: 0 0 4px 4px;
     border-radius: 0 0 4px 4px; }
-  /* line 150, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
   .panel > .table:last-child > tbody:last-child > tr:last-child td:first-child, .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:first-child, .panel > .table:last-child > tfoot:last-child > tr:last-child td:first-child, .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:first-child, .panel > .table:last-child > tbody:last-child > tr:last-child th:first-child, .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:first-child, .panel > .table:last-child > tfoot:last-child > tr:last-child th:first-child, .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:first-child {
     -webkit-border-radius: 0 0 0 4px;
     -moz-border-radius: 0 0 0 4px;
     border-radius: 0 0 0 4px; }
-  /* line 160, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
   .panel > .table:last-child > tbody:last-child > tr:last-child td:last-child, .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:last-child, .panel > .table:last-child > tfoot:last-child > tr:last-child td:last-child, .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:last-child, .panel > .table:last-child > tbody:last-child > tr:last-child th:last-child, .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:last-child, .panel > .table:last-child > tfoot:last-child > tr:last-child th:last-child, .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:last-child {
     -webkit-border-radius: 0 0 4px 0;
     -moz-border-radius: 0 0 4px 0;
     border-radius: 0 0 4px 0; }
-  /* line 164, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/panel */
   .panel > .panel-body + .table, .panel > .panel-body + .table-responsive {
-    border-top-color: #E6E9ED; }
+    border-top-color: #e6e9ed; }
 
 /**
-   * accordion
-   * --------------------------------------------------
-   */
-/* line 25, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/accordion */
+ * accordion
+ * --------------------------------------------------
+ */
 .panel-group .panel {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -2172,121 +1742,94 @@ a.list-group-item {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none; }
-/* line 30, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/accordion */
 .panel-group .panel + .panel {
   margin-top: 0; }
-/* line 33, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/accordion */
 .panel-group .panel-heading {
   padding: 0;
   border-bottom-color: transparent; }
-/* line 37, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/accordion */
 .panel-group .panel-heading + .panel-collapse .panel-body {
   padding: 15px 0;
   border-top-color: transparent; }
-/* line 41, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/accordion */
 .panel-group .panel-title a {
   padding: 10px 0;
   display: block; }
 
-/* line 47, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/accordion */
 .panel-group-lists .panel {
-  border-bottom: 1px solid #E6E9ED;
-  background-color: #FFF;
+  border-bottom: 1px solid #e6e9ed;
+  background-color: white;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); }
-/* line 52, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/accordion */
 .panel-group-lists .panel:first-child {
   -webkit-border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0; }
-/* line 55, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/accordion */
 .panel-group-lists .panel:last-child {
   -webkit-border-radius: 0 0 4px 4px;
   -moz-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
   border-bottom: none; }
-/* line 59, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/accordion */
 .panel-group-lists .panel-heading + .panel-collapse .panel-body {
   padding: 15px;
-  border-top-color: #E6E9ED; }
-/* line 63, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/accordion */
+  border-top-color: #e6e9ed; }
 .panel-group-lists .panel-title a {
   padding: 10px 15px;
-  color: #434A54; }
-/* line 69, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/accordion */
+  color: #434a54; }
 .panel-group-lists .panel-title a:hover, .panel-group-lists .panel-title a:focus, .panel-group-lists .panel-title a:active {
-  color: #AAB2BD; }
+  color: #aab2bd; }
 
 /**
-   * footer
-   * --------------------------------------------------
-   */
-/* line 21, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/footer */
+ * footer
+ * --------------------------------------------------
+ */
 .footer {
   padding: 40px 0;
-  background-color: #E6E9ED; }
-  /* line 26, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/footer */
+  background-color: #e6e9ed; }
   .footer-logo, .footer-nav {
     float: left;
     padding: 0 20px;
     width: 20%; }
   @media (max-width: 768px) {
-    /* line 32, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/footer */
     .footer-logo {
       margin-bottom: 20px; }
-
-    /* line 36, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/footer */
     .footer-logo, .footer-nav {
       float: none;
       display: block;
-      width: 100%; }
- }
-  /* line 42, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/footer */
+      width: 100%; } }
   .footer-logo {
     margin-top: -5px;
     height: 32px;
     line-height: 32px; }
-    /* line 47, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/footer */
     .footer-logo img {
       margin-right: 10px; }
-    /* line 50, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/footer */
     .footer-logo a {
       font-size: 20px;
       font-weight: bold;
-      color: #FFF; }
-    /* line 56, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/footer */
+      color: white; }
     .footer-logo a:hover, .footer-logo a:active {
       text-decoration: none; }
-  /* line 60, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/footer */
   .footer-nav .nav-title {
     margin-bottom: 15px;
-    color: #E6E9ED; }
-  /* line 64, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/footer */
+    color: #e6e9ed; }
   .footer-nav .nav-item {
     line-height: 28px; }
-    /* line 66, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/footer */
     .footer-nav .nav-item > a {
-      color: #AAB2BD; }
-    /* line 70, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/footer */
+      color: #aab2bd; }
     .footer-nav .nav-item > a:hover, .footer-nav .nav-item > a:active {
-      color: #CCD1D9;
+      color: #ccd1d9;
       text-decoration: none; }
-  /* line 75, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/footer */
   .footer-copyright {
-    color: #AAB2BD; }
+    color: #aab2bd; }
 
 /**
-   * timeline
-   * --------------------------------------------------
-   */
-/* line 22, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
+ * timeline
+ * --------------------------------------------------
+ */
 .timeline dl {
   position: relative;
   top: 0;
   margin: 0;
   padding: 20px 0; }
-  /* line 28, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
   .timeline dl:before {
     position: absolute;
     top: 0;
@@ -2295,9 +1838,8 @@ a.list-group-item {
     margin-left: -1px;
     width: 2px;
     content: '';
-    background-color: #CCD1D9;
+    background-color: #ccd1d9;
     z-index: 100; }
-  /* line 40, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
   .timeline dl dt {
     position: relative;
     top: 30px;
@@ -2307,30 +1849,27 @@ a.list-group-item {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
-    background-color: #AAB2BD;
+    background-color: #aab2bd;
     font-weight: normal;
-    color: #FFF;
+    color: white;
     width: 120px;
     z-index: 200; }
-  /* line 54, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
   .timeline dl dd {
     position: relative;
     z-index: 200; }
-    /* line 57, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
     .timeline dl dd .circ {
       position: absolute;
       top: 40px;
       left: 50%;
       margin-left: -11px;
-      border: 4px solid #F5F7FA;
+      border: 4px solid #f5f7fa;
       width: 22px;
       height: 22px;
       -webkit-border-radius: 50%;
       -moz-border-radius: 50%;
       border-radius: 50%;
-      background-color: #4FC1E9;
+      background-color: #4fc1e9;
       z-index: 200; }
-    /* line 70, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
     .timeline dl dd .time {
       position: absolute;
       top: 31px;
@@ -2338,8 +1877,7 @@ a.list-group-item {
       padding: 10px 20px;
       width: 100px;
       display: inline-block;
-      color: #4FC1E9; }
-    /* line 80, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
+      color: #4fc1e9; }
     .timeline dl dd .events {
       position: relative;
       margin-top: 31px;
@@ -2347,9 +1885,8 @@ a.list-group-item {
       -webkit-border-radius: 4px;
       -moz-border-radius: 4px;
       border-radius: 4px;
-      background-color: #FFF;
+      background-color: white;
       width: 47%; }
-      /* line 88, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
       .timeline dl dd .events:before {
         position: absolute;
         top: 12px;
@@ -2358,126 +1895,94 @@ a.list-group-item {
         content: '';
         border-width: 6px;
         border-style: solid; }
-      /* line 98, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
       .timeline dl dd .events .events-object {
         margin-right: 10px; }
-      /* line 102, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
       .timeline dl dd .events .events-body {
         overflow: hidden;
         zoom: 1; }
-        /* line 106, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
         .timeline dl dd .events .events-body .events-heading {
           margin: 0 0 10px;
           font-size: 14px; }
-    /* line 115, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
     .timeline dl dd.pos-right .time {
       margin-left: -100px;
       text-align: right; }
-    /* line 119, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
     .timeline dl dd.pos-right .events {
       float: right; }
-      /* line 122, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
       .timeline dl dd.pos-right .events:before {
         left: -12px;
-        border-color: transparent #FFF transparent transparent; }
-    /* line 129, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
+        border-color: transparent white transparent transparent; }
     .timeline dl dd.pos-left .time {
       margin-left: 0;
       text-align: left; }
-    /* line 133, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
     .timeline dl dd.pos-left .events {
       float: left; }
-      /* line 135, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
       .timeline dl dd.pos-left .events:before {
         right: -12px;
-        border-color: transparent transparent transparent #FFF; }
+        border-color: transparent transparent transparent white; }
 
 @media screen and (max-width: 767px) {
-  /* line 146, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
   .timeline dl:before {
     left: 60px; }
-  /* line 149, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
   .timeline dl dt {
     margin: 0 0 30px; }
-  /* line 153, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
   .timeline dl dd .circ {
     left: 60px; }
-  /* line 156, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
   .timeline dl dd .time {
     left: 0; }
-  /* line 160, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
   .timeline dl dd.pos-left .time {
     margin-left: 0;
     padding: 10px 0;
     text-align: left; }
-  /* line 165, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
   .timeline dl dd.pos-left .events {
     float: right;
     width: 84%; }
-    /* line 168, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
     .timeline dl dd.pos-left .events:before {
       left: -12px;
-      border-color: transparent #FFF transparent transparent; }
-  /* line 175, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
+      border-color: transparent white transparent transparent; }
   .timeline dl dd.pos-right .time {
     margin-left: 0;
     padding: 10px 0;
     text-align: left; }
-  /* line 180, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/timeline */
   .timeline dl dd.pos-right .events {
     float: right;
-    width: 84%; }
- }
-
+    width: 84%; } }
 /**
-   * dropdown-menu
-   * --------------------------------------------------
-   */
-/* line 27, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/dropdown */
+ * dropdown-menu
+ * --------------------------------------------------
+ */
 .dropdown-menu {
   border: none;
-  background-color: #434A54;
-  @at-root .dropup {
-    margin-bottom: 0;
-    -webkit-border-radius: 4px 4px 0 0;
-    -moz-border-radius: 4px 4px 0 0;
-    border-radius: 4px 4px 0 0; }
- }
-  /* line 31, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/dropdown */
+  background-color: #434a54; }
   .dropdown-menu .dropdown-header {
     padding: 5px 20px;
     font-size: 14px;
     font-weight: 700;
-    color: #AAB2BD; }
-  /* line 38, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/dropdown */
+    color: #aab2bd; }
   .dropdown-menu li a {
     padding: 5px 20px;
-    color: #FFF; }
-  /* line 46, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/dropdown */
+    color: white; }
   .dropdown-menu li a:hover, .dropdown-menu li a:focus, .dropdown-menu .active a, .dropdown-menu .active a:hover, .dropdown-menu .active a:focus {
-    color: #FFF;
-    background-color: #656D78;
+    color: white;
+    background-color: #656d78;
     outline: none; }
-  /* line 53, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/dropdown */
   .dropdown-menu .disabled a, .dropdown-menu .disabled a:hover, .dropdown-menu .disabled a:focus {
-    color: #656D78;
+    color: #656d78;
     cursor: default; }
-  /* line 57, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/dropdown */
   .dropdown-menu .divider {
-    background-color: #656D78;
+    background-color: #656d78;
     border-bottom: none; }
+  .dropup .dropdown-menu {
+    margin-bottom: 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0; }
 
 /**
-   * dropdown-submenu
-   * --------------------------------------------------
-   */
-/* line 71, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/dropdown */
+ * dropdown-submenu
+ * --------------------------------------------------
+ */
 .dropdown-submenu {
-  position: relative;
-  @at-root .dropdown-default > a:after {
-    border-left-color: #434A54; }
- }
-  /* line 74, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/dropdown */
+  position: relative; }
   .dropdown-submenu .dropdown-menu {
     top: 0;
     left: 100%;
@@ -2486,10 +1991,8 @@ a.list-group-item {
     -webkit-border-radius: 0 4px 4px 4px;
     -moz-border-radius: 0 4px 4px 4px;
     border-radius: 0 4px 4px 4px; }
-  /* line 81, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/dropdown */
   .dropdown-submenu:hover .dropdown-menu {
     display: block; }
-  /* line 84, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/dropdown */
   .dropup .dropdown-submenu .dropdown-menu {
     top: auto;
     bottom: 0;
@@ -2498,7 +2001,6 @@ a.list-group-item {
     -webkit-border-radius: 4px 4px 4px 0;
     -moz-border-radius: 4px 4px 4px 0;
     border-radius: 4px 4px 4px 0; }
-  /* line 91, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/dropdown */
   .dropdown-submenu > a:after {
     display: block;
     content: " ";
@@ -2508,21 +2010,18 @@ a.list-group-item {
     border-color: transparent;
     border-style: solid;
     border-width: 5px 0 5px 5px;
-    border-left-color: #FFF;
+    border-left-color: white;
     margin-top: 5px;
     margin-right: -10px; }
-  /* line 107, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/dropdown */
+  .dropdown-default .dropdown-submenu > a:after {
+    border-left-color: #434a54; }
   .dropdown-submenu:hover a:after {
-    border-left-color: #FFF; }
-  /* line 110, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/dropdown */
+    border-left-color: white; }
   .dropdown-submenu.pull-left {
     float: none; }
-  /* line 113, C:/Users/♪/Documents/Visual Studio 2013/Projects/it-stamp/it-stamp/scss/bootflat/dropdown */
   .dropdown-submenu.pull-left .dropdown-menu {
     left: -100%;
     margin-left: 10px;
     -webkit-border-radius: 4px 0 4px 4px;
     -moz-border-radius: 4px 0 4px 4px;
     border-radius: 4px 0 4px 4px; }
-
-/*# sourceMappingURL=bootflat.css.map */

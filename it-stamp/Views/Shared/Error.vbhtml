@@ -9,4 +9,5 @@ End Code
 <div class="alert alert-danger fade in" role="alert">
     要求の処理中にエラーが発生しました。
 </div>
+<div style="height:500px;"></div>
 

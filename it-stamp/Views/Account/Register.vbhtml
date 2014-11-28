@@ -46,6 +46,7 @@ End Code
             <div class="form-group">
                 <a href="@Href("~/Home/TOS")">利用規約</a>に同意して <input type="submit" class="btn btn-primary" value="登録" />
             </div>
+            <p class="text-muted">※ 利用は無料です。</p>
         </text>
     End Using
 </section>

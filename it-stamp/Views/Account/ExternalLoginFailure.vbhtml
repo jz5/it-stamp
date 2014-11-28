@@ -7,3 +7,4 @@ End Code
 <div class="alert alert-danger fade in" role="alert">
     外部サービスによるログインに失敗しました。
 </div>
+<div style="height:500px;"></div>

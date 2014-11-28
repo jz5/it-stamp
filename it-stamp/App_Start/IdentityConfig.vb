@@ -81,10 +81,11 @@ Public Class EmailService
     Private Function ConfigSendGridasync(message As IdentityMessage) As Task
         Dim myMessage = New SendGrid.SendGridMessage()
         myMessage.AddTo(message.Destination)
-        myMessage.From = New System.Net.Mail.MailAddress("no-reply@it-stamp.jp", "IT 勉強会スタンプ")
-        myMessage.Subject = message.Subject
-        myMessage.Text = message.Body
-        myMessage.Html = message.Body
+        myMessage.From = New System.Net.Mail.MailAddress("no-reply@it-stamp.jp", "IT勉強会スタンプ")
+        myMessage.Subject = "【IT勉強会スタンプ】" & message.Subject
+        Dim footer = "<br><br>IT勉強会スタンプ http://itstamp.azurewebsites.net/"
+        myMessage.Text = message.Body & footer
+        myMessage.Html = message.Body & footer
 
         Dim credentials = New NetworkCredential(ConfigurationManager.AppSettings("MailAccount"), ConfigurationManager.AppSettings("MailPassword"))
 
@@ -93,7 +94,6 @@ Public Class EmailService
 
         ' Send the email.
         If transportWeb IsNot Nothing Then
-            Return Task.FromResult(0) ' TODO delete
             Return transportWeb.DeliverAsync(myMessage)
         Else
             Return Task.FromResult(0)

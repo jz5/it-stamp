@@ -161,18 +161,19 @@ Public Class UsersAdminController
         Dim userRoles = Await UserManager.GetRolesAsync(user.Id)
 
         selectedRole = If(selectedRole, New String() {})
+        If selectedRole.Count > 0 Then
+            Dim idResult As IdentityResult
+            idResult = Await UserManager.AddToRolesAsync(user.Id, selectedRole.Except(userRoles).ToArray)
+            If Not idResult.Succeeded Then
+                ModelState.AddModelError("", idResult.Errors.First())
+                Return View()
+            End If
 
-        Dim idResult As IdentityResult
-        idResult = Await UserManager.AddToRolesAsync(user.Id, selectedRole.Except(userRoles).ToArray)
-        If Not idResult.Succeeded Then
-            ModelState.AddModelError("", idResult.Errors.First())
-            Return View()
-        End If
-
-        idResult = Await UserManager.RemoveFromRolesAsync(user.Id, userRoles.Except(selectedRole).ToArray)
-        If Not idResult.Succeeded Then
-            ModelState.AddModelError("", idResult.Errors.First())
-            Return View()
+            idResult = Await UserManager.RemoveFromRolesAsync(user.Id, userRoles.Except(selectedRole).ToArray)
+            If Not idResult.Succeeded Then
+                ModelState.AddModelError("", idResult.Errors.First())
+                Return View()
+            End If
         End If
 
         ' Community

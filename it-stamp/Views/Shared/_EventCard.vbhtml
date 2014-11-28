@@ -1,11 +1,33 @@
 ﻿@ModelType [Event]
 @code
     Dim icon = "http://placehold.it/96x96"
+    Dim eventSiteLogo = ""
+    If Model.Url IsNot Nothing Then
+        Dim sites = New Dictionary(Of String, String) From {
+            {"https://atnd\.org/", "atnd.png"},
+            {"http://connpass\.com/", "connpass.png"},
+            {"http://.+?\.doorkeeper\.jp/", "doorkeeper.png"},
+            {"http://kokucheese\.com/", "kokucheese.gif"},
+            {"http://.*?\.?peatix\.com/", "peatix.png"},
+            {"http://www\.zusaar\.com/", "zusaar.png"}
+        }
+        For Each s In sites
+            If Regex.IsMatch(Model.Url, s.Key) Then
+                eventSiteLogo = Href("~/images/logos/" & s.Value)
+                Exit For
+            End If
+        Next
+    End If
 End Code
 <div class="media">
-    <a class="pull-left" href="@Href("/Events/")@Model.Id">
-        <img class="media-object img-rounded" src="@(If(Model.Community isnot Nothing andalso Model.Community.IconPath<>"", "/Uploads/" & Model.Community.IconPath, icon))" alt="@Model.Name">
-    </a>
+    <div class="pull-left">
+        <a href="@Href("/Events/")@Model.Id">
+            <img class="media-object img-rounded" src="@(If(Model.Community isnot Nothing andalso Model.Community.IconPath<>"", "/Uploads/" & Model.Community.IconPath, icon))" alt="@Model.Name">
+        </a>
+        @If eventSiteLogo <> "" Then
+            @<div><img src="@eventSiteLogo" class="img-responsive text-center" style="width:72px;margin:5px 8px;" /></div>            
+        End If
+    </div>
     <div class="media-body">
         <h3>
             <a href="@Href("/Events/")@Model.Id">@Model.Name</a>
@@ -15,32 +37,22 @@ End Code
         </h3>
         <div>
             <div>
-                @Model.FriendlyDateTime
+                
                 @If Model.StartDateTime.Date <= Now.Date AndAlso Now.Date <= Model.EndDateTime.Date Then
-                    @<span class="text-primary small">（今日）</span>
+                    @<span class="badge badge-primary">&nbsp;今日&nbsp;</span>
                 ElseIf Model.StartDateTime.Date = Now.Date.AddDays(1) OrElse Model.EndDateTime.Date = Now.Date.AddDays(1) Then
-                    @<span class="text-muted small">（明日）</span>
+                    @<span class="badge badge-default">&nbsp;明日&nbsp;</span>
                 ElseIf Model.EndDateTime.Date.AddDays(1) = Now.Date Then
-                    @<span class="text-muted small">（昨日）</span>
+                    @<span class="badge badge-default">&nbsp;昨日&nbsp;</span>
                 End If
+                <time class="small text-muted">@Model.FriendlyDateTime</time>
             </div>
-            <div>@Model.Prefecture.Name @Model.Place</div>
-            <div>@Model.Description.Excerpt</div>
+            <div class="small">@Model.Prefecture.Name @Model.Place</div>
+            <div class="small">@Model.Description.Excerpt</div>
             <div class="clearfix">
                 @If Model.Community IsNot Nothing Then
-                    @<div class="pull-left"><a href="@Href("/Communities/")@Model.Community.Id">@Model.Community.Name</a></div>
+                    @<div class="pull-left small"><a href="@Href("/Communities/")@Model.Community.Id">@Model.Community.Name</a></div>
                 End If
-                @*<div style="" class="pull-right small">
-                        <div class="pull-left">
-                            <a href="#"><i class="glyphicon glyphicon-ok"></i> チェックイン 0</a>
-                        </div>
-                        <div class="pull-left" style="margin-left: 16px;">
-                            <a href="#"><i class="glyphicon glyphicon-star"></i> お気に入り 0</a>
-                        </div>
-                        <div class="pull-left" style="margin-left: 16px;">
-                            <a href="#"><i class="glyphicon glyphicon-comment"></i> コメント 0</a>
-                        </div>
-                    </div>*@
             </div>
         </div>
     </div>

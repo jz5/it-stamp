@@ -92,9 +92,9 @@ End Code
         @If Model.Community Is Nothing OrElse User.IsInRole("Admin") Then
             @<div class="form-group">
                 @Html.LabelFor(Function(m) m.CommunityId, New With {.class = "control-label"})
-                <span class="text-muted"></span>
+                <span class="text-muted">（指定すると後から変更できません。「未指定」の場合、後から選択できます。）</span>
                 <div class="form-inline">
-                    @Html.DropDownListFor(Function(m) m.CommunityId, Model.CommunitiesSelectList, "選択してください", New With {.class = "form-control"})
+                    @Html.DropDownListFor(Function(m) m.CommunityId, Model.CommunitiesSelectList, "（未指定）", New With {.class = "form-control"})
                     @Html.ValidationMessageFor(Function(m) m.CommunityId, "", New With {.class = "text-danger"})
                 </div>
             </div>

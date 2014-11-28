@@ -391,6 +391,12 @@
     <Content Include="App_Data\Uploads\Icons\icon46.png" />
     <Content Include="App_Data\Uploads\Icons\icon47.png" />
     <Content Include="images\loading.gif" />
+    <Content Include="images\logos\atnd.png" />
+    <Content Include="images\logos\connpass.png" />
+    <Content Include="images\logos\doorkeeper.png" />
+    <Content Include="images\logos\kokucheese.gif" />
+    <Content Include="images\logos\peatix.png" />
+    <Content Include="images\logos\zusaar.png" />
     <Content Include="images\stamprally2015\gold.png" />
     <Content Include="images\logo.png" />
     <Content Include="images\logo2x.png" />

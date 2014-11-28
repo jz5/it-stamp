@@ -71,11 +71,11 @@ Public Class [Event]
     Function FriendlyDateTime() As String
 
         If StartDateTime = EndDateTime Then
-            Return StartDateTime.ToString("yyyy/M/d（ddd）")
+            Return StartDateTime.ToString("yyyy/M/d（ddd）", Globalization.CultureInfo.GetCultureInfo("ja-jp"))
         ElseIf StartDateTime.Date = EndDateTime.Date Then
-            Return StartDateTime.ToString("yyyy/M/d（ddd） H:mm") & "～" & EndDateTime.ToString("H:mm")
+            Return StartDateTime.ToString("yyyy/M/d（ddd） H:mm", Globalization.CultureInfo.GetCultureInfo("ja-jp")) & "～" & EndDateTime.ToString("H:mm")
         Else
-            Return StartDateTime.ToString("yyyy/M/d（ddd） H:mm") & "～" & EndDateTime.ToString("M/d（ddd） HH:mm")
+            Return StartDateTime.ToString("yyyy/M/d（ddd） H:mm", Globalization.CultureInfo.GetCultureInfo("ja-jp")) & "～" & EndDateTime.ToString("M/d（ddd） HH:mm", Globalization.CultureInfo.GetCultureInfo("ja-jp"))
         End If
     End Function
 End Class

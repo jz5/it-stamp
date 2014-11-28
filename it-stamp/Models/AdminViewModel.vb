@@ -13,7 +13,6 @@ End Class
 Public Class EditUserViewModel
     Property Id As String
 
-    <Required(AllowEmptyStrings:=False)>
     <Display(Name:="Email")>
     <EmailAddress>
     Property Email As String

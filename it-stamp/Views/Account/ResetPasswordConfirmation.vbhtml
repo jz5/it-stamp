@@ -7,4 +7,5 @@ End Code
     <p>
         パスワードがリセットされました。@Html.ActionLink("ここをクリックしてログイン", "Login", "Account", routeValues:=Nothing, htmlAttributes:=New With {Key .id = "loginLink"})してください
     </p>
+    <div style="height:500px;"></div>
 </div>

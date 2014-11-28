@@ -81,7 +81,7 @@ End Code
                             <td style="border-top-width:0;">
                                 @Model.FriendlyDateTime
                                 @If Model.StartDateTime.Date <= Now.Date AndAlso Now.Date <= Model.EndDateTime.Date Then
-                                    @<span class="text-primary small">（今日）</span>
+                                    @<span class="badge badge-primary">今日</span>
                                 ElseIf Model.StartDateTime.Date = Now.Date.AddDays(1) OrElse Model.EndDateTime.Date = Now.Date.AddDays(1) Then
                                     @<span class="text-muted small">（明日）</span>
                                 ElseIf Model.EndDateTime.Date.AddDays(1) = Now.Date Then
@@ -184,7 +184,7 @@ End Code
 
             @<div class="form-group">
                 <div class="form-inline">
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#confirm-modal">チェックイン</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm-modal">チェックイン</button>
                 </div>
             </div>
                     'Modal Window
