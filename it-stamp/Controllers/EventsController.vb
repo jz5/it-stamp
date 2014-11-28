@@ -242,18 +242,18 @@ Public Class EventsController
                 End If
             End If
 
-            ' ModalState
-            If Not ModelState.IsValid Then
-                Return View(viewModel)
-            End If
-
             ' 値修正
             ev.Name = If(ev.Name IsNot Nothing, ev.Name.Trim, "")
             ev.Description = If(ev.Description IsNot Nothing, ev.Description.Trim, "")
             ev.CheckInCode = If(ev.CheckInCode IsNot Nothing, ev.CheckInCode.Trim, "")
-            ev.Url = If(ev.Url IsNot Nothing, ev.Url.Trim, "")
+            ev.Url = If(ev.Url IsNot Nothing, ev.Url.Trim, Nothing)
             ev.Address = If(ev.Address IsNot Nothing, ev.Address.Trim, "")
             ev.Place = If(ev.Place IsNot Nothing, ev.Place.Trim, "")
+
+            ' ModalState
+            If Not ModelState.IsValid Then
+                Return View(viewModel)
+            End If
 
             ' 単純なプロパティ更新
             UpdateModel(Of [Event])(ev)
@@ -389,20 +389,21 @@ Public Class EventsController
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
 
+            ' 値修正
+            viewModel.Name = If(viewModel.Name IsNot Nothing, viewModel.Name.Trim, "")
+            viewModel.Description = If(viewModel.Description IsNot Nothing, viewModel.Description.Trim, "")
+            viewModel.CheckInCode = If(viewModel.CheckInCode IsNot Nothing, viewModel.CheckInCode.Trim, "")
+            viewModel.Url = If(viewModel.Url IsNot Nothing, viewModel.Url.Trim, Nothing)
+            viewModel.Url = If(viewModel.Url = "", Nothing, viewModel.Url)
+            viewModel.Address = If(viewModel.Address IsNot Nothing, viewModel.Address.Trim, "")
+            viewModel.Place = If(viewModel.Place IsNot Nothing, viewModel.Place.Trim, "")
+
             ' ModelState check
             ViewBag.CanEditDetails = CanEditDetails(appUser, ev)
             ViewBag.CanDelete = CanDelete(appUser, ev)
             If Not ModelState.IsValid Then
                 Return View(viewModel)
             End If
-
-            ' 値修正
-            viewModel.Name = If(viewModel.Name IsNot Nothing, viewModel.Name.Trim, "")
-            viewModel.Description = If(viewModel.Description IsNot Nothing, viewModel.Description.Trim, "")
-            viewModel.CheckInCode = If(viewModel.CheckInCode IsNot Nothing, viewModel.CheckInCode.Trim, "")
-            viewModel.Url = If(viewModel.Url IsNot Nothing, viewModel.Url.Trim, "")
-            viewModel.Address = If(viewModel.Address IsNot Nothing, viewModel.Address.Trim, "")
-            viewModel.Place = If(viewModel.Place IsNot Nothing, viewModel.Place.Trim, "")
 
             ' 日時処理
             SetDateTime(viewModel.StartDate, viewModel.StartTime, viewModel.EndDate, viewModel.EndTime, ev.StartDateTime, ev.EndDateTime, ev.CreationDateTime)

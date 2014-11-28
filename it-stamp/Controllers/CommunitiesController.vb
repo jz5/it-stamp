@@ -151,16 +151,17 @@ Public Class CommunitiesController
         End If
 
         Try
+            model.Name = If(model.Name IsNot Nothing, model.Name.Trim, "")
             If model.Name <> "" Then
-                model.Name = model.Name.Trim
                 If db.Communities.Where(Function(c) c.Name = model.Name).FirstOrDefault IsNot Nothing Then
                     ModelState.AddModelError("Name", "既に登録されている名前です。")
                     Return View(model)
                 End If
             End If
 
-            If model.Url <> "" Then
-                model.Url = model.Url.Trim
+            model.Url = If(model.Url IsNot Nothing, model.Url.Trim, Nothing)
+            model.Url = If(model.Url = "", Nothing, model.Url)
+            If model.Url IsNot Nothing Then
                 If db.Communities.Where(Function(c) c.Url = model.Url).FirstOrDefault IsNot Nothing Then
                     ModelState.AddModelError("Url", "既に登録されているURLです。")
                     Return View(model)
@@ -308,14 +309,21 @@ Public Class CommunitiesController
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
 
-            If db.Communities.Where(Function(c) c.Id <> model.Id AndAlso c.Name = model.Name).FirstOrDefault IsNot Nothing Then
-                ModelState.AddModelError("Name", "既に登録されている名前です。")
-                Return View(model)
+            model.Name = If(model.Name IsNot Nothing, model.Name.Trim, "")
+            If model.Name <> "" Then
+                If db.Communities.Where(Function(c) c.Id <> model.Id AndAlso c.Name = model.Name).FirstOrDefault IsNot Nothing Then
+                    ModelState.AddModelError("Name", "既に登録されている名前です。")
+                    Return View(model)
+                End If
             End If
 
-            If db.Communities.Where(Function(c) c.Id <> model.Id AndAlso c.Url = model.Url).FirstOrDefault IsNot Nothing Then
-                ModelState.AddModelError("Url", "既に登録されているURLです。")
-                Return View(model)
+            model.Url = If(model.Url IsNot Nothing, model.Url.Trim, Nothing)
+            model.Url = If(model.Url = "", Nothing, model.Url)
+            If model.Url IsNot Nothing Then
+                If db.Communities.Where(Function(c) c.Id <> model.Id AndAlso c.Url = model.Url).FirstOrDefault IsNot Nothing Then
+                    ModelState.AddModelError("Url", "既に登録されているURLです。")
+                    Return View(model)
+                End If
             End If
 
             ' 編集権限の確認
@@ -333,6 +341,9 @@ Public Class CommunitiesController
             If Not ModelState.IsValid Then
                 Return View(com)
             End If
+
+            ' 値の修正
+            model.Description = If(model.Description IsNot Nothing, model.Description.Trim, "")
 
             ' 基本情報をアップデート
             If editableDetails Then

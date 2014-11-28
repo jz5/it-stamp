@@ -143,16 +143,19 @@ Public Class Community
     <Display(Name:="説明")>
     Property Description As String
 
+    <Url>
     <DataType(DataType.Url)>
     <StringLength(256)>
     <Display(Name:="Webサイト")>
     Property Url As String
 
+    <Url>
     <DataType(DataType.Url)>
     <StringLength(256)>
     <Display(Name:="Webサイト")>
     Property SubUrl1 As String
 
+    <Url>
     <DataType(DataType.Url)>
     <StringLength(256)>
     <Display(Name:="Webサイト")>

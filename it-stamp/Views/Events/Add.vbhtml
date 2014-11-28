@@ -34,7 +34,7 @@ End Code
 
         <div class="jumbotron">
             <div class="jumbotron-contents">
-                <p>💡 現在、新規登録のみ可能です。今後、イベント登録サイトから検索できるようになる予定です。</p>
+                <p>💡 現在、新規登録のみ可能です。今後、登録済みのIT勉強会と、イベント登録サイトから検索できるようになる予定です。</p>
                 @Html.ActionLink("開催予定のIT勉強会の表示", "Index", "Events", Nothing, New With {.class = "btn btn-default"})
             </div>
         </div>

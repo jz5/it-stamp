@@ -157,7 +157,7 @@ End Code
                 @For Each m In Model.CheckIns.Where(Function(c) Not c.User.IsPrivate).Select(Function(c) c.User)
                     @<a href="@Href("~/Users/" & m.UserName)"><img src="@(If(M.IconPath <> "", Href("/Uploads/" & m.IconPath), userIcon))" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
                 Next
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
                 @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
                 End If
             End If
@@ -258,10 +258,6 @@ End Code
             End If
         Else
             @<p>コメントは投稿されていません。</p>
-        End If
-        @If Model.Community IsNot Nothing Then
-            @<h2>このコミュニティのその他のIT勉強会</h2>
-            @<p>（未実装）</p>
         End If
 
         @If ViewBag.StatusMessage = "" Then
