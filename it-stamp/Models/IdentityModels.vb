@@ -98,6 +98,7 @@ Public Class ApplicationDbContext
     Property SpecialEvents As DbSet(Of SpecialEvent)
     Property Favorites As DbSet(Of Favorite)
     Property Stamps As DbSet(Of Stamp)
+    Property UserStamps As DbSet(Of UserStamp)
     Property Followers As DbSet(Of Follower)
 
     Protected Overrides Sub OnModelCreating(ByVal modelBuilder As DbModelBuilder)

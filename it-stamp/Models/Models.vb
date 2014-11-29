@@ -111,7 +111,6 @@ Public Class CheckIn
 
     Property Location As DbGeography
 
-    Overridable Property Stamp As Stamp
     <Required>
     Property DateTime As DateTime
 End Class
@@ -185,14 +184,12 @@ End Class
 Public Class Stamp
     <Key>
     Property Id As Integer
-    <Required>
+
     Overridable Property Community As Community
 
     <StringLength(50)>
     <Display(Name:="名前")>
     Property Name As String
-
-    'Property IsDefault As Boolean
 
     <StringLength(100)>
     Property Expression As String
@@ -204,6 +201,21 @@ Public Class Stamp
     Overridable Property CreatedBy As ApplicationUser
     Property LastUpdatedDateTime As DateTime
     Overridable Property LastUpdatedBy As ApplicationUser
+End Class
+
+Public Class UserStamp
+    <Key>
+    Property Id As Long
+
+    <Required>
+    Overridable Property Stamp As Stamp
+
+    <Required>
+    Overridable Property User As ApplicationUser
+    <Required>
+    Property DateTime As DateTime
+
+    Overridable Property CheckIn As CheckIn
 End Class
 
 Public Class Prefecture

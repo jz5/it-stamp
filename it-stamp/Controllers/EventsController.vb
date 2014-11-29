@@ -578,19 +578,18 @@ Public Class EventsController
             End If
 
             ' Stamp
-            Dim stamp As Stamp = Nothing
-            If ev.Community IsNot Nothing Then
-                If ev.Community.DefaultStamp IsNot Nothing Then
-                    stamp = ev.Community.DefaultStamp
-                End If
-                ' TODO Stamp expression 処理
-            End If
+            'Dim stamp = New UserStamp
+            'If ev.Community IsNot Nothing Then
+            '    If ev.Community.DefaultStamp IsNot Nothing Then
+            '        stamp.Stamp = ev.Community.DefaultStamp
+            '    End If
+            '    ' TODO Stamp expression 処理
+            'End If
 
             Dim ci = New CheckIn With {
                 .Event = ev,
                 .DateTime = Now,
-                .User = appUser,
-                .Stamp = stamp}
+                .User = appUser}
 
             ev.CheckIns.Add(ci)
 
