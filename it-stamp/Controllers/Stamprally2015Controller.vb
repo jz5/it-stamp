@@ -54,7 +54,7 @@ Public Class Stamprally2015Controller
             results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.EndDateTime < n AndAlso (e.SpecialEvents.Where(Function(ev) ev.Id = 1).Count > 0)).OrderByDescending(Function(e) e.StartDateTime)
         Else
             ' 開催予定
-            results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.StartDateTime >= n AndAlso (e.SpecialEvents.Where(Function(ev) ev.Id = 1).Count > 0)).OrderBy(Function(e) e.StartDateTime)
+            results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.EndDateTime >= n AndAlso (e.SpecialEvents.Where(Function(ev) ev.Id = 1).Count > 0)).OrderBy(Function(e) e.StartDateTime)
         End If
 
         Dim viewModel = New SearchEventsViewModel With {

@@ -50,7 +50,7 @@ Public Class EventsController
             results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.EndDateTime < n).OrderByDescending(Function(e) e.StartDateTime)
         Else
             ' 開催予定
-            results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.StartDateTime >= n).OrderBy(Function(e) e.StartDateTime)
+            results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.EndDateTime >= n).OrderBy(Function(e) e.StartDateTime)
         End If
 
         ' さらに絞り込む

@@ -114,7 +114,7 @@ Public Class CommunitiesController
             ' クエリを展開しておく
             Dim queryDate = DateTime.Now.Date
             Dim pastEvents = From ev In events Where ev.EndDateTime < queryDate Order By ev.EndDateTime Descending.ToList
-            Dim futureEvents = From ev In events Where ev.StartDateTime >= queryDate Order By ev.StartDateTime Ascending.ToList
+            Dim futureEvents = From ev In events Where ev.EndDateTime >= queryDate Order By ev.StartDateTime Ascending.ToList
 
             ViewBag.PastEvents = pastEvents
             ViewBag.FutureEvents = futureEvents

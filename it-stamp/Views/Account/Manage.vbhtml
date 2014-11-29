@@ -56,6 +56,11 @@ End If
     @Html.Action("RemoveAccountList")
 </section>
 
+<section>
+    <h2>アカウントの削除</h2>
+    @Html.ActionLink("退会", "Close", Nothing, New With {.class = "btn btn-default"})
+</section>
+
 @Section Scripts
     @Scripts.Render("~/bundles/jqueryval")
 End Section

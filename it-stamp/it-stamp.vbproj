@@ -505,7 +505,6 @@
     <Content Include="Views\UsersAdmin\Details.cshtml" />
     <Content Include="Views\UsersAdmin\Index.cshtml" />
     <Content Include="Views\Account\ChangePassword.vbhtml" />
-    <Content Include="Views\Temp\Index.vbhtml" />
     <Content Include="Views\Communities\Details.vbhtml" />
     <Content Include="Views\Communities\Index.vbhtml" />
     <Content Include="Views\Events\Add.vbhtml" />
@@ -528,6 +527,7 @@
     <Content Include="Views\Communities\AddOwner.vbhtml" />
     <Content Include="Views\Communities\EditOwners.vbhtml" />
     <Content Include="Views\Communities\EditStamps.vbhtml" />
+    <Content Include="Views\Account\Close.vbhtml" />
     <None Include="Views\Events\Details.vbhtml" />
     <Content Include="Views\Shared\_SidebarPartial.vbhtml" />
     <Content Include="Views\Shared\_EventResults.vbhtml" />

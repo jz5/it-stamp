@@ -44,7 +44,7 @@ Public Class HomeController
         Dim viewModel = New SearchEventsViewModel
 
         Dim n = Now.Date
-        Dim results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.StartDateTime >= n).OrderBy(Function(e) e.StartDateTime)
+        Dim results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.EndDateTime >= n).OrderBy(Function(e) e.StartDateTime)
 
         viewModel.Results = results.Take(10).ToList
         viewModel.CurrentPage = 1

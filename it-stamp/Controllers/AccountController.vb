@@ -5,12 +5,14 @@ Imports Microsoft.AspNet.Identity.EntityFramework
 Imports Microsoft.AspNet.Identity.Owin
 Imports Microsoft.Owin.Security
 Imports Owin
+Imports System.Net
 
 <RequireHttps>
 <Authorize>
 Public Class AccountController
     Inherits Controller
 
+    Private db As New ApplicationDbContext
     Private _userManager As ApplicationUserManager
 
     Public Sub New()
@@ -150,8 +152,7 @@ Public Class AccountController
         If result.Succeeded Then
             Return View("ConfirmEmail")
         Else
-            AddErrors(result)
-            Return View()
+            Return View("Error")
         End If
     End Function
 
@@ -508,6 +509,93 @@ Public Class AccountController
         Return View(model)
     End Function
 
+    Public Function Close() As ActionResult
+        If Not Request.IsAuthenticated Then
+            Return RedirectToAction("Index", "Home")
+        End If
+        Return View()
+    End Function
+
+    <HttpPost>
+    <ValidateAntiForgeryToken>
+    Public Function Close(id As String) As ActionResult ' MEMO: id は dummy
+        If Not Request.IsAuthenticated Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Try
+            Dim userId = User.Identity.GetUserId
+
+            Dim appUser = UserManager.FindById(User.Identity.GetUserId)
+            If appUser Is Nothing Then
+                Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+            End If
+
+            Dim dbUser = db.Users.Where(Function(u) u.Id = userId).SingleOrDefault
+            If dbUser Is Nothing Then
+                Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+            End If
+
+            ' CheckIns
+            Dim checkIns = db.CheckIns.Where(Function(c) c.User.Id = userId)
+            db.CheckIns.RemoveRange(checkIns)
+
+            ' Favorites
+            Dim fvs = db.Favorites.Where(Function(c) c.User.Id = userId)
+            db.Favorites.RemoveRange(fvs)
+            
+            ' Communities
+            dbUser.Communities.Clear()
+            dbUser.OwnerCommunities.Clear()
+
+            ' Comments
+            Dim cs = db.Comments.Where(Function(c) c.CreatedBy.Id = userId)
+            db.Comments.RemoveRange(cs)
+
+            ' followers
+            Dim followers = db.Followers.Where(Function(f) f.CreatedBy.Id = appUser.Id)
+            db.Followers.RemoveRange(followers)
+
+            ' UserInfo
+            UploadHelper.DeleteFile(Server.MapPath("~/App_Data/Uploads/"), dbUser.IconPath)
+            dbUser.RemoveUserInfo()
+
+            db.SaveChanges()
+
+            ' Account
+            Dim claims = UserManager.GetClaims(userId)
+            For Each c In claims
+                UserManager.RemoveClaim(userId, c)
+            Next
+
+            Dim logins = UserManager.GetLogins(userId)
+            For Each l In logins
+                UserManager.RemoveLogin(userId, l)
+            Next
+
+            UserManager.RemovePassword(userId)
+            UserManager.Update(appUser)
+
+            ' SignOut
+            AuthenticationManager.SignOut()
+            Session.RemoveAll()
+
+        Catch eEx As System.Data.Entity.Validation.DbEntityValidationException
+            For Each er In eEx.EntityValidationErrors
+                For Each e In er.ValidationErrors
+                    Debug.Print(e.ErrorMessage)
+                Next
+            Next
+            Return View("Error")
+
+        Catch ex As Exception
+            ModelState.AddInternalError(User, ex)
+            Return View("Error")
+        End Try
+
+        Return RedirectToAction("Index", "Home")
+    End Function
+
     Private Async Function StoreAuthTokenClaims(user As ApplicationUser) As Task
         ' Get the claims identity
         Dim claimsIdentity As ClaimsIdentity = Await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie)
@@ -634,7 +722,7 @@ Public Class AccountController
 
     Private Function HasPassword() As Boolean
         Dim appUser = UserManager.FindById(User.Identity.GetUserId())
-        If (appUser IsNot Nothing) Then
+        If appUser IsNot Nothing Then
             Return appUser.PasswordHash IsNot Nothing
         End If
         Return False

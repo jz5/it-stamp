@@ -62,24 +62,20 @@ Public Class ApplicationUser
         End Get
     End Property
 
-    Public Sub RemoveUserInformation()
-        If Me.OwnerCommunities.Count > 0 Then
-            Throw New Exception("管理しているコミュニティが1件以上あります")
-            Exit Sub
-        End If
-
-        Me.CheckIns.Clear()
-        Me.Claims.Clear()
-        Me.Communities.Clear()
-        Me.Description = ""
-        Me.DisplayName = ""
+    Public Sub RemoveUserInfo()
         Me.Email = ""
+        Me.Description = ""
+        Me.DisplayName = "***"
+        Me.Url = Nothing
+        Me.Twitter = ""
         Me.Facebook = ""
-        Me.Favorites.Clear()
+        Me.Other = ""
+        Me.ShareTwitter = False
+        Me.ShareFacebook = False
+        Me.ShareOther = False
         Me.IconPath = ""
         Me.IsRemoved = True
-        Me.Logins.Clear()
-        Me.OwnerCommunities.Clear()
+        Me.IsPrivate = True
     End Sub
 
 End Class

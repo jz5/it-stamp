@@ -1412,10 +1412,10 @@ blockquote {
   -moz-border-radius: 4px;
   border-radius: 4px; }
   .list-group-item {
-    border-color: transparent;
-    border-top-color: #e6e9ed; }
-    .list-group-item:first-child {
-      border-top: none; }
+    border-color: #e6e9ed;
+    /*&:first-child {
+      border-top: none;
+    }*/ }
     .list-group-item-heading {
       color: #434a54; }
 
