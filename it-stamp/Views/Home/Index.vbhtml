@@ -52,6 +52,7 @@ End Code
             <li><a href="http://connpass.com/" target="_blank">connpass</a></li>
             <li><a href="http://www.doorkeeper.jp/" target="_blank">Doorkeeper</a></li>
             <li><a href="http://partake.in/" target="_blank">PARTAKE</a></li>
+            <li><a href="http://peatix.com/" target="_blank">Peatix</a></li>
             <li><a href="http://www.zusaar.com/" target="_blank">Zusaar</a></li>
             <li><a href="http://kokucheese.com/" target="_blank">こくちーず</a></li>
         </ul>

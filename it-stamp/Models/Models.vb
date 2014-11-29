@@ -40,7 +40,7 @@ Public Class [Event]
     Overridable Property CheckIns As ICollection(Of CheckIn)
 
     Overridable Property Favorites As ICollection(Of Favorite)
-    Overridable Property SpecialEvents As SpecialEvent
+    Overridable Property SpecialEvents As ICollection(Of SpecialEvent)
     Overridable Property Comments As ICollection(Of Comment)
 
     Property IsHidden As Boolean
@@ -118,7 +118,7 @@ End Class
 
 Public Class Comment
     <Key>
-    Property id As Long
+    Property Id As Long
     <Required>
     Property [Event] As [Event]
     <StringLength(256)>
@@ -212,4 +212,15 @@ Public Class Prefecture
     <Required>
     <StringLength(10)>
     Property Name As String
+End Class
+
+Public Class Follower
+    <Key>
+    Property Id As Long
+    <Index>
+    Overridable Property User As ApplicationUser
+    <Index>
+    Overridable Property CreatedBy As ApplicationUser
+    Property CreationDateTime As DateTime
+
 End Class

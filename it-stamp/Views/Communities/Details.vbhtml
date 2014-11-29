@@ -8,8 +8,6 @@
 
 End Code
 
-@Html.Partial("_TopBanner")
-
 <div class="row">
     <div class="col-md-8">
 
@@ -102,7 +100,7 @@ End Section
 @section Scripts
     @Scripts.Render("~/bundles/jqueryval")
     <script>
-        var followed = @(If(ViewBag.Followd, "true", "false"));
+        var followed = @(If(ViewBag.Followed, "true", "false"));
         function onSuccess(result) {
             if (result) {
                 followed = result.followed;

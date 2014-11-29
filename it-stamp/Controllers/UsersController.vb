@@ -53,12 +53,25 @@ Public Class UsersController
             Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
         End If
 
-        Dim user = db.Users.Where(Function(u) u.UserName = userName).SingleOrDefault
-        If user Is Nothing Then
+        Dim appUser = db.Users.Where(Function(u) u.UserName = userName).SingleOrDefault
+        If appUser Is Nothing Then
             Return HttpNotFound()
         End If
 
-        Return View(user)
+        Dim userId = User.Identity.GetUserId
+
+        ' 自分のページか        
+        Dim isMe = (userId = appUser.Id)
+        ViewBag.IsMe = isMe
+
+        ' フォロー済みか
+        Dim followed = False
+        If Not isMe AndAlso userId IsNot Nothing Then
+            followed = db.Followers.Where(Function(f) f.CreatedBy.Id = userId AndAlso f.User.Id = appUser.Id).Count > 0
+        End If
+        ViewBag.Followed = followed
+
+        Return View(appUser)
     End Function
 
     ' GET: Users/UserName/Edit
@@ -171,6 +184,75 @@ Public Class UsersController
             Return View(viewModel)
         End Try
     End Function
+
+    <HttpPost()>
+    <ValidateAntiForgeryToken()>
+    Async Function Follow(userName As String) As Task(Of ActionResult)
+
+        Dim userId = User.Identity.GetUserId
+        If userId Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        ' ログインユーザー
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
+        If appUser Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        ' フォロー対象のユーザー
+        Dim targetUser = db.Users.Where(Function(u) u.UserName = userName).SingleOrDefault
+        If targetUser Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        If userId = targetUser.Id Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Try
+            ' フォロー済みか
+            Dim follower = db.Followers.Where(Function(f) f.CreatedBy.Id = userId AndAlso f.User.Id = targetUser.Id).SingleOrDefault
+            Dim followed = follower IsNot Nothing
+
+            ' Switch following
+            If followed Then
+                db.Followers.Remove(follower)
+            Else
+                Dim fl = New Follower With {
+                    .CreatedBy = appUser,
+                    .User = targetUser,
+                    .CreationDateTime = Now}
+                db.Followers.Add(fl)
+            End If
+
+            Await db.SaveChangesAsync
+
+            ' for Ajax
+            If Request.IsAjaxRequest Then
+                Return Json(New With {.followed = Not followed})
+            End If
+
+            Return RedirectToAction("Details", "Users", New With {.userName = appUser.UserName})
+
+        Catch eEx As System.Data.Entity.Validation.DbEntityValidationException
+            For Each er In eEx.EntityValidationErrors
+                For Each e In er.ValidationErrors
+                    Debug.Print(e.ErrorMessage)
+                Next
+            Next
+        Catch ex As Exception
+            ModelState.AddInternalError(User, ex)
+        End Try
+
+        If Request.IsAjaxRequest Then
+            Return Json(Nothing)
+        Else
+            Return View()
+        End If
+
+    End Function
+
 
     Public Enum Message
         Edit

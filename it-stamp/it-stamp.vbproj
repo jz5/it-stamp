@@ -525,9 +525,7 @@
       <DependentUpon>jquery.selectboxsearch.min.js</DependentUpon>
     </Content>
     <Content Include="Views\Communities\UploadStamp.vbhtml" />
-    <Content Include="Views\Communities\DeleteOwner.vbhtml" />
     <Content Include="Views\Communities\AddOwner.vbhtml" />
-    <Content Include="Views\Communities\DeleteStamp.vbhtml" />
     <Content Include="Views\Communities\EditOwners.vbhtml" />
     <Content Include="Views\Communities\EditStamps.vbhtml" />
     <None Include="Views\Events\Details.vbhtml" />
@@ -546,7 +544,6 @@
     <Content Include="Views\Users\Details.vbhtml" />
     <Content Include="Views\Users\Edit.vbhtml" />
     <Content Include="Views\Users\Upload.vbhtml" />
-    <Content Include="Views\Events\Today.vbhtml" />
     <Content Include="Views\Shared\_EventCard.vbhtml" />
     <Content Include="Views\Shared\_CommunityCard.vbhtml" />
     <Content Include="Views\Stamprally2015\Index.vbhtml" />

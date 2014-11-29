@@ -61,7 +61,7 @@ End Code
 
                             @<div class="form-group">
                                 <div class="form-inline">
-                                    <input id="follow-btn" type="submit" value="@(if(ViewBag.Followd,"フォロー中","フォロー"))" class="btn btn-default" style="min-width:96px;width:96px;font-size:14px;" />
+                                    <input id="follow-btn" type="submit" value="@(If(ViewBag.Followed, "フォロー中", "フォロー"))" class="btn btn-default" style="min-width:96px;width:96px;font-size:14px;" />
                                 </div>
                             </div>
                         End Using
@@ -77,7 +77,7 @@ End Code
                 <table class="table">
                     <tbody>
                         <tr>
-                            <td style="border-top-width:0;">📅 日時</td>
+                            <td style="border-top-width:0;min-width:120px;">📅 日時</td>
                             <td style="border-top-width:0;">
                                 @Model.FriendlyDateTime
                                 @If Model.StartDateTime.Date <= Now.Date AndAlso Now.Date <= Model.EndDateTime.Date Then
@@ -110,7 +110,7 @@ End Code
                             @If Model.Url Is Nothing Then
                                 @<td><span class="text-muted">未登録</span></td>
                             Else
-                                @<td><a href="@Model.Url" target="_blank">@Model.Url</a></td>
+                                @<td><a href="@Model.Url" target="_blank" style="-ms-word-break:break-all; word-break:break-all;">@Model.Url</a></td>
                             End If
                         </tr>
                         <tr>
@@ -121,9 +121,9 @@ End Code
                                 @<td>@Html.ActionLink(Model.Community.Name, "Details", "Communities", New With {.id = Model.Community.Id}, Nothing)</td>
                             End If
                         </tr>
-                        @If Model.SpecialEvents IsNot Nothing Then
+                        @If Model.SpecialEvents IsNot Nothing AndAlso Model.SpecialEvents.Count > 0 Then
                             @<tr>
-                                <td colspan="2"><span>⭐</span> @Html.ActionLink(Model.SpecialEvents.Name, Model.SpecialEvents.Id.ToString, "SpecialEvents")対象のIT勉強会です。</td>
+                                <td colspan="2"><span>⭐</span> @Html.ActionLink(Model.SpecialEvents.FirstOrDefault.Name, Model.SpecialEvents.FirstOrDefault.Id.ToString, "SpecialEvents")対象のIT勉強会です。</td>
                             </tr>
                         End If
                         @If Model.IsReported AndAlso ViewBag.CanEditDetails Then
@@ -378,7 +378,7 @@ End Section
 
                 $("#checkin-form")
                     .empty()
-                    .append($("<p>チェックイン済み</p>")
+                    .append($("<p>チェックインしました！</p>")
                         .addClass("animated fadeIn")
                         .one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", function () {
                             $(this).removeClass("animated fadeIn");
@@ -419,7 +419,7 @@ End Section
             }
         });
 
-        var followed = @(If(ViewBag.Followd, "true", "false"));
+        var followed = @(If(ViewBag.Followed, "true", "false"));
         function onFollowSuccess(result) {
             if (result && $) {
                 followed = result.followed;

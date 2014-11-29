@@ -55,7 +55,7 @@ Public Class EventsController
 
         ' さらに絞り込む
         If specialEvent.HasValue Then
-            results = From item In results Where item.SpecialEvents.Id = specialEvent.Value
+            results = From item In results Where item.SpecialEvents.Where(Function(ev) ev.Id = specialEvent.Value).Count > 0
         End If
 
         Dim viewModel = New SearchEventsViewModel With {
@@ -144,9 +144,9 @@ Public Class EventsController
         ' フォロー済みか
         If appUser IsNot Nothing Then
             Dim followed = appUser.Favorites.Where(Function(f) f.Event.Id = ev.Id).Count > 0
-            ViewBag.Followd = followed
+            ViewBag.Followed = followed
         Else
-            ViewBag.Followd = False
+            ViewBag.Followed = False
         End If
 
         ' Message
@@ -349,11 +349,12 @@ Public Class EventsController
             .ParticipantsOnlineCount = ev.ParticipantsOnlineCount,
             .ReportMemo = ev.ReportMemo,
             .SpecialEventsSelectList = New SelectList(db.SpecialEvents.Where(Function(e) n <= e.EndDateTime), "Id", "Name"),
-            .SpecialEventId = If(ev.SpecialEvents IsNot Nothing, ev.SpecialEvents.Id, Nothing),
+            .SpecialEventId = If(ev.SpecialEvents IsNot Nothing AndAlso ev.SpecialEvents.Count > 0, ev.SpecialEvents.First.Id, Nothing),
             .PrefectureId = ev.Prefecture.Id,
             .PrefectureSelectList = New SelectList(db.Prefectures, "Id", "Name"),
             .CommunityId = If(ev.Community IsNot Nothing, ev.Community.Id, Nothing)
             }
+        ' TODO: SpecialEvents 複数対応
 
         If ev.Community Is Nothing OrElse User.IsInRole("Admin") Then
             viewModel.CommunitiesSelectList = New SelectList(db.Communities.Where(Function(c) Not c.IsHidden).OrderBy(Function(c) c.Name), "Id", "Name")
@@ -416,11 +417,12 @@ Public Class EventsController
                 UpdateModel(Of [Event])(ev)
 
                 ' SpecialEvent
+                ' TODO: SpecialEvent 複数対応
                 If viewModel.SpecialEventId.HasValue Then
-                    ev.SpecialEvents = db.SpecialEvents.Where(Function(e) e.Id = viewModel.SpecialEventId.Value).FirstOrDefault
+                    ev.SpecialEvents.Add(db.SpecialEvents.Where(Function(e) e.Id = viewModel.SpecialEventId.Value).FirstOrDefault)
                 Else
-                    If ev.SpecialEvents IsNot Nothing Then
-                        ev.SpecialEvents = Nothing
+                    If ev.SpecialEvents IsNot Nothing AndAlso ev.SpecialEvents.Count > 0 Then
+                        ev.SpecialEvents.Remove(ev.SpecialEvents.FirstOrDefault)
                     End If
                 End If
             Else
@@ -751,7 +753,7 @@ Public Class EventsController
             ' フォロー済みか
             Dim fv = appUser.Favorites.Where(Function(f) f.Event.Id = id AndAlso f.User.Id = userId).SingleOrDefault
             Dim followed = fv IsNot Nothing
-            ViewBag.Followd = followed
+            ViewBag.Followed = followed
 
             If Not ModelState.IsValid Then
                 Return View(ev)
@@ -801,52 +803,6 @@ Public Class EventsController
         End If
 
     End Function
-
-    Async Function Today() As Task(Of ActionResult)
-
-        'Dim userId = User.Identity.GetUserId
-        'Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
-        'If appUser Is Nothing Then
-        '    Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
-        'End If
-
-        'Dim n = Now.Date
-        'Dim results = db.Events.Where(Function(e) Not e.IsHidden).OrderBy(Function(e) e.StartDateTime.Date <= n AndAlso n <= e.EndDateTime.Date)
-
-        'Dim viewModel = New SearchEventsViewModel With {
-        '    .TotalCount = results.Count
-        '    }
-
-        'Dim count = 10
-        'Dim pagenationCount = 5
-
-        '' Total page
-        'viewModel.TotalPages = (results.Count - 1) \ count + 1
-
-        '' Current page
-        'If Not Page.HasValue OrElse viewModel.TotalPages > Page.Value Then
-        '    viewModel.CurrentPage = 1
-        'Else
-        '    viewModel.CurrentPage = Page.Value
-        'End If
-
-        '' Start page
-        'viewModel.StartPage = viewModel.CurrentPage - pagenationCount
-        'If viewModel.StartPage < 1 Then
-        '    viewModel.StartPage = 1
-        'End If
-
-        '' End page
-        'viewModel.EndPage = viewModel.StartPage + pagenationCount - 1
-        'If viewModel.EndPage > viewModel.TotalPages Then
-        '    viewModel.EndPage = viewModel.TotalPages
-        'End If
-
-        'viewModel.Results = results.Skip((viewModel.CurrentPage - 1) * count).Take(count).ToList
-
-        'Return View(viewModel)
-    End Function
-
 
     Async Function Delete(id As Integer?) As Task(Of ActionResult)
         If Not id.HasValue Then

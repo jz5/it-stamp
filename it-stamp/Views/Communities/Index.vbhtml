@@ -2,6 +2,7 @@
 @Imports Microsoft.AspNet.Identity
 @Code
     ViewBag.Title = "コミュニティ一覧"
+    ViewData("InternalLink") = True ' For community card
 End Code
 
 <div class="row">

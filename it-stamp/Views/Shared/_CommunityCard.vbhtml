@@ -31,7 +31,7 @@ End Code
 
                     @<div class="form-group">
                         <div class="form-inline">
-                            <input id="follow-btn" type="submit" value="@(if(ViewBag.Followd,"フォロー中","フォロー"))" class="btn btn-default" style="min-width:96px;width:96px;font-size:14px;" />
+                            <input id="follow-btn" type="submit" value="@(If(ViewBag.Followed, "フォロー中", "フォロー"))" class="btn btn-default" style="min-width:96px;width:96px;font-size:14px;" />
                         </div>
                     </div>
                 End Using

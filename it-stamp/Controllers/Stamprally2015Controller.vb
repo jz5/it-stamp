@@ -51,10 +51,10 @@ Public Class Stamprally2015Controller
         Dim n = Now.Date
         If past.HasValue AndAlso past.Value = True Then
             ' 過去
-            results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.EndDateTime < n AndAlso e.SpecialEvents.Id = 1).OrderByDescending(Function(e) e.StartDateTime)
+            results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.EndDateTime < n AndAlso (e.SpecialEvents.Where(Function(ev) ev.Id = 1).Count > 0)).OrderByDescending(Function(e) e.StartDateTime)
         Else
             ' 開催予定
-            results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.StartDateTime >= n AndAlso e.SpecialEvents.Id = 1).OrderBy(Function(e) e.StartDateTime)
+            results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.StartDateTime >= n AndAlso (e.SpecialEvents.Where(Function(ev) ev.Id = 1).Count > 0)).OrderBy(Function(e) e.StartDateTime)
         End If
 
         Dim viewModel = New SearchEventsViewModel With {
@@ -95,7 +95,7 @@ Public Class Stamprally2015Controller
     <AllowAnonymous>
     Function Communities(page As Integer?) As ActionResult
 
-        Dim results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.SpecialEvents.Id = 1 AndAlso e.Community IsNot Nothing AndAlso Not e.Community.IsHidden).Select(Function(e) e.Community).Distinct.OrderBy(Function(c) c.Name)
+        Dim results = db.Events.Where(Function(e) Not e.IsHidden AndAlso (e.SpecialEvents.Where(Function(ev) ev.Id = 1).Count > 0) AndAlso e.Community IsNot Nothing AndAlso Not e.Community.IsHidden).Select(Function(e) e.Community).Distinct.OrderBy(Function(c) c.Name)
 
         Dim viewModel = New SearchCommunitiesViewModel With {
             .TotalCount = results.Count}

@@ -100,9 +100,9 @@ Public Class CommunitiesController
         ' フォロー済みか
         If appUser IsNot Nothing Then
             Dim followed = appUser.Communities.Where(Function(c) c.Id = com.Id).Count > 0
-            ViewBag.Followd = followed
+            ViewBag.Followed = followed
         Else
-            ViewBag.Followd = False
+            ViewBag.Followed = False
         End If
 
         ' 主催勉強会一覧情報
@@ -653,7 +653,7 @@ Public Class CommunitiesController
         Try
             ' フォロー済みか
             Dim followed = appUser.Communities.Where(Function(c) c.Id = com.Id).Count > 0
-            ViewBag.Followd = followed
+            ViewBag.Followed = followed
 
             If Not ModelState.IsValid Then
                 Return View(model)
