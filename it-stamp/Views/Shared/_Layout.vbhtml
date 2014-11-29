@@ -80,6 +80,7 @@
                     </ul>
                 </div>
                 <div class="col-md-4">
+                    <div style="height:30px;"></div>
                     <a class="twitter-timeline" href="https://twitter.com/search?q=%23itstamp%20OR%20%22IT%E5%8B%89%E5%BC%B7%E4%BC%9A%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%97%E3%83%A9%E3%83%AA%E3%83%BC%22" data-widget-id="535866409834659841">#itstamp OR "IT勉強会スタンプラリー"に関するツイート</a>
                     <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
                 </div>

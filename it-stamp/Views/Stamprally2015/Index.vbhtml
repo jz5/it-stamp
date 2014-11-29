@@ -71,7 +71,7 @@ End Code
             <p>IT勉強会スタンプラリーに参加いただけるコミュニティを募集中です。</p>
             <p>参加コミュニティには、スタンプラリーの台紙を送ります。また、スポンサーのノベルティのプレゼントもあります（開催時期などにより用意できない場合もあります）。</p>
 
-            <a href="@Href("~/Stamprally/2015/Join")" class="btn btn-normal">コミュニティの参加</a>
+            <a href="@Href("~/Stamprally/2015/Join")" class="btn btn-default">コミュニティの参加</a>
 
         </div>
 

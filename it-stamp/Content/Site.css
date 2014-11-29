@@ -47,13 +47,17 @@ body + .container {
     padding: 50px 15px 20px;
 }
 
-body > .container-fluid {
+body >.container {
+    padding-top: 30px;
+}
+
+/*body > .container-fluid {
     padding: 50px 15px 20px;
 }
 
 .container > .row {
     margin-top: 30px;
-}
+}*/
 
 mark, .mark {
     background-color: #ffc;
