@@ -7,6 +7,11 @@
 
 End Code
 
+<h2>開催予定のIT勉強会 <small>フォローしているIT勉強会とコミュニティ</small></h2>
+<div>
+    <p class="text-muted">（未実装）</p>
+</div>
+
 <h2>✅ チェックイン</h2>
 <div>
     @If Model.CheckIns.Count = 0 Then

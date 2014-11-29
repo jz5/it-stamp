@@ -10,10 +10,13 @@ End Code
         @If Not Request.IsAuthenticated Then
             @<div class="jumbotron">
                 <div class="jumbotron-contents">
+                    <h1 style="margin-top:20px;">IT勉強会スタンプとは？</h1>
                     <p><a href="@Href("~/Home/About/")">IT勉強会スタンプ</a>は、IT勉強会の参加を記録できるWebサービスです。</p>
+                    @Html.ActionLink("アカウント登録", "Register", "Account", Nothing, New With {.class = "btn btn-primary"})
+
+                    <h3>“IT勉強会スタンプラリー”を開催中！</h3>
                     <p>IT勉強会に参加してスタンプを集める “<a href="@Href("~/Stamprally/2015/")">IT勉強会スタンプラリー</a>” を開催中！　<a href="@Href("~/Events/?SpecialEvent=1")">対象のIT勉強会</a>を探してみよう！（※ 開催中のスタンプラリーは、台紙を使います。Webサービスの記録機能とは関連していません。）</p>
 
-                    @Html.ActionLink("アカウント登録", "Register", "Account", Nothing, New With {.class = "btn btn-primary"})
                 </div>
             </div>
         Else
@@ -25,7 +28,7 @@ End Code
             </div>
         End If
 
-        <h2 @(If(Request.IsAuthenticated, Html.Raw("style=""margin-top:0;"""), ""))>開催予定のIT勉強会</h2>
+        <h2 @(If(Request.IsAuthenticated, Html.Raw("style=""margin-top:40px;"""), ""))>📢 開催予定のIT勉強会</h2>
 
         @Html.Partial("_EventResults")
 

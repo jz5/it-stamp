@@ -1,15 +1,34 @@
 ﻿@Imports Microsoft.AspNet.Identity
+@code
+
+    Dim name = Session("DisplayName")
+    Dim icon = Session("IconPath")
+
+    If name = "" Then
+        Dim db = New ApplicationDbContext
+        Dim id = User.Identity.GetUserId
+        Dim appUser = db.Users.Where(Function(u) u.Id = id).SingleOrDefault
+        If appUser IsNot Nothing Then
+            name = appUser.DisplayName
+            icon = appUser.IconPath
+            Session("DisplayName") = name
+            Session("IconPath") = icon
+        End If
+    End If
+
+End Code
 @If Request.IsAuthenticated Then
     @Using Html.BeginForm("LogOff", "Account", FormMethod.Post, New With {.id = "logoutForm", .class = "navbar-right"})
         @Html.AntiForgeryToken()
-        @If Session("IconPath") <> "" Then
-            @<img src="@Href("~/Uploads/" & Session("IconPath"))" class="navbar-brand" style="padding-right:0;" alt="" />
-        End If
+
+        @<img src="@Href("~/Uploads/" & icon)" class="navbar-brand" style="padding-right:0;" alt="" />
         @<ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">@Session("DisplayName") <span class="caret"></span></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">@name <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="@Href("~/Users/" & User.Identity.GetUserName & "/Edit")"><i class="glyphicon glyphicon-user"></i> プロフィール</a></li>
+                    <li><a href="@Href("~/Users/" & User.Identity.GetUserName & "/My")">マイページ</a></li>
+                    <li class="divider"></li>
+                    <li><a href="@Href("~/Users/" & User.Identity.GetUserName & "/Edit")">プロフィール編集</a></li>
                     <li><a href="@Href("~/Account/Manage")">アカウント管理</a></li>
                     <li class="divider"></li>
                     <li><a href="javascript:document.getElementById('logoutForm').submit()">ログオフ</a></li>

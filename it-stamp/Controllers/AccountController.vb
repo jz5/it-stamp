@@ -558,7 +558,6 @@ Public Class AccountController
 
             ' UserInfo
             UploadHelper.DeleteFile(Server.MapPath("~/App_Data/Uploads/"), dbUser.IconPath)
-            dbUser.RemoveUserInfo()
 
             db.SaveChanges()
 
@@ -574,6 +573,21 @@ Public Class AccountController
             Next
 
             UserManager.RemovePassword(userId)
+
+            appUser.Email = ""
+            appUser.Description = ""
+            appUser.DisplayName = "***"
+            appUser.Url = Nothing
+            appUser.Twitter = ""
+            appUser.Facebook = ""
+            appUser.Other = ""
+            appUser.ShareTwitter = False
+            appUser.ShareFacebook = False
+            appUser.ShareOther = False
+            appUser.IconPath = ""
+            appUser.IsRemoved = True
+            appUser.IsPrivate = True
+
             UserManager.Update(appUser)
 
             ' SignOut
@@ -708,8 +722,6 @@ Public Class AccountController
     Private Async Function SignInAsync(user As ApplicationUser, isPersistent As Boolean) As Task
         AuthenticationManager.SignOut(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ExternalCookie)
         AuthenticationManager.SignIn(New AuthenticationProperties() With {.IsPersistent = isPersistent}, Await user.GenerateUserIdentityAsync(UserManager))
-
-
         Session("DisplayName") = user.DisplayName
         Session("IconPath") = user.IconPath
     End Function

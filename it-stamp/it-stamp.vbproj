@@ -560,6 +560,11 @@
     <Content Include="Views\Home\QA.vbhtml" />
     <Content Include="Views\Events\EditReport.vbhtml" />
     <Content Include="Views\Stamprally2015\Schedule.vbhtml" />
+    <Content Include="Views\Users\My.vbhtml" />
+    <Content Include="Views\Users\CheckIns.vbhtml" />
+    <Content Include="Views\Users\_UserLayout.vbhtml" />
+    <Content Include="Views\Users\PrivateOrRemovedUser.vbhtml" />
+    <Content Include="Views\Users\_SidebarPartial.vbhtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

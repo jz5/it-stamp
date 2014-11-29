@@ -53,20 +53,55 @@ Public Class UsersController
             Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
         End If
 
+        Dim userId = User.Identity.GetUserId
+
         Dim appUser = db.Users.Where(Function(u) u.UserName = userName).SingleOrDefault
         If appUser Is Nothing Then
             Return HttpNotFound()
+        ElseIf appUser.IsRemoved OrElse appUser.IsPrivate Then ' Deitals は自分のページも見れない
+            Return View("PrivateOrRemovedUser", appUser)
+        End If
+
+        ' フォロー済みか
+        Dim followed = False
+        If userId <> appUser.Id Then
+            followed = db.Followers.Where(Function(f) f.CreatedBy.Id = userId AndAlso f.User.Id = appUser.Id).Count > 0
+        End If
+        ViewBag.Followed = followed
+
+        Return View(appUser)
+    End Function
+
+    ' GET: Users/UserName/My
+    Async Function My(userName As String) As Task(Of ActionResult)
+
+        Dim id = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = id).SingleOrDefaultAsync
+        If appUser Is Nothing OrElse appUser.UserName <> userName Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Return View(appUser)
+    End Function
+
+    <AllowAnonymous>
+    Function CheckIns(userName As String) As ActionResult
+        If userName = "" Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
         End If
 
         Dim userId = User.Identity.GetUserId
 
-        ' 自分のページか        
-        Dim isMe = (userId = appUser.Id)
-        ViewBag.IsMe = isMe
+        Dim appUser = db.Users.Where(Function(u) u.UserName = userName).SingleOrDefault
+        If appUser Is Nothing Then
+            Return HttpNotFound()
+        ElseIf appUser.Id <> userId AndAlso (appUser.IsRemoved OrElse appUser.IsPrivate) Then
+            Return View("PrivateOrRemovedUser", appUser)
+        End If
 
         ' フォロー済みか
         Dim followed = False
-        If Not isMe AndAlso userId IsNot Nothing Then
+        If userId <> appUser.Id Then
             followed = db.Followers.Where(Function(f) f.CreatedBy.Id = userId AndAlso f.User.Id = appUser.Id).Count > 0
         End If
         ViewBag.Followed = followed
@@ -75,11 +110,11 @@ Public Class UsersController
     End Function
 
     ' GET: Users/UserName/Edit
-    Async Function Edit(message As Message?) As Task(Of ActionResult)
+    Async Function Edit(userName As String, message As Message?) As Task(Of ActionResult)
 
         Dim id = User.Identity.GetUserId
         Dim appUser = Await db.Users.Where(Function(u) u.Id = id).SingleOrDefaultAsync
-        If appUser Is Nothing Then
+        If appUser Is Nothing OrElse appUser.UserName <> userName Then
             Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
         End If
 
@@ -116,7 +151,7 @@ Public Class UsersController
             UpdateModel(Of ApplicationUser)(appUser)
             Await db.SaveChangesAsync()
 
-            Session("DisplayName") = model.DisplayName
+            Session("DisplayName") = appUser.DisplayName
 
             Return RedirectToAction("Edit", New With {.message = Message.Edit})
 
@@ -127,11 +162,11 @@ Public Class UsersController
     End Function
 
     ' GET: Users/UserName/Upload
-    Async Function Upload(ByVal userName As String) As Task(Of ActionResult)
+    Async Function Upload(userName As String) As Task(Of ActionResult)
 
         Dim id = User.Identity.GetUserId
         Dim appUser = Await db.Users.Where(Function(u) u.Id = id).SingleOrDefaultAsync
-        If appUser Is Nothing Then
+        If appUser Is Nothing OrElse appUser.UserName <> userName Then
             Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
         End If
 
