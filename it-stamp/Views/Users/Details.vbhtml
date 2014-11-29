@@ -55,9 +55,9 @@ End Code
                 @For Each item In Model.Favorites
                 Dim src = If(item.Event.Community IsNot Nothing AndAlso item.Event.Community.IconPath <> "", Href("/Uploads/" & item.Event.Community.IconPath), "http://placehold.it/96x96")
                     @<tr>
-                        <td style="border-top-width:0;width:32px;"><a href="@Href("/Communities/")@item.Id"><img class="img-rounded icon24" src="@src" /></a></td>
+                        <td style="border-top-width:0;width:32px;"><a href="@Href("/Events/")@item.Id"><img class="img-rounded icon24" src="@src" /></a></td>
                         <td style="border-top-width:0;vertical-align:bottom;"><time class="text-muted small">@item.Event.FriendlyDateTime</time></td>
-                        <td style="border-top-width:0;vertical-align:bottom;"><a href="@Href("/Communities/")@item.Id">@item.Event.Name</a></td>
+                        <td style="border-top-width:0;vertical-align:bottom;"><a href="@Href("/Events/")@item.Id">@item.Event.Name</a></td>
                     </tr>
                 Next
             </tbody>

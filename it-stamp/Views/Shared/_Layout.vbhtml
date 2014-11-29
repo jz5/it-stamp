@@ -27,7 +27,7 @@
                     <li>@Html.ActionLink("🔰 初めての方", "About", "Home")</li>
                     <li>@Html.ActionLink("IT勉強会", "Index", "Events")</li>
                     <li><a href="@Href("~/Stamprally/2015/")">スタンプラリー</a></li>
-                   
+
                     @If Request.IsAuthenticated AndAlso User.IsInRole("Admin") Then
                         @<li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
@@ -99,17 +99,27 @@
     <script src="//twemoji.maxcdn.com/twemoji.min.js"></script>
     @Scripts.Render("~/bundles/script")
     <script>
-    twemoji.parse(document.body, {
-        callback: function (icon, options, variant) {
-            switch (icon) {
-                case 'a9':      // copyright
-                case 'ae':      // trademark
-                    return false;
+        twemoji.parse(document.body, {
+            callback: function (icon, options, variant) {
+                switch (icon) {
+                    case 'a9':      // copyright
+                    case 'ae':      // trademark
+                        return false;
+                }
+                return ''.concat(options.base, options.size, '/', icon, options.ext);
             }
-            return ''.concat(options.base, options.size, '/', icon, options.ext);
-        }
-    });
+        });
     </script>
     @RenderSection("scripts", required:=False)
+    <script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-57208824-1', 'auto');
+    ga('send', 'pageview');
+    </script>
 </body>
 </html>

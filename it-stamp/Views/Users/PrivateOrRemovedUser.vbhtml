@@ -13,7 +13,7 @@ End Code
             </div>
 
         ElseIf Model.IsPrivate Then
-            @<h1>@(User.Identity.GetUserName)さん</h1>
+            @<h1>@(Model.UserName)さん</h1>
             @<div class="alert alert-info fade in" role="alert">
                 🔒 プライベートモードのユーザーです。
             </div>
