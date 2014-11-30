@@ -162,10 +162,14 @@ End Using
 
 @If Not ViewBag.CanEditDetails Then
     @<aside>
-        @If Model.Community Is Nothing Then
-            @<span>💡 主催コミュニティの方は、<a href="@Href("~/Home/Contact/")">申請</a>すると詳細情報を編集できます。</span>
+        @If (New Random).Next(2) = 0 Then
+            @<span>💡 コミュニティのアイコンが、IT勉強会のアイコンとして表示されます。</span>
         Else
-            @<span>💡 @(Model.Community.Name)の方ですか？　<a href="@Href("~/Home/Contact/")">申請</a>すると詳細情報を編集できます。</span>
+            @If Model.Community Is Nothing Then
+                @<span>💡 主催コミュニティの方は、<a href="@Href("~/Home/Contact/")">申請</a>すると詳細情報を編集できます。</span>
+            Else
+                @<span>💡 @(Model.Community.Name)の方ですか？　<a href="@Href("~/Home/Contact/")">申請</a>すると詳細情報を編集できます。</span>
+            End If
         End If
     </aside>
 Else

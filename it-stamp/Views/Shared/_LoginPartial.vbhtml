@@ -1,6 +1,5 @@
 ﻿@Imports Microsoft.AspNet.Identity
 @code
-
     Dim name = Session("DisplayName")
     Dim icon = Session("IconPath")
 
@@ -21,8 +20,8 @@ End Code
     @Using Html.BeginForm("LogOff", "Account", FormMethod.Post, New With {.id = "logoutForm", .class = "navbar-right"})
         @Html.AntiForgeryToken()
 
-        @<img src="@Href("~/Uploads/" & icon)" class="navbar-brand" style="padding-right:0;" alt="" />
-        @<ul class="nav navbar-nav navbar-right">
+        @<img src="@Href("~/Uploads/" & icon)" class="navbar-brand hidden-xs" style="padding-right:0;" alt="" />
+        @<ul class="nav navbar-nav navbar-right hidden-xs visible-sm visible-md visible-lg">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">@name <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
@@ -34,6 +33,14 @@ End Code
                     <li><a href="javascript:document.getElementById('logoutForm').submit()">ログオフ</a></li>
                 </ul>
             </li>
+        </ul>
+        @<ul class="nav navbar-nav navbar-right visible-xs hidden-sm hidden-md hidden-lg">
+            <li><a href="@Href("~/Users/" & User.Identity.GetUserName & "/My")">マイページ</a></li>
+            <li class="divider"></li>
+            <li><a href="@Href("~/Users/" & User.Identity.GetUserName & "/Edit")">プロフィール編集</a></li>
+            <li><a href="@Href("~/Account/Manage")">アカウント管理</a></li>
+            <li class="divider"></li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">ログオフ</a></li>
         </ul>
     End Using
 Else

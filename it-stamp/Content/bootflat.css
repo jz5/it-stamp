@@ -1214,7 +1214,7 @@ blockquote {
   .navbar-default .navbar-nav .open .dropdown-menu > .divider {
     background-color: #5d9cec; }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #2363b6; }
+    color: white; }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus, .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: white;
     background-color: #5d9cec; }
