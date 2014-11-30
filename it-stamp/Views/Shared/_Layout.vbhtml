@@ -10,6 +10,7 @@
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("styles", required:=False)
     <meta name="description" content="IT勉強会スタンプは、IT勉強会の参加を記録できるWebサービスです。" />
+    @RenderSection("head", required:=False)
 </head>
 <body>
     <div class="navbar navbar-default navbar-fixed-top">

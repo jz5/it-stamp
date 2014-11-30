@@ -16,7 +16,7 @@ Public Class SocialHelpers
         If accessTokenClaim IsNot Nothing AndAlso accessTokenSecretClaim IsNot Nothing Then
 
             Dim tokens = CoreTweet.Tokens.Create(ConfigurationManager.AppSettings("TwitterConsumerKey"), ConfigurationManager.AppSettings("TwitterConsumerSecret"), accessTokenClaim.Value, accessTokenSecretClaim.Value)
-            Await tokens.Statuses.UpdateAsync(New Dictionary(Of String, Object) From {{"status", status.Excerpt(140)}})
+            Await tokens.Statuses.UpdateAsync(New Dictionary(Of String, Object) From {{"status", status}})
 
         End If
     End Function

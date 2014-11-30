@@ -7,7 +7,7 @@ Public Module Extensions
         If text Is Nothing Then
             Return ""
         ElseIf text.Length > count Then
-            Return text.Substring(0, count) & "..."
+            Return text.Substring(0, count - 3) & "..."
         Else
             Return text
         End If

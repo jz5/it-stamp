@@ -20,6 +20,12 @@
     Dim privateCommentCount = (From item In Model.Comments Where item.CreatedBy.IsPrivate).Count
 
 End Code
+@section head
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@Html.Raw("@itstamp")" />
+    <meta name="twitter:title" content="@ViewBag.Title" />
+    <meta name="twitter:description" content="@Model.Description.Excerpt(200)" />
+End Section
 <div class="row">
     <div class="col-md-8">
         <h1>@ViewBag.Title</h1>

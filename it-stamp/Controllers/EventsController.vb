@@ -607,13 +607,18 @@ Public Class EventsController
             If viewModel.ShareTwitter Then
                 ' Tweet
                 Dim words = New List(Of String)
-                words.Add(If(viewModel.AdditionalMessage <> "", viewModel.AdditionalMessage.Trim, ""))
-                words.Add(String.Format("http://example.jp/{0}", ev.Id))
+                words.Add(String.Format("http://it-stamp.jp/e/{0}", ev.Id))
                 words.Add(If(ev.Hashtag <> "", "#" & ev.Hashtag.Trim, ""))
                 words.Add("#itstamp")
+                Dim footer = String.Join(" ", words.ToArray)
+
+                Dim msg = If(viewModel.AdditionalMessage <> "", viewModel.AdditionalMessage.Trim, "")
+                If (msg & " " & footer).Length > 140 Then
+                    msg = msg.Substring(0, 140 - footer.Length - 1)
+                End If
 
                 Try
-                    Await SocialHelpers.Tweet(Await UserManager.GetClaimsAsync(userId), String.Join(" ", words.ToArray))
+                    Await SocialHelpers.Tweet(Await UserManager.GetClaimsAsync(userId), msg & " " & footer)
                 Catch ex As Exception
                     ' Ignore
                 End Try
@@ -692,7 +697,7 @@ Public Class EventsController
                 ' Tweet
                 Dim words = New List(Of String)
                 words.Add(If(viewModel.AdditionalMessage <> "", viewModel.AdditionalMessage.Trim, ""))
-                words.Add(String.Format("http://example.jp/{0}", ev.Id))
+                words.Add(String.Format("http://it-stamp.jp/e/{0}", ev.Id))
                 words.Add(If(ev.Hashtag <> "", "#" & ev.Hashtag.Trim, ""))
                 words.Add("#itstamp")
 
