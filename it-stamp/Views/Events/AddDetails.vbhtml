@@ -124,6 +124,11 @@ End Code
     </text>
 End Using
 
+<aside>
+    <span>💡 登録後の編集は、IT勉強会のページの下にある「編集」からできます。</span>
+</aside>
+
+
 
 @Section Styles
     @Styles.Render("~/Content/datepicker3.css")
