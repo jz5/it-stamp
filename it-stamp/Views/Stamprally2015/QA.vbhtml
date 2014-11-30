@@ -58,20 +58,3 @@ End Code
         @Html.Partial("_SidebarPartial")
     </div>
 </div>
-@section scripts
-    <script>
-        (function ($) {
-            var qa1 = [
-                {
-                    "q": "",
-                    "a": ""
-                },
-                {
-                    "q": "",
-                    "a": ""
-                },
-            ];
-
-        })(jQuery);
-    </script>
-End Section
