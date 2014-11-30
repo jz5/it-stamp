@@ -31,8 +31,8 @@ End Code
     <div class="media-body">
         <h3>
             <a href="@Href("/Events/")@Model.Id">@Model.Name</a>
-            @If Model.SpecialEvents IsNot Nothing AndAlso Model.SpecialEvents.Count > 0 Then
-                @<span title="@(Model.SpecialEvents.First.Name & "対象")">⭐</span>
+            @If Model.SpecialEvents IsNot Nothing AndAlso Model.SpecialEvents.Any Then
+                @<span title="@(Model.SpecialEvents.First.SpecialEvent.Name & "対象")">⭐</span>
             End If
         </h3>
         <div>
@@ -47,7 +47,7 @@ End Code
                 End If
                 <time class="small text-muted">@Model.FriendlyDateTime</time>
             </div>
-            <div class="small">@Model.Prefecture.Name @Model.Place</div>
+            <div class="small">@(If(Model.Prefecture isnot Nothing, Model.Prefecture.Name,"")) @Model.Place</div>
             <div class="small">@Model.Description.Excerpt(200)</div>
             <div class="clearfix">
                 @If Model.Community IsNot Nothing Then

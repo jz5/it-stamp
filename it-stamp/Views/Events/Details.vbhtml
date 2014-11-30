@@ -12,7 +12,7 @@
         searchAddress = Nothing
     ElseIf Model.Address IsNot Nothing Then
         '会場（住所）
-        searchAddress = If(Model.Prefecture.Id < 49, Model.Prefecture.Name, "") & Model.Address
+        searchAddress = If(Model.Prefecture IsNot Nothing AndAlso Model.Prefecture.Id < 49, Model.Prefecture.Name, "") & Model.Address
     ElseIf Model.Address Is Nothing Then
         searchAddress = Model.Place
     End If
@@ -96,7 +96,7 @@ End Code
                                 @<td>@Model.Prefecture.Name</td>
                             ElseIf Model.Address IsNot Nothing Then
                                 '会場（住所）
-                                @<td>@Model.Place（@(If(Model.Prefecture.Id < 49, Model.Prefecture.Name, ""))@Model.Address）</td>
+                                @<td>@Model.Place（@(If(Model.Prefecture IsNot Nothing andalso Model.Prefecture.Id < 49, Model.Prefecture.Name, ""))@Model.Address）</td>
                             ElseIf Model.Address Is Nothing Then
                                 If Model.Place IsNot Nothing Then
                                 @<td>@Model.Place</td>
@@ -121,9 +121,9 @@ End Code
                                 @<td>@Html.ActionLink(Model.Community.Name, "Details", "Communities", New With {.id = Model.Community.Id}, Nothing)</td>
                             End If
                         </tr>
-                        @If Model.SpecialEvents IsNot Nothing AndAlso Model.SpecialEvents.Count > 0 Then
+                        @If Model.SpecialEvents IsNot Nothing AndAlso Model.SpecialEvents.Any Then
                             @<tr>
-                                <td colspan="2"><span>⭐</span> @Html.ActionLink(Model.SpecialEvents.FirstOrDefault.Name, Model.SpecialEvents.FirstOrDefault.Id.ToString, "SpecialEvents")対象のIT勉強会です。</td>
+                                <td colspan="2"><span>⭐</span> @Html.ActionLink(Model.SpecialEvents.First.SpecialEvent.Name, Model.SpecialEvents.First.SpecialEvent.Id.ToString, "SpecialEvents")対象のIT勉強会です。</td>
                             </tr>
                         End If
                         @If Model.IsReported AndAlso ViewBag.CanEditDetails Then
@@ -242,7 +242,7 @@ End Code
         End If
 
         <h2>💬 コメント <span class="badge badge-primary @(If(Model.Comments.Count = 0, "hidden", ""))">@Model.Comments.Count</span></h2>
-        @If Model.Comments IsNot Nothing AndAlso Model.Comments.Count > 0 Then
+        @If Model.Comments IsNot Nothing AndAlso Model.Comments.Any Then
             @<ul class="list-unstyled" id="comment-list" style="margin-bottom:20px;">
                 @For Each item As Comment In Model.Comments
                 If item.CreatedBy.IsPrivate Then
@@ -250,7 +250,7 @@ End Code
                 End If
                     @<li style="margin-bottom:5px;">
                         <a href="@Href("~/Users/" & item.CreatedBy.UserName)"><img src="@(If(item.CreatedBy.IconPath <> "", Href("/Uploads/" & item.CreatedBy.IconPath), Href("/Uploads/Icons/anon.png")))" class="icon24" /></a>
-                        <a href="@Href("~/Users/" & item.CreatedBy.UserName)">@item.CreatedBy.DisplayName</a> @item.Content <time class="text-muted small" datetime="@item.CreationDateTime.ToString("yyyy-MM-ddTH:mm:ssK")">（@item.CreationDateTime.ToString("yyyy/MM/dd HH:mm")）</time>
+                        <a href="@Href("~/Users/" & item.CreatedBy.UserName)" class="small">@item.CreatedBy.DisplayName</a> @item.Content <time class="text-muted small" datetime="@item.CreationDateTime.ToString("yyyy-MM-ddTH:mm:ssK")">（@item.CreationDateTime.ToString("yyyy/MM/dd HH:mm")）</time>
                     </li>
                 Next
             </ul>
@@ -335,7 +335,7 @@ End Code
                     @<a href="@Href("~/Users/" & f.User.UserName)"><img src="@(If(f.User.IconPath <> "", Href("/Uploads/" & f.User.IconPath), "http://placehold.it/16x16"))" class="img-rounded icon24" alt="" title="@f.User.FriendlyName" /></a>
                 Next
 
-                If Model.Favorites.Where(Function(fv) fv.User.IsPrivate).Count > 0 Then
+                If Model.Favorites.Any(Function(fv) fv.User.IsPrivate) Then
                 @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
                 End If
 

@@ -161,7 +161,7 @@ Public Class UsersAdminController
         Dim userRoles = Await UserManager.GetRolesAsync(user.Id)
 
         selectedRole = If(selectedRole, New String() {})
-        If selectedRole.Count > 0 Then
+        If selectedRole.Any Then
             Dim idResult As IdentityResult
             idResult = Await UserManager.AddToRolesAsync(user.Id, selectedRole.Except(userRoles).ToArray)
             If Not idResult.Succeeded Then

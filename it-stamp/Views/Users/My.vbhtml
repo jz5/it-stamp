@@ -69,3 +69,9 @@ End Code
         </table>
     End If
 </div>
+
+<aside>
+    <span>
+        🔎 @Html.ActionLink(Model.FriendlyName & "のプロフィールページを確認", "Details", "Users", New With {.userName = Model.UserName}, Nothing)
+    </span>
+</aside>

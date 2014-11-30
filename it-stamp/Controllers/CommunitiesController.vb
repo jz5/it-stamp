@@ -51,7 +51,7 @@ Public Class CommunitiesController
             .TotalCount = results.Count
             }
 
-        Dim count = 10
+        Dim count = 20
         Dim pagenationCount = 5
 
         ' Total page
@@ -65,7 +65,7 @@ Public Class CommunitiesController
         End If
 
         ' Start page
-        viewModel.StartPage = viewModel.CurrentPage - pagenationCount
+        viewModel.StartPage = viewModel.CurrentPage - (pagenationCount \ 2)
         If viewModel.StartPage < 1 Then
             viewModel.StartPage = 1
         End If
@@ -74,6 +74,13 @@ Public Class CommunitiesController
         viewModel.EndPage = viewModel.StartPage + pagenationCount - 1
         If viewModel.EndPage > viewModel.TotalPages Then
             viewModel.EndPage = viewModel.TotalPages
+        End If
+
+        If viewModel.EndPage - viewModel.StartPage + 1 < pagenationCount Then
+            viewModel.StartPage = viewModel.EndPage - pagenationCount + 1
+        End If
+        If viewModel.StartPage < 1 Then
+            viewModel.StartPage = 1
         End If
 
         viewModel.Results = results.Skip((viewModel.CurrentPage - 1) * count).Take(count).ToList
@@ -99,7 +106,7 @@ Public Class CommunitiesController
 
         ' フォロー済みか
         If appUser IsNot Nothing Then
-            Dim followed = appUser.Communities.Where(Function(c) c.Id = com.Id).Count > 0
+            Dim followed = appUser.Communities.Any(Function(c) c.Id = com.Id)
             ViewBag.Followed = followed
         Else
             ViewBag.Followed = False
@@ -252,7 +259,7 @@ Public Class CommunitiesController
             ElseIf targetUser.Id = id Then
                 ModelState.AddModelError("UserName", "自分自身を再追加することはできません")
                 Return View(viewModel)
-            ElseIf com.Owners.Where(Function(e) e.Id = targetUser.Id).Count > 0 Then
+            ElseIf com.Owners.Any(Function(e) e.Id = targetUser.Id) Then
                 ModelState.AddModelError("UserName", "既に追加されています")
                 Return View(viewModel)
             End If
@@ -652,7 +659,7 @@ Public Class CommunitiesController
 
         Try
             ' フォロー済みか
-            Dim followed = appUser.Communities.Where(Function(c) c.Id = com.Id).Count > 0
+            Dim followed = appUser.Communities.Any(Function(c) c.Id = com.Id)
             ViewBag.Followed = followed
 
             If Not ModelState.IsValid Then
@@ -868,7 +875,7 @@ Public Class CommunitiesController
         ElseIf Not community.IsLocked Then
             ' 一般ユーザー
             Return True
-        ElseIf community.Owners.Where(Function(e) e.Id = appUser.Id).Count > 0 Then
+        ElseIf community.Owners.Any(Function(e) e.Id = appUser.Id) Then
             ' コミュニティオーナー
             Return True
         ElseIf User.IsInRole("Admin") Then
@@ -880,7 +887,7 @@ Public Class CommunitiesController
     Private Function CanEditDetails(appUser As ApplicationUser, community As Community) As Boolean
         If appUser Is Nothing OrElse community Is Nothing Then
             Return False
-        ElseIf community.Owners.Where(Function(e) e.Id = appUser.Id).Count > 0 Then
+        ElseIf community.Owners.Any(Function(e) e.Id = appUser.Id) Then
             ' コミュニティオーナー
             Return True
         ElseIf User.IsInRole("Admin") Then
@@ -894,7 +901,7 @@ Public Class CommunitiesController
             Return False
         ElseIf User.IsInRole("Admin") Then
             Return True
-        ElseIf community.Members.Count > 0 OrElse community.Owners.Count > 0 OrElse db.Events.Where(Function(e) e.Community IsNot Nothing AndAlso e.Community.Id = community.Id).Count > 0 Then
+        ElseIf community.Members.Count > 0 OrElse community.Owners.Count > 0 OrElse db.Events.Any(Function(e) e.Community IsNot Nothing AndAlso e.Community.Id = community.Id) Then
             ' フォロー済み・管理者がいる・コミュニティを参照している勉強会がある
             Return False
         ElseIf community.CreatedBy.Id = appUser.Id AndAlso Not community.IsLocked Then

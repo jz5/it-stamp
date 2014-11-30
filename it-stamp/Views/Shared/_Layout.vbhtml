@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@(If(ViewBag.Title = "", "IT勉強会スタンプ", ViewBag.Title & " | IT勉強会スタンプ"))</title>
+    <title>@(If(ViewBag.Title = "", "IT勉強会にチェックイン！ | IT勉強会スタンプ", ViewBag.Title & " | IT勉強会スタンプ"))</title>
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")

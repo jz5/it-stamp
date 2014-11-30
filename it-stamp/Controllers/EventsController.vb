@@ -55,14 +55,15 @@ Public Class EventsController
 
         ' さらに絞り込む
         If specialEvent.HasValue Then
-            results = From item In results Where item.SpecialEvents.Where(Function(ev) ev.Id = specialEvent.Value).Count > 0
+            results = From item In results Where item.SpecialEvents.Where(Function(ev) ev.SpecialEvent.Id = specialEvent.Value).Count > 0
         End If
 
         Dim viewModel = New SearchEventsViewModel With {
-            .TotalCount = results.Count
+            .TotalCount = results.Count,
+            .Past = If(past, False)
             }
 
-        Dim count = 10
+        Dim count = 20
         Dim pagenationCount = 5
 
         ' Total page
@@ -76,7 +77,7 @@ Public Class EventsController
         End If
 
         ' Start page
-        viewModel.StartPage = viewModel.CurrentPage - pagenationCount
+        viewModel.StartPage = viewModel.CurrentPage - (pagenationCount \ 2)
         If viewModel.StartPage < 1 Then
             viewModel.StartPage = 1
         End If
@@ -85,6 +86,13 @@ Public Class EventsController
         viewModel.EndPage = viewModel.StartPage + pagenationCount - 1
         If viewModel.EndPage > viewModel.TotalPages Then
             viewModel.EndPage = viewModel.TotalPages
+        End If
+
+        If viewModel.EndPage - viewModel.StartPage + 1 < pagenationCount Then
+            viewModel.StartPage = viewModel.EndPage - pagenationCount + 1
+        End If
+        If viewModel.StartPage < 1 Then
+            viewModel.StartPage = 1
         End If
 
         ' Message
@@ -143,7 +151,7 @@ Public Class EventsController
 
         ' フォロー済みか
         If appUser IsNot Nothing Then
-            Dim followed = appUser.Favorites.Where(Function(f) f.Event.Id = ev.Id).Count > 0
+            Dim followed = appUser.Favorites.Any(Function(f) f.Event.Id = ev.Id)
             ViewBag.Followed = followed
         Else
             ViewBag.Followed = False
@@ -350,9 +358,9 @@ Public Class EventsController
             .ReportMemo = ev.ReportMemo,
             .SpecialEventsSelectList = New SelectList(db.SpecialEvents.Where(Function(e) n <= e.EndDateTime), "Id", "Name"),
             .SpecialEventId = If(ev.SpecialEvents IsNot Nothing AndAlso ev.SpecialEvents.Count > 0, ev.SpecialEvents.First.Id, Nothing),
-            .PrefectureId = ev.Prefecture.Id,
+            .PrefectureId = If(ev.Prefecture IsNot Nothing, ev.Prefecture.Id, Nothing),
             .PrefectureSelectList = New SelectList(db.Prefectures, "Id", "Name"),
-            .CommunityId = If(ev.Community IsNot Nothing, ev.Community.Id, Nothing)
+        .CommunityId = If(ev.Community IsNot Nothing, ev.Community.Id, Nothing)
             }
         ' TODO: SpecialEvents 複数対応
 
@@ -419,9 +427,12 @@ Public Class EventsController
                 ' SpecialEvent
                 ' TODO: SpecialEvent 複数対応
                 If viewModel.SpecialEventId.HasValue Then
-                    ev.SpecialEvents.Add(db.SpecialEvents.Where(Function(e) e.Id = viewModel.SpecialEventId.Value).FirstOrDefault)
+                    Dim ue = New UserEvent With {
+                        .Event = ev,
+                        .SpecialEvent = db.SpecialEvents.Where(Function(e) e.Id = viewModel.SpecialEventId.Value).SingleOrDefault}
+                    ev.SpecialEvents.Add(ue)
                 Else
-                    If ev.SpecialEvents IsNot Nothing AndAlso ev.SpecialEvents.Count > 0 Then
+                    If ev.SpecialEvents IsNot Nothing AndAlso ev.SpecialEvents.Any Then
                         ev.SpecialEvents.Remove(ev.SpecialEvents.FirstOrDefault)
                     End If
                 End If
@@ -875,7 +886,7 @@ Public Class EventsController
         ElseIf Not ev.IsLocked Then
             ' 一般ユーザー
             Return True
-        ElseIf ev.Community IsNot Nothing AndAlso appUser.OwnerCommunities.Where(Function(c) c.Id = ev.Community.Id).Count > 0 Then
+        ElseIf ev.Community IsNot Nothing AndAlso appUser.OwnerCommunities.Any(Function(c) c.Id = ev.Community.Id) Then
             ' コミュニティオーナー
             Return True
         ElseIf User.IsInRole("Admin") Then
@@ -887,7 +898,7 @@ Public Class EventsController
     Private Function CanEditDetails(appUser As ApplicationUser, ev As [Event]) As Boolean
         If appUser Is Nothing OrElse ev Is Nothing Then
             Return False
-        ElseIf ev.Community IsNot Nothing AndAlso appUser.OwnerCommunities.Where(Function(c) c.Id = ev.Community.Id).Count > 0 Then
+        ElseIf ev.Community IsNot Nothing AndAlso appUser.OwnerCommunities.Any(Function(c) c.Id = ev.Community.Id) Then
             ' コミュニティオーナー
             Return True
         ElseIf User.IsInRole("Admin") Then
@@ -901,10 +912,10 @@ Public Class EventsController
             Return False
         ElseIf User.IsInRole("Admin") Then
             Return True
-        ElseIf ev.CheckIns.Count > 0 OrElse ev.Favorites.Count > 0 OrElse ev.Comments.Count > 0 OrElse ev.IsReported Then
+        ElseIf ev.CheckIns.Any OrElse ev.Favorites.Any OrElse ev.Comments.Any OrElse ev.IsReported Then
             ' チェックイン済み・フォロー済み・コメントあり・報告済みの場合削除不可
             Return False
-        ElseIf ev.Community IsNot Nothing AndAlso appUser.OwnerCommunities.Where(Function(c) c.Id = ev.Community.Id).Count > 0 Then
+        ElseIf ev.Community IsNot Nothing AndAlso appUser.OwnerCommunities.Any(Function(c) c.Id = ev.Community.Id) Then
             ' コミュニティオーナー
             Return True
         ElseIf ev.CreatedBy.Id = appUser.Id AndAlso Not ev.IsLocked Then

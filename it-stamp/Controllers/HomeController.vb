@@ -45,11 +45,11 @@ Public Class HomeController
 
         Dim n = Now.Date
         Dim results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.EndDateTime >= n).OrderBy(Function(e) e.StartDateTime)
-
-        viewModel.Results = results.Take(10).ToList
+        Dim count = 20
+        viewModel.Results = results.Take(count).ToList
         viewModel.CurrentPage = 1
         viewModel.StartPage = 1
-        viewModel.TotalPages = (results.Count - 1) \ 10 + 1
+        viewModel.TotalPages = (results.Count - 1) \ count + 1
         viewModel.EndPage = If(viewModel.TotalPages < 5, viewModel.TotalPages, 5)
 
         Return View(viewModel)

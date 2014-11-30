@@ -48,6 +48,8 @@ Public Class ApplicationUser
     Overridable Property CheckIns As ICollection(Of CheckIn)
     Overridable Property Communities As ICollection(Of Community)
     Overridable Property OwnerCommunities As ICollection(Of Community)
+    Overridable Property Stamps As ICollection(Of UserStamp)
+
 
     Public Async Function GenerateUserIdentityAsync(manager As UserManager(Of ApplicationUser)) As Task(Of ClaimsIdentity)
         ' authenticationType が CookieAuthenticationOptions.AuthenticationType で定義されているものと一致している必要があります
@@ -96,6 +98,7 @@ Public Class ApplicationDbContext
     Property CheckIns As DbSet(Of CheckIn)
     Property Comments As DbSet(Of Comment)
     Property SpecialEvents As DbSet(Of SpecialEvent)
+    Property UserEvents As DbSet(Of UserEvent)
     Property Favorites As DbSet(Of Favorite)
     Property Stamps As DbSet(Of Stamp)
     Property UserStamps As DbSet(Of UserStamp)
@@ -114,7 +117,6 @@ Public Class ApplicationDbContext
                                                                                                                            mc.MapLeftKey("Id")
                                                                                                                            mc.MapRightKey("UserId")
                                                                                                                        End Sub)
-
     End Sub
 
 

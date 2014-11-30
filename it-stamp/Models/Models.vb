@@ -40,7 +40,7 @@ Public Class [Event]
     Overridable Property CheckIns As ICollection(Of CheckIn)
 
     Overridable Property Favorites As ICollection(Of Favorite)
-    Overridable Property SpecialEvents As ICollection(Of SpecialEvent)
+    Overridable Property SpecialEvents As ICollection(Of UserEvent)
     Overridable Property Comments As ICollection(Of Comment)
 
     Property IsHidden As Boolean
@@ -88,6 +88,15 @@ Public Class SpecialEvent
     Property Name As String
     Property StartDateTime As DateTime
     Property EndDateTime As DateTime
+End Class
+
+Public Class UserEvent
+    <Key>
+    Property Id As Long
+    <Required>
+    Overridable Property [Event] As [Event]
+    <Required>
+    Overridable Property SpecialEvent As SpecialEvent
 End Class
 
 Public Class Favorite

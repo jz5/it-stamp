@@ -8,7 +8,7 @@ End Code
     @Html.ActionLink("スタンプを追加", "UploadStamp", "Communities", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
 </div>
 
-@If Model.Stamps IsNot Nothing AndAlso Model.Stamps.Count > 0 Then
+@If Model.Stamps IsNot Nothing AndAlso Model.Stamps.Any Then
     @Using Html.BeginForm("EditDefaultStamp", "Communities", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
         @Html.AntiForgeryToken()
         @<text>

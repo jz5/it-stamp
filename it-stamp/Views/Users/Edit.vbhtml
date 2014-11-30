@@ -82,9 +82,11 @@ End Code
 
 
         <hr />
-        <span>
-            🔎 @Html.ActionLink(Model.FriendlyName & "のプロフィールページを確認", "Details", "Users", New With {.userName = Model.UserName}, Nothing)
-        </span>
+        <aside>
+            <span>
+                🔎 @Html.ActionLink(Model.FriendlyName & "のプロフィールページを確認", "Details", "Users", New With {.userName = Model.UserName}, Nothing)
+            </span>
+        </aside>
         
     </div>
     <div class="col-md-4">

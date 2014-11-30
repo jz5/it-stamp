@@ -154,7 +154,7 @@ Public Class EventDetailsViewModel
     Property CheckInCode As String
 
     <Display(Name:="イベント")>
-    Property SpecialEventId As Integer?
+    Property SpecialEventId As Long?
 
     <Display(Name:="IT勉強会一覧に含めない")>
     Property IsHidden As Boolean

@@ -51,16 +51,16 @@ Public Class Stamprally2015Controller
         Dim n = Now.Date
         If past.HasValue AndAlso past.Value = True Then
             ' 過去
-            results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.EndDateTime < n AndAlso (e.SpecialEvents.Where(Function(ev) ev.Id = 1).Count > 0)).OrderByDescending(Function(e) e.StartDateTime)
+            results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.EndDateTime < n AndAlso (e.SpecialEvents.Any(Function(ev) ev.SpecialEvent.Id = 1))).OrderByDescending(Function(e) e.StartDateTime)
         Else
             ' 開催予定
-            results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.EndDateTime >= n AndAlso (e.SpecialEvents.Where(Function(ev) ev.Id = 1).Count > 0)).OrderBy(Function(e) e.StartDateTime)
+            results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.EndDateTime >= n AndAlso (e.SpecialEvents.Any(Function(ev) ev.SpecialEvent.Id = 1))).OrderBy(Function(e) e.StartDateTime)
         End If
 
         Dim viewModel = New SearchEventsViewModel With {
             .TotalCount = results.Count}
 
-        Dim count = 10
+        Dim count = 20
         Dim pagenationCount = 5
 
         ' Total page
@@ -74,7 +74,7 @@ Public Class Stamprally2015Controller
         End If
 
         ' Start page
-        viewModel.StartPage = viewModel.CurrentPage - pagenationCount
+        viewModel.StartPage = viewModel.CurrentPage - (pagenationCount \ 2)
         If viewModel.StartPage < 1 Then
             viewModel.StartPage = 1
         End If
@@ -83,6 +83,13 @@ Public Class Stamprally2015Controller
         viewModel.EndPage = viewModel.StartPage + pagenationCount - 1
         If viewModel.EndPage > viewModel.TotalPages Then
             viewModel.EndPage = viewModel.TotalPages
+        End If
+
+        If viewModel.EndPage - viewModel.StartPage + 1 < pagenationCount Then
+            viewModel.StartPage = viewModel.EndPage - pagenationCount + 1
+        End If
+        If viewModel.StartPage < 1 Then
+            viewModel.StartPage = 1
         End If
 
         viewModel.Results = results.Skip((viewModel.CurrentPage - 1) * count).Take(count).ToList
@@ -95,12 +102,12 @@ Public Class Stamprally2015Controller
     <AllowAnonymous>
     Function Communities(page As Integer?) As ActionResult
 
-        Dim results = db.Events.Where(Function(e) Not e.IsHidden AndAlso (e.SpecialEvents.Where(Function(ev) ev.Id = 1).Count > 0) AndAlso e.Community IsNot Nothing AndAlso Not e.Community.IsHidden).Select(Function(e) e.Community).Distinct.OrderBy(Function(c) c.Name)
+        Dim results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.SpecialEvents.Any(Function(ev) ev.Id = 1) AndAlso e.Community IsNot Nothing AndAlso Not e.Community.IsHidden).Select(Function(e) e.Community).Distinct.OrderBy(Function(c) c.Name)
 
         Dim viewModel = New SearchCommunitiesViewModel With {
             .TotalCount = results.Count}
 
-        Dim count = 10
+        Dim count = 20
         Dim pagenationCount = 5
 
         ' Total page
@@ -114,7 +121,7 @@ Public Class Stamprally2015Controller
         End If
 
         ' Start page
-        viewModel.StartPage = viewModel.CurrentPage - pagenationCount
+        viewModel.StartPage = viewModel.CurrentPage - (pagenationCount \ 2)
         If viewModel.StartPage < 1 Then
             viewModel.StartPage = 1
         End If
@@ -124,6 +131,14 @@ Public Class Stamprally2015Controller
         If viewModel.EndPage > viewModel.TotalPages Then
             viewModel.EndPage = viewModel.TotalPages
         End If
+
+        If viewModel.EndPage - viewModel.StartPage + 1 < pagenationCount Then
+            viewModel.StartPage = viewModel.EndPage - pagenationCount + 1
+        End If
+        If viewModel.StartPage < 1 Then
+            viewModel.StartPage = 1
+        End If
+
 
         viewModel.Results = results.Skip((viewModel.CurrentPage - 1) * count).Take(count).ToList
 

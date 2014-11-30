@@ -36,7 +36,7 @@ End Code
         <div class="form-group">
             @Html.Label("Communities", New With {.class = "control-label"})
 
-            @If Model.CommunitiesList.Count > 0 Then
+            @If Model.CommunitiesList.Any Then
                 @For Each item In Model.CommunitiesList
                     @<div class="form-inline">
                         <div class="checkbox">
@@ -63,7 +63,7 @@ End Code
         <div class="form-group">
             @Html.Label("Owner Communities", New With {.class = "control-label"})
 
-            @If Model.OwnerCommunitiesList.Count > 0 Then
+            @If Model.OwnerCommunitiesList.Any Then
                 @For Each item In Model.OwnerCommunitiesList
                     @<div class="form-inline">
                         <div class="checkbox">

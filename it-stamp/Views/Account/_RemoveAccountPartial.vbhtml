@@ -1,7 +1,7 @@
 ﻿@ModelType ICollection(Of UserLoginInfo)
 @Imports Microsoft.AspNet.Identity
 
-@If Model.Count > 0 Then
+@If Model.Any Then
     @<h3>関連付けられているサービス</h3>
     @<table class="table">
         <tbody>

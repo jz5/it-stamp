@@ -65,7 +65,7 @@ Public Class UsersController
         ' フォロー済みか
         Dim followed = False
         If userId <> appUser.Id Then
-            followed = db.Followers.Where(Function(f) f.CreatedBy.Id = userId AndAlso f.User.Id = appUser.Id).Count > 0
+            followed = db.Followers.Any(Function(f) f.CreatedBy.Id = userId AndAlso f.User.Id = appUser.Id)
         End If
         ViewBag.Followed = followed
 
@@ -80,6 +80,10 @@ Public Class UsersController
         If appUser Is Nothing OrElse appUser.UserName <> userName Then
             Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
         End If
+
+        Dim n = Now.Date
+        Dim es = db.Events.Where(Function(e) e.EndDateTime >= n AndAlso e.Community IsNot Nothing AndAlso appUser.Communities.Any(Function(c) c.Id = e.Community.Id)).OrderBy(Function(e) e.StartDateTime)
+
 
         Return View(appUser)
     End Function
@@ -102,7 +106,7 @@ Public Class UsersController
         ' フォロー済みか
         Dim followed = False
         If userId <> appUser.Id Then
-            followed = db.Followers.Where(Function(f) f.CreatedBy.Id = userId AndAlso f.User.Id = appUser.Id).Count > 0
+            followed = db.Followers.Any(Function(f) f.CreatedBy.Id = userId AndAlso f.User.Id = appUser.Id)
         End If
         ViewBag.Followed = followed
 
