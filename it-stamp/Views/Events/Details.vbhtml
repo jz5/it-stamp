@@ -250,7 +250,7 @@ End Code
                 End If
                     @<li style="margin-bottom:5px;">
                         <a href="@Href("~/Users/" & item.CreatedBy.UserName)"><img src="@(If(item.CreatedBy.IconPath <> "", Href("/Uploads/" & item.CreatedBy.IconPath), Href("/Uploads/Icons/anon.png")))" class="icon24" /></a>
-                        <a href="@Href("~/Users/" & item.CreatedBy.UserName)" class="small">@item.CreatedBy.DisplayName</a> @item.Content <time class="text-muted small" datetime="@item.CreationDateTime.ToString("yyyy-MM-ddTH:mm:ssK")">（@item.CreationDateTime.ToString("yyyy/MM/dd HH:mm")）</time>
+                        <a href="@Href("~/Users/" & item.CreatedBy.UserName)" class="small">@item.CreatedBy.DisplayName</a> @Html.Raw(item.Content.TextWithUrl)<time class="text-muted small" datetime="@item.CreationDateTime.ToString("yyyy-MM-ddTH:mm:ssK")">（@item.CreationDateTime.ToString("yyyy/MM/dd HH:mm")）</time>
                     </li>
                 Next
             </ul>
