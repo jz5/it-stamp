@@ -84,9 +84,13 @@ Public Class UsersController
         Dim n = Now.Date
         Dim followCommunityId = (From item In appUser.Communities Select item.Id).ToList()
 
-        Dim es = db.Events.Where(Function(e) e.EndDateTime >= n AndAlso e.Community IsNot Nothing AndAlso followCommunityId.Contains(e.Community.Id)).OrderBy(Function(e) e.StartDateTime).ToList()
+        Dim followCommunity = db.Events.Where(Function(e) e.EndDateTime >= n AndAlso e.Community IsNot Nothing AndAlso followCommunityId.Contains(e.Community.Id)).ToList()
+        Dim followEvents = appUser.Favorites.Where(Function(e) e.Event.EndDateTime >= n).Select(Function(e) e.Event).ToList()
 
-        ViewBag.Events = es
+        ' 結合
+        Dim events = followCommunity.Union(followEvents).OrderBy(Function(e) e.StartDateTime).ToList
+
+        ViewBag.Events = events
         Return View(appUser)
     End Function
 
