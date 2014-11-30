@@ -75,16 +75,18 @@ Public Class UsersController
     ' GET: Users/UserName/My
     Async Function My(userName As String) As Task(Of ActionResult)
 
-        Dim id = User.Identity.GetUserId
-        Dim appUser = Await db.Users.Where(Function(u) u.Id = id).SingleOrDefaultAsync
+        Dim userId = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
         If appUser Is Nothing OrElse appUser.UserName <> userName Then
             Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
         End If
 
         Dim n = Now.Date
-        Dim es = db.Events.Where(Function(e) e.EndDateTime >= n AndAlso e.Community IsNot Nothing AndAlso appUser.Communities.Any(Function(c) c.Id = e.Community.Id)).OrderBy(Function(e) e.StartDateTime)
+        Dim followCommunityId = (From item In appUser.Communities Select item.Id).ToList()
 
+        Dim es = db.Events.Where(Function(e) e.EndDateTime >= n AndAlso e.Community IsNot Nothing AndAlso followCommunityId.Contains(e.Community.Id)).OrderBy(Function(e) e.StartDateTime).ToList()
 
+        ViewBag.Events = es
         Return View(appUser)
     End Function
 

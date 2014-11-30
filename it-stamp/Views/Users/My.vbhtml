@@ -15,7 +15,20 @@ End Code
 
 <h2>📢 開催予定のIT勉強会 <small>フォローしているIT勉強会とコミュニティ</small></h2>
 <div>
-    <p class="text-muted">近日、実装されます。</p>
+    @If ViewBag.Events.Count = 0 Then
+        @<p class="text-muted">開催予定の勉強会はありません。</p>
+    Else
+    @<table class="table">
+            <tbody>
+            @For Each ev As [Event] In ViewBag.Events
+            @<tr>
+                <td style="width:35%;"><time class="text-muted small">@ev.FriendlyDateTime</time></td>
+                <td><a href="@Href("~/Events/" & ev.Id)">@ev.Name</a></td>
+            </tr>
+            Next
+            </tbody>
+    </table>
+    End If
 </div>
 
 <h2>✅ チェックイン</h2>
