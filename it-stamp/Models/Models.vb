@@ -70,12 +70,17 @@ Public Class [Event]
 
     Function FriendlyDateTime() As String
 
+        Dim format = "yyyy/M/d(ddd)"
+        If StartDateTime.Year = Now.Year Then
+            format = "M/d(ddd)"
+        End If
+
         If StartDateTime = EndDateTime Then
-            Return StartDateTime.ToString("yyyy/M/d（ddd）", Globalization.CultureInfo.GetCultureInfo("ja-jp"))
+            Return StartDateTime.ToString(format, Globalization.CultureInfo.GetCultureInfo("ja-jp"))
         ElseIf StartDateTime.Date = EndDateTime.Date Then
-            Return StartDateTime.ToString("yyyy/M/d（ddd） H:mm", Globalization.CultureInfo.GetCultureInfo("ja-jp")) & "～" & EndDateTime.ToString("H:mm")
+            Return StartDateTime.ToString(format & " H:mm", Globalization.CultureInfo.GetCultureInfo("ja-jp")) & "～" & EndDateTime.ToString("H:mm")
         Else
-            Return StartDateTime.ToString("yyyy/M/d（ddd） H:mm", Globalization.CultureInfo.GetCultureInfo("ja-jp")) & "～" & EndDateTime.ToString("M/d（ddd） HH:mm", Globalization.CultureInfo.GetCultureInfo("ja-jp"))
+            Return StartDateTime.ToString(format & " H:mm", Globalization.CultureInfo.GetCultureInfo("ja-jp")) & "～" & EndDateTime.ToString("M/d(ddd) H:mm", Globalization.CultureInfo.GetCultureInfo("ja-jp"))
         End If
     End Function
 End Class

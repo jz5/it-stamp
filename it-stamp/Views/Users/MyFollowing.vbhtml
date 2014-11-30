@@ -3,7 +3,7 @@
 @Code
 
     Layout = "_UserLayout.vbhtml"
-    ViewBag.Title = Model.FriendlyName
+    ViewBag.Title = Model.DisplayName & "さん"
 
 End Code
 
@@ -13,7 +13,7 @@ End Code
     <li role="presentation"><a href="@Href("~/Users/" & Model.UserName & "/Manage")">管理</a></li>
 </ul>
 
-<h2>フォロー コミュニティ</h2>
+<h2>コミュニティ <span class="badge badge-primary @(If(Model.Communities.Count = 0, "hidden", ""))">@Model.Communities.Count</span></h2>
 <div>
     @If Model.Communities.Count = 0 Then
         @<p class="text-muted">フォローしているコミュニティはありません。</p>
@@ -23,8 +23,8 @@ End Code
                 @For Each item In Model.Communities
                 Dim src = If(item.IconPath <> "", Href("/Uploads/" & item.IconPath), Href("/Uploads/Icons/no-community.png"))
                     @<tr>
-                        <td style="border-top-width:0;width:32px;"><a href="@Href("/Communities/")@item.Id"><img class="img-rounded icon24" src="@src" /></a></td>
-                        <td style="border-top-width:0;vertical-align:bottom;"><a href="@Href("/Communities/")@item.Id">@item.Name</a></td>
+                        <td style="width:32px;"><a href="@Href("/Communities/")@item.Id"><img class="img-rounded icon24" src="@src" /></a></td>
+                        <td><a href="@Href("/Communities/")@item.Id">@item.Name</a></td>
                     </tr>
                 Next
             </tbody>
@@ -32,7 +32,7 @@ End Code
     End If
 </div>
 
-<h2>フォロー IT勉強会</h2>
+<h2>IT勉強会 <span class="badge badge-primary @(If(Model.Favorites.Count = 0, "hidden", ""))">@Model.Favorites.Count</span></h2>
 <div>
     @If Model.Favorites.Count = 0 Then
         @<p class="text-muted">フォローしているIT勉強会はありません。</p>
@@ -42,9 +42,9 @@ End Code
                 @For Each item In Model.Favorites
                 Dim src = If(item.Event.Community IsNot Nothing AndAlso item.Event.Community.IconPath <> "", Href("/Uploads/" & item.Event.Community.IconPath), Href("/Uploads/Icons/no-community.png"))
                     @<tr>
-                        <td style="border-top-width:0;width:32px;"><a href="@Href("/Events/")@item.Event.Id"><img class="img-rounded icon24" src="@src" /></a></td>
-                        <td style="border-top-width:0;vertical-align:bottom;"><time class="text-muted small">@item.Event.FriendlyDateTime</time></td>
-                        <td style="border-top-width:0;vertical-align:bottom;"><a href="@Href("/Events/")@item.Event.Id">@item.Event.Name</a></td>
+                        <td style="width:32px;"><a href="@Href("/Events/")@item.Event.Id"><img class="img-rounded icon24" src="@src" /></a></td>
+                        <td style="width:35%;"><time class="text-muted small">@item.Event.FriendlyDateTime</time></td>
+                        <td><a href="@Href("/Events/")@item.Event.Id">@item.Event.Name</a></td>
                     </tr>
                 Next
             </tbody>
