@@ -1,9 +1,5 @@
 ﻿@ModelType SearchEventsViewModel
 
-@Code
-    Dim icon = "http://placehold.it/96x96"
-End Code
-
 <div class="row">
     <div class="col-sm-12 col-md-8">
 

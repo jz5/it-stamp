@@ -2,7 +2,7 @@
 @Imports Microsoft.AspNet.Identity
 @Code
     ViewBag.Title = "コミュニティの編集"
-    Dim icon = If(Model.IconPath <> "", Href("/Uploads/" & Model.IconPath), "http://placehold.it/96x96")
+    Dim icon = If(Model.IconPath <> "", Href("/Uploads/" & Model.IconPath), Href("/Uploads/Icons/no-community.png"))
 
 End Code
 <h1>@ViewBag.Title</h1>

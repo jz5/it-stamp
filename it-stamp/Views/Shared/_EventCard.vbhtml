@@ -1,6 +1,6 @@
 ﻿@ModelType [Event]
 @code
-    Dim icon = "http://placehold.it/96x96"
+    Dim icon = Href("/Uploads/Icons/no-community.png")
     Dim eventSiteLogo = ""
     If Model.Url IsNot Nothing Then
         Dim sites = New Dictionary(Of String, String) From {

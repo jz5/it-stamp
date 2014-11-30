@@ -3,7 +3,7 @@
 @code
     ViewBag.Title = Model.Name
 
-    Dim icon = If(Model.Community IsNot Nothing AndAlso Model.Community.IconPath <> "", "/Uploads/" & Model.Community.IconPath, "http://placehold.it/96x96")
+    Dim icon = If(Model.Community IsNot Nothing AndAlso Model.Community.IconPath <> "", "/Uploads/" & Model.Community.IconPath, Href("/Uploads/Icons/no-community.png"))
     Dim userIcon = Href("/Uploads/Icons/anon.png")
 
     Dim searchAddress As String = Nothing

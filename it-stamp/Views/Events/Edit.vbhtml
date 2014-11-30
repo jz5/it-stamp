@@ -3,7 +3,6 @@
 @Code
     ViewBag.Title = "IT勉強会の編集"
 
-    'Dim icon = If(Model.Community IsNot Nothing AndAlso Model.Community.IconPath <> "", "/Uploads/" & Model.Community.IconPath, "http://placehold.it/96x96")
 End Code
 <h1>@ViewBag.Title</h1>
 @Using Html.BeginForm("Edit", "Events", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})

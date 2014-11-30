@@ -2,7 +2,7 @@
 @Imports Microsoft.AspNet.Identity
 @Code
     ViewBag.Title = "アイコンの変更"
-    Dim icon = If(Model.IconPath <> "", Href("/Uploads/" & Model.IconPath), "http://placehold.it/96x96")
+    Dim icon = If(Model.IconPath <> "", Href("/Uploads/" & Model.IconPath), Href("/Uploads/Icons/no-community.png"))
 End Code
 
 <h1>@ViewBag.Title</h1>
@@ -24,7 +24,7 @@ End Code
             </div>
         </div>
 
-        <ul class="text-info">
+        <ul>
             <li>PNG/JPEG形式のみ</li>
             <li>96x96ピクセル推奨</li>
             <li>他者の権利を侵害する画像をアップロードしないでください。</li>

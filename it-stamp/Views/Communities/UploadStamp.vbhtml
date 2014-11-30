@@ -25,7 +25,7 @@ End Code
                 </div>
             </div>
         </div>
-        <ul class="text-info">
+        <ul>
             <li>PNG/JPEG形式のみ</li>
             <li>96x96ピクセル推奨</li>
             <li>他者の権利を侵害する画像をアップロードしないでください。</li>
