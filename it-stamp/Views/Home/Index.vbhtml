@@ -43,6 +43,7 @@
         <ul class="list-unstyled">
             <li><a href="https://www.google.com/calendar/embed?src=ZnZpanZvaG05MXVpZnZkOWhyYXRlaGY2NWtAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ" target="_blank">IT勉強会カレンダー</a></li>
             <li><a href="http://utf-8.jp/tool/calsearch.html" target="_blank">IT勉強会カレンダー検索</a></li>
+            <li><a href="http://eventdots.jp/" target="_blank">dots.</a></li>
         </ul>
 
         <h3>イベント登録サイト</h3>

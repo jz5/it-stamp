@@ -44,10 +44,10 @@ End Code
         End If
 
         <h1>@ViewBag.Title</h1>
-
-        @RenderBody()
-
-        @If action <> "My" Then
+        <div style="margin-bottom:50px;">
+            @RenderBody()
+        </div>
+        @If action <> "My" AndAlso action <> "MyFollowing" AndAlso action <> "Manage" Then
             @Html.Partial("_SocialButtons")
         End If
     </div>

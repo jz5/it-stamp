@@ -88,6 +88,36 @@ Public Class UsersController
         Return View(appUser)
     End Function
 
+    ' GET: Users/UserName/MyFollowing
+    Async Function MyFollowing(userName As String) As Task(Of ActionResult)
+
+        Dim id = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = id).SingleOrDefaultAsync
+        If appUser Is Nothing OrElse appUser.UserName <> userName Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Return View(appUser)
+    End Function
+
+    ' GET: Users/UserName/Manage
+    Async Function Manage(userName As String) As Task(Of ActionResult)
+
+        Dim id = User.Identity.GetUserId
+        Dim appUser = Await db.Users.Where(Function(u) u.Id = id).SingleOrDefaultAsync
+        If appUser Is Nothing OrElse appUser.UserName <> userName Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Dim coms = db.Communities.Where(Function(c) c.CreatedBy.Id = appUser.Id).OrderBy(Function(c) c.Name)
+        Dim events = db.Events.Where(Function(e) e.CreatedBy.Id = appUser.Id).OrderByDescending(Function(e) e.StartDateTime)
+
+        ViewBag.Communities = coms.ToList
+        ViewBag.Events = events.ToList
+
+        Return View(appUser)
+    End Function
+
     <AllowAnonymous>
     Function CheckIns(userName As String) As ActionResult
         If userName = "" Then

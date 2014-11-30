@@ -416,7 +416,7 @@ Public Class AccountController
     Public Async Function ExternalLoginCallback(returnUrl As String) As Task(Of ActionResult)
         Dim loginInfo = Await AuthenticationManager.GetExternalLoginInfoAsync()
         If loginInfo Is Nothing Then
-            Return RedirectToAction("Login")
+            Return RedirectToAction("Error")
         End If
 
         ' ユーザーが既にログインを持っている場合、この外部ログイン プロバイダーを使用してユーザーをサインインします

@@ -85,7 +85,6 @@ End Section
                         <tr>
                             <td style="border-top-width:0;min-width:120px;">📅 日時</td>
                             <td style="border-top-width:0;">
-                                @Model.FriendlyDateTime
                                 @If Model.StartDateTime.Date <= Now.Date AndAlso Now.Date <= Model.EndDateTime.Date Then
                                     @<span class="badge badge-primary">今日</span>
                                 ElseIf Model.StartDateTime.Date = Now.Date.AddDays(1) OrElse Model.EndDateTime.Date = Now.Date.AddDays(1) Then
@@ -93,6 +92,7 @@ End Section
                                 ElseIf Model.EndDateTime.Date.AddDays(1) = Now.Date Then
                                     @<span class="text-muted small">（昨日）</span>
                                 End If
+                                @Model.FriendlyDateTime
                             </td>
                         </tr>
                         <tr>
