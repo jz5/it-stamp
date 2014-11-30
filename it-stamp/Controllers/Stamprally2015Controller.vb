@@ -102,7 +102,7 @@ Public Class Stamprally2015Controller
     <AllowAnonymous>
     Function Communities(page As Integer?) As ActionResult
 
-        Dim results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.SpecialEvents.Any(Function(ev) ev.Id = 1) AndAlso e.Community IsNot Nothing AndAlso Not e.Community.IsHidden).Select(Function(e) e.Community).Distinct.OrderBy(Function(c) c.Name)
+        Dim results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.SpecialEvents.Any(Function(ev) ev.SpecialEvent.Id = 1) AndAlso e.Community IsNot Nothing AndAlso Not e.Community.IsHidden).Select(Function(e) e.Community).Distinct.OrderBy(Function(c) c.Name)
 
         Dim viewModel = New SearchCommunitiesViewModel With {
             .TotalCount = results.Count}
