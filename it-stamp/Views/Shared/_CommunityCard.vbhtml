@@ -43,7 +43,7 @@ End Code
             @<p>@Html.Raw(Html.Encode(Model.Description).Replace(vbCrLf, "<br />"))</p>
         Else
             @<h3><a href="@Href("/Communities/")@Model.Id">@Model.Name</a></h3>
-            @<p>@Model.Description.Excerpt</p>
+            @<p>@Html.Raw(Model.Description.Excerpt.TextWithUrl)</p>
         End If
         @If Model.Url <> "" Then
             @<a href="@Model.Url" target="_blank">@Model.Url</a>
