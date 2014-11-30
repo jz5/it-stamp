@@ -43,4 +43,33 @@ Public Module Extensions
 
     End Function
 
+    <Extension>
+    Function TextWithUrl(ByVal str As String) As String
+        Dim urlRegex As New Regex("https?:\/\/[-_.!~*'()a-zA-Z0-9;\/?:@&=+$,%#]+", RegexOptions.Singleline)
+        Dim match As Match = urlRegex.Match(str)
+        Dim result As String = ""
+
+        While match IsNot Nothing AndAlso match.Success
+            If match.Index <> 0 Then
+                Dim prefix = str.Substring(0, match.Index)
+                result += HttpUtility.HtmlEncode(prefix)
+            End If
+
+            Dim link As String = HttpUtility.HtmlEncode(match.Value)
+            result += String.Format("<a href=""{0}"" target = ""_blank"">{1}</a>", link, link)
+
+            str = str.Substring(match.Index + match.Value.Length)
+            match = urlRegex.Match(str)
+        End While
+
+        If str <> "" Then
+            result += HttpUtility.HtmlEncode(str)
+        End If
+
+        Return result
+
+    End Function
+
+
+
 End Module
