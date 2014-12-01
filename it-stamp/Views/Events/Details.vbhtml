@@ -24,7 +24,7 @@ End Code
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@Html.Raw("@itstamp")" />
     <meta name="twitter:title" content="@ViewBag.Title" />
-    <meta name="twitter:description" content="@Model.Description.Excerpt(200)" />
+    <meta name="twitter:description" content="@(If(Model.Description <> "", Model.Description.Excerpt(200), "IT勉強会スタンプは、IT勉強会の参加を記録できるWebサービスです。"))" />
 End Section
 <div class="row">
     <div class="col-md-8">

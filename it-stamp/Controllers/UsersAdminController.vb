@@ -55,7 +55,7 @@ Public Class UsersAdminController
     '
     ' GET: /Users/
     Public Async Function Index() As Task(Of ActionResult)
-        Return View(Await UserManager.Users.ToListAsync())
+        Return View(Await UserManager.Users.OrderBy(Function(u) u.UserName).ToListAsync())
     End Function
 
     '
@@ -136,7 +136,7 @@ Public Class UsersAdminController
                  .Value = x.Name}),
              .OwnerCommunitiesList = New SelectList(user.OwnerCommunities, "Id", "Name"),
              .CommunitiesList = New SelectList(user.Communities, "Id", "Name"),
-             .CommunitiesSelectList = New SelectList(db.Communities, "Id", "Name")
+             .CommunitiesSelectList = New SelectList(db.Communities.OrderByDescending(Function(c) c.Id), "Id", "Name")
          })
     End Function
 
@@ -154,60 +154,64 @@ Public Class UsersAdminController
             Return HttpNotFound()
         End If
 
-        user.UserName = viewModel.Email
-        user.Email = viewModel.Email
-
         ' Role
         Dim userRoles = Await UserManager.GetRolesAsync(user.Id)
 
         selectedRole = If(selectedRole, New String() {})
-        If selectedRole.Any Then
-            Dim idResult As IdentityResult
-            idResult = Await UserManager.AddToRolesAsync(user.Id, selectedRole.Except(userRoles).ToArray)
-            If Not idResult.Succeeded Then
-                ModelState.AddModelError("", idResult.Errors.First())
-                Return View()
-            End If
 
-            idResult = Await UserManager.RemoveFromRolesAsync(user.Id, userRoles.Except(selectedRole).ToArray)
-            If Not idResult.Succeeded Then
-                ModelState.AddModelError("", idResult.Errors.First())
-                Return View()
-            End If
+        Dim idResult As IdentityResult
+        idResult = Await UserManager.AddToRolesAsync(user.Id, selectedRole.Except(userRoles).ToArray)
+        If Not idResult.Succeeded Then
+            ModelState.AddModelError("", idResult.Errors.First())
+            Return View()
         End If
 
+        idResult = Await UserManager.RemoveFromRolesAsync(user.Id, userRoles.Except(selectedRole).ToArray)
+        If Not idResult.Succeeded Then
+            ModelState.AddModelError("", idResult.Errors.First())
+            Return View()
+        End If
+        
         ' Community
-        Dim dbUser = db.Users.Where(Function(u) u.Id = user.Id).FirstOrDefault
+        Dim dbUser = db.Users.Where(Function(u) u.Id = user.Id).SingleOrDefault
         If selectedCommunities IsNot Nothing Then
-
+            ' Remove selected
             For Each com In dbUser.Communities.ToList
                 If Not selectedCommunities.Contains(com.Id) Then
-                    dbUser.Communities.Remove(db.Communities.Where(Function(c) c.Id = com.Id).FirstOrDefault)
+                    dbUser.Communities.Remove(db.Communities.Where(Function(c) c.Id = com.Id).SingleOrDefault)
                 End If
             Next
-
-            db.SaveChanges()
+        Else
+            ' Remove all
+            For Each com In dbUser.Communities.ToList
+                dbUser.Communities.Remove(db.Communities.Where(Function(c) c.Id = com.Id).SingleOrDefault)
+            Next
         End If
+        db.SaveChanges()
 
-        If viewModel.CommunityId.HasValue Then
-            dbUser.Communities.Add(db.Communities.Where(Function(c) c.Id = viewModel.CommunityId.Value).FirstOrDefault)
+        If viewModel.CommunityId.HasValue AndAlso Not dbUser.Communities.Any(Function(c) c.Id = viewModel.CommunityId.Value) Then
+            dbUser.Communities.Add(db.Communities.Where(Function(c) c.Id = viewModel.CommunityId.Value).SingleOrDefault)
             db.SaveChanges()
         End If
 
         ' Owner Community
         If selectedOwnerCommunities IsNot Nothing Then
-
+            ' Remove selected
             For Each com In dbUser.OwnerCommunities.ToList
                 If Not selectedOwnerCommunities.Contains(com.Id) Then
-                    dbUser.OwnerCommunities.Remove(db.Communities.Where(Function(c) c.Id = com.Id).FirstOrDefault)
+                    dbUser.OwnerCommunities.Remove(db.Communities.Where(Function(c) c.Id = com.Id).SingleOrDefault)
                 End If
             Next
-
-            db.SaveChanges()
+        Else
+            ' Remove all
+            For Each com In dbUser.OwnerCommunities.ToList
+                dbUser.OwnerCommunities.Remove(db.Communities.Where(Function(c) c.Id = com.Id).SingleOrDefault)
+            Next
         End If
+        db.SaveChanges()
 
-        If viewModel.OwnerCommunityId.HasValue Then
-            dbUser.OwnerCommunities.Add(db.Communities.Where(Function(c) c.Id = viewModel.OwnerCommunityId.Value).FirstOrDefault)
+        If viewModel.OwnerCommunityId.HasValue AndAlso Not dbUser.OwnerCommunities.Any(Function(c) c.Id = viewModel.OwnerCommunityId.Value) Then
+            dbUser.OwnerCommunities.Add(db.Communities.Where(Function(c) c.Id = viewModel.OwnerCommunityId.Value).SingleOrDefault)
             db.SaveChanges()
         End If
 

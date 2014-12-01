@@ -1,5 +1,10 @@
 ﻿@ModelType SearchEventsViewModel
-
+@section head
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@Html.Raw("@itstamp")" />
+    <meta name="twitter:title" content="IT勉強会にチェックイン！ | IT勉強会スタンプ" />
+    <meta name="twitter:description" content="IT勉強会スタンプは、IT勉強会の参加を記録できるWebサービスです。" />
+End Section
 <div class="row">
     <div class="col-sm-12 col-md-8">
 

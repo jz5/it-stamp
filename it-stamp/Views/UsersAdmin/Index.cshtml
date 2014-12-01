@@ -4,7 +4,7 @@
     ViewBag.Title = "Users";
 }
 
-<h1>@ViewBag.Title</h1>
+<h1>@ViewBag.Title <span class="badge badge-primary">@Model.Count()</span></h1>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -17,7 +17,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)
-            </th>
+            </th>            
             <th></th>
         </tr>
     </thead>
