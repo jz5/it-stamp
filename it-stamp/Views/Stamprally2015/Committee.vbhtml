@@ -25,6 +25,7 @@ End Code
             <li>他、若干名</li>
         </ul>
 
+        @Html.Partial("_SocialButtons")
     </div>
     <div class="col-sm-12 col-md-4">
         @Html.Partial("_SidebarPartial")

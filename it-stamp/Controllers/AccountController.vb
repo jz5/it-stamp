@@ -35,6 +35,7 @@ Public Class AccountController
     ' GET: /Account/Login
     <AllowAnonymous>
     Public Function Login(returnUrl As String) As ActionResult
+        Session("dummy") = "dummy" ' Create ASP.NET_SessionId cookie
         If Request.IsAuthenticated Then
             Return RedirectToAction("Index", "Home")
         End If
@@ -416,7 +417,7 @@ Public Class AccountController
     Public Async Function ExternalLoginCallback(returnUrl As String) As Task(Of ActionResult)
         Dim loginInfo = Await AuthenticationManager.GetExternalLoginInfoAsync()
         If loginInfo Is Nothing Then
-            Return RedirectToAction("Error")
+            Return View("Error")
         End If
 
         ' ユーザーが既にログインを持っている場合、この外部ログイン プロバイダーを使用してユーザーをサインインします

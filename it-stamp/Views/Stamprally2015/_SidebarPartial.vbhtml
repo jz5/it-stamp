@@ -2,6 +2,11 @@
     Dim action = ViewContext.RouteData.GetRequiredString("action")
 End Code
 <div class="sidebar">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 hidden-md hidden-lg">
+            <hr />
+        </div>
+    </div>
 
     <div class="list-group">
         <a href="@href("~/Stamprally/2015/")" class="list-group-item@(If(action = "Index", " active", ""))">IT勉強会スタンプラリー</a>

@@ -45,6 +45,7 @@ End Code
             <li><a href="http://cybozu.co.jp/company/copyright/privacy_policy.html">サイボウズ株式会社 個人情報保護の取り組みについて</a></li>
         </ul>
 
+        @Html.Partial("_SocialButtons")
     </div>
     <div class="col-sm-12 col-md-4">
         @Html.Partial("_SidebarPartial")

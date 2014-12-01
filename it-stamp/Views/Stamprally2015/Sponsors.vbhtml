@@ -90,6 +90,7 @@ End Code
         </div>
 
 
+        @Html.Partial("_SocialButtons")
     </div>
     <div class="col-sm-12 col-md-4">
         @Html.Partial("_SidebarPartial")

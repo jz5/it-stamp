@@ -1,7 +1,13 @@
 ﻿@Code
     ViewBag.Title = "IT勉強会スタンプラリー 2015"
 End Code
-
+@section head
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@Html.Raw("@itstamp")" />
+    <meta name="twitter:title" content="@ViewBag.Title" />
+    <meta name="twitter:description" content="IT勉強会スタンプラリーは、IT勉強会に参加してスタンプを集める無料のイベントです。" />
+    <meta name="twitter:image:src" content="https://itstamp.azurewebsites.net/images/stamprally2015/nareru2.jpg">
+End Section
 <div class="row">
     <div class="col-sm-12 col-md-8">
 
@@ -76,6 +82,7 @@ End Code
         </div>
 
 
+        @Html.Partial("_SocialButtons")
     </div>
     <div class="col-sm-12 col-md-4">
         @Html.Partial("_SidebarPartial")

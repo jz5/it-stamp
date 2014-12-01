@@ -4,6 +4,11 @@
     Dim userName = User.Identity.Name
 End Code
 <div class="sidebar">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 hidden-md hidden-lg">
+            <hr />
+        </div>
+    </div>
 
     @*<div class="list-group">
             <a href="@Href("~/Users/" & userName & "/CheckIns/")" class="list-group-item@(If(action = "CheckIns", " active", ""))">チェックイン</a>
