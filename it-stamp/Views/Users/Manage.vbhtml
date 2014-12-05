@@ -18,7 +18,7 @@ End Code
     @<div>
         <table class="table">
             <tbody>
-                @For Each item In Model.Communities
+                @For Each item In Model.OwnerCommunities
                         Dim src = If(item.IconPath <> "", Href("/Uploads/" & item.IconPath), Href("/Uploads/Icons/no-community.png"))
                     @<tr>
                         <td style="width:32px;"><a href="@Href("/Communities/")@item.Id"><img class="img-rounded icon24" src="@src" /></a></td>
@@ -27,7 +27,6 @@ End Code
                 Next
             </tbody>
         </table>
-        End If
     </div>
 End If
 
