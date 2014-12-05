@@ -173,7 +173,7 @@ End Using
         End If
     </aside>
 Else
-    @<h2>開催メモ</h2>
+    @<h2>開催メモ <small>（一般ユーザーは閲覧できません）</small></h2>
     @<table class="table table-responsive">
         <tbody>
             <tr>

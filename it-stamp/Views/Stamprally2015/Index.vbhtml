@@ -26,6 +26,7 @@ End Section
             </p>
             <h3>スタンプを集めると楽しい！</h3>
             <p>対象のIT勉強会に参加するとスタンプがもらえます。また、集めたスタンプの数によって参加記念品がもらえます。</p>
+            <p class="text-muted small">※ すべてのスタンプを集めるものではありません。記念品がもらえるスタンプ数はすぐに集まります。</p>
             <h3>IT勉強会スタンプラリーとは</h3>
             <ul>
                 <li>IT勉強会に参加してスタンプ（またはシール）を集めるイベントです。</li>
@@ -56,6 +57,7 @@ End Section
             <p>1個集めると（1回参加すると）、ステッカーをプレゼント！<br />ステッカーも台紙も数種類あるので、いろいろなIT勉強会に参加してみてください。</p>
             <p>2個以上は、クリアフォルダーを予定しています（郵送でお渡し）。</p>
             <p>スタンプ数上位者と、抽選による、参加記念品も用意します。</p>
+            <p class="text-muted small">※ 参加記念品の内容は準備中です。準備でき次第お知らせします。</p>
             <h3>記念品の受け取り方法</h3>
             <p>記念品の受け取りは、台紙の写真のアップロードと宛先などをこのサイトで登録してください（記念品の発送以外で個人情報は利用しません）。</p>
             <p>詳細は、このサイトでお知らせします。</p>
@@ -70,6 +72,9 @@ End Section
         <h2>キャラクター 室見立華</h2>
         今回のIT勉強会スタンプラリーは、電撃文庫『なれる！SE』シリーズ（著／夏海公司・イラスト／Ixy）より「室見立華」さんを起用しています。台紙や参加記念品に登場するので、ぜひ集めてくださいね。
 
+        <aside style="margin-top:30px;">
+            <a href="http://www.amazon.co.jp/gp/product/B00PFMHGUA/ref=as_li_qf_sp_asin_il?ie=UTF8&camp=247&creative=1211&creativeASIN=B00PFMHGUA&linkCode=as2&tag=itstamp-22"><img border="0" src="http://ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B00PFMHGUA&Format=_SL250_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=itstamp-22"></a><img src="http://ir-jp.amazon-adsystem.com/e/ir?t=itstamp-22&l=as2&o=9&a=B00PFMHGUA" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+        </aside>
 
         @Html.Partial("_SocialButtons")
     </div>
