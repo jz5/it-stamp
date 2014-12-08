@@ -14,7 +14,7 @@ End Code
 </ul>
 
 @If Model.OwnerCommunities.Any Then
-    @<h2>管理者権限のあるコミュニティ</h2>
+    @<h2>管理者権限のあるコミュニティ <span class="badge badge-primary @(If(Model.OwnerCommunities.Count = 0, "hidden", ""))">@Model.OwnerCommunities.Count</span></h2>
     @<div>
         <table class="table">
             <tbody>
