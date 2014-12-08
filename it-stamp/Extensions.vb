@@ -70,6 +70,31 @@ Public Module Extensions
 
     End Function
 
+    <Extension>
+    Function GetIconPath(ev As [Event]) As String
+        If ev.Community IsNot Nothing Then
+            Return ev.Community.GetIconPath
+        End If
+        Return "/Uploads/Icons/no-community.png"
+    End Function
+
+    <Extension>
+    Function GetIconPath(com As Community) As String
+        If com IsNot Nothing AndAlso com.IconPath <> "" Then
+            Return "/Uploads/" &
+                com.IconPath &
+                If(com.LastUpdatedBy IsNot Nothing, "?" & com.LastUpdatedDateTime.ToString("yyyyMMddHHmmss"), "")
+        End If
+        Return "/Uploads/Icons/no-community.png"
+    End Function
+
+    <Extension>
+    Function GetIconPath(user As ApplicationUser) As String
+        If user.IconPath <> "" Then
+            Return "/Uploads/" & user.IconPath
+        End If
+        Return "/Uploads/Icons/anon.png"
+    End Function
 
 
 End Module

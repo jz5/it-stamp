@@ -3,7 +3,6 @@
 @Code
 
     ViewBag.Title = Model.FriendlyName
-    Dim icon = If(Model.IconPath <> "", Href("/Uploads/" & Model.IconPath), "http://placehold.it/96x96")
 
 End Code
 
@@ -22,7 +21,7 @@ End Code
 
         <h2>表示アイコン</h2>
 
-        <img class="media-object img-rounded" src="@icon" alt="@Model.FriendlyName" style="margin-bottom: 30px;" />
+        <img class="media-object img-rounded" src="@Href(Model.GetIconPath)" alt="@Model.FriendlyName" style="margin-bottom: 30px;" />
         @Html.ActionLink("変更", "Upload", "Users", New With {.id = "Me"}, New With {.class = "btn btn-default"})
 
         <h2>プロフィール</h2>

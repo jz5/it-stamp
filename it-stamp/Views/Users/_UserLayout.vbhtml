@@ -2,7 +2,7 @@
 @Imports Microsoft.AspNet.Identity
 @code
     Layout = "~/Views/Shared/_Layout.vbhtml"
-    Dim icon = If(Model.IconPath <> "", Href("/Uploads/" & Model.IconPath), "http://placehold.it/96x96")
+    Dim icon = Href(Model.GetIconPath)
     Dim action = ViewContext.RouteData.GetRequiredString("action")
 
 End Code

@@ -1,6 +1,5 @@
 ﻿@ModelType [Event]
 @code
-    Dim icon = Href("/Uploads/Icons/no-community.png")
     Dim eventSiteLogo = ""
     If Model.Url IsNot Nothing Then
         Dim sites = New Dictionary(Of String, String) From {
@@ -22,7 +21,7 @@ End Code
 <div class="media">
     <div class="pull-left">
         <a href="@Href("/Events/")@Model.Id">
-            <img class="media-object img-rounded" src="@(If(Model.Community isnot Nothing andalso Model.Community.IconPath<>"", "/Uploads/" & Model.Community.IconPath, icon))" alt="@Model.Name">
+            <img class="media-object img-rounded" src="@Href(Model.GetIconPath)" alt="@Model.Name">
         </a>
         @If eventSiteLogo <> "" Then
             @<div><img src="@eventSiteLogo" class="img-responsive text-center" style="width:72px;margin:5px 8px;" /></div>            

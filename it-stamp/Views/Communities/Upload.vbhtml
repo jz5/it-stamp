@@ -33,18 +33,6 @@ End Code
     </text>
 End Using
 
-@*@Using Html.BeginForm("Upload", "Communities", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
-        @Html.AntiForgeryToken()
-        @<text>
-            @Html.ValidationSummary(True, "", New With {.class = "text-danger"})
-
-            <div class="form-group">
-                <input type="submit" value="削除" class="btn btn-default" />
-            </div>
-
-        </text>
-    End Using*@
-
 <hr />
 @Html.ActionLink("戻る", "Edit", "Communities", New With {.id = Model.Id}, Nothing)
 

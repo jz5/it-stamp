@@ -6,7 +6,6 @@ End Code
 <div class="form-group">
     @Html.ActionLink("管理者を追加", "AddOwner", "Communities", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
 </div>
-
 <table class="table">
     <thead>
         <tr>
@@ -26,16 +25,15 @@ End Code
                 Continue For
             End If
             @<tr>
-                <td><img class="img-responsive img-rounded" src="@(If(item.IconPath <> "", Href("/Uploads/" & item.IconPath), "http://placehold.it/96x96"))" /></td>
-                <td>@Html.Label(item.FriendlyName)</td>
+                <td><img class="img-responsive img-rounded" src="@Href(item.GetIconPath)" /></td>
+                <td>@item.FriendlyName</td>
                 <td>
-                    <button type="button" class="btn btn-default delete-button" data-target-id="@item.Id" data-target-src="@(If(item.IconPath <> "", Href("/Uploads/" & item.IconPath), "http://placehold.it/96x96"))" data-target-name="@item.FriendlyName">削除</button>
+                    <button type="button" class="btn btn-default delete-button" data-target-id="@item.Id" data-target-src="@Href(item.GetIconPath)" data-target-name="@item.FriendlyName">削除</button>
                 </td>
             </tr>
         Next
     </tbody>
 </table>
-
 <!-- Modal Window -->
 @Using Html.BeginForm("DeleteOwner", "Communities", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
     @Html.AntiForgeryToken()
@@ -71,10 +69,8 @@ End Code
         </div>
     </text>
 End Using
-
 <hr />
 @Html.ActionLink("戻る", "Edit", "Communities", New With {.id = Model.Id}, Nothing)
-
 @Section Scripts
     @Scripts.Render("~/bundles/jqueryval")
     <script>

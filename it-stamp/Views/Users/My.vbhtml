@@ -19,9 +19,8 @@ End Code
         @<table class="table">
             <tbody>
                 @For Each ev As [Event] In ViewBag.Events
-                Dim src = If(ev.Community IsNot Nothing AndAlso ev.Community.IconPath <> "", Href("/Uploads/" & ev.Community.IconPath), Href("/Uploads/Icons/no-community.png"))
                     @<tr>
-                        <td style="width:32px;"><a href="@Href("/Events/")@ev.Id"><img class="img-rounded icon24" src="@src" /></a></td>
+                        <td style="width:32px;"><a href="@Href("/Events/")@ev.Id"><img class="img-rounded icon24" src="@Href(ev.GetIconPath)" /></a></td>
                         <td style="width:35%;">
                             @If ev.StartDateTime.Date <= Now.Date AndAlso Now.Date <= ev.EndDateTime.Date Then
                                 @<span class="badge badge-primary">&nbsp;今日&nbsp;</span>
@@ -45,9 +44,8 @@ End Code
         @<table class="table">
             <tbody>
                 @For Each item In Model.CheckIns
-                Dim src = If(item.Event.Community IsNot Nothing AndAlso item.Event.Community.IconPath <> "", Href("/Uploads/" & item.Event.Community.IconPath), Href("/Uploads/Icons/no-community.png"))
                     @<tr>
-                        <td style="width:32px;"><a href="@Href("/Events/")@item.Event.Id"><img class="img-rounded icon24" src="@src" /></a></td>
+                        <td style="width:32px;"><a href="@Href("/Events/")@item.Event.Id"><img class="img-rounded icon24" src="@Href(item.Event.GetIconPath)" /></a></td>
                         <td><a href="@Href("/Events/")@item.Event.Id">@item.Event.Name</a></td>
                         <td><time class="text-muted small" datetime="@item.DateTime.ToString("yyyy-MM-ddTH:mm:ssK")">@item.DateTime.ToString("yyyy/MM/dd HH:mm")</time></td>
                     </tr>

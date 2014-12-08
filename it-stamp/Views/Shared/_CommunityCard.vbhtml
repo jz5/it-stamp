@@ -2,7 +2,7 @@
 @Imports Microsoft.AspNet.Identity
 @Code
 
-    Dim icon = If(Model.IconPath <> "", Href("/Uploads/" & Model.IconPath), Href("/Uploads/Icons/no-community.png"))
+    Dim icon = Href(Model.GetIconPath)
 
 End Code
 

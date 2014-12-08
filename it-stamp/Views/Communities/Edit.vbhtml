@@ -2,7 +2,6 @@
 @Imports Microsoft.AspNet.Identity
 @Code
     ViewBag.Title = "コミュニティの編集"
-    Dim icon = If(Model.IconPath <> "", Href("/Uploads/" & Model.IconPath), Href("/Uploads/Icons/no-community.png"))
 
 End Code
 <h1>@ViewBag.Title</h1>
@@ -62,7 +61,7 @@ End Code
 End Using
 
 <h2>アイコン</h2>
-<img class="media-object img-rounded" src="@icon" alt="@Model.Name" style="margin-bottom: 30px;" />
+<img class="media-object img-rounded" src="@Href(Model.GetIconPath)" alt="@Model.Name" style="margin-bottom: 30px;" />
 <div class="form-group">
     @Html.ActionLink("変更", "Upload", "Communities", New With {.id = Model.Id}, New With {.class = "btn btn-default"})
 </div>

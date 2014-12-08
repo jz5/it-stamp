@@ -2,7 +2,7 @@
 @Imports Microsoft.AspNet.Identity
 @Code
 
-    Dim userIcon = Href("/Uploads/Icons/anon.png")
+    Dim anonIcon = Href("/Uploads/Icons/anon.png")
     ViewBag.Title = Model.Name
     ViewData("Details") = True
 
@@ -69,11 +69,11 @@ End Section
                 End If
             Else
                 @For Each m In Model.Members.Where(Function(u) Not u.IsPrivate)
-                    @<a href="@Href("~/Users/" & m.UserName)"><img src="@(If(M.IconPath <> "", Href("/Uploads/" & m.IconPath), "http://placehold.it/16x16"))" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
+                    @<a href="@Href("~/Users/" & m.UserName)"><img src="@Href(m.GetIconPath)" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
                 Next
 
                 If Model.Members.Any(Function(u) u.IsPrivate) Then
-                @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
+                @<img src="@anonIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
                 End If
 
             End If

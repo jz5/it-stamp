@@ -2,9 +2,7 @@
 @Imports Microsoft.AspNet.Identity
 @code
     ViewBag.Title = Model.Name
-
-    Dim icon = If(Model.Community IsNot Nothing AndAlso Model.Community.IconPath <> "", "/Uploads/" & Model.Community.IconPath, Href("/Uploads/Icons/no-community.png"))
-    Dim userIcon = Href("/Uploads/Icons/anon.png")
+    Dim anonIcon = Href("/Uploads/Icons/anon.png")
 
     Dim searchAddress As String = Nothing
     If Model.IsOnline Then
@@ -25,6 +23,7 @@ End Code
     <meta name="twitter:site" content="@Html.Raw("@itstamp")" />
     <meta name="twitter:title" content="@ViewBag.Title" />
     <meta name="twitter:description" content="@(If(Model.Description <> "", Model.Description.Excerpt(200), "IT勉強会スタンプは、IT勉強会の参加を記録できるWebサービスです。"))" />
+    <meta name="twitter:image" content="//@Request.Url.Host@Model.Community.GetIconPath" />
 End Section
 <div class="row">
     <div class="col-md-8">
@@ -53,10 +52,10 @@ End Section
             <div class="pull-left">
                 @If Model.Url <> "" Then
                     @<a href="@Model.Url">
-                        <img class="media-object img-rounded" src="@icon" alt="@Model.Name">
+                        <img class="media-object img-rounded" src="@Href(Model.GetIconPath)" alt="@Model.Name">
                     </a>
                 Else
-                    @<img class="media-object img-rounded" src="@icon" alt="@Model.Name">
+                    @<img class="media-object img-rounded" src="@Href(Model.GetIconPath)" alt="@Model.Name">
                 End If
                 @If Request.IsAuthenticated AndAlso Not Model.IsHidden Then
                     @<div class="text-center">
@@ -161,10 +160,10 @@ End Section
 
             Else
                 @For Each m In Model.CheckIns.Where(Function(c) Not c.User.IsPrivate).Select(Function(c) c.User)
-                    @<a href="@Href("~/Users/" & m.UserName)"><img src="@(If(M.IconPath <> "", Href("/Uploads/" & m.IconPath), userIcon))" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
+                    @<a href="@Href("~/Users/" & m.UserName)"><img src="@Href(m.GetIconPath)" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
                 Next
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
-                @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
+                @<img src="@anonIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
                 End If
             End If
         </div>
@@ -255,7 +254,7 @@ End Section
                     Continue For
                 End If
                     @<li style="margin-bottom:5px;">
-                        <a href="@Href("~/Users/" & item.CreatedBy.UserName)"><img src="@(If(item.CreatedBy.IconPath <> "", Href("/Uploads/" & item.CreatedBy.IconPath), Href("/Uploads/Icons/anon.png")))" class="icon24" /></a>
+                        <a href="@Href("~/Users/" & item.CreatedBy.UserName)"><img src="@Href(item.CreatedBy.GetIconPath)" class="icon24" /></a>
                         <a href="@Href("~/Users/" & item.CreatedBy.UserName)" class="small">@item.CreatedBy.DisplayName</a> @Html.Raw(item.Content.TextWithUrl)<time class="text-muted small" datetime="@item.CreationDateTime.ToString("yyyy-MM-ddTH:mm:ssK")">（@item.CreationDateTime.ToString("yyyy/MM/dd HH:mm")）</time>
                     </li>
                 Next
@@ -338,11 +337,11 @@ End Section
                 End If
             Else
                 @For Each f In Model.Favorites.Where(Function(fv) Not fv.User.IsPrivate)
-                    @<a href="@Href("~/Users/" & f.User.UserName)"><img src="@(If(f.User.IconPath <> "", Href("/Uploads/" & f.User.IconPath), "http://placehold.it/16x16"))" class="img-rounded icon24" alt="" title="@f.User.FriendlyName" /></a>
+                    @<a href="@Href("~/Users/" & f.User.UserName)"><img src="@Href(f.User.GetIconPath)" class="img-rounded icon24" alt="" title="@f.User.FriendlyName" /></a>
                 Next
 
                 If Model.Favorites.Any(Function(fv) fv.User.IsPrivate) Then
-                @<img src="@userIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
+                @<img src="@anonIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
                 End If
 
             End If
