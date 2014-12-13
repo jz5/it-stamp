@@ -43,7 +43,8 @@ Public Class HomeController
     Function Index() As ActionResult
         Dim viewModel = New SearchEventsViewModel
 
-        Dim n = Now.Date
+        Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
+        Dim n = now.Date
         Dim results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.EndDateTime >= n).OrderBy(Function(e) e.StartDateTime)
         Dim count = 20
         viewModel.Results = results.Take(count).ToList

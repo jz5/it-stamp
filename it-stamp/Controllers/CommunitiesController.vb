@@ -119,7 +119,8 @@ Public Class CommunitiesController
         Dim events = From ev In db.Events Where ev.Community.Id = com.Id
         If events IsNot Nothing Then
             ' クエリを展開しておく
-            Dim queryDate = DateTime.Now.Date
+            Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
+            Dim queryDate = now.Date
             Dim pastEvents = From ev In events Where ev.EndDateTime < queryDate Order By ev.EndDateTime Descending.ToList
             Dim futureEvents = From ev In events Where ev.EndDateTime >= queryDate Order By ev.StartDateTime Ascending.ToList
 
@@ -186,7 +187,8 @@ Public Class CommunitiesController
                 .Name = model.Name,
                 .Url = model.Url}
 
-            Dim time = Now
+            Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
+            Dim time = now
             newCom.CreatedBy = appUser
             newCom.CreationDateTime = time
             newCom.LastUpdatedBy = appUser
@@ -363,8 +365,9 @@ Public Class CommunitiesController
                 com.IconPath = model.IconPath
             End If
 
+            Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
             com.LastUpdatedBy = appUser
-            com.LastUpdatedDateTime = Now
+            com.LastUpdatedDateTime = now
 
             Await db.SaveChangesAsync()
 
@@ -528,9 +531,10 @@ Public Class CommunitiesController
             helper.RelpaceFile(com.IconPath, iconPath, icon)
 
             ' Update
+            Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
             com.IconPath = iconPath
             com.LastUpdatedBy = appUser
-            com.LastUpdatedDateTime = Now
+            com.LastUpdatedDateTime = now
 
             Await db.SaveChangesAsync
 
@@ -611,13 +615,14 @@ Public Class CommunitiesController
             helper.RelpaceFile(defaultStampPath, iconPath, icon)
 
             ' Update
+            Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
             Dim stamp As New Stamp() With {
                 .Community = com,
                 .CreatedBy = appUser,
-                .CreationDateTime = DateTime.Now,
+                .CreationDateTime = now,
                 .Expression = "",
                 .LastUpdatedBy = appUser,
-                .LastUpdatedDateTime = DateTime.Now,
+                .LastUpdatedDateTime = now,
                 .Name = viewModel.Name,
                 .Path = iconPath}
 

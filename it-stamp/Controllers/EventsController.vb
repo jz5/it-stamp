@@ -44,7 +44,8 @@ Public Class EventsController
     Function Index(page As Integer?, past As Boolean?, specialEvent As Integer?, message As DetailsMessage?) As ActionResult
 
         Dim results As IQueryable(Of [Event])
-        Dim n = Now.Date
+        Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
+        Dim n = now.Date
         If past.HasValue AndAlso past.Value = True Then
             ' 過去
             results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.EndDateTime < n).OrderByDescending(Function(e) e.StartDateTime)
@@ -177,8 +178,9 @@ Public Class EventsController
 
     ' GET: Events/Add
     Function Add() As ActionResult
+        Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
         Dim viewModel = New AddEventViewModel With {
-            .StartDate = Now,
+            .StartDate = now,
             .PrefectureSelectList = New SelectList(db.Prefectures, "Id", "Name")}
 
         Return View(viewModel)
@@ -240,7 +242,8 @@ Public Class EventsController
             End If
 
             ' 日時処理
-            SetDateTime(viewModel.StartDate, viewModel.StartTime, viewModel.EndDate, viewModel.EndTime, ev.StartDateTime, ev.EndDateTime, Now)
+            Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
+            SetDateTime(viewModel.StartDate, viewModel.StartTime, viewModel.EndDate, viewModel.EndTime, ev.StartDateTime, ev.EndDateTime, now)
 
             ' Community
             If viewModel.CommunityName <> "" Then
@@ -272,7 +275,7 @@ Public Class EventsController
                 Dim newCom = New Community With {
                     .Name = viewModel.CommunityName}
 
-                Dim n = Now
+                Dim n = now
                 newCom.CreatedBy = appUser
                 newCom.CreationDateTime = n
                 newCom.LastUpdatedBy = appUser
@@ -291,7 +294,7 @@ Public Class EventsController
             End If
 
             ' Datetime
-            Dim time = Now
+            Dim time = now
             ev.CreatedBy = appUser
             ev.CreationDateTime = time
             ev.LastUpdatedBy = appUser
@@ -334,8 +337,8 @@ Public Class EventsController
             Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
         End If
 
-
-        Dim n = Now
+        Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
+        Dim n = now
         Dim hasTime = Not (ev.StartDateTime.Date = ev.EndDateTime.Date AndAlso ev.StartDateTime.TimeOfDay = ev.EndDateTime.TimeOfDay)
         Dim viewModel = New EventDetailsViewModel With {
             .Id = ev.Id,
@@ -380,7 +383,8 @@ Public Class EventsController
     <HttpPost()>
     <ValidateAntiForgeryToken()>
     Async Function Edit(ByVal viewModel As EventDetailsViewModel) As Task(Of ActionResult)
-        Dim n = Now
+        Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
+        Dim n = now
         viewModel.SpecialEventsSelectList = New SelectList(db.SpecialEvents.Where(Function(e) e.StartDateTime <= n AndAlso n <= e.EndDateTime), "Id", "Name")
         viewModel.PrefectureSelectList = New SelectList(db.Prefectures, "Id", "Name")
         viewModel.CommunitiesSelectList = New SelectList(db.Communities.Where(Function(c) Not c.IsHidden).OrderBy(Function(c) c.Name), "Id", "Name")
@@ -461,7 +465,7 @@ Public Class EventsController
             End If
 
             ev.LastUpdatedBy = appUser
-            ev.LastUpdatedDateTime = Now
+            ev.LastUpdatedDateTime = now
 
             db.SaveChanges()
 
@@ -531,8 +535,9 @@ Public Class EventsController
             ev.ReportMemo = model.ReportMemo
             ev.IsReported = True
 
+            Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
             ev.LastUpdatedBy = appUser
-            ev.LastUpdatedDateTime = Now
+            ev.LastUpdatedDateTime = now
 
             db.SaveChanges()
 
@@ -583,7 +588,8 @@ Public Class EventsController
                 Return View(viewModel)
             End If
 
-            If Now < ev.StartDateTime.AddHours(-1) Then
+            Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
+            If now < ev.StartDateTime.AddHours(-1) Then
                 ViewBag.ErrorMessage = "開始時間の1時間前からチェックインできるようになります。"
                 Return View(viewModel)
             End If
@@ -599,7 +605,7 @@ Public Class EventsController
 
             Dim ci = New CheckIn With {
                 .Event = ev,
-                .DateTime = Now,
+                .DateTime = now,
                 .User = appUser}
 
             ev.CheckIns.Add(ci)
@@ -633,7 +639,7 @@ Public Class EventsController
                 Dim comment = New Comment() With {
                                 .Content = viewModel.AdditionalMessage.Trim,
                                 .CreatedBy = appUser,
-                                .CreationDateTime = DateTime.Now,
+                                .CreationDateTime = now,
                                 .Event = ev}
                 ev.Comments.Add(comment)
             End If
@@ -681,8 +687,9 @@ Public Class EventsController
         End If
 
         ' 連投制限
+        Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
         Dim lastComment = db.Comments.Where(Function(c) c.CreatedBy.Id = appUser.Id AndAlso c.Event.Id = ev.Id).OrderByDescending(Function(c) c.CreationDateTime).FirstOrDefault
-        If lastComment IsNot Nothing AndAlso lastComment.CreationDateTime.AddMinutes(1) > Now Then
+        If lastComment IsNot Nothing AndAlso lastComment.CreationDateTime.AddMinutes(1) > now Then
             Return View(viewModel) ' TODO: 連投制限処理
         End If
 
@@ -717,7 +724,7 @@ Public Class EventsController
                 Dim c = New Comment() With {
                                 .Content = viewModel.AdditionalMessage.Trim,
                                 .CreatedBy = appUser,
-                                .CreationDateTime = DateTime.Now,
+                                .CreationDateTime = now,
                                 .Event = ev}
                 ev.Comments.Add(c)
             End If
@@ -783,10 +790,11 @@ Public Class EventsController
             If followed Then
                 db.Favorites.Remove(fv)
             Else
+                Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
                 Dim newFv = New Favorite() With {
                     .Event = ev,
                     .User = appUser,
-                    .DateTime = Now}
+                    .DateTime = now}
                 db.Favorites.Add(newFv)
                 appUser.Favorites.Add(newFv)
 

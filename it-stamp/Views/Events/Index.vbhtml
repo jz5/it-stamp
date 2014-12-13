@@ -2,6 +2,8 @@
 @Imports Microsoft.AspNet.Identity
 @Code
     ViewBag.Title = "IT勉強会一覧"
+    Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
+
 End Code
 
 <div class="row">
@@ -81,13 +83,13 @@ End Section
 
     <script>
         $('.input-group.date').datepicker({
-            startDate: "@Now.AddYears(-1).ToString("yyyy/M/d")",
-            endDate: "@Now.AddYears(1).ToString("yyyy/M/d")",
+            startDate: "@now.AddYears(-1).ToString("yyyy/M/d")",
+            endDate: "@now.AddYears(1).ToString("yyyy/M/d")",
             todayBtn: "linked",
             language: "ja",
             autoclose: true,
             todayHighlight: true
-        }).datepicker("update", "@Now.ToString("yyyy/MM/dd")");
+        }).datepicker("update", "@now.ToString("yyyy/MM/dd")");
 
     </script>
 End Section

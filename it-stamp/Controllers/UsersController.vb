@@ -81,7 +81,8 @@ Public Class UsersController
             Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
         End If
 
-        Dim n = Now.Date
+        Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
+        Dim n = now.Date
         Dim followCommunityId = (From item In appUser.Communities Select item.Id).ToList()
 
         Dim followCommunity = db.Events.Where(Function(e) e.EndDateTime >= n AndAlso e.Community IsNot Nothing AndAlso followCommunityId.Contains(e.Community.Id)).ToList()
@@ -291,13 +292,14 @@ Public Class UsersController
             Dim followed = follower IsNot Nothing
 
             ' Switch following
+            Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
             If followed Then
                 db.Followers.Remove(follower)
             Else
                 Dim fl = New Follower With {
                     .CreatedBy = appUser,
                     .User = targetUser,
-                    .CreationDateTime = Now}
+                    .CreationDateTime = now}
                 db.Followers.Add(fl)
             End If
 

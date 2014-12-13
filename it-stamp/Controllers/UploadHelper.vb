@@ -22,8 +22,9 @@ Public Class UploadHelper
     Function GetIconPath(group As String, id As String) As String
 
         ' Save
-        Dim y = Now.Year.ToString
-        Dim m = Now.Month.ToString
+        Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
+        Dim y = now.Year.ToString
+        Dim m = now.Month.ToString
         Dim groupFolder = IO.Path.Combine(_Path, group)
         Dim yearFolder = IO.Path.Combine(groupFolder, y)
         Dim monthFolder = IO.Path.Combine(yearFolder, m)

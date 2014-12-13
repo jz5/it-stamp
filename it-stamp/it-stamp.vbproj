@@ -332,11 +332,6 @@
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
     <None Include="My Project\PublishProfiles\itstamp %282%29.pubxml" />
-    <None Include="My Project\PublishProfiles\itstamp %283%29.pubxml" />
-    <None Include="My Project\PublishProfiles\itstamp %284%29.pubxml" />
-    <None Include="My Project\PublishProfiles\itstamp %285%29.pubxml" />
-    <None Include="My Project\PublishProfiles\itstamp %286%29.pubxml" />
-    <None Include="My Project\PublishProfiles\itstamp.pubxml" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>

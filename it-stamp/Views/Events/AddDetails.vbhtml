@@ -2,6 +2,8 @@
 @Imports Microsoft.AspNet.Identity
 @code
     ViewBag.Title = "IT勉強会の登録"
+    Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
+
 End Code
 
 <h1>@ViewBag.Title</h1>
@@ -147,7 +149,7 @@ End Section
         (function ($) {
             $('.input-group.date').datepicker({
                 startDate: "@Model.StartDate.ToString("yyyy/MM/dd")",
-                endDate: "@Now.AddYears(1).ToString("yyyy/MM/dd")",
+                endDate: "@now.AddYears(1).ToString("yyyy/MM/dd")",
                 todayBtn: "linked",
                 language: "ja",
                 autoclose: true,

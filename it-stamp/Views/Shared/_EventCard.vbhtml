@@ -17,6 +17,8 @@
             End If
         Next
     End If
+    Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
+
 End Code
 <div class="media">
     <div class="pull-left">
@@ -37,11 +39,11 @@ End Code
         <div>
             <div>
                 
-                @If Model.StartDateTime.Date <= Now.Date AndAlso Now.Date <= Model.EndDateTime.Date Then
+                @If Model.StartDateTime.Date <= now.Date AndAlso now.Date <= Model.EndDateTime.Date Then
                     @<span class="badge badge-primary">&nbsp;今日&nbsp;</span>
-                ElseIf Model.StartDateTime.Date = Now.Date.AddDays(1) OrElse Model.EndDateTime.Date = Now.Date.AddDays(1) Then
+                ElseIf Model.StartDateTime.Date = now.Date.AddDays(1) OrElse Model.EndDateTime.Date = now.Date.AddDays(1) Then
                     @<span class="badge badge-default">&nbsp;明日&nbsp;</span>
-                ElseIf Model.EndDateTime.Date.AddDays(1) = Now.Date Then
+                ElseIf Model.EndDateTime.Date.AddDays(1) = now.Date Then
                     @<span class="badge badge-default">&nbsp;昨日&nbsp;</span>
                 End If
                 <time class="small text-muted">@Model.FriendlyDateTime</time>

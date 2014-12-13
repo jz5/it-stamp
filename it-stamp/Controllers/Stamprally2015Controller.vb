@@ -48,7 +48,8 @@ Public Class Stamprally2015Controller
     Function Events(page As Integer?, past As Boolean?) As ActionResult
 
         Dim results As IQueryable(Of [Event])
-        Dim n = Now.Date
+        Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
+        Dim n = now.Date
         If past.HasValue AndAlso past.Value = True Then
             ' 過去
             results = db.Events.Where(Function(e) Not e.IsHidden AndAlso e.EndDateTime < n AndAlso (e.SpecialEvents.Any(Function(ev) ev.SpecialEvent.Id = 1))).OrderByDescending(Function(e) e.StartDateTime)

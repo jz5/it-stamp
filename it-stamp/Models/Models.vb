@@ -70,8 +70,9 @@ Public Class [Event]
 
     Function FriendlyDateTime() As String
 
+        Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
         Dim format = "yyyy/M/d(ddd)"
-        If StartDateTime.Year = Now.Year Then
+        If StartDateTime.Year = now.Year Then
             format = "M/d(ddd)"
         End If
 

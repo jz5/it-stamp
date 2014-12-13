@@ -4,7 +4,8 @@ Imports System.Web.Mvc
 Public Module DateTimeHelpers
     <System.Runtime.CompilerServices.Extension> _
     Public Function ToRelativeTimeString(ByVal t As DateTime, Optional ByVal baseTime As DateTime? = Nothing) As MvcHtmlString
-        Dim baseDateTime = DateTime.Now
+        Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
+        Dim baseDateTime = now
 
         ' 値があればそれを適用
         If baseTime.HasValue Then

@@ -4,6 +4,7 @@
 
     Layout = "_UserLayout.vbhtml"
     ViewBag.Title = Model.DisplayName & "さん"
+    Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
 
 End Code
 <ul class="nav nav-tabs nav-justified myapge-tabs">
@@ -22,9 +23,9 @@ End Code
                     @<tr>
                         <td style="width:32px;"><a href="@Href("/Events/")@ev.Id"><img class="img-rounded icon24" src="@Href(ev.GetIconPath)" /></a></td>
                         <td style="width:35%;">
-                            @If ev.StartDateTime.Date <= Now.Date AndAlso Now.Date <= ev.EndDateTime.Date Then
+                            @If ev.StartDateTime.Date <= now.Date AndAlso now.Date <= ev.EndDateTime.Date Then
                                 @<span class="badge badge-primary">&nbsp;今日&nbsp;</span>
-                            ElseIf ev.StartDateTime.Date = Now.Date.AddDays(1) OrElse ev.EndDateTime.Date = Now.Date.AddDays(1) Then
+                            ElseIf ev.StartDateTime.Date = now.Date.AddDays(1) OrElse ev.EndDateTime.Date = now.Date.AddDays(1) Then
                                 @<span class="badge badge-default">&nbsp;明日&nbsp;</span>
                             End If
                             <time class="text-muted small">@ev.FriendlyDateTime</time>

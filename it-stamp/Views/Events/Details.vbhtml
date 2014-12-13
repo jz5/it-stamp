@@ -16,6 +16,7 @@
     End If
 
     Dim privateCommentCount = (From item In Model.Comments Where item.CreatedBy.IsPrivate).Count
+    Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
 
 End Code
 @section head
@@ -38,7 +39,7 @@ End Section
             @<div class="alert alert-warning fade in" role="alert">
                 中止になったIT勉強会です。
             </div>
-        ElseIf Model.EndDateTime < Now.Date Then
+        ElseIf Model.EndDateTime < now.Date Then
             @<div class="alert alert-warning fade in" role="alert">
                 終了したIT勉強会です。
             </div>
@@ -84,11 +85,11 @@ End Section
                         <tr>
                             <td style="border-top-width:0;min-width:120px;">📅 日時</td>
                             <td style="border-top-width:0;">
-                                @If Model.StartDateTime.Date <= Now.Date AndAlso Now.Date <= Model.EndDateTime.Date Then
+                                @If Model.StartDateTime.Date <= now.Date AndAlso now.Date <= Model.EndDateTime.Date Then
                                     @<span class="badge badge-primary">&nbsp;今日&nbsp;</span>
-                                ElseIf Model.StartDateTime.Date = Now.Date.AddDays(1) OrElse Model.EndDateTime.Date = Now.Date.AddDays(1) Then
+                                ElseIf Model.StartDateTime.Date = now.Date.AddDays(1) OrElse Model.EndDateTime.Date = now.Date.AddDays(1) Then
                                     @<span class="badge badge-default">&nbsp;明日&nbsp;</span>
-                                ElseIf Model.EndDateTime.Date.AddDays(1) = Now.Date Then
+                                ElseIf Model.EndDateTime.Date.AddDays(1) = now.Date Then
                                     @<span class="badge badge-default">&nbsp;昨日&nbsp;</span>
                                 End If
                                 @Model.FriendlyDateTime
@@ -101,7 +102,7 @@ End Section
                                 @<td>@Model.Prefecture.Name</td>
                             ElseIf Model.Address IsNot Nothing Then
                                 '会場（住所）
-                                @<td>@Model.Place（@(If(Model.Prefecture IsNot Nothing andalso Model.Prefecture.Id < 49, Model.Prefecture.Name, ""))@Model.Address）</td>
+                                @<td>@Model.Place（@(If(Model.Prefecture IsNot Nothing AndAlso Model.Prefecture.Id < 49, Model.Prefecture.Name, ""))@Model.Address）</td>
                             ElseIf Model.Address Is Nothing Then
                                 If Model.Place IsNot Nothing Then
                                 @<td>@Model.Place</td>
@@ -162,7 +163,7 @@ End Section
                 @For Each m In Model.CheckIns.Where(Function(c) Not c.User.IsPrivate).Select(Function(c) c.User)
                     @<a href="@Href("~/Users/" & m.UserName)"><img src="@Href(m.GetIconPath)" class="img-rounded icon24" alt="" title="@m.FriendlyName" /></a>
                 Next
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                If Model.CheckIns.Where(Function(c) c.User.IsPrivate).Count > 0 Then
                 @<img src="@anonIcon" class="img-rounded icon24" alt="" title="プライベートユーザー（ひとり以上）" />
                 End If
             End If
@@ -178,7 +179,7 @@ End Section
         ElseIf Not ViewBag.CanChackIn Then
             @<p>このIT勉強会にはチェックインできません。</p>
 
-        ElseIf Model.StartDateTime.AddHours(-1) <= Now Then
+        ElseIf Model.StartDateTime.AddHours(-1) <= now Then
             If Not Request.IsAuthenticated Then
             @<p>@Html.ActionLink("ログイン", "Login", "Account", New With {.ReturnUrl = If(Request.RawUrl.ToLower.Contains("login"), "", Request.RawUrl)}, Nothing) してチェックイン！</p>
             Else
