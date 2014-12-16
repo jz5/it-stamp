@@ -31,7 +31,12 @@ Public Class TempController
     End Property
 
     ' GET: Temp
-    Function Index() As ActionResult
+    Async Function Index() As Task(Of ActionResult)
+        Dim atnd = New Atnd
+        Dim evs = Await atnd.GetEvents(AddressHelper.GetPrefecture("東京都"), Now)
+
+        ViewBag.Events = evs
+
         Return View()
     End Function
 
@@ -44,9 +49,8 @@ Public Class TempController
             Return View()
         End If
 
-        Dim userId = User.Identity.GetUserId
-
-        Await DownloadTwitterProfileImage(Await UserManager.GetClaimsAsync(userId), userId)
+        'Dim userId = User.Identity.GetUserId
+        'Await DownloadTwitterProfileImage(Await UserManager.GetClaimsAsync(userId), userId)
 
 
         Return View()

@@ -222,6 +222,19 @@ Public Class EventsController
 
     <HttpPost>
     <ValidateAntiForgeryToken>
+    Async Function GetEvents(prefectureId As Integer?, startDate As DateTime?) As Task(Of ActionResult)
+
+        If Request.IsAjaxRequest Then
+            Dim atnd = New Connpass
+            Dim evs = Await atnd.GetEvents(AddressHelper.GetPrefecture(prefectureId.Value), startDate.Value)
+            Return Json(evs)
+        Else
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+    End Function
+
+    <HttpPost>
+    <ValidateAntiForgeryToken>
     Async Function AddDetails(ByVal viewModel As AddEventDetailsViewModel) As Task(Of ActionResult)
         viewModel.CommunitiesSelectList = New SelectList(db.Communities.Where(Function(c) Not c.IsHidden).OrderBy(Function(c) c.Name), "Id", "Name")
 

@@ -73,6 +73,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -224,9 +225,11 @@
     <Compile Include="Controllers\SpecialEventsAdminController.vb" />
     <Compile Include="Controllers\TempController.vb" />
     <Compile Include="Controllers\UsersAdminController.vb" />
+    <Compile Include="EventApi\Connpass.vb" />
     <Compile Include="Helpers\DateTimeHelpers.vb" />
     <Compile Include="Helpers\HtmlHelpers.vb" />
     <Compile Include="Helpers\SocialHelpers.vb" />
+    <Compile Include="Helpers\TokyoTime.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="MyAttributeAdapter.vb" />
     <Compile Include="EventApi\AddressHelper.vb" />
@@ -562,6 +565,7 @@
     <Content Include="Views\Users\_SidebarPartial.vbhtml" />
     <Content Include="Views\Users\MyFollowing.vbhtml" />
     <Content Include="Views\Users\Manage.vbhtml" />
+    <Content Include="Views\Temp\Index.vbhtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

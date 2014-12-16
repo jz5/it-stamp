@@ -5,6 +5,12 @@
     <meta name="twitter:title" content="IT勉強会にチェックイン！ | IT勉強会スタンプ" />
     <meta name="twitter:description" content="IT勉強会スタンプは、IT勉強会の参加を記録できるWebサービスです。" />
 End Section
+@code 
+    Dim title = "開催予定のIT勉強会"
+    If Model.Results.Count > 0 AndAlso Model.Results.First.StartDateTime.Date <= TokyoTime.Now.Date Then
+        title = "開催予定と今日のIT勉強会"
+    End If
+End Code
 <div class="row">
     <div class="col-sm-12 col-md-8">
 
@@ -29,7 +35,7 @@ End Section
             </div>
         End If
 
-        <h2 @(If(Request.IsAuthenticated, Html.Raw("style=""margin-top:40px;"""), ""))>📢 開催予定のIT勉強会</h2>
+        <h2 @(If(Request.IsAuthenticated, Html.Raw("style=""margin-top:40px;"""), ""))>📢 @title</h2>
 
         @Html.Partial("_EventResults")
 
