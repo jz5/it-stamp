@@ -34,7 +34,7 @@ End Code
     </text>
 End Using
 
-<div>
+@*<div>
     <h2>イベント登録サイトから検索</h2>
     <div class="jumbotron">
         <div class="jumbotron-contents" id="SearchResults">
@@ -56,14 +56,14 @@ End Using
     @Html.Hidden("StartDate", Model.StartDate.ToString("yyyy/MM/dd"), New With {.id = "SearchStartDate"})
     @Html.Hidden("PrefectureId", Model.PrefectureId, New With {.id = "SearchPrefectureId"})
 
-End Using
+End Using*@
 
-@*<div class="jumbotron">
-        <div class="jumbotron-contents">
-            <p>💡 現在、新規登録のみ可能です。今後、登録済みのIT勉強会と、イベント登録サイトから検索できるようになる予定です。</p>
-            @Html.ActionLink("開催予定のIT勉強会の表示", "Index", "Events", Nothing, New With {.class = "btn btn-default"})
-        </div>
-    </div>*@
+<div class="jumbotron">
+    <div class="jumbotron-contents">
+        <p>💡 現在、新規登録のみ可能です。今後、登録済みのIT勉強会と、イベント登録サイトから検索できるようになる予定です。</p>
+        @Html.ActionLink("開催予定のIT勉強会の表示", "Index", "Events", Nothing, New With {.class = "btn btn-default"})
+    </div>
+</div>
 
 
 
@@ -85,29 +85,29 @@ End Section
                 todayHighlight: true
             }).datepicker("update", "@now.ToString("yyyy/MM/dd")");
 
-            var startDate = "";
-            var prefectureId = "";
-            $("#StartDate").change(function () {
-                if (startDate != $(this).val()) {
-                    startDate = $(this).val();
-                    if (startDate != "") {
-                        search();
-                    }
-                }
-            });
-            $("#PrefectureId").change(function () {
-                search();
-            });
+            //var startDate = "";
+            //var prefectureId = "";
+            //$("#StartDate").change(function () {
+            //    if (startDate != $(this).val()) {
+            //        startDate = $(this).val();
+            //        if (startDate != "") {
+            //            search();
+            //        }
+            //    }
+            //});
+            //$("#PrefectureId").change(function () {
+            //    search();
+            //});
 
-            function search() {
-                $("#SearchStartDate").val($("#StartDate").val());
-                $("#SearchPrefectureId").val($("#PrefectureId").val());
-                $("#SearchForm").submit();
-            }
+            //function search() {
+            //    $("#SearchStartDate").val($("#StartDate").val());
+            //    $("#SearchPrefectureId").val($("#PrefectureId").val());
+            //    $("#SearchForm").submit();
+            //}
 
         })(jQuery);
 
-        function onSuccess(result) {
+        @*function onSuccess(result) {
             if (result && $) {
                 if (result.length == 0) {
                     $("#SearchResults").html('<p>該当するイベントは見つかりませんでした。</p>');
@@ -125,7 +125,7 @@ End Section
 
         function onBegin() {
             $("#SearchResults").html("取得中...");
-        }
+        }*@
 
 
     </script>

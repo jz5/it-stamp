@@ -373,7 +373,7 @@ Public Class EventsController
             .ParticipantsOnlineCount = ev.ParticipantsOnlineCount,
             .ReportMemo = ev.ReportMemo,
             .SpecialEventsSelectList = New SelectList(db.SpecialEvents.Where(Function(e) n <= e.EndDateTime), "Id", "Name"),
-            .SpecialEventId = If(ev.SpecialEvents IsNot Nothing AndAlso ev.SpecialEvents.Count > 0, ev.SpecialEvents.First.Id, Nothing),
+            .SpecialEventId = If(ev.SpecialEvents IsNot Nothing AndAlso ev.SpecialEvents.Count > 0, ev.SpecialEvents.First.SpecialEvent.Id, Nothing),
             .PrefectureId = If(ev.Prefecture IsNot Nothing, ev.Prefecture.Id, Nothing),
             .PrefectureSelectList = New SelectList(db.Prefectures, "Id", "Name"),
         .CommunityId = If(ev.Community IsNot Nothing, ev.Community.Id, Nothing)
@@ -444,13 +444,23 @@ Public Class EventsController
                 ' SpecialEvent
                 ' TODO: SpecialEvent 複数対応
                 If viewModel.SpecialEventId.HasValue Then
-                    Dim ue = New UserEvent With {
-                        .Event = ev,
-                        .SpecialEvent = db.SpecialEvents.Where(Function(e) e.Id = viewModel.SpecialEventId.Value).SingleOrDefault}
-                    ev.SpecialEvents.Add(ue)
+                    If ev.SpecialEvents.Any AndAlso ev.SpecialEvents.First.SpecialEvent.Id = viewModel.SpecialEventId.Value Then
+                        ' 追加済み
+                        ' Do nothing
+                    Else
+                        ' 新規追加
+                        Dim ue = New UserEvent With {
+                            .Event = ev,
+                            .SpecialEvent = db.SpecialEvents.Where(Function(e) e.Id = viewModel.SpecialEventId.Value).SingleOrDefault}
+                        ev.SpecialEvents.Add(ue)
+                    End If
                 Else
-                    If ev.SpecialEvents IsNot Nothing AndAlso ev.SpecialEvents.Any Then
-                        ev.SpecialEvents.Remove(ev.SpecialEvents.FirstOrDefault)
+                    ' 削除
+                    If ev.SpecialEvents.Any Then
+                        ' Delete userEvent
+                        Dim userEventId = ev.SpecialEvents.First.Id
+                        Dim ue = db.UserEvents.Where(Function(e) e.Id = userEventId).Single
+                        db.UserEvents.Remove(ue)
                     End If
                 End If
             Else
