@@ -40,10 +40,12 @@ End Code
     </div>
     <div class="media-body">
         @If ViewData("Details") Then
-            @<p>@Html.Raw(Html.Encode(Model.Description).Replace(vbCrLf, "<br />"))</p>
+            @If Model.Description <> "" Then
+                @<p>@Html.Raw(Model.Description.TextWithUrl.Replace(vbCrLf, "<br />"))</p>
+            End If
         Else
             @<h3><a href="@Href("/Communities/")@Model.Id">@Model.Name</a></h3>
-            @<p>@Html.Raw(Model.Description.Excerpt.TextWithUrl)</p>
+            @<p class="small">@Html.Raw(Model.Description.Excerpt)</p>
         End If
         @If Model.Url <> "" Then
             @<a href="@Model.Url" target="_blank">@Model.Url</a>

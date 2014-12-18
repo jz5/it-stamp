@@ -75,7 +75,7 @@ End Section
                 End If
             </div>
             <div class="media-body">
-                <p>@Html.Raw(Html.Encode(Model.Description).Replace(vbCrLf, "<br />"))</p>
+                <p>@Html.Raw(Model.Description.TextWithUrl.Replace(vbCrLf, "<br />"))</p>
             </div>
         </div>
         <div class="row">

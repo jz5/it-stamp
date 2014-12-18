@@ -1,12 +1,19 @@
 ﻿Imports System.Drawing
+Imports System.Net
 
 Public Class UploadHelper
 
     Private File As HttpPostedFileBase
+    Private Url As Uri
 
     Sub New(file As HttpPostedFileBase, path As String)
         Me.File = file
         _ImageFormat = GetFormat(file.ContentType)
+        _Path = path
+    End Sub
+
+    Sub New(url As Uri, path As String)
+        Me.Url = url
         _Path = path
     End Sub
 
@@ -15,9 +22,46 @@ Public Class UploadHelper
 
     ReadOnly Property IsSupportedImageFormat As Boolean
         Get
-            Return Me.File.ContentType.StartsWith("image/") AndAlso _ImageFormat IsNot Nothing
+            If Me.File IsNot Nothing Then
+                Return Me.File.ContentType.StartsWith("image/") AndAlso _ImageFormat IsNot Nothing
+            Else
+                Return _ImageFormat IsNot Nothing
+            End If
         End Get
     End Property
+
+    Async Function DownloadFile() As Threading.Tasks.Task(Of String)
+        Dim tempFile = IO.Path.GetTempFileName
+
+        Dim req = HttpWebRequest.CreateHttp(Me.Url)
+        Dim res = Await req.GetResponseAsync
+
+        Using ms = New IO.MemoryStream()
+            Dim buf(256 * 1024) As Byte
+            Do
+                Dim readBytes = res.GetResponseStream.Read(buf, 0, buf.Length)
+                If readBytes > 0 Then
+                    ms.Write(buf, 0, readBytes)
+                Else
+                    Exit Do
+                End If
+            Loop
+
+            Using fs = New IO.FileStream(tempFile, IO.FileMode.Create)
+                Dim wbuf(Convert.ToInt32(ms.Length - 1)) As Byte
+                ms.Seek(0, IO.SeekOrigin.Begin)
+                ms.Read(wbuf, 0, wbuf.Length)
+                fs.Write(wbuf, 0, wbuf.Length)
+            End Using
+        End Using
+
+        _ImageFormat = GetFormat(res.Headers(HttpResponseHeader.ContentType))
+
+        res.Close()
+
+        Return tempFile
+    End Function
+
 
     Function GetIconPath(group As String, id As String) As String
 
@@ -39,7 +83,7 @@ Public Class UploadHelper
             IO.Directory.CreateDirectory(monthFolder)
         End If
 
-        Return String.Format("{0}/{1}/{2}/{3}.{4}", group, y, m, id, If(_ImageFormat Is Drawing.Imaging.ImageFormat.Png, "png", "jpeg"))
+        Return String.Format("{0}/{1}/{2}/{3}.{4}", group, y, m, id, If(_ImageFormat Is Drawing.Imaging.ImageFormat.Png, "png", "jpg"))
 
     End Function
 

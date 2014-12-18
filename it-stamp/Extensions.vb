@@ -45,6 +45,10 @@ Public Module Extensions
 
     <Extension>
     Function TextWithUrl(ByVal str As String) As String
+        If str Is Nothing Then
+            Return ""
+        End If
+
         Dim urlRegex As New Regex("https?:\/\/[-_.!~*'()a-zA-Z0-9;\/?:@&=+$,%#]+", RegexOptions.Singleline)
         Dim match As Match = urlRegex.Match(str)
         Dim result As String = ""

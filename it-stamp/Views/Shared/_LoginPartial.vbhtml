@@ -20,7 +20,7 @@ End Code
     @Using Html.BeginForm("LogOff", "Account", FormMethod.Post, New With {.id = "logoutForm", .class = "navbar-right"})
         @Html.AntiForgeryToken()
 
-        @<img src="@Href("~/Uploads/" & icon)" class="navbar-brand hidden-xs" style="padding-right:0;" alt="" />
+        @<img src="@Href("~/Uploads/" & icon)" class="navbar-brand hidden-xs img-rounded" style="padding:5px 0 5px 0;" alt="" />
         @<ul class="nav navbar-nav navbar-right hidden-xs visible-sm visible-md visible-lg">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">@name <span class="caret"></span></a>

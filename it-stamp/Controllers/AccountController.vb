@@ -6,6 +6,7 @@ Imports Microsoft.AspNet.Identity.Owin
 Imports Microsoft.Owin.Security
 Imports Owin
 Imports System.Net
+Imports System.Drawing
 
 <RequireHttps>
 <Authorize>
@@ -494,6 +495,11 @@ Public Class AccountController
                     Await StoreAuthTokenClaims(user)
                     Await SignInAsync(user, isPersistent:=False)
 
+                    ' Twitter profile image
+                    If user.Twitter <> "" Then
+                        Await DownloadTwitterProfileImage(user)
+                    End If
+
                     ' アカウント確認とパスワード リセットを有効にする方法の詳細については、http://go.microsoft.com/fwlink/?LinkID=320771 を参照してください
                     ' このリンクを含む電子メールを送信します
                     ' Dim code = Await UserManager.GenerateEmailConfirmationTokenAsync(user.Id)
@@ -508,6 +514,37 @@ Public Class AccountController
 
         ViewBag.ReturnUrl = returnUrl
         Return View(model)
+    End Function
+
+    Private Async Function DownloadTwitterProfileImage(user As ApplicationUser) As Task
+        Try
+            Dim url = Await SocialHelpers.GetProfileImageUrl(UserManager.GetClaims(user.Id), user.Twitter)
+            Dim helper = New UploadHelper(url, Server.MapPath("~/App_Data/Uploads/"))
+
+            Dim tempFile = Await helper.DownloadFile()
+            If Not helper.IsSupportedImageFormat Then
+                System.IO.File.Delete(tempFile)
+            End If
+
+            Dim iconPath = helper.GetIconPath("Users", user.UserName)
+
+            ' Resize
+            Dim icon As Bitmap
+            Using bmp = New Bitmap(tempFile)
+                icon = bmp.ResizeTo(New Size(96, 96))
+            End Using
+
+            ' Save
+            helper.RelpaceFile(Nothing, iconPath, icon)
+
+            ' Update
+            user.IconPath = iconPath
+            Await UserManager.UpdateAsync(user)
+
+            Session("IconPath") = iconPath
+        Catch ex As Exception
+            ' Ignore
+        End Try
     End Function
 
     Public Function Close() As ActionResult
@@ -544,7 +581,7 @@ Public Class AccountController
             ' Favorites
             Dim fvs = db.Favorites.Where(Function(c) c.User.Id = userId)
             db.Favorites.RemoveRange(fvs)
-            
+
             ' Communities
             dbUser.Communities.Clear()
             dbUser.OwnerCommunities.Clear()

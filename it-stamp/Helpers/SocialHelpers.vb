@@ -21,4 +21,20 @@ Public Class SocialHelpers
         End If
     End Function
 
+    Shared Async Function GetProfileImageUrl(claims As IEnumerable(Of Claim), screenName As String) As Task(Of Uri)
+        Dim accessTokenClaim = claims.FirstOrDefault(Function(x) x.Type = "urn:tokens:twitter:accesstoken")
+        Dim accessTokenSecretClaim = claims.FirstOrDefault(Function(x) x.Type = "urn:tokens:twitter:accesstokensecret")
+
+        If accessTokenClaim IsNot Nothing AndAlso accessTokenSecretClaim IsNot Nothing Then
+
+            Dim tokens = CoreTweet.Tokens.Create(ConfigurationManager.AppSettings("TwitterConsumerKey"), ConfigurationManager.AppSettings("TwitterConsumerSecret"), accessTokenClaim.Value, accessTokenSecretClaim.Value)
+            Dim result = Await tokens.Users.ShowAsync(New Dictionary(Of String, Object) From {{"screen_name", screenName}})
+
+            Dim url = result.ProfileImageUrlHttps.ToString
+            Return New Uri(url.Replace("_normal.", "."))
+        End If
+
+        Return Nothing
+    End Function
+
 End Class

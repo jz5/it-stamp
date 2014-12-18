@@ -7,7 +7,7 @@
 
 End Code
 
-<h2>✅ チェックイン</h2>
+<h2>✅ チェックイン <span class="badge badge-primary @(If(Model.CheckIns.Count = 0, "hidden", ""))">@Model.CheckIns.Count</span></h2>
 <div>
     @If Model.CheckIns.Count = 0 Then
         @<p class="text-muted">まだチェックインしていません。</p>
@@ -25,7 +25,7 @@ End Code
         </table>
     End If
 </div>
-<h2>フォロー コミュニティ</h2>
+<h2>フォロー コミュニティ <span class="badge badge-primary @(If(Model.Communities.Count = 0, "hidden", ""))">@Model.Communities.Count</span></h2>
 <div>
     @If Model.Communities.Count = 0 Then
         @<p class="text-muted">フォローしているコミュニティはありません。</p>
@@ -43,7 +43,7 @@ End Code
     End If
 </div>
 
-<h2>フォロー IT勉強会</h2>
+<h2>フォロー IT勉強会 <span class="badge badge-primary @(If(Model.Favorites.Count = 0, "hidden", ""))">@Model.Favorites.Count</span></h2>
 <div>
     @If Model.Favorites.Count = 0 Then
         @<p class="text-muted">フォローしているIT勉強会はありません。</p>

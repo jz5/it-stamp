@@ -8,7 +8,6 @@
 End Code
 <div class="row">
     <div class="col-md-8">
-
         @If User.Identity.GetUserId <> Model.Id OrElse action = "Details" Then
             @<div class="media">
                 <div class="pull-left">
@@ -19,7 +18,6 @@ End Code
                     Else
                         @<img class="media-object img-rounded" src="@icon" alt="@Model.FriendlyName">
                     End If
-
                     @If Request.IsAuthenticated AndAlso User.Identity.GetUserName <> Model.UserName Then
                         @<div class="text-center">
                             @Using Ajax.BeginForm("Follow", "Users", New With {.userName = Model.UserName}, New AjaxOptions With {.HttpMethod = "POST", .OnSuccess = "onSuccess", .OnBegin = "onBegin"}, New With {.class = "form-horizontal", .role = "form"})
@@ -35,15 +33,22 @@ End Code
                     End If
                 </div>
                 <div class="media-body">
-                    <p>@Html.Raw(Html.Encode(Model.Description).Replace(vbCrLf, "<br />"))</p>
-                    @If Model.Url <> "" Then
-                        @<p><a href="@Model.Url" target="_blank">@Model.Url</a></p>
+                    @If Model.Description <> "" Then
+                        @<p>@Html.Raw(Model.Description.TextWithUrl.Replace(vbCrLf, "<br />"))</p>
                     End If
+                    <ul class="list-unstyled">
+                        @If Model.Url <> "" Then
+                            @<li><a href="@Model.Url" target="_blank">@Model.Url</a></li>
+                        End If
+                    </ul>
                 </div>
             </div>
         End If
-
-        <h1>@ViewBag.Title</h1>
+        <h1>@ViewBag.Title
+        @If Model.Twitter <> "" Then
+            @<a href="https://twitter.com/@Model.Twitter" target="_blank" title="@Model.Twitter"><img src="@Href("~/images/logos/Twitter_logo_blue.png")" class="twitter-logo" /></a>
+        End If
+        </h1>
         <div style="margin-bottom:50px;">
             @RenderBody()
         </div>
