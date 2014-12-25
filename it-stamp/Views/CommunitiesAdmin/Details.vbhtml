@@ -65,7 +65,22 @@ End Code
             @Html.DisplayFor(Function(model) model.LastUpdatedDateTime)
         </dd>
 
-    </dl>
+        <dt>
+            CreatedBy
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Function(model) model.CreatedBy.FriendlyName)
+        </dd>
+
+        <dt>
+            LastUpdatedBy
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Function(model) model.LastUpdatedBy.FriendlyName)
+        </dd>
+</dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", New With { .id = Model.Id }) |
