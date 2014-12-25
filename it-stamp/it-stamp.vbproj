@@ -426,6 +426,8 @@
     <Content Include="images\stamprally2015\logo-forest2x.png" />
     <Content Include="images\stamprally2015\logo-gihyo.png" />
     <Content Include="images\stamprally2015\logo-gihyo2x.png" />
+    <Content Include="images\stamprally2015\logo-levtech.png" />
+    <Content Include="images\stamprally2015\logo-levtech2x.png" />
     <Content Include="images\stamprally2015\logo-microsoft.png" />
     <Content Include="images\stamprally2015\logo-microsoft2x.png" />
     <Content Include="images\stamprally2015\nareru1.jpg" />

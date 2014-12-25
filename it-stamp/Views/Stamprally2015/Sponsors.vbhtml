@@ -51,6 +51,18 @@ End Code
             </div>
         </div>
 
+        <div class="row" style="margin-top:60px;">
+
+            <div class="col-md-4">
+                <a href="http://leverages.jp/"><img src="@Href("~/images/stamprally2015/logo-levtech.png")" srcset="@Href("~/images/stamprally2015/logo-revtech2x.png") 2x" alt="レバテック" class="img-responsive" style="margin-top:30px;" /></a>
+            </div>
+            <div class="col-md-8">
+                <h3>レバレジーズ株式会社</h3>
+                <h4><a href="http://levtech.jp/">レバテック</a></h4>
+                <p></p>
+            </div>
+        </div>
+
 
         <h2><img src="@Href("~/images/stamprally2015/gold.png")" alt="ゴールドスポンサー" class="img-responsive" /></h2>
 

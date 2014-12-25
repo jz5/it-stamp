@@ -28,6 +28,8 @@ End Code
     <a href="@Href("~/Stamprally/2015/Sponsors")"><img src="@Href("~/images/stamprally2015/logo-microsoft.png")" srcset="@Href("~/images/stamprally2015/logo-microsoft2x.png") 2x" alt="日本マイクロソフト株式会社" class="img-responsive" style="max-width: 250px;margin:20px 0 40px;" /></a>
     <a href="@Href("~/Stamprally/2015/Sponsors")"><img src="@Href("~/images/stamprally2015/logo-conoha.png")" srcset="@Href("~/images/stamprally2015/logo-conoha2x.png") 2x" alt="GMOインターネット株式会社 ConoHa" class="img-responsive" style="max-width: 230px;margin:20px 0 40px;" /></a>
     <a href="@Href("~/Stamprally/2015/Sponsors")"><img src="@Href("~/images/stamprally2015/logo-forest.png")" srcset="@Href("~/images/stamprally2015/logo-forest2x.png") 2x" alt="窓の杜" class="img-responsive" style="max-width: 200px;margin:20px 0 40px;" /></a>
+    <a href="@Href("~/Stamprally/2015/Sponsors")"><img src="@Href("~/images/stamprally2015/logo-levtech.png")" srcset="@Href("~/images/stamprally2015/logo-logo-levtech2x.png") 2x" alt="レバテック" class="img-responsive" style="max-width: 230px;margin:20px 0 40px;" /></a>
+
     <h4><img src="@Href("~/images/stamprally2015/gold.png")" alt="ゴールドスポンサー" class="img-responsive" /></h4>
     <a href="@Href("~/Stamprally/2015/Sponsors")"><img src="@Href("~/images/stamprally2015/logo-cybozulive.png")" srcset="@Href("~/images/stamprally2015/logo-cybozulive2x.png") 2x" alt="サイボウズLive" class="img-responsive" style="max-width: 190px;margin:20px 0 40px;" /></a>
     <h4><img src="@Href("~/images/stamprally2015/silver.png")" alt="シルバースポンサー" class="img-responsive" /></h4>

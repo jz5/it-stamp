@@ -39,6 +39,7 @@ End Code
             <li><a href="http://www.microsoft.com/privacystatement/ja-jp/core/default.aspx">日本マイクロソフト株式会社 プライバシー</a></li>
             <li><a href="http://www.microsoft.com/ja-jp/mscorp/privacy/default.aspx">日本マイクロソフト株式会社 個人情報のお取り扱いについて</a></li>
             <li><a href="https://www.gmo.jp/privacy/">GMOインターネット株式会社 個人情報の取り扱いについて</a></li>
+            <li><a href="http://leverages.jp/privacypolicy/">レバレジーズ株式会社 個人情報保護方針</a></li>
             <li><a href="http://cybozu.co.jp/company/copyright/privacy_policy.html">サイボウズ株式会社 個人情報保護の取り組みについて</a></li>
         </ul>
         @Html.Partial("_SocialButtons")
