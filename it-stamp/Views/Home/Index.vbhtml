@@ -30,7 +30,7 @@ End Code
             @<div class="jumbotron">
                 <div class="jumbotron-contents">
                     <p>✅ IT勉強会を選んで、チェックインしましょう！</p>
-                    @Html.ActionLink("IT勉強会の検索・登録", "Add", "Events", Nothing, New With {.class = "btn btn-primary"})
+                    @Html.ActionLink("IT勉強会の検索・登録", "Search", "Events", Nothing, New With {.class = "btn btn-primary"})
                 </div>
             </div>
         End If
@@ -41,11 +41,11 @@ End Code
 
         @If Request.IsAuthenticated Then
             @<div>
-                <p>💡 チェックインするIT勉強会が見つかりませんか？　あなたが、<a href="@Url.Action("Add", "Events")">IT勉強会を登録してください</a>。</p>
+                <p>💡 チェックインするIT勉強会が見つかりませんか？　あなたが、<a href="@Url.Action("Search", "Events")">IT勉強会を登録してください</a>。</p>
             </div>
         Else
             @<div>
-                <p>💡 チェックインするIT勉強会が見つかりませんか？　<a href="@Url.Action("Add", "Events")">ログイン</a>してIT勉強会を登録しましょう。</p>
+                <p>💡 チェックインするIT勉強会が見つかりませんか？　<a href="@Url.Action("Search", "Events")">ログイン</a>してIT勉強会を登録しましょう。</p>
             </div>
         End If
 

@@ -1,5 +1,4 @@
-﻿@Imports Microsoft.AspNet.Identity
-@code
+﻿@code
     Dim name = Session("DisplayName")
     Dim icon = Session("IconPath")
 
@@ -16,12 +15,16 @@
     End If
 
 End Code
+@Imports Microsoft.AspNet.Identity
 @If Request.IsAuthenticated Then
     @Using Html.BeginForm("LogOff", "Account", FormMethod.Post, New With {.id = "logoutForm", .class = "navbar-right"})
         @Html.AntiForgeryToken()
 
         @<ul class="nav navbar-nav navbar-right hidden-xs visible-sm visible-md visible-lg">
-            @*<li class="hidden-xs" style="margin-right:-10px;" data-toggle="tooltip"><a href=""><span style="font-size:15px;font-weight:normal;padding:0.3em 0.6em 0.2em;" class="label label-success">0</span></a></li>*@
+            <li style="margin-right:-10px;">
+                <a tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true"
+                   data-container="body" data-placement="bottom" title="お知らせ" data-content="お知らせはありません。" href="#"><span style="font-size:14px;padding:0.3em 0.7em 0.2em;" class="label label-primary">0</span></a>
+            </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <img src="@Href("~/Uploads/" & icon)" class="navbar-brand hidden-xs img-rounded" style="height:40px;width:40px;margin:-10px 10px -10px 0;padding:0;" alt="" />
@@ -45,6 +48,7 @@ End Code
             <li class="divider"></li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">ログオフ</a></li>
         </ul>
+
     End Using
 Else
     @<ul class="nav navbar-nav navbar-right">

@@ -1,23 +1,12 @@
 ﻿@ModelType [Event]
 @code
+    Dim siteName = Model.GetEventSiteName
     Dim eventSiteLogo = ""
-    If Model.Url IsNot Nothing Then
-        Dim sites = New Dictionary(Of String, String) From {
-            {"https://atnd\.org/", "atnd.png"},
-            {"http://connpass\.com/", "connpass.png"},
-            {"http://.+?\.doorkeeper\.jp/", "doorkeeper.png"},
-            {"http://kokucheese\.com/", "kokucheese.gif"},
-            {"http://.*?\.?peatix\.com/", "peatix.png"},
-            {"http://www\.zusaar\.com/", "zusaar.png"}
-        }
-        For Each s In sites
-            If Regex.IsMatch(Model.Url, s.Key) Then
-                eventSiteLogo = Href("~/images/logos/" & s.Value)
-                Exit For
-            End If
-        Next
+    If siteName <> "" Then
+        eventSiteLogo = Href("~/images/logos/" & siteName & ".png")
     End If
-    Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
+
+    Dim now = TokyoTime.Now
 
 End Code
 <div class="media">
@@ -26,7 +15,7 @@ End Code
             <img class="media-object img-rounded" src="@Href(Model.GetIconPath)" alt="@Model.Name">
         </a>
         @If eventSiteLogo <> "" Then
-            @<div><img src="@eventSiteLogo" class="img-responsive text-center" style="width:72px;margin:5px 8px;" /></div>            
+            @<div><img src="@eventSiteLogo" class="img-responsive text-center" style="width:72px;margin:5px 12px;" /></div>
         End If
     </div>
     <div class="media-body">
@@ -38,7 +27,7 @@ End Code
         </h3>
         <div>
             <div>
-                
+
                 @If Model.StartDateTime.Date <= now.Date AndAlso now.Date <= Model.EndDateTime.Date Then
                     @<span class="badge badge-primary">&nbsp;今日&nbsp;</span>
                 ElseIf Model.StartDateTime.Date = now.Date.AddDays(1) OrElse Model.EndDateTime.Date = now.Date.AddDays(1) Then
@@ -48,7 +37,7 @@ End Code
                 End If
                 <time class="small text-muted">@Model.FriendlyDateTime</time>
             </div>
-            <div class="small">@(If(Model.Prefecture isnot Nothing, Model.Prefecture.Name,"")) @Model.Place</div>
+            <div class="small">@(If(Model.Prefecture IsNot Nothing, Model.Prefecture.Name, "")) @Model.Place</div>
             <div class="small">@Model.Description.Excerpt(200)</div>
             <div class="clearfix">
                 @If Model.Community IsNot Nothing Then

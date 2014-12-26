@@ -100,14 +100,19 @@ Public Module Extensions
         Return "/Uploads/Icons/anon.png"
     End Function
 
+    <Extension>
     Function GetEventSiteName(ev As [Event]) As String
+        If ev Is Nothing OrElse ev.Url Is Nothing Then
+            Return Nothing
+        End If
+
         Dim sites = New Dictionary(Of String, String) From {
             {"^https?://atnd\.org/", "atnd"},
-            {"^https?://connpass\.com/", "connpass"},
-            {"^https?://.+?\.doorkeeper\.jp/", "doorkeeper"},
+            {"^https?://(.+?\.)?connpass\.com/", "connpass"},
+            {"^https?://(.+?\.)?doorkeeper\.jp/", "doorkeeper"},
             {"^https?://kokucheese\.com/", "kokucheese"},
-            {"^https?://.*?\.?peatix\.com/", "peatix"},
-            {"^https?://www\.zusaar\.com/", "zusaar"}
+            {"^https?://(.+?\.)?peatix\.com/", "peatix"},
+            {"^https?://(.+?\.)?zusaar\.com/", "zusaar"}
         }
         For Each s In sites
             If Regex.IsMatch(ev.Url, s.Key) Then

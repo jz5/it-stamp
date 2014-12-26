@@ -240,6 +240,8 @@
     <Compile Include="Controllers\TempController.vb" />
     <Compile Include="Controllers\UsersAdminController.vb" />
     <Compile Include="EventApi\Connpass.vb" />
+    <Compile Include="EventApi\EventApi.vb" />
+    <Compile Include="EventApi\ApiResult.vb" />
     <Compile Include="Helpers\DateTimeHelpers.vb" />
     <Compile Include="Helpers\HtmlHelpers.vb" />
     <Compile Include="Helpers\SocialHelpers.vb" />
@@ -540,8 +542,8 @@
     <Content Include="Views\Account\ChangePassword.vbhtml" />
     <Content Include="Views\Communities\Details.vbhtml" />
     <Content Include="Views\Communities\Index.vbhtml" />
+    <Content Include="Views\Events\Search.vbhtml" />
     <Content Include="Views\Events\Add.vbhtml" />
-    <Content Include="Views\Events\AddDetails.vbhtml" />
     <Content Include="Views\Communities\Add.vbhtml" />
     <Content Include="Views\Communities\Edit.vbhtml" />
     <Content Include="Views\CommunitiesAdmin\Create.vbhtml" />

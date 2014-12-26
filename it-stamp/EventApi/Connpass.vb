@@ -2,27 +2,42 @@
 Imports Newtonsoft.Json.Linq
 
 Public Class Connpass
+    Inherits EventApi
 
-    'Private Const EventIdUriFormat As String = "http://api.atnd.org/events/?event_id={0}"
+    Private Const EventIdUriFormat As String = "http://connpass.com/api/v1/event/?event_id={0}"
     Private Const EventsUriFormat As String = "http://connpass.com/api/v1/event/?keyword={0}&ymd={1}&count={2}"
 
-    'Async Function GetEvent(id As String) As Threading.Tasks.Task(Of [Event])
-    '    Dim content As String
-    '    Using client = New WebClient
-    '        client.Encoding = Text.Encoding.UTF8
-    '        content = Await client.DownloadStringTaskAsync(New Uri(String.Format(EventIdUriFormat, id)))
-    '    End Using
+    Public Overrides ReadOnly Property Name As String
+        Get
+            Return "connpass"
+        End Get
+    End Property
 
-    '    Dim d = XDocument.Parse(content)
-    '    Dim count As Integer
-    '    If d.<results_returned> Is Nothing OrElse Not Integer.TryParse(d.<results_returned>.Value, count) Then
-    '        Return Nothing
-    '    End If
 
-    '    Return ParseContent(d.<event>.First)
-    'End Function
+    Overrides Async Function GetEvent(id As String) As Threading.Tasks.Task(Of ApiResult)
+        Dim content As String
+        Using client = New WebClient
+            client.Encoding = Text.Encoding.UTF8
+            content = Await client.DownloadStringTaskAsync(New Uri(String.Format(EventIdUriFormat, id)))
+        End Using
 
-    Async Function GetEvents(prefecture As Prefecture, startDate As DateTime, Optional count As Integer = 100) As Threading.Tasks.Task(Of IList(Of [Event]))
+        Dim list = New List(Of ApiResult)
+        Dim o = JObject.Parse(content)
+
+        If o("results_returned") Is Nothing OrElse o("results_returned").Value(Of Integer)() = 0 Then
+            Return Nothing
+        End If
+
+        Dim result = ParseContent(o("events").ToList.First)
+        If result Is Nothing Then
+            Return Nothing
+        End If
+
+        Return result
+    End Function
+
+    Overrides Async Function GetEvents(prefecture As Prefecture, startDate As DateTime, Optional count As Integer = 100) As Threading.Tasks.Task(Of IList(Of ApiResult))
+
         Dim content As String
         Using client = New WebClient
             client.Encoding = Text.Encoding.UTF8
@@ -30,33 +45,33 @@ Public Class Connpass
                 New Uri(String.Format(EventsUriFormat, prefecture.Name, startDate.ToString("yyyyMMdd"), count)))
         End Using
 
-        Dim list = New List(Of [Event])
+        Dim list = New List(Of ApiResult)
         Dim o = JObject.Parse(content)
 
         For Each e In o("events").ToList
-            Dim ev = ParseContent(e)
-            If ev Is Nothing Then
+            Dim result = ParseContent(e)
+            If result Is Nothing Then
                 Continue For
             End If
 
-            If ev.Prefecture IsNot Nothing AndAlso ev.Prefecture.Id <> prefecture.Id Then
+            If result.Event.Prefecture IsNot Nothing AndAlso result.Event.Prefecture.Id <> prefecture.Id Then
                 ' 異なる開催地域のイベント
                 Continue For
             End If
 
-            If IncludesNgWords(ev) Then
+            If IncludesNgWords(result.Event) Then
                 ' NG word を含むイベント
                 Continue For
             End If
 
-            list.Add(ev)
+            list.Add(result)
         Next
 
         Return list
     End Function
 
 
-    Private Function ParseContent(e As JToken) As [Event]
+    Private Function ParseContent(e As JToken) As ApiResult
 
         If e Is Nothing Then
             Return Nothing
@@ -70,7 +85,7 @@ Public Class Connpass
 
         Dim address = If(e("address").ToString, "")
 
-        Dim m = New [Event] With {
+        Dim model = New [Event] With {
             .Name = e("title").ToString,
             .Description = "",
             .Url = e("event_url").ToString,
@@ -86,17 +101,7 @@ Public Class Connpass
             Return Nothing
         End If
 
-        Return m
+        Return New ApiResult With {.Event = model, .Name = Me.Name, .EventId = e("event_id").ToString}
     End Function
 
-    Private NgWords() As String = {"婚活", "恋活", "合コン"}
-
-    Private Function IncludesNgWords(e As [Event]) As Boolean
-        For Each w In NgWords
-            If e.Name.Contains(w) Then
-                Return True
-            End If
-        Next
-        Return False
-    End Function
 End Class

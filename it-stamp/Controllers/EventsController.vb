@@ -165,8 +165,6 @@ Public Class EventsController
                 msg = "登録しました。"
             Case DetailsMessage.Edit
                 msg = "保存しました。"
-            Case DetailsMessage.CheckIn
-                msg = ev.Name & "にチェックイン！"
             Case Else
                 msg = ""
         End Select
@@ -176,30 +174,104 @@ Public Class EventsController
     End Function
 
 
-    ' GET: Events/Add
-    Function Add() As ActionResult
-        Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
+    ' GET: Events/Search
+    Function Search() As ActionResult
         Dim viewModel = New AddEventViewModel With {
-            .StartDate = now,
+            .StartDate = TokyoTime.Now,
             .PrefectureSelectList = New SelectList(db.Prefectures, "Id", "Name")}
 
         Return View(viewModel)
     End Function
 
-    ' POST: Events/Add
+    ' POST: Events/Search
     <HttpPost>
     <ValidateAntiForgeryToken>
-    Function Add(model As AddEventViewModel) As ActionResult
+    Function Search(model As AddEventViewModel) As ActionResult
         If Not ModelState.IsValid Then
             model.PrefectureSelectList = New SelectList(db.Prefectures, "Id", "Name")
             Return View(model)
         End If
 
-        Return RedirectToAction("AddDetails", New With {.PrefectureId = model.PrefectureId, .StartDate = model.StartDate})
+        Return RedirectToAction("Add", New With {.PrefectureId = model.PrefectureId, .StartDate = model.StartDate})
     End Function
 
-    ' GET: Events/AddDetails
-    Function AddDetails(prefectureId As Integer?, startDate As DateTime?) As ActionResult
+    ' Post: Events/[Select]
+    <HttpPost>
+    <ValidateAntiForgeryToken>
+    Async Function [Select](site As String, eventId As String) As Task(Of ActionResult)
+        If site Is Nothing OrElse eventId Is Nothing Then
+            Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End If
+
+        Dim eventApi As EventApi
+        Select Case site.ToLowerInvariant
+            Case "atnd"
+                eventApi = New Atnd
+            Case "connpass"
+                eventApi = New Connpass
+            Case Else
+                Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+        End Select
+
+        Dim result = Await eventApi.GetEvent(eventId)
+        If result Is Nothing OrElse result.Event Is Nothing Then
+            ' TODO:
+            Return RedirectToAction("Search")
+        End If
+
+        ' 登録済みの勉強会
+        Try
+            Dim ev = db.Events.Where(Function(e) e.Url = result.Event.Url).FirstOrDefault
+            If ev IsNot Nothing Then
+                Return RedirectToAction("Details", New With {.id = ev.Id})
+            End If
+        Catch ex As Exception
+            ' TODO: 
+            Return RedirectToAction("Search")
+        End Try
+
+        ' 未登録の勉強会
+        Try
+            Dim ev = result.Event
+
+            ' 編集権限の確認
+            Dim userId = User.Identity.GetUserId
+            Dim appUser = Await db.Users.Where(Function(u) u.Id = userId).SingleOrDefaultAsync
+            If appUser Is Nothing Then
+                Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
+            End If
+
+            ' 値修正
+            Dim prefId = ev.Prefecture.Id
+            ev.Prefecture = db.Prefectures.Where(Function(p) p.Id = prefId).SingleOrDefault
+            ev.Name = If(ev.Name IsNot Nothing, ev.Name.Trim, "")
+            ev.Description = If(ev.Description IsNot Nothing, ev.Description.Trim, "")
+            ev.CheckInCode = If(ev.CheckInCode IsNot Nothing, ev.CheckInCode.Trim, "")
+            ev.Url = If(ev.Url IsNot Nothing, ev.Url.Trim, Nothing)
+            ev.Address = If(ev.Address IsNot Nothing, ev.Address.Trim, "")
+            ev.Place = If(ev.Place IsNot Nothing, ev.Place.Trim, "")
+
+            ' Datetime
+            Dim time = Now
+            ev.CreatedBy = appUser
+            ev.CreationDateTime = time
+            ev.LastUpdatedBy = appUser
+            ev.LastUpdatedDateTime = time
+
+            Dim newEvent = db.Events.Add(ev)
+            Await db.SaveChangesAsync()
+            Return RedirectToAction("Details", New With {.id = newEvent.Id})
+
+        Catch ex As Exception
+            ' TODO: 
+            Return RedirectToAction("Search")
+        End Try
+
+    End Function
+
+
+    ' GET: Events/Add
+    Function Add(prefectureId As Integer?, startDate As DateTime?) As ActionResult
 
         If Not prefectureId.HasValue OrElse Not startDate.HasValue Then
             Return RedirectToAction("Add")
@@ -224,18 +296,25 @@ Public Class EventsController
     <ValidateAntiForgeryToken>
     Async Function GetEvents(prefectureId As Integer?, startDate As DateTime?) As Task(Of ActionResult)
 
-        If Request.IsAjaxRequest Then
-            Dim atnd = New Connpass
-            Dim evs = Await atnd.GetEvents(AddressHelper.GetPrefecture(prefectureId.Value), startDate.Value)
-            Return Json(evs)
-        Else
+        If Not Request.IsAjaxRequest OrElse Not prefectureId.HasValue OrElse Not startDate.HasValue Then
             Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
         End If
+
+        Dim apiResults = New List(Of ApiResult)
+        Dim apis = New List(Of EventApi) From {New Atnd, New Connpass}
+        Dim pref = AddressHelper.GetPrefecture(prefectureId.Value)
+
+        For Each a In apis
+            Dim results = Await a.GetEvents(pref, startDate.Value)
+            apiResults.AddRange(results)
+        Next
+
+        Return Json(New With {.ApiResults = apiResults, .Keyword = pref.Name})
     End Function
 
     <HttpPost>
     <ValidateAntiForgeryToken>
-    Async Function AddDetails(ByVal viewModel As AddEventDetailsViewModel) As Task(Of ActionResult)
+    Async Function Add(ByVal viewModel As AddEventDetailsViewModel) As Task(Of ActionResult)
         viewModel.CommunitiesSelectList = New SelectList(db.Communities.Where(Function(c) Not c.IsHidden).OrderBy(Function(c) c.Name), "Id", "Name")
 
         If Not ModelState.IsValid Then
@@ -255,8 +334,7 @@ Public Class EventsController
             End If
 
             ' 日時処理
-            Dim now = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now.ToUniversalTime(), "Tokyo Standard Time")
-            SetDateTime(viewModel.StartDate, viewModel.StartTime, viewModel.EndDate, viewModel.EndTime, ev.StartDateTime, ev.EndDateTime, now)
+            SetDateTime(viewModel.StartDate, viewModel.StartTime, viewModel.EndDate, viewModel.EndTime, ev.StartDateTime, ev.EndDateTime, TokyoTime.Now)
 
             ' Community
             If viewModel.CommunityName <> "" Then

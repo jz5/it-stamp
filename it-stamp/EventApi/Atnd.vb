@@ -1,11 +1,18 @@
 ﻿Imports System.Net
 
 Public Class Atnd
+    Inherits EventApi
 
     Private Const EventIdUriFormat As String = "http://api.atnd.org/events/?event_id={0}"
     Private Const EventsUriFormat As String = "http://api.atnd.org/events/?keyword={0}&ymd={1}&count={2}"
 
-    Async Function GetEvent(id As String) As Threading.Tasks.Task(Of [Event])
+    Public Overrides ReadOnly Property Name As String
+        Get
+            Return "atnd"
+        End Get
+    End Property
+
+    Overrides Async Function GetEvent(id As String) As Threading.Tasks.Task(Of ApiResult)
         Dim content As String
         Using client = New WebClient
             client.Encoding = Text.Encoding.UTF8
@@ -13,15 +20,15 @@ Public Class Atnd
         End Using
 
         Dim d = XDocument.Parse(content)
-        Dim count As Integer
-        If d.<results_returned> Is Nothing OrElse Not Integer.TryParse(d.<results_returned>.Value, count) Then
+        Dim resultsReturned As Integer
+        If d.<hash>.<results_returned> Is Nothing OrElse Not Integer.TryParse(d.<hash>.<results_returned>.Value, resultsReturned) Then
             Return Nothing
         End If
 
-        Return ParseContent(d.<event>.First)
+        Return ParseContent(d.<hash>.<events>.<event>.First)
     End Function
 
-    Async Function GetEvents(prefecture As Prefecture, startDate As DateTime, Optional count As Integer = 100) As Threading.Tasks.Task(Of IList(Of [Event]))
+    Overrides Async Function GetEvents(prefecture As Prefecture, startDate As DateTime, Optional count As Integer = 100) As Threading.Tasks.Task(Of IList(Of ApiResult))
         Dim content As String
         Using client = New WebClient
             client.Encoding = Text.Encoding.UTF8
@@ -29,27 +36,38 @@ Public Class Atnd
                 New Uri(String.Format(EventsUriFormat, prefecture.Name, startDate.ToString("yyyyMMdd"), count)))
         End Using
 
-        Dim list = New List(Of [Event])
+        Dim list = New List(Of ApiResult)
 
         Dim d = XDocument.Parse(content)
-        Dim results As Integer
-        If d.<hash>.<results_returned> Is Nothing OrElse Not Integer.TryParse(d.<hash>.<results_returned>.Value, results) Then
+        Dim resultsReturned As Integer
+        If d.<hash>.<results_returned> Is Nothing OrElse Not Integer.TryParse(d.<hash>.<results_returned>.Value, resultsReturned) Then
             Return list
         End If
 
         For Each e In d...<event>
-            Dim ev = ParseContent(e)
-
-            If ev IsNot Nothing AndAlso Not IncludesNgWords(ev) Then
-                list.Add(ev)
+            Dim result = ParseContent(e)
+            If result Is Nothing Then
+                Continue For
             End If
+
+            If result.Event.Prefecture IsNot Nothing AndAlso result.Event.Prefecture.Id <> prefecture.Id Then
+                ' 異なる開催地域のイベント
+                Continue For
+            End If
+
+            If result IsNot Nothing AndAlso IncludesNgWords(result.Event) Then
+                ' NG word を含むイベント
+                Continue For
+            End If
+
+            list.Add(result)
         Next
 
         Return list
     End Function
 
 
-    Private Function ParseContent(e As XElement) As [Event]
+    Private Function ParseContent(e As XElement) As ApiResult
 
         If e Is Nothing Then
             Return Nothing
@@ -63,7 +81,7 @@ Public Class Atnd
 
         Dim address = If(e.<address>.Value, "")
 
-        Dim m = New [Event] With {
+        Dim model = New [Event] With {
             .Name = e.<title>.Value,
             .Description = "",
             .Url = e.<event_url>.Value,
@@ -79,17 +97,7 @@ Public Class Atnd
             Return Nothing
         End If
 
-        Return m
+        Return New ApiResult With {.Event = model, .Name = Me.Name, .EventId = e.<event_id>.Value}
     End Function
 
-    Private NgWords() As String = {"婚活", "恋活", "合コン"}
-
-    Private Function IncludesNgWords(e As [Event]) As Boolean
-        For Each w In NgWords
-            If e.Name.Contains(w) Then
-                Return True
-            End If
-        Next
-        Return False
-    End Function
 End Class

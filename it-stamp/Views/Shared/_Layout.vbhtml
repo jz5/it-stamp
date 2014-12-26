@@ -28,7 +28,6 @@
                     <li>@Html.ActionLink("🔰 初めての方", "About", "Home")</li>
                     <li>@Html.ActionLink("IT勉強会", "Index", "Events")</li>
                     <li><a href="@Href("~/Stamprally/2015/")">スタンプラリー</a></li>
-
                     @If Request.IsAuthenticated AndAlso User.IsInRole("Admin") Then
                         @<li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
@@ -56,7 +55,7 @@
                     <p>IT勉強会スタンプは、IT勉強会の参加を記録できるWebサービスです。</p>
                     <ul class="list-unstyled">
                         <li>@Html.ActionLink("🔰 初めての方", "About", "Home")</li>
-                        <li>@Html.ActionLink("IT勉強会一覧", "Index", "Events")・@Html.ActionLink("登録", "Add", "Events")</li>
+                        <li>@Html.ActionLink("IT勉強会一覧", "Index", "Events")・@Html.ActionLink("登録", "Search", "Events")</li>
                         <li>@Html.ActionLink("コミュニティ一覧", "Index", "Communities")・@Html.ActionLink("登録", "Add", "Communities")</li>
                         <li>@Html.ActionLink("アカウント登録", "Register", "Account")・@Html.ActionLink("ログイン", "Login", "Account")</li>
                         <li>@Html.ActionLink("Q & A", "QA", "Home")</li>
@@ -93,7 +92,6 @@
             </div>
         </div>
     </div>
-
     @*<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>*@
     @Scripts.Render("~/bundles/jquery")
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -113,14 +111,17 @@
     </script>
     @RenderSection("scripts", required:=False)
     <script>
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date(); a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-    ga('create', 'UA-57208824-1', 'auto');
-    ga('send', 'pageview');
+        (function ($) {
+            $('[data-toggle="popover"]').popover()
+        })(jQuery);
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-57208824-1', 'auto');
+        ga('send', 'pageview');
     </script>
 </body>
 </html>
