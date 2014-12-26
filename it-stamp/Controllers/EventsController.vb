@@ -209,6 +209,8 @@ Public Class EventsController
                 eventApi = New Atnd
             Case "connpass"
                 eventApi = New Connpass
+            Case "doorkeeper"
+                eventApi = New Doorkeeper
             Case Else
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
         End Select
@@ -301,7 +303,7 @@ Public Class EventsController
         End If
 
         Dim apiResults = New List(Of ApiResult)
-        Dim apis = New List(Of EventApi) From {New Atnd, New Connpass}
+        Dim apis = New List(Of EventApi) From {New Atnd, New Connpass, New Doorkeeper}
         Dim pref = AddressHelper.GetPrefecture(prefectureId.Value)
 
         For Each a In apis

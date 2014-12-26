@@ -1,15 +1,15 @@
 ﻿Imports System.Net
 Imports Newtonsoft.Json.Linq
 
-Public Class Connpass
+Public Class Doorkeeper
     Inherits EventApi
 
-    Private Const EventIdUriFormat As String = "http://connpass.com/api/v1/event/?event_id={0}"
-    Private Const EventsUriFormat As String = "http://connpass.com/api/v1/event/?keyword={0}&ymd={1}&count={2}"
+    Private Const EventIdUriFormat As String = "http://api.doorkeeper.jp/events/{0}"
+    Private Const EventsUriFormat As String = "http://api.doorkeeper.jp/events?since={0}&until={0}&locale=ja"
 
     Public Overrides ReadOnly Property Name As String
         Get
-            Return "connpass"
+            Return "doorkeeper"
         End Get
     End Property
 
@@ -22,11 +22,11 @@ Public Class Connpass
         End Using
 
         Dim o = JObject.Parse(content)
-        If o("results_returned") Is Nothing OrElse o("results_returned").Value(Of Integer)() = 0 Then
+        If o("event") Is Nothing Then
             Return Nothing
         End If
 
-        Dim result = ParseContent(o("events").ToList.First)
+        Dim result = ParseContent(o("event"))
         If result Is Nothing Then
             Return Nothing
         End If
@@ -40,14 +40,15 @@ Public Class Connpass
         Using client = New WebClient
             client.Encoding = Text.Encoding.UTF8
             content = Await client.DownloadStringTaskAsync(
-                New Uri(String.Format(EventsUriFormat, prefecture.Name, startDate.ToString("yyyyMMdd"), count)))
+                New Uri(String.Format(EventsUriFormat, startDate.ToString("yyyy-MM-ddTH:mm:ssK"))))
         End Using
 
         Dim list = New List(Of ApiResult)
-        Dim o = JObject.Parse(content)
+        Dim o = JArray.Parse(content)
 
-        For Each e In o("events").ToList
-            Dim result = ParseContent(e)
+        For Each e In o.ToList
+
+            Dim result = ParseContent(e("event"))
             If result Is Nothing Then
                 Continue For
             End If
@@ -76,8 +77,9 @@ Public Class Connpass
         End If
 
         Dim st, ed As DateTime
-        If Not DateTime.TryParse(e("started_at").ToString, st) OrElse
-           Not DateTime.TryParse(e("ended_at").ToString, ed) Then
+        ' UTC
+        If Not DateTime.TryParse(e("starts_at").ToString & "Z", st) OrElse
+           Not DateTime.TryParse(e("ends_at").ToString & "Z", ed) Then
             ' Do nothing
         End If
 
@@ -86,20 +88,20 @@ Public Class Connpass
         Dim model = New [Event] With {
             .Name = e("title").ToString,
             .Description = "",
-            .Url = e("event_url").ToString,
+            .Url = e("public_url").ToString,
             .Prefecture = address.GetPrefecture,
             .Address = address.RemovePrefecture,
-            .Place = e("place").ToString,
-            .StartDateTime = st,
-            .EndDateTime = ed
+            .Place = e("venue_name").ToString,
+            .StartDateTime = TokyoTime.ToLocalTime(st),
+            .EndDateTime = TokyoTime.ToLocalTime(ed)
             }
 
-        If e("accepted") Is Nothing OrElse e("accepted").ToString = "0" Then
+        If e("participants") Is Nothing OrElse e("participants").ToString = "0" Then
             ' MEMO: 参加者 0 のイベントは使用しない
             Return Nothing
         End If
 
-        Return New ApiResult With {.Event = model, .Name = Me.Name, .EventId = e("event_id").ToString}
+        Return New ApiResult With {.Event = model, .Name = Me.Name, .EventId = e("id").ToString}
     End Function
 
 End Class

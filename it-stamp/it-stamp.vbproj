@@ -240,6 +240,7 @@
     <Compile Include="Controllers\TempController.vb" />
     <Compile Include="Controllers\UsersAdminController.vb" />
     <Compile Include="EventApi\Connpass.vb" />
+    <Compile Include="EventApi\Doorkeeper.vb" />
     <Compile Include="EventApi\EventApi.vb" />
     <Compile Include="EventApi\ApiResult.vb" />
     <Compile Include="Helpers\DateTimeHelpers.vb" />
