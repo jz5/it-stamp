@@ -55,6 +55,7 @@ End Using
         <ul class="list-inline">
             <li><img src="@Href("~/images/logos/" & "atnd.png")" /></li>
             <li><img src="@Href("~/images/logos/" & "connpass.png")" /></li>
+            <li><img src="@Href("~/images/logos/" & "doorkeeper.png")" /></li>
         </ul>
         <p>未対応のサイトや、見つからない場合は、新規登録してください。</p>
     </div>

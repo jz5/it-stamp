@@ -52,7 +52,7 @@ Public Class Connpass
                 Continue For
             End If
 
-            If result.Event.Prefecture IsNot Nothing AndAlso result.Event.Prefecture.Id <> prefecture.Id Then
+            If result.Event.Prefecture Is Nothing OrElse result.Event.Prefecture.Id <> prefecture.Id Then
                 ' 異なる開催地域のイベント
                 Continue For
             End If
