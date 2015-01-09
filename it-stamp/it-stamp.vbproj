@@ -440,6 +440,9 @@
     <Content Include="images\stamprally2015\platinum.png" />
     <Content Include="images\stamprally2015\silver.png" />
     <Content Include="images\stamprally2015\stamprally-logo.png" />
+    <Content Include="images\stamprally2015\stamprally-menu-banner.png" />
+    <Content Include="images\stamprally2015\stamprally-sidemenu-banner.png" />
+    <Content Include="images\stamprally2015\stamprally-sidemenu-bg.png" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\bootstrap-timepicker.min.js.map">
       <DependentUpon>bootstrap-timepicker.min.js</DependentUpon>

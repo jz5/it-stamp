@@ -26,8 +26,8 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("🔰 初めての方", "About", "Home")</li>
-                    <li>@Html.ActionLink("IT勉強会", "Index", "Events")</li>
-                    <li><a href="@Href("~/Stamprally/2015/")">スタンプラリー</a></li>
+                    <li>@Html.ActionLink("IT勉強会を探す", "Index", "Events")</li>
+                    <li><a href="@Href("~/Stamprally/2015/")"><img src="~/images/stamprally2015/stamprally-menu-banner.png" title="IT勉強会スタンプラリー 2015 開催中！" style="margin:-10px 10px -10px 0;" /></a></li>
                     @If Request.IsAuthenticated AndAlso User.IsInRole("Admin") Then
                         @<li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>

@@ -42,7 +42,7 @@ End If
     </text>
 End Using
 
-<div>
+@*<div>
     <h2>イベント登録サイトから検索</h2>
     <p id="SearchKeyword" class="small"></p>
     <div class="jumbotron">
@@ -70,14 +70,14 @@ End Using
 
 @Using Html.BeginForm("Select", "Events", FormMethod.Post, New With {.id = "SelectForm"})
     @Html.AntiForgeryToken()
-End Using
+End Using*@
 
-@*<div class="jumbotron">
+<div class="jumbotron">
         <div class="jumbotron-contents">
             <p>💡 現在、新規登録のみ可能です。今後、登録済みのIT勉強会と、イベント登録サイトから検索できるようになる予定です。</p>
             @Html.ActionLink("開催予定のIT勉強会の表示", "Index", "Events", Nothing, New With {.class = "btn btn-default"})
         </div>
-    </div>*@
+    </div>
 
 @Section Styles
     @Styles.Render("~/Content/datepicker3.css")
@@ -97,31 +97,31 @@ End Section
                 todayHighlight: true
             }).datepicker("update", "@now.ToString("yyyy/MM/dd")");
 
-            var startDate = "";
-            var prefectureId = "";
-            $("#StartDate").change(function () {
-                if (startDate != $(this).val()) {
-                    startDate = $(this).val();
-                    if (startDate != "") {
-                        search();
-                    }
-                }
-            });
+            //var startDate = "";
+            //var prefectureId = "";
+            //$("#StartDate").change(function () {
+            //    if (startDate != $(this).val()) {
+            //        startDate = $(this).val();
+            //        if (startDate != "") {
+            //            search();
+            //        }
+            //    }
+            //});
 
-            var prefSelect = $("#PrefectureId");
-            prefSelect.change(function () {
-                search();
-            });
+            //var prefSelect = $("#PrefectureId");
+            //prefSelect.change(function () {
+            //    search();
+            //});
 
-            if (prefSelect.val()) {
-                search();
-            }
+            //if (prefSelect.val()) {
+            //    search();
+            //}
 
-            function search() {
-                $("#SearchStartDate").val($("#StartDate").val());
-                $("#SearchPrefectureId").val($("#PrefectureId").val());
-                $("#SearchForm").submit();
-            }
+            //function search() {
+            //    $("#SearchStartDate").val($("#StartDate").val());
+            //    $("#SearchPrefectureId").val($("#PrefectureId").val());
+            //    $("#SearchForm").submit();
+            //}
 
         })(jQuery);
 
