@@ -59,7 +59,9 @@ Public Class Stamprally2015Controller
         End If
 
         Dim viewModel = New SearchEventsViewModel With {
-            .TotalCount = results.Count}
+            .TotalCount = results.Count,
+            .Past = If(past, False)
+        }
 
         Dim count = 20
         Dim pagenationCount = 5
@@ -68,7 +70,7 @@ Public Class Stamprally2015Controller
         viewModel.TotalPages = (results.Count - 1) \ count + 1
 
         ' Current page
-        If Not page.HasValue OrElse viewModel.TotalPages > page.Value Then
+        If Not page.HasValue OrElse viewModel.TotalPages < page.Value Then
             viewModel.CurrentPage = 1
         Else
             viewModel.CurrentPage = page.Value
@@ -167,6 +169,10 @@ Public Class Stamprally2015Controller
     End Function
 
     Function Resources() As ActionResult
+        Return View()
+    End Function
+
+    Function Gift() As ActionResult
         Return View()
     End Function
 

@@ -17,7 +17,8 @@ End Code
         <a href="@Href("~/Stamprally/2015/Sponsors")" class="list-group-item@(If(action = "Sponsors", " active", ""))">スポンサー紹介</a>
         <a href="@Href("~/Stamprally/2015/Join")" class="list-group-item@(If(action = "Join", " active", ""))">コミュニティの参加</a>
         <a href="@Href("~/Stamprally/2015/Committee")" class="list-group-item@(If(action = "Committee", " active", ""))">運営委員会</a>
-        <a href="@Href("~/Stamprally/2015/Resources")" class="list-group-item@(If(action = "Resources", " active", ""))">素材</a>
+        @*<a href="@Href("~/Stamprally/2015/Resources")" class="list-group-item@(If(action = "Resources", " active", ""))">素材</a>*@
+        <a href="@Href("~/Stamprally/2015/Gift")" class="list-group-item@(If(action = "Gift", " active", ""))">記念品の交換 <span class="label label-success">Check!</span></a>
         <a href="@Href("~/Stamprally/2015/Contact")" class="list-group-item@(If(action = "Contact", " active", ""))">お問い合わせ</a>
     </div>
 
